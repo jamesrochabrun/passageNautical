@@ -17,6 +17,7 @@
 		645EBCA81D08BF3B007D1557 /* CharterProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 645EBCA71D08BF3B007D1557 /* CharterProjectTests.m */; };
 		645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645EBCB91D08D4C3007D1557 /* MainViewController.m */; };
 		73CE365C5B92CD49B39A1A91 /* libPods-CharterProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */; };
+		7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B51D0B3C7600975BE9 /* CharterService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		645EBCB81D08D4C3007D1557 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		645EBCB91D08D4C3007D1557 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CharterProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B2AC3B41D0B3C7600975BE9 /* CharterService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterService.h; sourceTree = "<group>"; };
+		7B2AC3B51D0B3C7600975BE9 /* CharterService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterService.m; sourceTree = "<group>"; };
 		93AA889AA554632F5B10D31F /* Pods-CharterProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CharterProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-CharterProject/Pods-CharterProject.release.xcconfig"; sourceTree = "<group>"; };
 		C9F1CC2693A4374A0D163B06 /* libPods-CharterProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CharterProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC70F0FF82FF0CE1E7F93740 /* Pods-CharterProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CharterProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CharterProjectTests/Pods-CharterProjectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 		645EBCB41D08D441007D1557 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B2AC3B41D0B3C7600975BE9 /* CharterService.h */,
+				7B2AC3B51D0B3C7600975BE9 /* CharterService.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 				645EBC8C1D08BF3B007D1557 /* main.m in Sources */,
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,
+				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

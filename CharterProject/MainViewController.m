@@ -24,7 +24,7 @@ static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
     [super viewDidLoad];
     self.halfDayCharters = [NSMutableArray new];
     self.fullDayCharters = [NSMutableArray new];
-    
+    [self getDataFromHalfDayCategory];
 
 }
 
@@ -39,6 +39,7 @@ static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
         NSMutableArray *arrayData = [NSMutableArray new];
         arrayData = responseObject[@"products"];
         
+        NSLog(@"first object%@", [arrayData firstObject]);
         
     } failure:^(AFHTTPRequestOperation *operation, id responseObject){
         NSLog(@"failed http request");
