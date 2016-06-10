@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "AFNetworking.h"
 #import "AFNetworking/AFHTTPRequestOperation.h"
+#import "CharterService.h"
 
 static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 
@@ -38,14 +39,39 @@ static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *arrayData = [NSMutableArray new];
         arrayData = responseObject[@"products"];
-        
-        NSLog(@"first object%@", [arrayData firstObject]);
-        
+        [self createCharterObject:arrayData];
     } failure:^(AFHTTPRequestOperation *operation, id responseObject){
         NSLog(@"failed http request");
     }];
     [operation start];
 }
+
+- (void)createCharterObject:(NSArray*)arr {
+    for (NSDictionary *dict in arr) {
+        CharterService *charterService = [[CharterService alloc]initWithDictionary:dict];
+        [self.halfDayCharters addObject:charterService];
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
