@@ -11,15 +11,14 @@
 #import "AFNetworking/AFHTTPRequestOperation.h"
 #import "CharterService.h"
 #import "ProductsViewController.h"
+#import "CategoryTableViewCell.h"
 
 static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
+static NSString *keyFromJSON = @"products";
 
 @interface MainViewController ()<UITableViewDataSource, UITableViewDelegate>
-@property NSMutableArray *halfDayCharters;
-@property NSMutableArray *fullDayCharters;
-@property NSMutableArray *bedAndBoat;
-@property NSMutableArray *nauticalOvernight;
-@property NSArray *categotyIds;
+@property NSMutableArray *categoryArray;
+@property NSArray *categoryIds;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -28,45 +27,43 @@ static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.categotyIds = @[@"52961" , @"50951" , @"87048", @"89968"];
-    self.halfDayCharters = [NSMutableArray new];
-    self.fullDayCharters = [NSMutableArray new];
-    self.bedAndBoat = [NSMutableArray new];
-    self.nauticalOvernight = [NSMutableArray new];
-    [self getDataFromHalfDayCategory];
+    self.navigationController.navigationBar.hidden = YES;
+    self.categoryIds = @[@"52961" , @"50951" , @"87048", @"89968"];
+    self.categoryArray = [NSMutableArray new];
+    [self getDataFromApi];
 
 }
 
-- (void)getDataFromHalfDayCategory {
+- (void)getDataFromApi {
     
-    for (int i = 0; i <4; i++) {
-        NSString *strURL = [NSString stringWithFormat:@"https://api.rezdy.com/v1/categories/%@/products?%@", [self.categotyIds objectAtIndex:i] ,apiKey];
+    for (int i = 0; i < self.categoryIds.count ; i++) {
+        NSString *strURL = [NSString stringWithFormat:@"https://api.rezdy.com/v1/categories/%@/products?%@", [self.categoryIds objectAtIndex:i] ,apiKey];
         NSURL *url = [NSURL URLWithString:strURL];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         operation.responseSerializer = [AFJSONResponseSerializer serializer];
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            NSArray *arrayData = responseObject[@"products"];
-            [self createCharterObject:arrayData];
+            NSArray *arrayData = responseObject[keyFromJSON];
+            [self createCharterObjectAndAddItToAnArrayCategory:arrayData];
             
         } failure:^(AFHTTPRequestOperation *operation, id responseObject){
             NSLog(@"failed http request");
         }];
         [operation start];
     }
-
 }
 
-- (void)createCharterObject:(NSArray*)arrayData {
-    NSMutableArray *otraArray = [NSMutableArray new];
+- (void)createCharterObjectAndAddItToAnArrayCategory:(NSArray*)arrayData {
+    
+    NSMutableArray *categoryProductsArray = [NSMutableArray new];
     
     for (NSDictionary *dict in arrayData) {
         CharterService *charterService = [[CharterService alloc]initWithDictionary:dict];
-        [otraArray addObject:charterService];
+        [categoryProductsArray addObject:charterService];
     }
     
-    [self.halfDayCharters addObject:[otraArray mutableCopy]];
+    [self.categoryArray addObject:[categoryProductsArray mutableCopy]];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
@@ -75,15 +72,14 @@ static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.halfDayCharters.count;
+    return self.categoryArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    NSArray *array = [self.halfDayCharters objectAtIndex:indexPath.row];
-//    cell.textLabel.text = ch.name;
-    
+    CategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    NSArray *array = [self.categoryArray objectAtIndex:indexPath.row];
+    [cell configureCellForInfoArray:array];
     return cell;
 }
 
@@ -91,9 +87,7 @@ static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     ProductsViewController *productVC = segue.destinationViewController;
-    productVC.array = [self.halfDayCharters objectAtIndex:indexPath.row];
-
-    
+    productVC.array = [self.categoryArray objectAtIndex:indexPath.row];
 
 }
 
