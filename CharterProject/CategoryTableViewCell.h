@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CharterService;
 
 @interface CategoryTableViewCell : UITableViewCell
-- (void)configureCellForInfoArray:(NSArray*)array;
+- (void)configureCellwithArray:(NSArray*)array;
 
 @end

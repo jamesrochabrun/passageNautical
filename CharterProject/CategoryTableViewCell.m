@@ -7,6 +7,7 @@
 //
 
 #import "CategoryTableViewCell.h"
+#import "CharterService.h"
 
 @implementation CategoryTableViewCell
 
@@ -21,19 +22,16 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)configureCellForInfoArray:(NSArray*)array {
+- (void)configureCellwithArray:(NSArray*)array {
     
-    
-    //self.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"y"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"y"]];
-    imageView.contentMode = UIViewContentModeScaleAspectFill; 
-    
+    CharterService *charterService = [array firstObject];
+    NSDictionary *imagesDictionary = [charterService.images objectAtIndex:3];
+    NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:itemUrl]]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView = imageView;
     
-    
-    self.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@""] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-
 }
 
 

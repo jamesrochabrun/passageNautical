@@ -17,7 +17,7 @@ static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 static NSString *keyFromJSON = @"products";
 
 @interface MainViewController ()<UITableViewDataSource, UITableViewDelegate>
-@property NSMutableArray *categoryArray;
+@property NSMutableArray *finalCategoryArray;
 @property NSArray *categoryIds;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
@@ -27,9 +27,9 @@ static NSString *keyFromJSON = @"products";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBar.hidden = YES;
     self.categoryIds = @[@"52961" , @"50951" , @"87048", @"89968"];
-    self.categoryArray = [NSMutableArray new];
+    self.finalCategoryArray = [NSMutableArray new];
     [self getDataFromApi];
 
 }
@@ -45,6 +45,7 @@ static NSString *keyFromJSON = @"products";
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             NSArray *arrayData = responseObject[keyFromJSON];
+            
             [self createCharterObjectAndAddItToAnArrayCategory:arrayData];
             
         } failure:^(AFHTTPRequestOperation *operation, id responseObject){
@@ -52,6 +53,8 @@ static NSString *keyFromJSON = @"products";
         }];
         [operation start];
     }
+    
+
 }
 
 - (void)createCharterObjectAndAddItToAnArrayCategory:(NSArray*)arrayData {
@@ -63,23 +66,22 @@ static NSString *keyFromJSON = @"products";
         [categoryProductsArray addObject:charterService];
     }
     
-    [self.categoryArray addObject:[categoryProductsArray mutableCopy]];
-
+    [self.finalCategoryArray addObject:[categoryProductsArray mutableCopy]];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.categoryArray.count;
+    return self.finalCategoryArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
-    
-    CategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    NSArray *array = [self.categoryArray objectAtIndex:indexPath.row];
-    [cell configureCellForInfoArray:array];
+
+    CategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    NSArray *arr = [self.finalCategoryArray  objectAtIndex:indexPath.row];
+    [cell configureCellwithArray:arr];
     return cell;
 }
 
@@ -87,7 +89,7 @@ static NSString *keyFromJSON = @"products";
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     ProductsViewController *productVC = segue.destinationViewController;
-    productVC.array = [self.categoryArray objectAtIndex:indexPath.row];
+    productVC.array = [self.finalCategoryArray objectAtIndex:indexPath.row];
 
 }
 
