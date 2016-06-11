@@ -25,9 +25,11 @@
 - (void)configureCellwithArray:(NSArray*)array {
     
     CharterService *charterService = [array firstObject];
-    NSDictionary *imagesDictionary = [charterService.images objectAtIndex:3];
+    NSDictionary *imagesDictionary = [charterService.images objectAtIndex:0];
     NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:itemUrl]]];
+    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:itemUrlWithNoSpaces]]];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView = imageView;
