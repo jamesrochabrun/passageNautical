@@ -8,13 +8,16 @@
 
 #import "CategoryTableViewCell.h"
 #import "CharterService.h"
+#import "UIImageView+AFNetworking.h"
+
+
 
 @implementation CategoryTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-   
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
 }
 
@@ -29,9 +32,12 @@
     NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
     NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:itemUrlWithNoSpaces]]];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    UIImageView *imageView = [UIImageView new];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
+              placeholderImage:[UIImage imageNamed:@"y"]];
+        
     self.backgroundView = imageView;
     
 }
