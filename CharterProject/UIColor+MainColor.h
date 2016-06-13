@@ -10,5 +10,7 @@
 
 @interface UIColor (MainColor)
 + (UIColor *)customMainColor;
++ (UIColor *)customTextColor;
+
 
 @end

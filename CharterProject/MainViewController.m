@@ -80,7 +80,7 @@ static NSString *keyFromJSON = @"products";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
-
+    
     CategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     NSArray *arr = [self.finalCategoryArray  objectAtIndex:indexPath.row];
     [cell configureCellwithArray:arr];

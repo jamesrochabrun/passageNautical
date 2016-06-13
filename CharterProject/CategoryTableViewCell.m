@@ -21,15 +21,16 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
 
+
 - (void)configureCellwithArray:(NSArray*)array {
     
+    //we are taking the first object of each array
     CharterService *charterService = [array firstObject];
     NSDictionary *imagesDictionary = [charterService.images objectAtIndex:0];
     NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
@@ -39,37 +40,40 @@
     UIImageView *imageView = [UIImageView new];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
-              placeholderImage:[UIImage imageNamed:@"y"]];
-    
+              placeholderImage:[UIImage imageNamed:@"yate"]];
     self.backgroundView.layer.shadowColor = [UIColor whiteColor].CGColor;
     self.backgroundView.layer.shadowOffset = CGSizeMake(5, 5);
     self.backgroundView.layer.shadowOpacity = 1;
     self.backgroundView.layer.shadowRadius = 1.0;
     self.backgroundView = imageView;
+    //category name label
+    if ([charterService.name containsString:@"Full Day"]) {
+        self.titleLabel.text = @"Full day Charters";
+    } else if ([charterService.name containsString:@"Half-Day"]){
+        self.titleLabel.text = @"Half Day Charters";
+    } else if ([charterService.name containsString:@"Nautical Overnight"]) {
+        self.titleLabel.text = @"Nautical Overnight";
+    } else {
+        self.titleLabel.text = @"Bed & Boat";
+    }
+    self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    self.titleLabel.font = [UIFont fontWithName:@"Gotham Medium" size:18];
+    self.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.titleLabel.layer.shadowRadius = 3.0f;
+    self.titleLabel.layer.shadowOpacity = 1;
+    self.titleLabel.layer.shadowOffset = CGSizeZero;
+    self.titleLabel.layer.masksToBounds = NO;
     
-    //Title Label
-    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
-    headingLabel.center = CGPointMake(self.contentView.bounds.size.width/2,self.contentView.bounds.size.height/2);
-   
-    headingLabel.text = @"Nautical Overnights";
-    headingLabel.textAlignment = NSTextAlignmentCenter;
-    headingLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    headingLabel.font = [UIFont fontWithName:@"Gotham Medium" size:25];
-    headingLabel.layer.borderColor = [UIColor customMainColor].CGColor;
-    headingLabel.layer.borderWidth = 3.0;
+    //category description Label
+//    self.descriptionLabel.text = @"full day";
+    self.descriptionLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    self.descriptionLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:14];
+    self.descriptionLabel.layer.shadowColor = [UIColor customTextColor].CGColor;
+    self.descriptionLabel.layer.shadowRadius = 5.0f;
+    self.descriptionLabel.layer.shadowOpacity = 1;
+    self.descriptionLabel.layer.shadowOffset = CGSizeZero;
+    self.descriptionLabel.layer.masksToBounds = NO;
 
-    [self addSubview:headingLabel];
-    
-    //description Label
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
-    descriptionLabel.center = CGPointMake(self.contentView.bounds.size.width/2 ,(self.contentView.bounds.size.height/2 + 30));
-    descriptionLabel.text = @"full day";
-    descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    descriptionLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    descriptionLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:18];
-
-    
-    [self addSubview:descriptionLabel];
 }
 
 
