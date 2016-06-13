@@ -7,9 +7,10 @@
 //
 
 #import "ProductsViewController.h"
+#import "ProductCell.h"
+#import "CharterService.h"
 
-@interface ProductsViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *testLabel;
+@interface ProductsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @end
 
@@ -18,7 +19,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"count = %lu", self.array.count);
+    self.navigationController.navigationBar.hidden = NO;
+    NSLog(@"the count is %lu" , self.productsArray.count);
+
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    CharterService *charterService = [self.productsArray objectAtIndex:indexPath.row];
+    
+    [cell configureCellwithCharterService:charterService];
+    return cell;
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.productsArray.count;
 }
 
 

@@ -20,6 +20,11 @@
 		7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B51D0B3C7600975BE9 /* CharterService.m */; };
 		7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */; };
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
+		7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */; };
+		7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5124821D0E79270068A6F7 /* ProductCell.m */; };
+		7B9749C91D0CA928003123CB /* GOTHAM-MEDIUM.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */; };
+		7B9749CA1D0CA937003123CB /* billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C71D0CA86F003123CB /* billabong.ttf */; };
+		7B9749CB1D0CA93A003123CB /* Gotham Narrow Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +61,13 @@
 		7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		7B2AC3BA1D0BA4B200975BE9 /* CategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewCell.h; sourceTree = "<group>"; };
 		7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewCell.m; sourceTree = "<group>"; };
+		7B51247E1D0E76AC0068A6F7 /* UIColor+MainColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MainColor.h"; sourceTree = "<group>"; };
+		7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MainColor.m"; sourceTree = "<group>"; };
+		7B5124811D0E79270068A6F7 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
+		7B5124821D0E79270068A6F7 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham Narrow Book.otf"; sourceTree = "<group>"; };
+		7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GOTHAM-MEDIUM.TTF"; sourceTree = "<group>"; };
+		7B9749C71D0CA86F003123CB /* billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billabong.ttf; sourceTree = "<group>"; };
 		93AA889AA554632F5B10D31F /* Pods-CharterProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CharterProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-CharterProject/Pods-CharterProject.release.xcconfig"; sourceTree = "<group>"; };
 		C9F1CC2693A4374A0D163B06 /* libPods-CharterProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CharterProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC70F0FF82FF0CE1E7F93740 /* Pods-CharterProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CharterProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CharterProjectTests/Pods-CharterProjectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +109,7 @@
 				645EBCA61D08BF3B007D1557 /* CharterProjectTests */,
 				645EBC881D08BF3B007D1557 /* Products */,
 				D0C46E0B966E1052452E4A4E /* Pods */,
+				7B9749C81D0CA88E003123CB /* fonts */,
 				6222BDD11EAC4BB72EEA9158 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -148,8 +161,12 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B51247E1D0E76AC0068A6F7 /* UIColor+MainColor.h */,
+				7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */,
 				7B2AC3BA1D0BA4B200975BE9 /* CategoryTableViewCell.h */,
 				7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */,
+				7B5124811D0E79270068A6F7 /* ProductCell.h */,
+				7B5124821D0E79270068A6F7 /* ProductCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -172,6 +189,16 @@
 				7B2AC3B51D0B3C7600975BE9 /* CharterService.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		7B9749C81D0CA88E003123CB /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7B9749C71D0CA86F003123CB /* billabong.ttf */,
+				7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */,
+				7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */,
+			);
+			name = fonts;
 			sourceTree = "<group>";
 		};
 		D0C46E0B966E1052452E4A4E /* Pods */ = {
@@ -272,9 +299,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B9749CA1D0CA937003123CB /* billabong.ttf in Resources */,
+				7B9749CB1D0CA93A003123CB /* Gotham Narrow Book.otf in Resources */,
 				645EBC9D1D08BF3B007D1557 /* LaunchScreen.storyboard in Resources */,
 				645EBC9A1D08BF3B007D1557 /* Assets.xcassets in Resources */,
 				645EBC951D08BF3B007D1557 /* Main.storyboard in Resources */,
+				7B9749C91D0CA928003123CB /* GOTHAM-MEDIUM.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,8 +417,10 @@
 			files = (
 				645EBC8F1D08BF3B007D1557 /* AppDelegate.m in Sources */,
 				645EBC8C1D08BF3B007D1557 /* main.m in Sources */,
+				7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */,
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
+				7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
 				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,

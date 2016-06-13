@@ -27,10 +27,14 @@ static NSString *keyFromJSON = @"products";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
     self.categoryIds = @[@"52961" , @"50951" , @"87048", @"89968"];
     self.finalCategoryArray = [NSMutableArray new];
     [self getDataFromApi];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.hidden = YES;
 
 }
 
@@ -53,8 +57,6 @@ static NSString *keyFromJSON = @"products";
         }];
         [operation start];
     }
-    
-
 }
 
 - (void)createCharterObjectAndAddItToAnArrayCategory:(NSArray*)arrayData {
@@ -89,7 +91,7 @@ static NSString *keyFromJSON = @"products";
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     ProductsViewController *productVC = segue.destinationViewController;
-    productVC.array = [self.finalCategoryArray objectAtIndex:indexPath.row];
+    productVC.productsArray = [self.finalCategoryArray objectAtIndex:indexPath.row];
 
 }
 

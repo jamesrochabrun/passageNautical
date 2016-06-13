@@ -10,6 +10,9 @@
 @class CharterService;
 
 @interface CategoryTableViewCell : UITableViewCell
+@property UIColor *customColor;
 - (void)configureCellwithArray:(NSArray*)array;
+
+
 
 @end

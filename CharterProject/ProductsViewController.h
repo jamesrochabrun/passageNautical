@@ -10,6 +10,6 @@
 #import "CharterService.h"
 
 @interface ProductsViewController : UIViewController
-@property CharterService *chservice;
-@property NSArray *array;
+@property CharterService *charterService;
+@property NSArray *productsArray;
 @end
