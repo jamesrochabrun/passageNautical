@@ -29,7 +29,6 @@
 }
 
 - (void)configureCellwithCharterService:(CharterService*)charterService {
-    
     //background Image of Cell
     NSDictionary *imagesDictionary = [charterService.images objectAtIndex:0];
     NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
@@ -61,6 +60,7 @@
     self.timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
     self.timeLabel.textColor = [UIColor whiteColor];
     self.timeLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:15];
+ 
 }
 
 

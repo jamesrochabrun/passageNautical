@@ -41,10 +41,6 @@
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
               placeholderImage:[UIImage imageNamed:@"yate"]];
-    self.backgroundView.layer.shadowColor = [UIColor whiteColor].CGColor;
-    self.backgroundView.layer.shadowOffset = CGSizeMake(5, 5);
-    self.backgroundView.layer.shadowOpacity = 1;
-    self.backgroundView.layer.shadowRadius = 1.0;
     self.backgroundView = imageView;
     //category name label
     if ([charterService.name containsString:@"Full Day"]) {
@@ -73,7 +69,7 @@
     self.descriptionLabel.layer.shadowOpacity = 1;
     self.descriptionLabel.layer.shadowOffset = CGSizeZero;
     self.descriptionLabel.layer.masksToBounds = NO;
-
+        
 }
 
 

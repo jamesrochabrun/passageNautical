@@ -92,7 +92,6 @@ static NSString *keyFromJSON = @"products";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     ProductsViewController *productVC = segue.destinationViewController;
     productVC.productsArray = [self.finalCategoryArray objectAtIndex:indexPath.row];
-
 }
 
 

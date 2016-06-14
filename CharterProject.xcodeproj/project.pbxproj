@@ -17,6 +17,7 @@
 		645EBCA81D08BF3B007D1557 /* CharterProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 645EBCA71D08BF3B007D1557 /* CharterProjectTests.m */; };
 		645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645EBCB91D08D4C3007D1557 /* MainViewController.m */; };
 		73CE365C5B92CD49B39A1A91 /* libPods-CharterProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */; };
+		7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B167D531D0F69AC00954CFF /* DetailViewController.m */; };
 		7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B51D0B3C7600975BE9 /* CharterService.m */; };
 		7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */; };
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
@@ -55,6 +56,8 @@
 		645EBCB81D08D4C3007D1557 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		645EBCB91D08D4C3007D1557 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CharterProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B167D521D0F69AC00954CFF /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		7B167D531D0F69AC00954CFF /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		7B2AC3B41D0B3C7600975BE9 /* CharterService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterService.h; sourceTree = "<group>"; };
 		7B2AC3B51D0B3C7600975BE9 /* CharterService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterService.m; sourceTree = "<group>"; };
 		7B2AC3B71D0B800700975BE9 /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				645EBCB91D08D4C3007D1557 /* MainViewController.m */,
 				7B2AC3B71D0B800700975BE9 /* ProductsViewController.h */,
 				7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */,
+				7B167D521D0F69AC00954CFF /* DetailViewController.h */,
+				7B167D531D0F69AC00954CFF /* DetailViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -267,7 +272,7 @@
 				TargetAttributes = {
 					645EBC861D08BF3B007D1557 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 2E2EPPUR37;
+						DevelopmentTeam = ULU46F325W;
 					};
 					645EBCA21D08BF3B007D1557 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -420,6 +425,7 @@
 				7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */,
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
+				7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */,
 				7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,

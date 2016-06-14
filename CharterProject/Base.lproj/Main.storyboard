@@ -5,6 +5,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Gotham Narrow Book.otf">
+            <string>GothamNarrow-Book</string>
+            <string>GothamNarrow-Book</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -154,6 +160,7 @@
                                             <outlet property="nameLabel" destination="RlW-nP-f9P" id="cpq-Ot-1aw"/>
                                             <outlet property="priceLabel" destination="s8L-OP-pbL" id="u47-hT-7UU"/>
                                             <outlet property="timeLabel" destination="CsZ-5s-QJ1" id="YM8-zF-GVR"/>
+                                            <segue destination="8OD-vb-SCT" kind="push" id="ggJ-y6-LyU"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -172,10 +179,128 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="CGu-Vo-03J"/>
+                    <connections>
+                        <outlet property="tableView" destination="pCX-dq-m1Q" id="3CG-hM-YBZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rIH-FL-y1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1234" y="439"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="8pp-n5-j4S">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="8OD-vb-SCT" customClass="DetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6lc-08-VNR"/>
+                        <viewControllerLayoutGuide type="bottom" id="IDC-b3-x7h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JtN-A0-t07">
+                        <rect key="frame" x="0.0" y="64" width="320" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2G-F7-w5o">
+                                <rect key="frame" x="-8" y="0.0" width="336" height="687"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PuS-tW-sIq">
+                                        <rect key="frame" x="0.0" y="0.0" width="336" height="220"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="220" id="hMy-ev-Ktj"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow60" translatesAutoresizingMaskIntoConstraints="NO" id="Niw-my-BJE">
+                                        <rect key="frame" x="0.0" y="158" width="336" height="62"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="62" id="WNI-JJ-xPT"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4I8-JU-I5D">
+                                        <rect key="frame" x="34" y="178" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="1oc-c3-XDM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPQ-Xs-Daf">
+                                        <rect key="frame" x="78" y="236" width="180" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="pt3-6U-IbR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="GothamNarrow-Book" family="Gotham Narrow" pointSize="15"/>
+                                        <color key="tintColor" red="0.4549019608" green="1" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Watch Video">
+                                            <color key="titleColor" red="0.4549019608" green="1" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Ju-v9-Gpd">
+                                        <rect key="frame" x="48" y="330" width="240" height="128"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="yoO-Xe-VuG"/>
+                                        </constraints>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="1Ju-v9-Gpd" firstAttribute="leading" secondItem="Q2G-F7-w5o" secondAttribute="leading" constant="48" id="2Ae-tA-Atc"/>
+                                    <constraint firstAttribute="trailing" secondItem="Niw-my-BJE" secondAttribute="trailing" id="8J0-G9-6td"/>
+                                    <constraint firstItem="PuS-tW-sIq" firstAttribute="centerX" secondItem="Q2G-F7-w5o" secondAttribute="centerX" id="CDi-CH-1cZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="PuS-tW-sIq" secondAttribute="trailing" id="I9c-88-x8f"/>
+                                    <constraint firstItem="4I8-JU-I5D" firstAttribute="leading" secondItem="Q2G-F7-w5o" secondAttribute="leading" constant="34" id="TtU-rY-gUY"/>
+                                    <constraint firstItem="PuS-tW-sIq" firstAttribute="top" secondItem="Q2G-F7-w5o" secondAttribute="top" id="VbW-E5-7bS"/>
+                                    <constraint firstItem="QPQ-Xs-Daf" firstAttribute="top" secondItem="Niw-my-BJE" secondAttribute="bottom" constant="16" id="Vmm-kT-96g"/>
+                                    <constraint firstAttribute="trailing" secondItem="QPQ-Xs-Daf" secondAttribute="trailing" constant="78" id="Wwz-ht-Uwe"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Ju-v9-Gpd" secondAttribute="trailing" constant="48" id="Y0x-pe-LLU"/>
+                                    <constraint firstItem="4I8-JU-I5D" firstAttribute="top" secondItem="Q2G-F7-w5o" secondAttribute="top" constant="178" id="YHv-6A-Ppb"/>
+                                    <constraint firstItem="Niw-my-BJE" firstAttribute="top" secondItem="PuS-tW-sIq" secondAttribute="bottom" constant="-62" id="cVC-m6-RCR"/>
+                                    <constraint firstItem="Niw-my-BJE" firstAttribute="leading" secondItem="Q2G-F7-w5o" secondAttribute="leading" id="cnr-JY-I4L"/>
+                                    <constraint firstAttribute="bottom" secondItem="PuS-tW-sIq" secondAttribute="bottom" constant="487" id="d2U-TR-kN9"/>
+                                    <constraint firstItem="1Ju-v9-Gpd" firstAttribute="top" secondItem="QPQ-Xs-Daf" secondAttribute="bottom" constant="59" id="eC5-hc-TMN"/>
+                                    <constraint firstItem="QPQ-Xs-Daf" firstAttribute="leading" secondItem="Q2G-F7-w5o" secondAttribute="leading" constant="78" id="edb-SI-Ha1"/>
+                                    <constraint firstItem="PuS-tW-sIq" firstAttribute="leading" secondItem="Q2G-F7-w5o" secondAttribute="leading" id="qZp-mA-DI4"/>
+                                </constraints>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXP-mw-wzs">
+                                <rect key="frame" x="-8" y="687" width="336" height="49"/>
+                                <color key="backgroundColor" red="0.4549019608" green="1" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="3j8-Wm-OnG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GothamNarrow-Book" family="Gotham Narrow" pointSize="17"/>
+                                <state key="normal" title="Book Now">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Q2G-F7-w5o" secondAttribute="trailing" constant="-24" id="7DL-Ni-bI9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yXP-mw-wzs" secondAttribute="trailing" constant="-24" id="ABQ-T0-sHd"/>
+                            <constraint firstItem="IDC-b3-x7h" firstAttribute="top" secondItem="yXP-mw-wzs" secondAttribute="bottom" id="Unf-Ic-f55"/>
+                            <constraint firstItem="Q2G-F7-w5o" firstAttribute="top" secondItem="6lc-08-VNR" secondAttribute="bottom" id="d8o-ql-5HD"/>
+                            <constraint firstItem="yXP-mw-wzs" firstAttribute="top" secondItem="Q2G-F7-w5o" secondAttribute="bottom" id="i9t-ZJ-5Li"/>
+                            <constraint firstItem="Q2G-F7-w5o" firstAttribute="leading" secondItem="JtN-A0-t07" secondAttribute="leadingMargin" constant="-24" id="oKw-Np-l5X"/>
+                            <constraint firstItem="yXP-mw-wzs" firstAttribute="leading" secondItem="JtN-A0-t07" secondAttribute="leadingMargin" constant="-24" id="oqg-Ms-GAQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pbY-uH-TiH"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="800"/>
+                    <connections>
+                        <outlet property="imageView" destination="PuS-tW-sIq" id="S7k-DE-RDH"/>
+                        <outlet property="priceLabel" destination="4I8-JU-I5D" id="agK-1n-Blm"/>
+                        <outlet property="scrollView" destination="Q2G-F7-w5o" id="T3v-ev-Hwn"/>
+                        <outlet property="textView" destination="1Ju-v9-Gpd" id="l9L-3Q-bb6"/>
+                        <outlet property="videoButton" destination="QPQ-Xs-Daf" id="Ifj-cs-cDY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sR4-82-PTK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1614" y="438"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1AK-pR-bLa">
@@ -199,6 +324,7 @@
     </scenes>
     <resources>
         <image name="border" width="317" height="219"/>
+        <image name="shadow60" width="309" height="98"/>
         <image name="shadow70" width="297" height="130"/>
     </resources>
 </document>

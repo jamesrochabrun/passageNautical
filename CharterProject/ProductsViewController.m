@@ -9,8 +9,11 @@
 #import "ProductsViewController.h"
 #import "ProductCell.h"
 #import "CharterService.h"
+#import "DetailViewController.h"
 
 @interface ProductsViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 @end
 
@@ -42,12 +45,29 @@
     CharterService *charterService = [self.productsArray objectAtIndex:indexPath.row];
     [cell configureCellwithCharterService:charterService];
     return cell;
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.productsArray.count;
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    DetailViewController *detailVC = segue.destinationViewController;
+    detailVC.charterService = [self.productsArray objectAtIndex:indexPath.row];
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
