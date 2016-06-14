@@ -10,10 +10,9 @@
 @class CharterService;
 
 @interface ProductCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UIView *shadowView;
+//@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 - (void)configureCellwithCharterService:(CharterService*)charterService;
 
 

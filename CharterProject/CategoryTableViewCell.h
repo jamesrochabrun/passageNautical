@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CharterService;
 
 @interface CategoryTableViewCell : UITableViewCell
-@property UIColor *customColor;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+
 - (void)configureCellwithArray:(NSArray*)array;
 
 

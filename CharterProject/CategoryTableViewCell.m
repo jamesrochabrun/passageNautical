@@ -12,8 +12,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
 
+@interface CategoryTableViewCell ()
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
-
+@end
 
 @implementation CategoryTableViewCell
     

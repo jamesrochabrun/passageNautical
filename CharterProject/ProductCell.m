@@ -12,20 +12,19 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
 
+@interface ProductCell ()
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@end
+
 @implementation ProductCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    self.shadowView.layer.shadowOffset = CGSizeMake(0, 0);
-    
-    self.shadowView.layer.backgroundColor = (__bridge CGColorRef _Nullable)([UIColor redColor]);
-    
-    
-
-    
 }
 
 - (void)configureCellwithCharterService:(CharterService*)charterService {
