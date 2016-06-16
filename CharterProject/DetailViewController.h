@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CharterService.h"
+@class CharterService;
 
 
 @interface DetailViewController : UIViewController
 @property CharterService *charterService;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 
 @end

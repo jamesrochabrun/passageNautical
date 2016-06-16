@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
+#import "UIFont+CustomFont.h"
 
 @interface ProductCell ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -47,19 +48,18 @@
     //charter service name
     self.nameLabel.text = charterService.name;
     self.nameLabel.textColor = [UIColor whiteColor];
-    self.nameLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:15];
+    self.nameLabel.font = [UIFont regularFont:15];
     
     //charter service price
     self.priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterService.currency, charterService.advertisedPrice];
     self.priceLabel.textColor = [UIColor whiteColor];
-    self.priceLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:15];
+    self.priceLabel.font = [UIFont regularFont:15];
     
     //charter service time
     int hours = [charterService.durationMinutes intValue] / 60;
     self.timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
     self.timeLabel.textColor = [UIColor whiteColor];
-    self.timeLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:15];
- 
+    self.timeLabel.font = [UIFont regularFont:15];
 }
 
 

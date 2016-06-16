@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
+#import "UIFont+CustomFont.h"
 
 @interface CategoryTableViewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -56,7 +57,7 @@
         self.titleLabel.text = @"Bed & Boat";
     }
     self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    self.titleLabel.font = [UIFont fontWithName:@"Gotham Medium" size:18];
+    self.titleLabel.font = [UIFont mediumFont:18];
     self.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
     self.titleLabel.layer.shadowRadius = 3.0f;
     self.titleLabel.layer.shadowOpacity = 1;
@@ -66,7 +67,7 @@
     //category description Label
 //    self.descriptionLabel.text = @"full day";
     self.descriptionLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    self.descriptionLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:14];
+    self.descriptionLabel.font = [UIFont regularFont:14];
     self.descriptionLabel.layer.shadowColor = [UIColor customTextColor].CGColor;
     self.descriptionLabel.layer.shadowRadius = 5.0f;
     self.descriptionLabel.layer.shadowOpacity = 1;
