@@ -33,6 +33,8 @@
                                                     };
     navigationBarAppereance.tintColor = [UIColor colorWithRed:0.4549 green:1.0 blue:0.7608 alpha:1.0];
     navigationBarAppereance.barTintColor = [UIColor whiteColor];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
