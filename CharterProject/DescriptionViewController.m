@@ -13,13 +13,16 @@
 #import "UIColor+MainColor.h"
 
 @interface DescriptionViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *charterLabel;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UILabel *charterLabel;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionHeightConstraint;
 @property (weak, nonatomic) IBOutlet UITextView *textViewTerms;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *termsHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextViewTerms;
+
+
+
 
 
 @end
@@ -27,8 +30,8 @@
 @implementation DescriptionViewController
 
 - (void)viewDidLoad {
-    [self displayContentInViewController];
     
+    [self displayContentInViewController];
     [self.scrollView setScrollEnabled:YES];
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
 }
@@ -47,16 +50,14 @@
     self.textView.font = [UIFont regularFont:15];
     self.textView.textColor = [UIColor customTextColor];
     CGSize sizeThatShouldFitTheContent = [self.textView sizeThatFits:self.textView.frame.size];
-    self.descriptionHeightConstraint.constant = sizeThatShouldFitTheContent.height;
+    self.heightTextView.constant = sizeThatShouldFitTheContent.height;
     
     self.textViewTerms.scrollEnabled = NO;
     [self.textViewTerms setText:self.charterService.generalTerms];
     self.textViewTerms.font = [UIFont regularFont:15];
     self.textViewTerms.textColor = [UIColor customTextColor];
     CGSize sizeThatShouldFitTheContentTerms = [self.textView sizeThatFits:self.textView.frame.size];
-    self.termsHeightConstraint.constant = sizeThatShouldFitTheContentTerms.height;
-    
-    
+    self.heightTextViewTerms.constant = sizeThatShouldFitTheContentTerms.height;
     
 }
 
