@@ -33,7 +33,18 @@
     
     [self displayContentInViewController];
     [self.scrollView setScrollEnabled:YES];
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
+//    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height )];
+    NSLog(@"%@", self.charterService.confirmMode);
+    NSLog(@"%@", self.charterService.confirmModeMinParticipants);
+    NSLog(@"%@", self.charterService.minimumNoticeMinutes);
+    NSLog(@"%@", self.charterService.quantityRequired);
+    NSLog(@"%@", self.charterService.unitLabelPlural);
+    NSLog(@"%@", self.charterService.generalTerms);
+
+
+
+
+
 }
 
 - (void)displayContentInViewController {
@@ -47,16 +58,16 @@
     NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.charterService.charterDescription];
     NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
     [self.textView setText:stringWithNoHTML];
-    self.textView.font = [UIFont regularFont:15];
+    self.textView.font = [UIFont regularFont:14];
     self.textView.textColor = [UIColor customTextColor];
     CGSize sizeThatShouldFitTheContent = [self.textView sizeThatFits:self.textView.frame.size];
     self.heightTextView.constant = sizeThatShouldFitTheContent.height;
     
     self.textViewTerms.scrollEnabled = NO;
     [self.textViewTerms setText:self.charterService.generalTerms];
-    self.textViewTerms.font = [UIFont regularFont:15];
+    self.textViewTerms.font = [UIFont regularFont:14];
     self.textViewTerms.textColor = [UIColor customTextColor];
-    CGSize sizeThatShouldFitTheContentTerms = [self.textView sizeThatFits:self.textView.frame.size];
+    CGSize sizeThatShouldFitTheContentTerms = [self.textViewTerms sizeThatFits:self.textViewTerms.frame.size];
     self.heightTextViewTerms.constant = sizeThatShouldFitTheContentTerms.height;
     
 }
