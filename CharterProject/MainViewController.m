@@ -53,7 +53,7 @@ static NSString *keyFromJSON = @"products";
             [self createCharterObjectAndAddItToAnArrayCategory:arrayData];
             
         } failure:^(AFHTTPRequestOperation *operation, id responseObject){
-            NSLog(@"failed http request");
+            [self alertUserNoInternetConnection];
         }];
         [operation start];
     }
@@ -92,6 +92,23 @@ static NSString *keyFromJSON = @"products";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     ProductsViewController *productVC = segue.destinationViewController;
     productVC.productsArray = [self.finalCategoryArray objectAtIndex:indexPath.row];
+}
+
+- (void)alertUserNoInternetConnection {
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        
+        UIAlertController *noInternetAlert = [UIAlertController alertControllerWithTitle:@"No internet Connection"
+                                                                            message:@"Whoops, can't connect Please check your internet connection"
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Dismiss"
+                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                           }];//save data block end
+
+        [noInternetAlert addAction:dismiss];
+        [self presentViewController:noInternetAlert animated:YES completion:nil];
+    });
 }
 
 
