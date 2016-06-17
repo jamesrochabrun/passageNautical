@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *numberOFpeopleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *durationHoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *extraLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 
 @end
@@ -76,6 +77,8 @@
     [self.mailButton setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];
     [self.loveButton setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
     [self.mailButton setTintColor:[UIColor whiteColor]];
+   
+    
 }
 
 - (void)setTextViewsAppereance {
@@ -148,7 +151,7 @@
     // Email Content
     NSString *messageBody = @"iOS programming is so fun!";
     // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:@"support@appcoda.com"];
+    NSArray *toRecipents = [NSArray arrayWithObject:@"passagenautical@passagenautical.com"];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;
@@ -183,6 +186,30 @@
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+
+
+- (IBAction)onShareButtonPressed:(UIButton *)sender {
+    NSString *shareText = [NSString stringWithFormat:@"%@, %@", self.charterService.advertisedPrice , self.charterService.shortDescription];
+    NSURL *shareLink = [[NSURL alloc] initWithString:@"www.passagenautical.com"];
+    
+    UIActivityViewController *activityViewController =
+    [[UIActivityViewController alloc] initWithActivityItems:@[shareText,shareLink]
+                                      applicationActivities:nil];
+    
+    [activityViewController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    
+    [activityViewController setExcludedActivityTypes:@[UIActivityTypePostToWeibo,
+                                                       UIActivityTypeCopyToPasteboard,
+                                                       UIActivityTypeMessage]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:activityViewController animated:YES completion:nil];
+    });
+}
+
+
+
 
 - (IBAction)addToFavorites:(UIButton *)sender {
 }

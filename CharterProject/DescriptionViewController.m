@@ -34,17 +34,6 @@
     [self displayContentInViewController];
     [self.scrollView setScrollEnabled:YES];
 //    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height )];
-    NSLog(@"%@", self.charterService.confirmMode);
-    NSLog(@"%@", self.charterService.confirmModeMinParticipants);
-    NSLog(@"%@", self.charterService.minimumNoticeMinutes);
-    NSLog(@"%@", self.charterService.quantityRequired);
-    NSLog(@"%@", self.charterService.unitLabelPlural);
-    NSLog(@"%@", self.charterService.generalTerms);
-
-
-
-
-
 }
 
 - (void)displayContentInViewController {
@@ -75,6 +64,12 @@
 - (IBAction)dismissViewControllerButtonTapped:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+
+
+
+
 
 
 @end

@@ -417,7 +417,22 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pbY-uH-TiH">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="i4D-iU-TSg"/>
+                        <barButtonItem key="rightBarButtonItem" id="q6g-c9-oxU">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vgt-Jm-ueo">
+                                <rect key="frame" x="274" y="4" width="30" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.4549019608" green="1" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="share1">
+                                    <color key="titleColor" red="0.5450980392" green="0.52549019610000003" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onShareButtonPressed:" destination="8OD-vb-SCT" eventType="touchUpInside" id="J0i-B2-ePY"/>
+                                </connections>
+                            </button>
+                            <connections>
+                                <action selector="onShareButtonPressed:" destination="8OD-vb-SCT" id="11C-4S-F7e"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="1000"/>
@@ -434,6 +449,7 @@
                         <outlet property="priceLabel" destination="4I8-JU-I5D" id="agK-1n-Blm"/>
                         <outlet property="readMoreButton" destination="scy-t7-d5U" id="291-6h-iCo"/>
                         <outlet property="scrollView" destination="Q2G-F7-w5o" id="urB-Bo-eri"/>
+                        <outlet property="shareButton" destination="q6g-c9-oxU" id="Zxq-AT-kgx"/>
                         <outlet property="textView" destination="1Ju-v9-Gpd" id="l9L-3Q-bb6"/>
                         <outlet property="videoButton" destination="QPQ-Xs-Daf" id="Ifj-cs-cDY"/>
                     </connections>
@@ -589,5 +605,6 @@
         <image name="people" width="150" height="118"/>
         <image name="shadow60" width="309" height="98"/>
         <image name="shadow70" width="297" height="130"/>
+        <image name="share1" width="44" height="65"/>
     </resources>
 </document>
