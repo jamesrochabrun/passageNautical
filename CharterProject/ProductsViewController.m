@@ -23,7 +23,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavBar];
-    NSLog(@"the count is %lu" , self.productsArray.count);
 }
 
 - (void)setNavBar {

@@ -23,6 +23,8 @@
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
 		7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */; };
 		7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5124821D0E79270068A6F7 /* ProductCell.m */; };
+		7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */; };
+		7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */; };
 		7B9749C91D0CA928003123CB /* GOTHAM-MEDIUM.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */; };
 		7B9749CA1D0CA937003123CB /* billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C71D0CA86F003123CB /* billabong.ttf */; };
 		7B9749CB1D0CA93A003123CB /* Gotham Narrow Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */; };
@@ -69,6 +71,10 @@
 		7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MainColor.m"; sourceTree = "<group>"; };
 		7B5124811D0E79270068A6F7 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
 		7B5124821D0E79270068A6F7 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		7B79420E1D13572B00CFE2F8 /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
+		7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
+		7B7942111D13607800CFE2F8 /* NSString+DecodeHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DecodeHTML.h"; sourceTree = "<group>"; };
+		7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DecodeHTML.m"; sourceTree = "<group>"; };
 		7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham Narrow Book.otf"; sourceTree = "<group>"; };
 		7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GOTHAM-MEDIUM.TTF"; sourceTree = "<group>"; };
 		7B9749C71D0CA86F003123CB /* billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billabong.ttf; sourceTree = "<group>"; };
@@ -185,6 +191,8 @@
 				7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */,
 				7B167D521D0F69AC00954CFF /* DetailViewController.h */,
 				7B167D531D0F69AC00954CFF /* DetailViewController.m */,
+				7B79420E1D13572B00CFE2F8 /* DescriptionViewController.h */,
+				7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -211,6 +219,8 @@
 		7BA11F2D1D1271810072DBA7 /* categories */ = {
 			isa = PBXGroup;
 			children = (
+				7B7942111D13607800CFE2F8 /* NSString+DecodeHTML.h */,
+				7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */,
 				7B51247E1D0E76AC0068A6F7 /* UIColor+MainColor.h */,
 				7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */,
 				7BA11F2A1D12716F0072DBA7 /* UIFont+CustomFont.h */,
@@ -438,6 +448,8 @@
 				7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */,
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
+				7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */,
+				7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */,
 				7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */,
 				7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,

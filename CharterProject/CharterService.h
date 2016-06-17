@@ -14,7 +14,7 @@
 @property NSNumber *advertisedPrice;
 @property NSArray *bookingFields;
 @property NSString *bookingMode;
-@property BOOL charter;
+@property id charter;
 @property NSString *confirmMode;
 @property NSNumber *confirmModeMinParticipants;
 @property NSString *currency;
