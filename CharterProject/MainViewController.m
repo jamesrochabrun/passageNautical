@@ -12,6 +12,7 @@
 #import "CharterService.h"
 #import "ProductsViewController.h"
 #import "CategoryTableViewCell.h"
+#import "ContactViewController.h"
 
 static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 static NSString *keyFromJSON = @"products";
@@ -89,9 +90,15 @@ static NSString *keyFromJSON = @"products";
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-    ProductsViewController *productVC = segue.destinationViewController;
-    productVC.productsArray = [self.finalCategoryArray objectAtIndex:indexPath.row];
+    
+    if ([segue.identifier isEqualToString:@"product"]) {
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        ProductsViewController *productVC = segue.destinationViewController;
+        productVC.productsArray = [self.finalCategoryArray objectAtIndex:indexPath.row];
+    } else{
+    }
+   
 }
 
 - (void)alertUserNoInternetConnection {
@@ -110,6 +117,9 @@ static NSString *keyFromJSON = @"products";
         [self presentViewController:noInternetAlert animated:YES completion:nil];
     });
 }
+
+
+
 
 
 
