@@ -61,10 +61,11 @@
 
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:scrollView];
-    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *2.85)];
+    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *2.7)];
     scrollView.showsVerticalScrollIndicator = NO;
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height*2 )];
+    scrollView.pagingEnabled = YES;
+
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height*2)];
     [scrollView addSubview:view];
 
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height/2.2)];
@@ -117,13 +118,6 @@
     descriptionTextView.scrollEnabled = NO;
     descriptionTextView.text= @"Passage Nautical is a San Francisco Bay Area based full service yacht dealer. We are the exclusive yacht dealer for Beneteau sailboats and powerboats, premier Lagoon catamarans and offer the largest selection of used boats in the Bay Area. We are an ASA (American Sailing Association) school, US Powerboating training facility and charter boat rental facility. What sets Passage Nautical apart from the rest is our full service approach to helping you enjoy the boating lifestyle, from our world class yacht sales division and our award-winning Service Department which offers repairs, installation, concierge services and a lifetime service relationship, to our power and sail training academy, educational seminar series and world-class yacht sales division.  We help people go boating. We make yacht financing easy and offer complete insurance services. Our Boat-As-A-Business workshop informs you how to receive tax savings through yacht charter placement programs. We host monthly test rides, educational workshops and other VIP events about the boating lifestyle. For 30+ years, we have been making people’s boating dreams a reality. Let us help you with yours.";
     [imageView addSubview:descriptionTextView];
-
-    UIButton *webButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 25)];
-    [webButton setTitle:@"Visit our web" forState:UIControlStateNormal];
-    [webButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
-    [webButton setCenter:CGPointMake(view.frame.size.width/2,1290)];
-    [webButton.titleLabel setFont:[UIFont regularFont:15]];
-    [imageView addSubview:webButton];
     
 }
 
