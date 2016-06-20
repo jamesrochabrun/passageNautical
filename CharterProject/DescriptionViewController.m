@@ -33,7 +33,6 @@
     
     [self displayContentInViewController];
     [self.scrollView setScrollEnabled:YES];
-//    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height )];
 }
 
 - (void)displayContentInViewController {

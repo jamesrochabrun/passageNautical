@@ -13,6 +13,8 @@
 #import "ProductsViewController.h"
 #import "CategoryTableViewCell.h"
 #import "ContactViewController.h"
+#import "UIColor+MainColor.h"
+
 
 static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 static NSString *keyFromJSON = @"products";
@@ -32,11 +34,45 @@ static NSString *keyFromJSON = @"products";
     self.categoryIds = @[@"52961" , @"50951" , @"87048", @"89968"];
     self.finalCategoryArray = [NSMutableArray new];
     [self getDataFromApi];
+    [self createToolbar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = YES;
+}
 
+- (void)createToolbar {
+    
+    CGRect frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 50, [[UIScreen mainScreen] bounds].size.width, 50);
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:frame];
+    [toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+    [toolbar setBarTintColor:[UIColor whiteColor]];
+    [self.view addSubview:toolbar];
+    
+    UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorites"] style:UIBarButtonItemStylePlain target:self action:nil];
+    [home setTintColor:[UIColor customTextColor]];
+    [home setWidth:85];
+    
+    UIBarButtonItem *contact = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contact"] style:UIBarButtonItemStylePlain target:self action:@selector(goToContact)];
+    [contact setTintColor:[UIColor customMainColor]];
+    [home setWidth:85];
+    
+    UIBarButtonItem *favorites = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorites"] style:UIBarButtonItemStylePlain target:self action:@selector(goToFavorites)];
+    [favorites setTintColor:[UIColor customTextColor]];
+    [favorites setWidth:85];
+    
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    
+    NSArray *buttonItems = [NSArray arrayWithObjects:spacer, home, spacer, contact , spacer, favorites,spacer, nil];
+    [toolbar setItems:buttonItems];
+}
+
+- (void)goToContact {
+    [self performSegueWithIdentifier:@"contact" sender:self];
+}
+
+- (void)goToFavorites {
+    [self performSegueWithIdentifier:@"favorites" sender:self];
 }
 
 - (void)getDataFromApi {
@@ -89,7 +125,6 @@ static NSString *keyFromJSON = @"products";
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
     
     if ([segue.identifier isEqualToString:@"product"]) {
         
