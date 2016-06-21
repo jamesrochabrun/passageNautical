@@ -21,6 +21,7 @@
 		7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B51D0B3C7600975BE9 /* CharterService.m */; };
 		7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */; };
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
+		7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B41FD541D18A13B0037A849 /* FavoritesViewController.m */; };
 		7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */; };
 		7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5124821D0E79270068A6F7 /* ProductCell.m */; };
 		7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */; };
@@ -68,6 +69,8 @@
 		7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		7B2AC3BA1D0BA4B200975BE9 /* CategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewCell.h; sourceTree = "<group>"; };
 		7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewCell.m; sourceTree = "<group>"; };
+		7B41FD531D18A13B0037A849 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		7B41FD541D18A13B0037A849 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		7B51247E1D0E76AC0068A6F7 /* UIColor+MainColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MainColor.h"; sourceTree = "<group>"; };
 		7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MainColor.m"; sourceTree = "<group>"; };
 		7B5124811D0E79270068A6F7 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 				7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */,
 				7B6EA4491D15E9E200AFC708 /* ContactViewController.h */,
 				7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */,
+				7B41FD531D18A13B0037A849 /* FavoritesViewController.h */,
+				7B41FD541D18A13B0037A849 /* FavoritesViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -453,6 +458,7 @@
 				7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */,
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
+				7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */,
 				7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */,
 				7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */,
 				7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */,

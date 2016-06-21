@@ -50,11 +50,11 @@ static NSString *keyFromJSON = @"products";
     [self.view addSubview:toolbar];
     
     UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorites"] style:UIBarButtonItemStylePlain target:self action:nil];
-    [home setTintColor:[UIColor customTextColor]];
+    [home setTintColor:[UIColor customMainColor]];
     [home setWidth:85];
     
     UIBarButtonItem *contact = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contact"] style:UIBarButtonItemStylePlain target:self action:@selector(goToContact)];
-    [contact setTintColor:[UIColor customMainColor]];
+    [contact setTintColor:[UIColor customTextColor]];
     [home setWidth:85];
     
     UIBarButtonItem *favorites = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorites"] style:UIBarButtonItemStylePlain target:self action:@selector(goToFavorites)];
@@ -152,12 +152,6 @@ static NSString *keyFromJSON = @"products";
         [self presentViewController:noInternetAlert animated:YES completion:nil];
     });
 }
-
-
-
-
-
-
 
 
 

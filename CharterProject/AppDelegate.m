@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "UIColor+MainColor.h"
 
 @interface AppDelegate ()
 
@@ -31,7 +32,7 @@
                                                     NSForegroundColorAttributeName:  [UIColor colorWithRed:120.1/255.0 green:115.7/255.0 blue:88.0/255.0 alpha:1.0],
                                                     NSFontAttributeName:  [UIFont fontWithName:@"Gotham Narrow" size:17]
                                                     };
-    navigationBarAppereance.tintColor = [UIColor colorWithRed:0.4549 green:1.0 blue:0.7608 alpha:1.0];
+    navigationBarAppereance.tintColor = [UIColor customMainColor];
     navigationBarAppereance.barTintColor = [UIColor whiteColor];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
