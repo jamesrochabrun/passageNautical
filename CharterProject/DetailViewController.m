@@ -14,6 +14,7 @@
 #import "DescriptionViewController.h"
 #import "NSString+DecodeHTML.h"
 #import <MessageUI/MessageUI.h>
+#import "MapViewController.h"
 
 
 
@@ -35,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *durationHoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *extraLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (weak, nonatomic) IBOutlet UIButton *mapButton;
+@property (weak, nonatomic) IBOutlet UIButton *generalTermsButton;
 
 
 @end
@@ -47,18 +50,19 @@
     [self setButtonssAppereance];
     [self setTextViewsAppereance];
     [self setlabelsAppereance];
-    
-    
+    [self addShadowToImageView];
+    [self displayCharterDetailInformation];
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
+
+    NSLog(@"addres: %@", self.charterService.locationAddress);
+}
+
+- (void)addShadowToImageView {
     self.imageView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.imageView.layer.shadowOffset = CGSizeMake(0, 4);
     self.imageView.layer.shadowOpacity = 0.7;
     self.imageView.layer.shadowRadius = 10;
     self.imageView.clipsToBounds = NO;
-
-
-    [self displayCharterDetailInformation];
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
-
 }
 
 - (void)setButtonssAppereance {
@@ -76,8 +80,17 @@
     [self.phoneButton setTintColor:[UIColor whiteColor]];
     [self.mailButton setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];
     [self.loveButton setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
+    [self.loveButton setTintColor:[UIColor customMainColor]];
     [self.mailButton setTintColor:[UIColor whiteColor]];
-   
+    [self.mapButton setTintColor:[UIColor customMainColor]];
+    self.mapButton.titleLabel.font = [UIFont regularFont:15];
+    self.mapButton.layer.borderWidth = 2.0f;
+    self.mapButton.layer.borderColor = [UIColor customMainColor].CGColor;
+    [self.generalTermsButton setTintColor:[UIColor customMainColor]];
+    self.generalTermsButton.titleLabel.font = [UIFont regularFont:14];
+    
+    
+     
     
 }
 
@@ -130,7 +143,16 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     DescriptionViewController *desVC = segue.destinationViewController;
-    desVC.charterService = self.charterService;
+    if ([segue.identifier isEqualToString:@"DescriptionSegue"]) {
+        desVC.labelData = self.charterService.name;
+        desVC.textFieldData = self.charterService.charterDescription;
+    } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
+        desVC.labelData = @"General Terms";
+        desVC.textFieldData = self.charterService.generalTerms;
+    } else{
+        MapViewController *mapViewController = segue.destinationViewController;
+        mapViewController.charterService = self.charterService;
+    }
 }
 
 - (IBAction)callPassageNautical:(UIButton *)sender {
@@ -212,6 +234,15 @@
 
 
 - (IBAction)addToFavorites:(UIButton *)sender {
+    
+    NSUserDefaults *userFavorites = [NSUserDefaults standardUserDefaults];
+    
+    NSData *data=[NSKeyedArchiver archivedDataWithRootObject:self.charterService];
+
+    [userFavorites setObject:data forKey:@"userfavorite"];
+    [userFavorites synchronize];
+    
+    NSLog(@"this is %@", data);
 }
 
 

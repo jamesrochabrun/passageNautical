@@ -16,12 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *charterLabel;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UITextView *textViewTerms;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextView;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextViewTerms;
-
-
 
 
 
@@ -38,25 +33,19 @@
 - (void)displayContentInViewController {
  
 
-    self.charterLabel.text = self.charterService.name;
+    self.charterLabel.text = self.labelData;
     self.charterLabel.font = [UIFont mediumFont:19];
     self.charterLabel.textColor = [UIColor customMainColor];
     
     self.textView.scrollEnabled = NO;
-    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.charterService.charterDescription];
+    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.textFieldData];
     NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
     [self.textView setText:stringWithNoHTML];
     self.textView.font = [UIFont regularFont:14];
     self.textView.textColor = [UIColor customTextColor];
     CGSize sizeThatShouldFitTheContent = [self.textView sizeThatFits:self.textView.frame.size];
     self.heightTextView.constant = sizeThatShouldFitTheContent.height;
-    
-    self.textViewTerms.scrollEnabled = NO;
-    [self.textViewTerms setText:self.charterService.generalTerms];
-    self.textViewTerms.font = [UIFont regularFont:14];
-    self.textViewTerms.textColor = [UIColor customTextColor];
-    CGSize sizeThatShouldFitTheContentTerms = [self.textViewTerms sizeThatFits:self.textViewTerms.frame.size];
-    self.heightTextViewTerms.constant = sizeThatShouldFitTheContentTerms.height;
+
     
 }
 

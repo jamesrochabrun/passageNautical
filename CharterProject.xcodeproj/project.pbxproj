@@ -31,6 +31,9 @@
 		7B9749CA1D0CA937003123CB /* billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C71D0CA86F003123CB /* billabong.ttf */; };
 		7B9749CB1D0CA93A003123CB /* Gotham Narrow Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */; };
 		7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */; };
+		7BF9DA661D19ACBC00695161 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA651D19ACBC00695161 /* MapKit.framework */; };
+		7BF9DA681D19ACC200695161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA671D19ACC200695161 /* CoreLocation.framework */; };
+		7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9DA6A1D19AEDD00695161 /* MapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +89,10 @@
 		7B9749C71D0CA86F003123CB /* billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billabong.ttf; sourceTree = "<group>"; };
 		7BA11F2A1D12716F0072DBA7 /* UIFont+CustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFont.h"; sourceTree = "<group>"; };
 		7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFont.m"; sourceTree = "<group>"; };
+		7BF9DA651D19ACBC00695161 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7BF9DA671D19ACC200695161 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		7BF9DA691D19AEDD00695161 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		7BF9DA6A1D19AEDD00695161 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		93AA889AA554632F5B10D31F /* Pods-CharterProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CharterProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-CharterProject/Pods-CharterProject.release.xcconfig"; sourceTree = "<group>"; };
 		C9F1CC2693A4374A0D163B06 /* libPods-CharterProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CharterProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC70F0FF82FF0CE1E7F93740 /* Pods-CharterProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CharterProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CharterProjectTests/Pods-CharterProjectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -96,6 +103,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF9DA681D19ACC200695161 /* CoreLocation.framework in Frameworks */,
+				7BF9DA661D19ACBC00695161 /* MapKit.framework in Frameworks */,
 				73CE365C5B92CD49B39A1A91 /* libPods-CharterProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,6 +123,8 @@
 		6222BDD11EAC4BB72EEA9158 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BF9DA671D19ACC200695161 /* CoreLocation.framework */,
+				7BF9DA651D19ACBC00695161 /* MapKit.framework */,
 				67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */,
 				C9F1CC2693A4374A0D163B06 /* libPods-CharterProjectTests.a */,
 			);
@@ -203,6 +214,8 @@
 				7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */,
 				7B41FD531D18A13B0037A849 /* FavoritesViewController.h */,
 				7B41FD541D18A13B0037A849 /* FavoritesViewController.m */,
+				7BF9DA691D19AEDD00695161 /* MapViewController.h */,
+				7BF9DA6A1D19AEDD00695161 /* MapViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -464,6 +477,7 @@
 				7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */,
 				7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,
+				7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
 				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,
 				7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */,

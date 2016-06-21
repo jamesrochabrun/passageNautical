@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CharterService;
 
 @interface DescriptionViewController : UIViewController
-@property CharterService *charterService;
+@property NSString *labelData;
+@property NSString *textFieldData;
 
 
 @end
