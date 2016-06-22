@@ -19,8 +19,6 @@
 @dynamic charterDescription;
 @dynamic currency;
 @dynamic shortCharterDescription;
-@dynamic latitude;
-@dynamic longitude;
 @dynamic durationMinutes;
 @dynamic imageURL;
 @dynamic bookingFields;

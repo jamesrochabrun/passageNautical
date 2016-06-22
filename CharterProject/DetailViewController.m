@@ -233,8 +233,8 @@
     charterFavorite.advertisedPrice = self.charterService.advertisedPrice;
     charterFavorite.charterDescription = self.charterService.charterDescription;
     charterFavorite.shortCharterDescription = self.charterService.shortDescription;
-//    charterFavorite.latitude = self.charterService.latitude;
-//    charterFavorite.longitude = self.charterService.longitude;
+    charterFavorite.latitude = [NSString stringWithFormat:@"%@",self.charterService.latitude];
+    charterFavorite.longitude = [NSString stringWithFormat:@"%@",self.charterService.longitude];
     charterFavorite.durationMinutes = self.charterService.durationMinutes;
     charterFavorite.generalTerms = self.charterService.generalTerms;
     charterFavorite.isFavorite = @1;
