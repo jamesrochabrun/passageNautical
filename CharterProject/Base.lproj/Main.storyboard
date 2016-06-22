@@ -13,6 +13,7 @@
             <string>GothamNarrow-Book</string>
             <string>GothamNarrow-Book</string>
             <string>GothamNarrow-Book</string>
+            <string>GothamNarrow-Book</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -740,29 +741,90 @@
                                     <outlet property="delegate" destination="wyY-mR-FfG" id="H8D-bp-4lQ"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWv-Pz-7BA">
-                                <rect key="frame" x="16" y="28" width="44" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODk-Jd-ArI">
+                                <rect key="frame" x="-4" y="20" width="328" height="48"/>
+                                <color key="backgroundColor" red="0.34901960780000002" green="0.91372549020000005" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Idf-rC-eri"/>
-                                    <constraint firstAttribute="width" constant="44" id="f8F-3B-2qR"/>
+                                    <constraint firstAttribute="height" constant="48" id="pr1-Me-bbr"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWv-Pz-7BA">
+                                <rect key="frame" x="13" y="25" width="36" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="NNf-Lz-Yom"/>
+                                    <constraint firstAttribute="height" constant="36" id="fnN-Zh-acT"/>
                                 </constraints>
                                 <state key="normal" image="dismiss"/>
                                 <connections>
                                     <action selector="dismissView:" destination="wyY-mR-FfG" eventType="touchUpInside" id="gfe-4I-3Ud"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dqk-QR-Qud">
+                                <rect key="frame" x="0.0" y="69" width="320" height="40"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uD8-Yp-i74">
+                                        <rect key="frame" x="8" y="3" width="304" height="33"/>
+                                        <color key="backgroundColor" red="0.34901960780000002" green="0.91372549020000005" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="o8P-VX-Mfg"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="standard"/>
+                                            <segment title="Satellite"/>
+                                            <segment title="hybrid"/>
+                                        </segments>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="switchMapTypes:" destination="wyY-mR-FfG" eventType="valueChanged" id="TQy-w5-x1w"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="8Ee-Yq-IAr"/>
+                                    <constraint firstItem="uD8-Yp-i74" firstAttribute="centerX" secondItem="Dqk-QR-Qud" secondAttribute="centerX" id="Nzm-4M-O84"/>
+                                    <constraint firstItem="uD8-Yp-i74" firstAttribute="centerY" secondItem="Dqk-QR-Qud" secondAttribute="centerY" constant="-1" id="llq-5t-CL7"/>
+                                    <constraint firstAttribute="trailing" secondItem="uD8-Yp-i74" secondAttribute="trailing" constant="8" id="pOb-V5-tyS"/>
+                                    <constraint firstItem="uD8-Yp-i74" firstAttribute="leading" secondItem="Dqk-QR-Qud" secondAttribute="leading" constant="8" id="qj1-GT-ncp"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PbZ-s3-fo6">
+                                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                                <color key="backgroundColor" red="0.34901960780000002" green="0.91372549020000005" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="k5I-Ty-rqk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GothamNarrow-Book" family="Gotham Narrow" pointSize="17"/>
+                                <state key="normal" title="Get Directions">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getDirectionsButtonTapped:" destination="wyY-mR-FfG" eventType="touchUpInside" id="t0q-fX-L1j"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tzw-gs-kw6" firstAttribute="leading" secondItem="FpU-up-krC" secondAttribute="leading" id="0hh-2x-v3x"/>
-                            <constraint firstItem="GWv-Pz-7BA" firstAttribute="leading" secondItem="FpU-up-krC" secondAttribute="leadingMargin" id="44P-yS-Ch1"/>
-                            <constraint firstItem="GWv-Pz-7BA" firstAttribute="top" secondItem="aae-qp-f27" secondAttribute="bottom" constant="8" id="Axn-T7-tsq"/>
-                            <constraint firstItem="tzw-gs-kw6" firstAttribute="top" secondItem="aae-qp-f27" secondAttribute="bottom" id="ESX-u2-25t"/>
-                            <constraint firstAttribute="trailing" secondItem="tzw-gs-kw6" secondAttribute="trailing" id="nfe-RK-t3G"/>
-                            <constraint firstItem="9co-it-sB7" firstAttribute="top" secondItem="tzw-gs-kw6" secondAttribute="bottom" id="wBA-Hg-RdO"/>
+                            <constraint firstItem="GWv-Pz-7BA" firstAttribute="top" secondItem="aae-qp-f27" secondAttribute="bottom" constant="5" id="5fT-Xp-o8Y"/>
+                            <constraint firstItem="ODk-Jd-ArI" firstAttribute="top" secondItem="aae-qp-f27" secondAttribute="bottom" id="Avt-O1-crS"/>
+                            <constraint firstAttribute="trailing" secondItem="Dqk-QR-Qud" secondAttribute="trailing" id="DA3-eu-J3Q"/>
+                            <constraint firstItem="ODk-Jd-ArI" firstAttribute="leading" secondItem="GWv-Pz-7BA" secondAttribute="trailing" constant="-53" id="GwL-81-iBm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ODk-Jd-ArI" secondAttribute="trailing" constant="-20" id="JOb-bA-jJK"/>
+                            <constraint firstItem="PbZ-s3-fo6" firstAttribute="leading" secondItem="FpU-up-krC" secondAttribute="leading" id="QpS-zK-kl0"/>
+                            <constraint firstItem="9co-it-sB7" firstAttribute="top" secondItem="PbZ-s3-fo6" secondAttribute="bottom" id="WAS-J2-C3F"/>
+                            <constraint firstItem="ODk-Jd-ArI" firstAttribute="leading" secondItem="FpU-up-krC" secondAttribute="leadingMargin" constant="-20" id="dUE-Qa-SuF"/>
+                            <constraint firstAttribute="trailing" secondItem="tzw-gs-kw6" secondAttribute="trailing" id="fdS-hh-519"/>
+                            <constraint firstItem="Dqk-QR-Qud" firstAttribute="leading" secondItem="FpU-up-krC" secondAttribute="leading" id="ilV-yp-5ia"/>
+                            <constraint firstItem="tzw-gs-kw6" firstAttribute="top" secondItem="aae-qp-f27" secondAttribute="bottom" id="pmd-Kc-7ys"/>
+                            <constraint firstItem="Dqk-QR-Qud" firstAttribute="top" secondItem="ODk-Jd-ArI" secondAttribute="bottom" constant="1" id="rnV-j0-0xe"/>
+                            <constraint firstItem="tzw-gs-kw6" firstAttribute="leading" secondItem="FpU-up-krC" secondAttribute="leading" id="txF-ay-ZnW"/>
+                            <constraint firstItem="9co-it-sB7" firstAttribute="top" secondItem="tzw-gs-kw6" secondAttribute="bottom" id="uec-AE-T34"/>
+                            <constraint firstAttribute="trailing" secondItem="PbZ-s3-fo6" secondAttribute="trailing" id="wfp-qH-jzw"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dismissButton" destination="GWv-Pz-7BA" id="s1v-aI-bDi"/>
+                        <outlet property="getDirectionsButton" destination="PbZ-s3-fo6" id="1gb-cE-bfp"/>
                         <outlet property="mapView" destination="tzw-gs-kw6" id="DgM-Kw-mv3"/>
                     </connections>
                 </viewController>
