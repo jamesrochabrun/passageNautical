@@ -2,6 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CharterFavorite+CoreDataProperties.h">
+   </FileRef>
+   <FileRef
+      location = "group:CharterFavorite+CoreDataProperties.m">
+   </FileRef>
+   <FileRef
+      location = "group:CharterFavorite.h">
+   </FileRef>
+   <FileRef
+      location = "group:CharterFavorite.m">
+   </FileRef>
+   <FileRef
       location = "group:CharterProject.xcodeproj">
    </FileRef>
    <FileRef

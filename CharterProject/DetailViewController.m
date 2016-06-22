@@ -15,9 +15,8 @@
 #import "NSString+DecodeHTML.h"
 #import <MessageUI/MessageUI.h>
 #import "MapViewController.h"
-
-
-
+#import "CoreDataStack.h"
+#import "CharterFavorite.h"
 
 @interface DetailViewController ()<MFMailComposeViewControllerDelegate>
 
@@ -225,10 +224,30 @@
 }
 
 
-
 - (IBAction)addToFavorites:(UIButton *)sender {
     
-
+    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    CharterFavorite *charterFavorite = [NSEntityDescription insertNewObjectForEntityForName:@"CharterFavorite" inManagedObjectContext:coreDataStack.managedObjectContext];
+    charterFavorite.name = self.charterService.name;
+    charterFavorite.currency = self.charterService.currency;
+    charterFavorite.advertisedPrice = self.charterService.advertisedPrice;
+    charterFavorite.charterDescription = self.charterService.charterDescription;
+    charterFavorite.shortCharterDescription = self.charterService.shortDescription;
+//    charterFavorite.latitude = self.charterService.latitude;
+//    charterFavorite.longitude = self.charterService.longitude;
+    charterFavorite.durationMinutes = self.charterService.durationMinutes;
+    charterFavorite.generalTerms = self.charterService.generalTerms;
+    charterFavorite.isFavorite = @1;
+    
+    NSDictionary *imagesDictionary = [self.charterService.images firstObject];
+    NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
+    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    charterFavorite.imageURL = itemUrlWithNoSpaces;
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.charterService.bookingFields];
+    charterFavorite.bookingFields = data;
+    
+    [coreDataStack saveContext];
 }
 
 
