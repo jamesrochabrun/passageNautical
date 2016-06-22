@@ -45,7 +45,7 @@
     point.title = @"Where am I?";
     point.subtitle = @"I'm here!!!";
     
-    [self.mapView setRegion:MKCoordinateRegionMake(point.coordinate, MKCoordinateSpanMake(0.5f, 0.5f)) animated:YES];
+    [self.mapView setRegion:MKCoordinateRegionMake(point.coordinate, MKCoordinateSpanMake(0.8f, 0.8f)) animated:YES];
 
     [self.mapView addAnnotation:point];
 }

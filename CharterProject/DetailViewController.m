@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) IBOutlet UIButton *generalTermsButton;
+@property BOOL isItFavorite;
 
 
 @end
@@ -53,8 +54,6 @@
     [self addShadowToImageView];
     [self displayCharterDetailInformation];
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
-
-    NSLog(@"addres: %@", self.charterService.locationAddress);
 }
 
 - (void)addShadowToImageView {
@@ -88,10 +87,6 @@
     self.mapButton.layer.borderColor = [UIColor customMainColor].CGColor;
     [self.generalTermsButton setTintColor:[UIColor customMainColor]];
     self.generalTermsButton.titleLabel.font = [UIFont regularFont:14];
-    
-    
-     
-    
 }
 
 - (void)setTextViewsAppereance {
@@ -204,7 +199,6 @@
         default:
             break;
     }
-    
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -232,17 +226,9 @@
 
 
 
-
 - (IBAction)addToFavorites:(UIButton *)sender {
     
-    NSUserDefaults *userFavorites = [NSUserDefaults standardUserDefaults];
-    
-    NSData *data=[NSKeyedArchiver archivedDataWithRootObject:self.charterService];
 
-    [userFavorites setObject:data forKey:@"userfavorite"];
-    [userFavorites synchronize];
-    
-    NSLog(@"this is %@", data);
 }
 
 

@@ -14,6 +14,8 @@
 #import "CategoryTableViewCell.h"
 #import "ContactViewController.h"
 #import "UIColor+MainColor.h"
+#import "UIFont+CustomFont.h"
+
 
 
 static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
@@ -23,6 +25,8 @@ static NSString *keyFromJSON = @"products";
 @property NSMutableArray *finalCategoryArray;
 @property NSArray *categoryIds;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property UIActivityIndicatorView *activityIndicator;
+@property UIToolbar *toolBar;
 
 @end
 
@@ -35,6 +39,14 @@ static NSString *keyFromJSON = @"products";
     self.finalCategoryArray = [NSMutableArray new];
     [self getDataFromApi];
     [self createToolbar];
+    [self startActivityIndicator];
+}
+
+- (void)startActivityIndicator {
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.view addSubview: self.activityIndicator];
+    self.activityIndicator.center = CGPointMake(self.view.frame.size.width/2,self.view.frame.size.height/2);
+    [self.activityIndicator startAnimating];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -44,10 +56,10 @@ static NSString *keyFromJSON = @"products";
 - (void)createToolbar {
     
     CGRect frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 50, [[UIScreen mainScreen] bounds].size.width, 50);
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:frame];
-    [toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
-    [toolbar setBarTintColor:[UIColor whiteColor]];
-    [self.view addSubview:toolbar];
+    self.toolBar = [[UIToolbar alloc] initWithFrame:frame];
+    [self.toolBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+    [self.toolBar setBarTintColor:[UIColor whiteColor]];
+    [self.view addSubview:self.toolBar];
     
     UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chart"] style:UIBarButtonItemStylePlain target:self action:nil];
     [home setTintColor:[UIColor customMainColor]];
@@ -64,7 +76,7 @@ static NSString *keyFromJSON = @"products";
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
     NSArray *buttonItems = [NSArray arrayWithObjects:spacer, home, spacer, contact , spacer, favorites,spacer, nil];
-    [toolbar setItems:buttonItems];
+    [self.toolBar setItems:buttonItems];
 }
 
 - (void)goToContact {
@@ -86,11 +98,11 @@ static NSString *keyFromJSON = @"products";
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             NSArray *arrayData = responseObject[keyFromJSON];
-            
             [self createCharterObjectAndAddItToAnArrayCategory:arrayData];
             
         } failure:^(AFHTTPRequestOperation *operation, id responseObject){
             [self alertUserNoInternetConnection];
+            [self.activityIndicator stopAnimating];
         }];
         [operation start];
     }
@@ -109,6 +121,8 @@ static NSString *keyFromJSON = @"products";
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
+        [self.activityIndicator stopAnimating];
+
     });
 }
 
@@ -136,20 +150,32 @@ static NSString *keyFromJSON = @"products";
    
 }
 
+
 - (void)alertUserNoInternetConnection {
     
-    dispatch_async(dispatch_get_main_queue(), ^(void){
+    dispatch_async(dispatch_get_main_queue(), ^{
         
         UIAlertController *noInternetAlert = [UIAlertController alertControllerWithTitle:@"No internet Connection"
-                                                                            message:@"Whoops, can't connect Please check your internet connection"
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
+                                                                                 message:@"Whoops, can't connect Please check your internet connection"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Dismiss"
-                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                                                           }];//save data block end
-
+                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                              
+                                                              UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 30)];
+                                                              label.textAlignment = NSTextAlignmentCenter;
+                                                              label.center = CGPointMake(self.view.frame.size.width/2, self.view
+                                                                                         .frame.size.height/2);
+                                                              label.text = @"no internet connection";
+                                                              label.textColor = [UIColor customTextColor];
+                                                              label.font = [UIFont regularFont:22];
+                                                              [self.view addSubview:label];
+                                                              self.toolBar.userInteractionEnabled = NO;
+                                                          }];
+        
         [noInternetAlert addAction:dismiss];
         [self presentViewController:noInternetAlert animated:YES completion:nil];
+        
     });
 }
 
