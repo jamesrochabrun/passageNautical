@@ -2,7 +2,7 @@
 //  CharterFavorite+CoreDataProperties.h
 //  CharterProject
 //
-//  Created by James Rochabrun on 22-06-16.
+//  Created by James Rochabrun on 23-06-16.
 //  Copyright © 2016 jamesrochabrun. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *longitude;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *shortCharterDescription;
+@property (nullable, nonatomic, retain) NSString *productCode;
+
+@property (nonatomic, readonly) NSString *sectionName;
 
 @end
 

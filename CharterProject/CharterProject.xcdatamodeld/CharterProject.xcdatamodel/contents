@@ -13,9 +13,10 @@
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shortCharterDescription" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CharterFavorite" positionX="-45" positionY="0" width="128" height="240"/>
+        <element name="CharterFavorite" positionX="-45" positionY="0" width="128" height="255"/>
     </elements>
 </model>

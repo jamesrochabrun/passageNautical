@@ -2,7 +2,7 @@
 //  CharterFavorite+CoreDataProperties.m
 //  CharterProject
 //
-//  Created by James Rochabrun on 22-06-16.
+//  Created by James Rochabrun on 23-06-16.
 //  Copyright © 2016 jamesrochabrun. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -26,15 +26,15 @@
 @dynamic longitude;
 @dynamic name;
 @dynamic shortCharterDescription;
+@dynamic productCode;
 
 - (NSString *)sectionName {
     
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.date];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
-    [dateFormat setDateStyle:NSDateFormatterFullStyle];
-    NSString *stringDate  = [dateFormat stringFromDate:date];
+    NSDate *date  = [NSDate dateWithTimeIntervalSince1970:self.date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"MMM yyyy"];
+    NSString *stringDate  = [dateFormatter stringFromDate:date];
     return stringDate;
 }
 
 @end
-

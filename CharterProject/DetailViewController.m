@@ -44,6 +44,8 @@
 
 
 - (void)viewDidLoad {
+    
+    NSLog(@"internal code %@  == %@", self.charterService.productCode, self.charterFavorite.productCode);
 
     self.navigationController.navigationBar.hidden = NO;
     [self setButtonssAppereance];
@@ -53,6 +55,7 @@
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
     
     NSLog(@"es %d", self.isItFavorite);
+    
     
     if (self.charterFavorite.isFavorite) {
         [self displayCharterFavoriteObjectData];
@@ -300,6 +303,7 @@
     self.charterFavorite.longitude = [NSString stringWithFormat:@"%@",self.charterService.longitude];
     self.charterFavorite.durationMinutes = self.charterService.durationMinutes;
     self.charterFavorite.generalTerms = self.charterService.generalTerms;
+    self.charterFavorite.productCode = self.charterService.productCode;
     
     BOOL myBool = YES;
     self.charterFavorite.isFavorite = [NSNumber numberWithBool:myBool];
