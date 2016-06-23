@@ -17,32 +17,93 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="7gL-2T-hMZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sanfrancisco" translatesAutoresizingMaskIntoConstraints="NO" id="xjv-lM-J7d">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="32" y="181" width="319" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow60" translatesAutoresizingMaskIntoConstraints="NO" id="tfD-pV-0Sg">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="7gL-2T-hMZ">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="74" id="Ejb-WU-Jct"/>
+                                    <constraint firstAttribute="width" constant="280" id="o2Y-n7-XOl"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Ejb-WU-Jct"/>
+                                        <exclude reference="o2Y-n7-XOl"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Ejb-WU-Jct"/>
+                                        <include reference="o2Y-n7-XOl"/>
+                                    </mask>
                                 </variation>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7gL-2T-hMZ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0FB-7G-f8e"/>
+                            <constraint firstItem="xjv-lM-J7d" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="9c6-er-f0g"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="xjv-lM-J7d" secondAttribute="bottom" id="Dqf-LB-gak"/>
+                            <constraint firstItem="tfD-pV-0Sg" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Iyp-bs-WPk"/>
+                            <constraint firstItem="xjv-lM-J7d" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="KO5-fr-Qzb"/>
+                            <constraint firstAttribute="trailing" secondItem="tfD-pV-0Sg" secondAttribute="trailing" id="OFr-D5-47U"/>
+                            <constraint firstAttribute="trailing" secondItem="xjv-lM-J7d" secondAttribute="trailing" id="bmL-GT-8vY"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="tfD-pV-0Sg" secondAttribute="bottom" id="hID-MI-iWa"/>
+                            <constraint firstItem="tfD-pV-0Sg" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="x4c-Jt-IEN"/>
+                            <constraint firstItem="7gL-2T-hMZ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ya8-xm-eWs"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="xjv-lM-J7d"/>
+                                <exclude reference="tfD-pV-0Sg"/>
                                 <exclude reference="7gL-2T-hMZ"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Iyp-bs-WPk"/>
+                                <exclude reference="OFr-D5-47U"/>
+                                <exclude reference="x4c-Jt-IEN"/>
+                                <exclude reference="9c6-er-f0g"/>
+                                <exclude reference="KO5-fr-Qzb"/>
+                                <exclude reference="bmL-GT-8vY"/>
+                                <exclude reference="0FB-7G-f8e"/>
+                                <exclude reference="ya8-xm-eWs"/>
+                                <exclude reference="Dqf-LB-gak"/>
+                                <exclude reference="hID-MI-iWa"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
+                                <include reference="xjv-lM-J7d"/>
+                                <include reference="tfD-pV-0Sg"/>
                                 <include reference="7gL-2T-hMZ"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Iyp-bs-WPk"/>
+                                <include reference="OFr-D5-47U"/>
+                                <include reference="x4c-Jt-IEN"/>
+                                <include reference="9c6-er-f0g"/>
+                                <include reference="KO5-fr-Qzb"/>
+                                <include reference="bmL-GT-8vY"/>
+                                <include reference="0FB-7G-f8e"/>
+                                <include reference="ya8-xm-eWs"/>
+                                <include reference="Dqf-LB-gak"/>
+                                <include reference="hID-MI-iWa"/>
                             </mask>
                         </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.5" y="375"/>
+            <point key="canvasLocation" x="-253.5" y="389"/>
         </scene>
     </scenes>
     <resources>
         <image name="greenLogo" width="339" height="81"/>
+        <image name="sanfrancisco" width="500" height="749"/>
+        <image name="shadow60" width="309" height="98"/>
     </resources>
 </document>

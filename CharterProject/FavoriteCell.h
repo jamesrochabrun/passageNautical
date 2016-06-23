@@ -11,6 +11,8 @@
 
 @interface FavoriteCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 - (void)configureCellForFavorite:(CharterFavorite*)charterFavorite;
 

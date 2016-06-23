@@ -19,16 +19,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSData *bookingFields;
 @property (nullable, nonatomic, retain) NSString *charterDescription;
 @property (nullable, nonatomic, retain) NSString *currency;
+@property (nonatomic) NSTimeInterval date;
 @property (nullable, nonatomic, retain) NSNumber *durationMinutes;
 @property (nullable, nonatomic, retain) NSString *generalTerms;
 @property (nullable, nonatomic, retain) NSString *imageURL;
 @property (nullable, nonatomic, retain) NSNumber *isFavorite;
-@property (nullable, nonatomic, retain) NSString *name;
-@property (nullable, nonatomic, retain) NSString *shortCharterDescription;
 @property (nullable, nonatomic, retain) NSString *latitude;
 @property (nullable, nonatomic, retain) NSString *longitude;
-@property (nonatomic) NSTimeInterval date;
-
+@property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSString *shortCharterDescription;
 
 @end
 

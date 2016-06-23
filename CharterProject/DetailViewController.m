@@ -39,13 +39,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *generalTermsButton;
 @property BOOL isItFavorite;
 
-
 @end
 
 @implementation DetailViewController
 
 
 - (void)viewDidLoad {
+    self.navigationController.navigationBar.hidden = NO;
     self.title = self.charterService.name;
     [self setButtonssAppereance];
     [self setTextViewsAppereance];
@@ -53,6 +53,9 @@
     [self addShadowToImageView];
     [self displayCharterDetailInformation];
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
+    NSLog(@"hello %@", self.charterFavorite.name);
+    NSLog(@"this is %@" , self.charterFavorite.isFavorite);
+    
 }
 
 - (void)addShadowToImageView {
@@ -157,15 +160,15 @@
         [[UIApplication sharedApplication] openURL:phoneUrl];
     } else
     {
-        NSLog(@"cant do this man");
+        NSLog(@"not available");
     }
 }
 
 - (IBAction)mailPassageNautical:(UIButton *)sender {
     // Email Subject
-    NSString *emailTitle = @"Test Email";
+    NSString *emailTitle = @"about Charter information";
     // Email Content
-    NSString *messageBody = @"iOS programming is so fun!";
+    NSString *messageBody = [NSString stringWithFormat:@"I am interested in rent the %@", self.charterService.name];
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:@"passagenautical@passagenautical.com"];
     
@@ -226,27 +229,54 @@
 
 - (IBAction)addToFavorites:(UIButton *)sender {
     
+    if ([sender isSelected]) {
+        [sender setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
+        [sender setSelected:NO];
+        [self deleteFromCoredata];        
+    } else {
+        [sender setImage:[UIImage imageNamed:@"fullLove"] forState:UIControlStateSelected];
+        [sender setSelected:YES];
+        [self saveInCoreData];
+    }
+}
+
+- (void)saveInCoreData {
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    CharterFavorite *charterFavorite = [NSEntityDescription insertNewObjectForEntityForName:@"CharterFavorite" inManagedObjectContext:coreDataStack.managedObjectContext];
-    charterFavorite.name = self.charterService.name;
-    charterFavorite.currency = self.charterService.currency;
-    charterFavorite.advertisedPrice = self.charterService.advertisedPrice;
-    charterFavorite.charterDescription = self.charterService.charterDescription;
-    charterFavorite.shortCharterDescription = self.charterService.shortDescription;
-    charterFavorite.latitude = [NSString stringWithFormat:@"%@",self.charterService.latitude];
-    charterFavorite.longitude = [NSString stringWithFormat:@"%@",self.charterService.longitude];
-    charterFavorite.durationMinutes = self.charterService.durationMinutes;
-    charterFavorite.generalTerms = self.charterService.generalTerms;
-    charterFavorite.isFavorite = @1;
+    self.charterFavorite = [NSEntityDescription insertNewObjectForEntityForName:@"CharterFavorite" inManagedObjectContext:coreDataStack.managedObjectContext];
+    self.charterFavorite.name = self.charterService.name;
+    self.charterFavorite.currency = self.charterService.currency;
+    self.charterFavorite.advertisedPrice = self.charterService.advertisedPrice;
+    self.charterFavorite.charterDescription = self.charterService.charterDescription;
+    self.charterFavorite.shortCharterDescription = self.charterService.shortDescription;
+    self.charterFavorite.latitude = [NSString stringWithFormat:@"%@",self.charterService.latitude];
+    self.charterFavorite.longitude = [NSString stringWithFormat:@"%@",self.charterService.longitude];
+    self.charterFavorite.durationMinutes = self.charterService.durationMinutes;
+    self.charterFavorite.generalTerms = self.charterService.generalTerms;
+    
+    BOOL myBool = YES;
+    self.charterFavorite.isFavorite = [NSNumber numberWithBool:myBool];
+    self.charterFavorite.date = [[NSDate date] timeIntervalSince1970];
     
     NSDictionary *imagesDictionary = [self.charterService.images firstObject];
     NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
     NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    charterFavorite.imageURL = itemUrlWithNoSpaces;
+    self.charterFavorite.imageURL = itemUrlWithNoSpaces;
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.charterService.bookingFields];
-    charterFavorite.bookingFields = data;
+    self.charterFavorite.bookingFields = data;
     
+    [coreDataStack saveContext];
+    
+    UIAlertController *alertSaved = [UIAlertController alertControllerWithTitle:@"Added to favorites!" message:@"You can revisit this in your favorites section" preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alertSaved animated:YES completion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [alertSaved dismissViewControllerAnimated:YES completion:nil];
+    });
+}
+
+- (void)deleteFromCoredata {
+    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    [[coreDataStack managedObjectContext] deleteObject:self.charterFavorite];
     [coreDataStack saveContext];
 }
 

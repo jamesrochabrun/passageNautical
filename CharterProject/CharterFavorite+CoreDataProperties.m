@@ -17,22 +17,24 @@
 @dynamic bookingFields;
 @dynamic charterDescription;
 @dynamic currency;
+@dynamic date;
 @dynamic durationMinutes;
 @dynamic generalTerms;
 @dynamic imageURL;
 @dynamic isFavorite;
-@dynamic name;
-@dynamic shortCharterDescription;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic date;
+@dynamic name;
+@dynamic shortCharterDescription;
 
 - (NSString *)sectionName {
     
-    NSDate *date  = [NSDate dateWithTimeIntervalSince1970:self.date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"MMM yyyy"];
-    NSString *stringDate  = [dateFormatter stringFromDate:date];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
+    [dateFormat setDateStyle:NSDateFormatterFullStyle];
+    NSString *stringDate  = [dateFormat stringFromDate:date];
     return stringDate;
 }
+
 @end
+
