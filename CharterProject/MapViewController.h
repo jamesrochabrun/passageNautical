@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class CharterService;
+@class CharterFavorite;
+
 
 @interface MapViewController : UIViewController
 @property CharterService *charterService;
+@property CharterFavorite *charterFavorite;
+
 
 @end

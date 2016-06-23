@@ -55,8 +55,8 @@
 		2DC74DE4E160EE329BEFF105 /* Pods-CharterProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CharterProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CharterProjectTests/Pods-CharterProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		645EBC871D08BF3B007D1557 /* CharterProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharterProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		645EBC8B1D08BF3B007D1557 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		645EBC8D1D08BF3B007D1557 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		645EBC8E1D08BF3B007D1557 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		645EBC8D1D08BF3B007D1557 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CharterProject/AppDelegate.h; sourceTree = "<group>"; };
+		645EBC8E1D08BF3B007D1557 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = CharterProject/AppDelegate.m; sourceTree = "<group>"; };
 		645EBC941D08BF3B007D1557 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		645EBC971D08BF3B007D1557 /* CharterProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CharterProject.xcdatamodel; sourceTree = "<group>"; };
 		645EBC991D08BF3B007D1557 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,6 +146,8 @@
 		645EBC7E1D08BF3B007D1557 = {
 			isa = PBXGroup;
 			children = (
+				645EBC8D1D08BF3B007D1557 /* AppDelegate.h */,
+				645EBC8E1D08BF3B007D1557 /* AppDelegate.m */,
 				645EBC891D08BF3B007D1557 /* CharterProject */,
 				645EBCA61D08BF3B007D1557 /* CharterProjectTests */,
 				645EBC881D08BF3B007D1557 /* Products */,
@@ -170,8 +172,6 @@
 				645EBCB41D08D441007D1557 /* Model */,
 				645EBCB21D08D425007D1557 /* View */,
 				645EBCB31D08D432007D1557 /* Controller */,
-				645EBC8D1D08BF3B007D1557 /* AppDelegate.h */,
-				645EBC8E1D08BF3B007D1557 /* AppDelegate.m */,
 				645EBC931D08BF3B007D1557 /* Main.storyboard */,
 				645EBC991D08BF3B007D1557 /* Assets.xcassets */,
 				645EBC9B1D08BF3B007D1557 /* LaunchScreen.storyboard */,
@@ -202,13 +202,8 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B55999D1D1B6972009B8EE7 /* customViews */,
 				7BA11F2D1D1271810072DBA7 /* categories */,
-				7B2AC3BA1D0BA4B200975BE9 /* CategoryTableViewCell.h */,
-				7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */,
-				7B5124811D0E79270068A6F7 /* ProductCell.h */,
-				7B5124821D0E79270068A6F7 /* ProductCell.m */,
-				7B5599971D1B1402009B8EE7 /* FavoriteCell.h */,
-				7B5599981D1B1402009B8EE7 /* FavoriteCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -237,16 +232,53 @@
 		645EBCB41D08D441007D1557 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B55999C1D1B694B009B8EE7 /* CharterManagedObject */,
+				7B55999B1D1B6927009B8EE7 /* CharterObject */,
+				7B55999A1D1B68F6009B8EE7 /* coreDataStack */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7B55999A1D1B68F6009B8EE7 /* coreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				7B5599881D1AF1D9009B8EE7 /* CoreDataStack.h */,
+				7B5599891D1AF1D9009B8EE7 /* CoreDataStack.m */,
+			);
+			name = coreDataStack;
+			sourceTree = "<group>";
+		};
+		7B55999B1D1B6927009B8EE7 /* CharterObject */ = {
+			isa = PBXGroup;
+			children = (
+				7B2AC3B41D0B3C7600975BE9 /* CharterService.h */,
+				7B2AC3B51D0B3C7600975BE9 /* CharterService.m */,
+			);
+			name = CharterObject;
+			sourceTree = "<group>";
+		};
+		7B55999C1D1B694B009B8EE7 /* CharterManagedObject */ = {
+			isa = PBXGroup;
+			children = (
 				7B5599911D1B11E5009B8EE7 /* CharterFavorite+CoreDataProperties.h */,
 				7B5599921D1B11E5009B8EE7 /* CharterFavorite+CoreDataProperties.m */,
 				7B5599931D1B11E5009B8EE7 /* CharterFavorite.h */,
 				7B5599941D1B11E5009B8EE7 /* CharterFavorite.m */,
-				7B5599881D1AF1D9009B8EE7 /* CoreDataStack.h */,
-				7B5599891D1AF1D9009B8EE7 /* CoreDataStack.m */,
-				7B2AC3B41D0B3C7600975BE9 /* CharterService.h */,
-				7B2AC3B51D0B3C7600975BE9 /* CharterService.m */,
 			);
-			name = Model;
+			name = CharterManagedObject;
+			sourceTree = "<group>";
+		};
+		7B55999D1D1B6972009B8EE7 /* customViews */ = {
+			isa = PBXGroup;
+			children = (
+				7B2AC3BA1D0BA4B200975BE9 /* CategoryTableViewCell.h */,
+				7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */,
+				7B5124811D0E79270068A6F7 /* ProductCell.h */,
+				7B5124821D0E79270068A6F7 /* ProductCell.m */,
+				7B5599971D1B1402009B8EE7 /* FavoriteCell.h */,
+				7B5599981D1B1402009B8EE7 /* FavoriteCell.m */,
+			);
+			name = customViews;
 			sourceTree = "<group>";
 		};
 		7B9749C81D0CA88E003123CB /* fonts */ = {

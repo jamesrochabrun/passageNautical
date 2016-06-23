@@ -46,15 +46,19 @@
 
 - (void)viewDidLoad {
     self.navigationController.navigationBar.hidden = NO;
-    self.title = self.charterService.name;
     [self setButtonssAppereance];
     [self setTextViewsAppereance];
     [self setlabelsAppereance];
     [self addShadowToImageView];
-    [self displayCharterDetailInformation];
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
     NSLog(@"hello %@", self.charterFavorite.name);
     NSLog(@"this is %@" , self.charterFavorite.isFavorite);
+    
+    if (self.charterFavorite != nil) {
+        [self displayCharterFavoriteObjectData];
+    } else {
+        [self displayCharterDetailInformation];
+    }
     
 }
 
@@ -91,6 +95,7 @@
     self.generalTermsButton.titleLabel.font = [UIFont regularFont:14];
 }
 
+
 - (void)setTextViewsAppereance {
     
     [self.textView setFont:[UIFont regularFont:15]];
@@ -98,10 +103,7 @@
     [self.textView setUserInteractionEnabled:NO];
     [self.textView setBackgroundColor:[UIColor clearColor]];
     self.textView.textColor = [UIColor customTextColor];
-    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.charterService.shortDescription];
-    NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
-    [self.textView setText:stringWithNoHTML];
-    CGSize sizeThatShouldFitTheContent = [self.textView sizeThatFits:self.textView.frame.size];
+       CGSize sizeThatShouldFitTheContent = [self.textView sizeThatFits:self.textView.frame.size];
     self.heightTextViewConstraint.constant = sizeThatShouldFitTheContent.height;
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0,0 , self.view.frame.size.width, 1)];
     lineView.backgroundColor = [UIColor colorWithRed:0.5363 green:0.5182 blue:0.3785 alpha:0.5];
@@ -115,10 +117,13 @@
     self.durationHoursLabel.textColor = [UIColor customTextColor];
     self.extraLabel.font = [UIFont regularFont:18];
     self.extraLabel.textColor = [UIColor customTextColor];
+    self.priceLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    self.priceLabel.font = [UIFont regularFont:20];
 }
 
 - (void)displayCharterDetailInformation {
     
+    self.title = self.charterService.name;
     //display the first image of the charter gallery
     NSDictionary *imagesDictionary = [self.charterService.images firstObject];
     NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
@@ -128,28 +133,65 @@
     
     //display price
     self.priceLabel.text = [NSString stringWithFormat:@"%@ %@", self.charterService.currency , self.charterService.advertisedPrice];
-    self.priceLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    self.priceLabel.font = [UIFont regularFont:20];
     
     //display infromation labels
     int hours = [self.charterService.durationMinutes intValue] /60;
     self.durationHoursLabel.text = [NSString stringWithFormat:@"%d H",hours];
+    
+    //display shortDescription
+    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.charterService.shortDescription];
+    NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
+    [self.textView setText:stringWithNoHTML];
+}
 
+- (void)displayCharterFavoriteObjectData {
+    
+    self.title = self.charterFavorite.name;
+    //display the first image of the charter gallery
+    [self.imageView setImageWithURL:[NSURL URLWithString:self.charterFavorite.imageURL]
+                   placeholderImage:[UIImage imageNamed:@"yate"]];
+    //display price
+    self.priceLabel.text = [NSString stringWithFormat:@"%@ %@", self.charterFavorite.currency , self.charterFavorite.advertisedPrice];
+
+    //display infromation labels
+    int hours = [self.charterFavorite.durationMinutes intValue] /60;
+    self.durationHoursLabel.text = [NSString stringWithFormat:@"%d H",hours];
+    
+    //display shortDescription
+    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.charterFavorite.shortCharterDescription];
+    NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
+    [self.textView setText:stringWithNoHTML];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    DescriptionViewController *desVC = segue.destinationViewController;
-    if ([segue.identifier isEqualToString:@"DescriptionSegue"]) {
-        desVC.labelData = self.charterService.name;
-        desVC.textFieldData = self.charterService.charterDescription;
-    } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
-        desVC.labelData = @"General Terms";
-        desVC.textFieldData = self.charterService.generalTerms;
-    } else{
-        MapViewController *mapViewController = segue.destinationViewController;
-        mapViewController.charterService = self.charterService;
+    if (self.charterFavorite != nil) {
+        DescriptionViewController *desVC = segue.destinationViewController;
+        if ([segue.identifier isEqualToString:@"DescriptionSegue"]) {
+            desVC.labelData = self.charterFavorite.name;
+            desVC.textFieldData = self.charterFavorite.charterDescription;
+        } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
+            desVC.labelData = @"General Terms";
+            desVC.textFieldData = self.charterFavorite.generalTerms;
+        } else{
+            MapViewController *mapViewController = segue.destinationViewController;
+            mapViewController.charterFavorite = self.charterFavorite;
+        }
+    } else {
+        DescriptionViewController *desVC = segue.destinationViewController;
+        if ([segue.identifier isEqualToString:@"DescriptionSegue"]) {
+            desVC.labelData = self.charterService.name;
+            desVC.textFieldData = self.charterService.charterDescription;
+        } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
+            desVC.labelData = @"General Terms";
+            desVC.textFieldData = self.charterService.generalTerms;
+        } else{
+            MapViewController *mapViewController = segue.destinationViewController;
+            mapViewController.charterService = self.charterService;
+        }
     }
+
 }
 
 - (IBAction)callPassageNautical:(UIButton *)sender {
@@ -269,7 +311,7 @@
     
     UIAlertController *alertSaved = [UIAlertController alertControllerWithTitle:@"Added to favorites!" message:@"You can revisit this in your favorites section" preferredStyle:UIAlertControllerStyleAlert];
     [self presentViewController:alertSaved animated:YES completion:nil];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [alertSaved dismissViewControllerAnimated:YES completion:nil];
     });
 }
