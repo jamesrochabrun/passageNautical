@@ -33,7 +33,6 @@
     if (self.fetchedResultsController.sections.count <= 0) {
         [self setImageIfNotfavorites];
     }
-
 }
 
 #pragma content layout in code

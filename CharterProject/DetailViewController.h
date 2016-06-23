@@ -13,6 +13,7 @@
 @interface DetailViewController : UIViewController
 @property CharterService *charterService;
 @property CharterFavorite *charterFavorite;
+@property BOOL isItFavorite;
 
 
 

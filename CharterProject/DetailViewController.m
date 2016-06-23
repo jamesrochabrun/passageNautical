@@ -37,7 +37,6 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) IBOutlet UIButton *generalTermsButton;
-@property BOOL isItFavorite;
 
 @end
 
@@ -45,22 +44,24 @@
 
 
 - (void)viewDidLoad {
+
     self.navigationController.navigationBar.hidden = NO;
     [self setButtonssAppereance];
     [self setTextViewsAppereance];
     [self setlabelsAppereance];
     [self addShadowToImageView];
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
-    NSLog(@"hello %@", self.charterFavorite.name);
-    NSLog(@"this is %@" , self.charterFavorite.isFavorite);
     
-    if (self.charterFavorite != nil) {
+    NSLog(@"es %d", self.isItFavorite);
+    
+    if (self.charterFavorite.isFavorite) {
         [self displayCharterFavoriteObjectData];
+        [self.loveButton setSelected:YES];
     } else {
         [self displayCharterDetailInformation];
     }
-    
 }
+
 
 - (void)addShadowToImageView {
     self.imageView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -85,6 +86,8 @@
     [self.phoneButton setTintColor:[UIColor whiteColor]];
     [self.mailButton setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];
     [self.loveButton setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
+    [self.loveButton setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
+    [self.loveButton setImage:[UIImage imageNamed:@"fullLove"] forState:UIControlStateSelected];
     [self.loveButton setTintColor:[UIColor customMainColor]];
     [self.mailButton setTintColor:[UIColor whiteColor]];
     [self.mapButton setTintColor:[UIColor customMainColor]];
@@ -97,7 +100,6 @@
 
 
 - (void)setTextViewsAppereance {
-    
     [self.textView setFont:[UIFont regularFont:15]];
     [self.textView setScrollEnabled:NO];
     [self.textView setUserInteractionEnabled:NO];
@@ -270,15 +272,19 @@
 
 
 - (IBAction)addToFavorites:(UIButton *)sender {
+
+    BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
+    isFavorite = !isFavorite;
     
-    if ([sender isSelected]) {
-        [sender setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
-        [sender setSelected:NO];
-        [self deleteFromCoredata];        
-    } else {
-        [sender setImage:[UIImage imageNamed:@"fullLove"] forState:UIControlStateSelected];
+    if (isFavorite) {
         [sender setSelected:YES];
         [self saveInCoreData];
+        NSLog(@"te guard0");
+    } else {
+        [sender setSelected:NO];
+
+        [self deleteFromCoredata];
+        NSLog(@"te borro");
     }
 }
 

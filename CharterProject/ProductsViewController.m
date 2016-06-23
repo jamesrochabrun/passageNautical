@@ -13,13 +13,15 @@
 
 @interface ProductsViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property BOOL isItFavorite;
 
 @end
 
 @implementation ProductsViewController
 
 - (void)viewDidLoad {
+    
+    self.isItFavorite = NO;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavBar];
@@ -55,6 +57,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     DetailViewController *detailVC = segue.destinationViewController;
     detailVC.charterService = [self.productsArray objectAtIndex:indexPath.row];
+    detailVC.isItFavorite = self.isItFavorite;
 }
 
 
