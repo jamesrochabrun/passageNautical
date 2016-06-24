@@ -18,8 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextView;
 
-
-
 @end
 
 @implementation DescriptionViewController
@@ -31,8 +29,7 @@
 }
 
 - (void)displayContentInViewController {
- 
-
+    
     self.charterLabel.text = self.labelData;
     self.charterLabel.font = [UIFont mediumFont:19];
     self.charterLabel.textColor = [UIColor customMainColor];

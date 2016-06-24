@@ -3,6 +3,7 @@
     <entity name="CharterFavorite" representedClassName="CharterFavorite" syncable="YES">
         <attribute name="advertisedPrice" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="bookingFields" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="charterDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -17,6 +18,6 @@
         <attribute name="shortCharterDescription" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CharterFavorite" positionX="-45" positionY="0" width="128" height="255"/>
+        <element name="CharterFavorite" positionX="-45" positionY="0" width="128" height="270"/>
     </elements>
 </model>

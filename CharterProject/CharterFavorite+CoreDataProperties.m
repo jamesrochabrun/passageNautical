@@ -25,8 +25,10 @@
 @dynamic latitude;
 @dynamic longitude;
 @dynamic name;
-@dynamic shortCharterDescription;
 @dynamic productCode;
+@dynamic shortCharterDescription;
+@dynamic category;
+
 
 - (NSString *)sectionName {
     
@@ -36,5 +38,4 @@
     NSString *stringDate  = [dateFormatter stringFromDate:date];
     return stringDate;
 }
-
 @end

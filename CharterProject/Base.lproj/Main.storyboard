@@ -29,7 +29,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="252" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Yk-Xy-3fj">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="521"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="252" id="d5C-RK-FOZ" customClass="CategoryTableViewCell">
@@ -88,13 +88,23 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="xwL-hB-xMB"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2gL-So-19Q">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3Yg-IN-QJY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="0Yk-Xy-3fj" firstAttribute="top" secondItem="8h4-SZ-4mX" secondAttribute="bottom" constant="-20" id="OOJ-sS-9tu"/>
-                            <constraint firstItem="X96-7P-Y9W" firstAttribute="top" secondItem="0Yk-Xy-3fj" secondAttribute="bottom" id="Se7-56-1f0"/>
-                            <constraint firstItem="0Yk-Xy-3fj" firstAttribute="leading" secondItem="ZQS-Cl-A1I" secondAttribute="leading" id="kE5-pR-crD"/>
-                            <constraint firstAttribute="trailing" secondItem="0Yk-Xy-3fj" secondAttribute="trailing" id="vzk-Fj-cTU"/>
+                            <constraint firstItem="0Yk-Xy-3fj" firstAttribute="top" secondItem="ZQS-Cl-A1I" secondAttribute="top" id="Ibz-bl-My2"/>
+                            <constraint firstAttribute="trailing" secondItem="2gL-So-19Q" secondAttribute="trailing" id="euv-nz-86e"/>
+                            <constraint firstItem="2gL-So-19Q" firstAttribute="leading" secondItem="ZQS-Cl-A1I" secondAttribute="leading" id="jjw-uu-9NK"/>
+                            <constraint firstItem="0Yk-Xy-3fj" firstAttribute="leading" secondItem="2gL-So-19Q" secondAttribute="leading" id="l1Q-YZ-1RL"/>
+                            <constraint firstItem="0Yk-Xy-3fj" firstAttribute="trailing" secondItem="2gL-So-19Q" secondAttribute="trailing" id="wOF-nf-Wbt"/>
+                            <constraint firstItem="X96-7P-Y9W" firstAttribute="top" secondItem="0Yk-Xy-3fj" secondAttribute="bottom" constant="47" id="wT7-Kc-4Ev"/>
+                            <constraint firstItem="X96-7P-Y9W" firstAttribute="top" secondItem="2gL-So-19Q" secondAttribute="bottom" id="yFR-Vs-xE9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ggx-q9-MSZ"/>
@@ -458,7 +468,7 @@
                                             <constraint firstAttribute="height" constant="45" id="utV-Cf-pdc"/>
                                         </constraints>
                                         <connections>
-                                            <action selector="addToFavorites:" destination="8OD-vb-SCT" eventType="touchUpInside" id="rcq-fD-Tlx"/>
+                                            <action selector="addToFavorites:" destination="8OD-vb-SCT" eventType="touchUpInside" id="rIC-YN-Edl"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="people" translatesAutoresizingMaskIntoConstraints="NO" id="lQl-Aq-xf3">
@@ -867,10 +877,10 @@
         <image name="shadow60" width="309" height="98"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bJ7-37-sjF"/>
         <segue reference="TZ1-09-LEY"/>
         <segue reference="pLS-Og-OVT"/>
         <segue reference="k3m-3U-v7C"/>
-        <segue reference="2Px-gu-RX7"/>
+        <segue reference="UfH-bh-zA9"/>
+        <segue reference="bJ7-37-sjF"/>
     </inferredMetricsTieBreakers>
 </document>

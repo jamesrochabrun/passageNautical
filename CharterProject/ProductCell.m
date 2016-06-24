@@ -8,6 +8,7 @@
 
 #import "ProductCell.h"
 #import "CharterService.h"
+#import "CharterFavorite.h"
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
@@ -28,15 +29,12 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)configureCellwithCharterService:(CharterService*)charterService {
+- (void)configureCellwithCharterFavorite:(CharterFavorite*)charterfavorite {
     //background Image of Cell
-    NSDictionary *imagesDictionary = [charterService.images objectAtIndex:0];
-    NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
-    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
     UIImageView *imageView = [UIImageView new];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
+    [imageView setImageWithURL:[NSURL URLWithString:charterfavorite.imageURL]
               placeholderImage:[UIImage imageNamed:@"yate"]];
     
     self.backgroundView.layer.shadowColor = [UIColor whiteColor].CGColor;
@@ -46,17 +44,17 @@
     self.backgroundView = imageView;
     
     //charter service name
-    self.nameLabel.text = charterService.name;
+    self.nameLabel.text = charterfavorite.name;
     self.nameLabel.textColor = [UIColor whiteColor];
     self.nameLabel.font = [UIFont regularFont:15];
     
     //charter service price
-    self.priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterService.currency, charterService.advertisedPrice];
+    self.priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterfavorite.currency, charterfavorite.advertisedPrice];
     self.priceLabel.textColor = [UIColor whiteColor];
     self.priceLabel.font = [UIFont regularFont:15];
     
     //charter service time
-    int hours = [charterService.durationMinutes intValue] / 60;
+    int hours = [charterfavorite.durationMinutes intValue] / 60;
     self.timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
     self.timeLabel.textColor = [UIColor whiteColor];
     self.timeLabel.font = [UIFont regularFont:15];

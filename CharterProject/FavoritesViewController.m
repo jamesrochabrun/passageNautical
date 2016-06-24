@@ -115,6 +115,9 @@
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"CharterFavorite"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFavorite == %d", YES];
+    [fetchRequest setPredicate:predicate];
     return  fetchRequest;
 }
 
@@ -221,8 +224,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    BOOL myBool = NO;
+    charterfavorite.isFavorite = [NSNumber numberWithBool:myBool];
+    
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    [[coreDataStack managedObjectContext] deleteObject:charterfavorite];
     [coreDataStack saveContext];
 }
 

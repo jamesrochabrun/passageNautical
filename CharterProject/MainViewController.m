@@ -118,7 +118,6 @@ static NSString *keyFromJSON = @"products";
         CharterService *charterService = [[CharterService alloc]initWithDictionary:dict];
         [categoryProductsArray addObject:charterService];
     }
-    
     [self.finalCategoryArray addObject:[categoryProductsArray mutableCopy]];
     
     dispatch_async(dispatch_get_main_queue(), ^{

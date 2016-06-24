@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class CharterService;
+@class CharterFavorite;
 
 @interface ProductCell : UITableViewCell
 
-- (void)configureCellwithCharterService:(CharterService*)charterService;
+- (void)configureCellwithCharterFavorite:(CharterFavorite*)charterFavorite;
 
 
 @end

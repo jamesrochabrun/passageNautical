@@ -17,8 +17,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIButton *dismissButton;
 @property (weak, nonatomic) IBOutlet UIButton *getDirectionsButton;
-@property NSString *latitude;
-@property NSString *longitude;
+
 
 @end
 
@@ -28,7 +27,6 @@
 
 - (void)viewDidLoad {
 
-    [self switchBetweenCharterObjectAndCharterFavorite];
     self.dismissButton.tintColor = [UIColor whiteColor];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -37,16 +35,6 @@
     self.mapView.showsUserLocation = YES;
 }
 
-- (void)switchBetweenCharterObjectAndCharterFavorite {
-    
-    if (self.charterFavorite != nil) {
-        self.latitude = self.charterFavorite.latitude;
-        self.longitude = self.charterFavorite.longitude;
-    } else {
-        self.latitude = self.charterService.latitude;
-        self.longitude = self.charterService.longitude;
-    }
-}
 
 - (void)viewDidDisappear:(BOOL)animated {
     [self.locationManager stopUpdatingLocation];
@@ -55,7 +43,7 @@
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = CLLocationCoordinate2DMake([self.latitude doubleValue], [self.longitude doubleValue]);
+    point.coordinate = CLLocationCoordinate2DMake([self.charterFavorite.latitude doubleValue], [self.charterFavorite.longitude doubleValue]);
     point.title = @"Passage Nautical";
     point.subtitle = @"Richmond";
     
@@ -84,7 +72,7 @@
 }
 
 - (IBAction)getDirectionsButtonTapped:(UIButton *)sender {
-    NSString *stringUrl = [NSString stringWithFormat:@"http://maps.apple.com/maps?daddr=%@,%@", self.latitude,self.longitude];
+    NSString *stringUrl = [NSString stringWithFormat:@"http://maps.apple.com/maps?daddr=%@,%@", self.charterFavorite.latitude ,self.charterFavorite.longitude];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringUrl]];
 }
 

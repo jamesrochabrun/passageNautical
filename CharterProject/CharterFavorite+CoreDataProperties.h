@@ -27,10 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *latitude;
 @property (nullable, nonatomic, retain) NSString *longitude;
 @property (nullable, nonatomic, retain) NSString *name;
-@property (nullable, nonatomic, retain) NSString *shortCharterDescription;
 @property (nullable, nonatomic, retain) NSString *productCode;
+@property (nullable, nonatomic, retain) NSString *shortCharterDescription;
+@property (nullable, nonatomic, retain) NSString *category;
 
 @property (nonatomic, readonly) NSString *sectionName;
+
 
 @end
 
