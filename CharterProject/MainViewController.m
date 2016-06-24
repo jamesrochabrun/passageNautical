@@ -46,6 +46,16 @@ static NSString *keyFromJSON = @"products";
     UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
     whiteView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:whiteView];
+    
+    
+    NSArray *fontFamilies = [UIFont familyNames];
+    
+    for (int i = 0; i < [fontFamilies count]; i++)
+    {
+        NSString *fontFamily = [fontFamilies objectAtIndex:i];
+        NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
+        NSLog (@"%@: %@", fontFamily, fontNames);
+    }
 }
 
 - (void)startActivityIndicator {

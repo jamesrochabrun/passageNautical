@@ -11,11 +11,11 @@
 @implementation UIFont (CustomFont)
 
 + (UIFont*)regularFont:(int)size {
-    return [UIFont fontWithName:@"Gotham Narrow" size:size];
+    return [UIFont fontWithName:@"GothamNarrow-Book" size:size];
 }
 
 + (UIFont*)mediumFont:(int)size {
-    return [UIFont fontWithName:@"GOTHAM-MEDIUM" size:size];
+    return [UIFont fontWithName:@"GothamMedium" size:size];
 }
 
 @end

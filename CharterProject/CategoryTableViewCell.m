@@ -15,6 +15,7 @@
 
 @interface CategoryTableViewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @end
@@ -58,15 +59,14 @@
             self.titleLabel.text = @"Bed & Boat";
         }
         self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-        self.titleLabel.font = [UIFont mediumFont:19];
         self.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
         self.titleLabel.layer.shadowRadius = 3.0f;
         self.titleLabel.layer.shadowOpacity = 1;
         self.titleLabel.layer.shadowOffset = CGSizeZero;
         self.titleLabel.layer.masksToBounds = NO;
+        [self.titleLabel setFont:[UIFont mediumFont:22]];
         
         //category description Label
-        //    self.descriptionLabel.text = @"full day";
         self.descriptionLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
         self.descriptionLabel.font = [UIFont regularFont:14];
         self.descriptionLabel.layer.shadowColor = [UIColor customTextColor].CGColor;

@@ -17,10 +17,12 @@
 #import "MapViewController.h"
 #import "CoreDataStack.h"
 #import "CharterFavorite.h"
+#import "DoubleTapImage.h"
 
-@interface DetailViewController ()<MFMailComposeViewControllerDelegate>
+@interface DetailViewController ()<MFMailComposeViewControllerDelegate,DoubleTapImageDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet DoubleTapImage *doubleTapImageView;
+
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -52,7 +54,6 @@
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
     [self displayCharterFavoriteObjectData];
     
-
     BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
     
     if (isFavorite) {
@@ -60,17 +61,17 @@
     } else {
         [self.loveButton setSelected:NO];
     }
-
-
+    
+    self.doubleTapImageView.delegate = self;
 }
 
 
 - (void)addShadowToImageView {
-    self.imageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.imageView.layer.shadowOffset = CGSizeMake(0, 4);
-    self.imageView.layer.shadowOpacity = 0.7;
-    self.imageView.layer.shadowRadius = 10;
-    self.imageView.clipsToBounds = NO;
+    self.doubleTapImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.doubleTapImageView.layer.shadowOffset = CGSizeMake(0, 4);
+    self.doubleTapImageView.layer.shadowOpacity = 0.7;
+    self.doubleTapImageView.layer.shadowRadius = 10;
+    self.doubleTapImageView.clipsToBounds = NO;
 }
 
 - (void)setButtonssAppereance {
@@ -128,7 +129,7 @@
     
     self.title = self.charterFavorite.name;
     //display the first image of the charter gallery
-    [self.imageView setImageWithURL:[NSURL URLWithString:self.charterFavorite.imageURL]
+    [self.doubleTapImageView setImageWithURL:[NSURL URLWithString:self.charterFavorite.imageURL]
                    placeholderImage:[UIImage imageNamed:@"yate"]];
     //display price
     self.priceLabel.text = [NSString stringWithFormat:@"%@ %@", self.charterFavorite.currency , self.charterFavorite.advertisedPrice];
@@ -245,6 +246,19 @@
         [sender setSelected:NO];
         [self changingIsFavoriteToFalse];
     }
+}
+
+- (void)didIamgeDoubleTapped {
+    BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
+    if (!isFavorite) {
+        [self.loveButton setSelected:YES];
+        [self changingIsFavoriteToTrue];
+    } else {
+        [self.loveButton setSelected:NO];
+        [self changingIsFavoriteToFalse];
+    }
+    
+    NSLog(@"hello");
 }
 
 - (void)changingIsFavoriteToTrue {

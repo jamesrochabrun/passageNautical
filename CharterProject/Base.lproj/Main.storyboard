@@ -39,16 +39,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="251"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBG-1E-CWM">
-                                                    <rect key="frame" x="60" y="111" width="200" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="YXR-Nd-tOY"/>
-                                                        <constraint firstAttribute="width" constant="200" id="y1f-RO-fHx"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjx-pa-rAJ">
                                                     <rect key="frame" x="60" y="141" width="200" height="30"/>
                                                     <constraints>
@@ -66,19 +56,29 @@
                                                         <constraint firstAttribute="height" constant="128" id="Wig-dT-gMz"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYW-dD-amL">
+                                                    <rect key="frame" x="40" y="111" width="240" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="240" id="hJC-Z9-Biz"/>
+                                                        <constraint firstAttribute="height" constant="30" id="wXY-E8-tUB"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="HBG-1E-CWM" firstAttribute="centerY" secondItem="EiL-qp-WDe" secondAttribute="centerY" id="IWi-DZ-cqK"/>
-                                                <constraint firstItem="HBG-1E-CWM" firstAttribute="centerX" secondItem="EiL-qp-WDe" secondAttribute="centerX" id="Oa5-xG-DLX"/>
+                                                <constraint firstItem="yYW-dD-amL" firstAttribute="centerX" secondItem="EiL-qp-WDe" secondAttribute="centerX" id="0nD-s3-xu5"/>
+                                                <constraint firstItem="yYW-dD-amL" firstAttribute="centerY" secondItem="EiL-qp-WDe" secondAttribute="centerY" id="9gN-dE-DTP"/>
                                                 <constraint firstItem="vjx-pa-rAJ" firstAttribute="centerX" secondItem="EiL-qp-WDe" secondAttribute="centerX" id="UJg-PP-yCm"/>
-                                                <constraint firstItem="vjx-pa-rAJ" firstAttribute="top" secondItem="HBG-1E-CWM" secondAttribute="bottom" id="llD-EG-UjZ"/>
                                                 <constraint firstItem="WCQ-hC-2PH" firstAttribute="centerX" secondItem="EiL-qp-WDe" secondAttribute="centerX" id="nZe-Ld-b7O"/>
+                                                <constraint firstItem="vjx-pa-rAJ" firstAttribute="top" secondItem="yYW-dD-amL" secondAttribute="bottom" id="pNa-8F-4IA"/>
                                                 <constraint firstItem="WCQ-hC-2PH" firstAttribute="centerY" secondItem="EiL-qp-WDe" secondAttribute="centerY" id="xm0-gO-xCt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="descriptionLabel" destination="vjx-pa-rAJ" id="ZuB-Hl-m8S"/>
-                                            <outlet property="titleLabel" destination="HBG-1E-CWM" id="doj-I8-SF7"/>
+                                            <outlet property="titleLabel" destination="yYW-dD-amL" id="UYA-8Q-hoZ"/>
                                             <segue destination="ueh-J9-j6o" kind="push" identifier="product" id="UzG-Kn-Tm7"/>
                                         </connections>
                                     </tableViewCell>
@@ -383,7 +383,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2G-F7-w5o">
                                 <rect key="frame" x="-8" y="20" width="336" height="931"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PuS-tW-sIq">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PuS-tW-sIq" customClass="DoubleTapImage">
                                         <rect key="frame" x="0.0" y="0.0" width="328" height="220"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="220" id="hMy-ev-Ktj"/>
@@ -623,12 +623,12 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="1000"/>
                     <connections>
+                        <outlet property="doubleTapImageView" destination="PuS-tW-sIq" id="YMl-ob-Hz5"/>
                         <outlet property="durationHoursLabel" destination="w2C-5I-pzM" id="VY6-4c-GtH"/>
                         <outlet property="extraLabel" destination="rEi-YL-ziM" id="jhz-46-bkR"/>
                         <outlet property="generalTermsButton" destination="OEa-s3-vpy" id="zUS-8F-iyB"/>
                         <outlet property="giftCardButton" destination="FPM-E1-Wzz" id="BGe-di-Ofg"/>
                         <outlet property="heightTextViewConstraint" destination="umK-tY-4lq" id="6qg-1t-byu"/>
-                        <outlet property="imageView" destination="PuS-tW-sIq" id="S7k-DE-RDH"/>
                         <outlet property="loveButton" destination="2pM-Xk-IVS" id="tqG-Fh-rJN"/>
                         <outlet property="mailButton" destination="qtQ-ja-IV1" id="WnY-tp-LsM"/>
                         <outlet property="mapButton" destination="0kA-sO-aio" id="SmC-RZ-1hQ"/>
@@ -877,10 +877,10 @@
         <image name="shadow60" width="309" height="98"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TZ1-09-LEY"/>
-        <segue reference="pLS-Og-OVT"/>
-        <segue reference="k3m-3U-v7C"/>
         <segue reference="UfH-bh-zA9"/>
+        <segue reference="k3m-3U-v7C"/>
+        <segue reference="pLS-Og-OVT"/>
+        <segue reference="ggJ-y6-LyU"/>
         <segue reference="bJ7-37-sjF"/>
     </inferredMetricsTieBreakers>
 </document>
