@@ -32,6 +32,8 @@
     if (self.fetchedResultsController.sections.count <= 0) {
         [self setImageIfNotfavorites];
     }
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {

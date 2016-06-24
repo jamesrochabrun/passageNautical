@@ -35,6 +35,7 @@ static NSString *keyFromJSON = @"products";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationController.navigationBar.hidden = YES;
     self.categoryIds = @[@"52961" , @"50951" , @"87048", @"89968"];
     self.finalCategoryArray = [NSMutableArray new];
@@ -136,10 +137,6 @@ static NSString *keyFromJSON = @"products";
     NSArray *arr = [self.finalCategoryArray  objectAtIndex:indexPath.row];
     [cell configureCellwithArray:arr];
     return cell;
-}
-
--  (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01f;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
