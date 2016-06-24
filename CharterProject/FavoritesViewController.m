@@ -233,7 +233,6 @@
 }
 
 
-
 #pragma segues
 
 - (void)goToHome {
@@ -255,7 +254,6 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         DetailViewController *detailVC = segue.destinationViewController;
         detailVC.charterFavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
     }
 }
 
