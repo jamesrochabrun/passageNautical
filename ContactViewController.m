@@ -22,6 +22,9 @@
 - (void)viewDidLoad {
     [self displayContentInViewController];
     [self createToolbar];
+    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+    whiteView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:whiteView];
 }
 
 - (void)createToolbar {

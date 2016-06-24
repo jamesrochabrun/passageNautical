@@ -60,8 +60,7 @@
     } else {
         [self.loveButton setSelected:NO];
     }
-    
-    NSLog(@"thi is %d", isFavorite);
+
 
 }
 

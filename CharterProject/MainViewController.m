@@ -42,7 +42,10 @@ static NSString *keyFromJSON = @"products";
     [self getDataFromApi];
     [self createToolbar];
     [self startActivityIndicator];
-
+    
+    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+    whiteView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:whiteView];
 }
 
 - (void)startActivityIndicator {
