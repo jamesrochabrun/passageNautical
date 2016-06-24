@@ -58,7 +58,7 @@
             self.titleLabel.text = @"Bed & Boat";
         }
         self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-        self.titleLabel.font = [UIFont mediumFont:18];
+        self.titleLabel.font = [UIFont mediumFont:19];
         self.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
         self.titleLabel.layer.shadowRadius = 3.0f;
         self.titleLabel.layer.shadowOpacity = 1;
@@ -74,6 +74,9 @@
         self.descriptionLabel.layer.shadowOpacity = 1;
         self.descriptionLabel.layer.shadowOffset = CGSizeZero;
         self.descriptionLabel.layer.masksToBounds = NO;
+        self.descriptionLabel.text = @"San Francisco";
+    
+    
         
 }
 

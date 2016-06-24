@@ -223,16 +223,33 @@
     return UITableViewCellEditingStyleDelete;
 }
 
-//deleting coredata method
+//updating the bool isFavorite
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+    UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Book Now!" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+                                    {
+                                        NSLog(@"booking not available yet");
+                                                            }];
+    button.backgroundColor = [UIColor customMainColor]; //arbitrary color
+    UITableViewRowAction *button2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+                                     {
+                                         CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
+                                         
+                                         BOOL myBool = NO;
+                                         charterfavorite.isFavorite = [NSNumber numberWithBool:myBool];
+                                         
+                                         CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+                                         [coreDataStack saveContext];                                        }];
+    button2.backgroundColor = [UIColor colorWithRed:1.0 green:0.435 blue:0.4153 alpha:1.0]; //arbitrary color
     
-    CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    BOOL myBool = NO;
-    charterfavorite.isFavorite = [NSNumber numberWithBool:myBool];
-    
-    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    [coreDataStack saveContext];
+    return @[button, button2];
 }
 
 

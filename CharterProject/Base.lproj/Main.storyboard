@@ -191,10 +191,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fullLove" translatesAutoresizingMaskIntoConstraints="NO" id="6g1-Ma-5p1">
-                                                    <rect key="frame" x="267" y="19" width="32" height="29"/>
+                                                    <rect key="frame" x="267" y="19" width="30" height="27"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="29" id="3lD-lU-7u4"/>
-                                                        <constraint firstAttribute="width" constant="32" id="OOr-Jg-Thb"/>
+                                                        <constraint firstAttribute="height" constant="27" id="3lD-lU-7u4"/>
+                                                        <constraint firstAttribute="width" constant="30" id="OOr-Jg-Thb"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-oS-cJx">
@@ -219,7 +219,7 @@
                                                 <constraint firstItem="SwX-oS-cJx" firstAttribute="baseline" secondItem="mhQ-XO-WWS" secondAttribute="firstBaseline" id="f69-as-xGV"/>
                                                 <constraint firstAttribute="trailing" secondItem="oHK-8I-geR" secondAttribute="trailing" id="jF5-ci-n5F"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="mhQ-XO-WWS" secondAttribute="bottom" constant="3" id="r8T-Hq-qv9"/>
-                                                <constraint firstItem="6g1-Ma-5p1" firstAttribute="trailing" secondItem="wgP-mq-lrX" secondAttribute="trailingMargin" constant="-13" id="uK1-Cy-HlL"/>
+                                                <constraint firstItem="6g1-Ma-5p1" firstAttribute="trailing" secondItem="wgP-mq-lrX" secondAttribute="trailingMargin" constant="-15" id="uK1-Cy-HlL"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -468,10 +468,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pM-Xk-IVS">
-                                        <rect key="frame" x="266" y="15" width="45" height="45"/>
+                                        <rect key="frame" x="266" y="15" width="42" height="39"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="Tx2-DK-apn"/>
-                                            <constraint firstAttribute="height" constant="45" id="utV-Cf-pdc"/>
+                                            <constraint firstAttribute="width" constant="42" id="Tx2-DK-apn"/>
+                                            <constraint firstAttribute="height" constant="39" id="utV-Cf-pdc"/>
                                         </constraints>
                                         <connections>
                                             <action selector="addToFavorites:" destination="8OD-vb-SCT" eventType="touchUpInside" id="rIC-YN-Edl"/>
@@ -589,7 +589,7 @@
                                     <constraint firstItem="2pM-Xk-IVS" firstAttribute="top" secondItem="Q2G-F7-w5o" secondAttribute="top" constant="15" id="kDY-V2-wQi"/>
                                     <constraint firstItem="qtQ-ja-IV1" firstAttribute="top" secondItem="PuS-tW-sIq" secondAttribute="bottom" constant="-62" id="kfr-f5-6s4"/>
                                     <constraint firstItem="rEi-YL-ziM" firstAttribute="leading" secondItem="w2C-5I-pzM" secondAttribute="trailing" constant="18" id="nm7-E4-WGj"/>
-                                    <constraint firstAttribute="trailing" secondItem="2pM-Xk-IVS" secondAttribute="trailing" constant="25" id="pJb-6p-uCa"/>
+                                    <constraint firstAttribute="trailing" secondItem="2pM-Xk-IVS" secondAttribute="trailing" constant="28" id="pJb-6p-uCa"/>
                                     <constraint firstItem="PuS-tW-sIq" firstAttribute="leading" secondItem="Q2G-F7-w5o" secondAttribute="leading" id="qZp-mA-DI4"/>
                                     <constraint firstItem="w2C-5I-pzM" firstAttribute="top" secondItem="zZQ-kN-6Vd" secondAttribute="bottom" constant="9" id="t47-M7-iYm"/>
                                     <constraint firstItem="jrS-aX-pOt" firstAttribute="top" secondItem="QPQ-Xs-Daf" secondAttribute="bottom" constant="18" id="uei-iS-rFu"/>
