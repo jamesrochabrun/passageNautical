@@ -138,6 +138,10 @@ static NSString *keyFromJSON = @"products";
     return cell;
 }
 
+-  (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01f;
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([segue.identifier isEqualToString:@"product"]) {

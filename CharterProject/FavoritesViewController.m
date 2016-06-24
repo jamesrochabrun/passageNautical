@@ -179,6 +179,7 @@
 
 #pragma tableViewMethods
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FavoriteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     CharterFavorite *charterFavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
