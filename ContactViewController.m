@@ -9,8 +9,10 @@
 #import "ContactViewController.h"
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
+#import <MessageUI/MessageUI.h>
 
-@interface ContactViewController()
+
+@interface ContactViewController()<MFMailComposeViewControllerDelegate>
 
 @end
 
@@ -123,12 +125,58 @@
 
 - (void)onCallButtonPressed {
     NSLog(@"call");
+    NSString *phNo = @"+919876543210";
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",phNo]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+        [[UIApplication sharedApplication] openURL:phoneUrl];
+    } else
+    {
+        NSLog(@"not available");
+    }
 }
 
 - (void)onMailButtonPressed {
     NSLog(@"email");
+    // Email Subject
+    NSString *emailTitle = @"about Charter information";
+    // Email Content
+    NSString *messageBody = @"Hello";
+    // To address
+    NSArray *toRecipents = [NSArray arrayWithObject:@"passagenautical@passagenautical.com"];
+    
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    mc.mailComposeDelegate = self;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    [mc setToRecipients:toRecipents];
+    
+    // Present mail view controller on screen
+    [self presentViewController:mc animated:YES completion:NULL];
 }
 
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 
 
 

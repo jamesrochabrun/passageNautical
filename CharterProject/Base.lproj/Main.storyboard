@@ -154,7 +154,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="222" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dH2-4w-Mt0">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="5" width="320" height="513"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="222" id="gJJ-Hh-d5G" customClass="FavoriteCell">
@@ -235,13 +235,23 @@
                                     <outlet property="delegate" destination="Ms2-8x-ROp" id="Frc-Rw-dLk"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfY-rE-dfF">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="gIV-2q-OZf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dH2-4w-Mt0" firstAttribute="leading" secondItem="8LA-uD-9Nk" secondAttribute="leading" id="5ac-dz-sRN"/>
+                            <constraint firstItem="4ov-FG-mMI" firstAttribute="top" secondItem="gfY-rE-dfF" secondAttribute="bottom" id="AkY-LO-kKa"/>
                             <constraint firstAttribute="trailing" secondItem="dH2-4w-Mt0" secondAttribute="trailing" id="Kdg-th-ncS"/>
-                            <constraint firstItem="dH2-4w-Mt0" firstAttribute="top" secondItem="8LA-uD-9Nk" secondAttribute="top" id="SEb-FL-5BK"/>
-                            <constraint firstItem="4ov-FG-mMI" firstAttribute="top" secondItem="dH2-4w-Mt0" secondAttribute="bottom" id="mzO-CK-MDw"/>
+                            <constraint firstAttribute="trailing" secondItem="gfY-rE-dfF" secondAttribute="trailing" id="LHf-L1-KDu"/>
+                            <constraint firstItem="dH2-4w-Mt0" firstAttribute="top" secondItem="8LA-uD-9Nk" secondAttribute="top" constant="5" id="SEb-FL-5BK"/>
+                            <constraint firstItem="gfY-rE-dfF" firstAttribute="leading" secondItem="8LA-uD-9Nk" secondAttribute="leading" id="cdg-q1-aeg"/>
+                            <constraint firstItem="4ov-FG-mMI" firstAttribute="top" secondItem="dH2-4w-Mt0" secondAttribute="bottom" constant="50" id="mzO-CK-MDw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Nkm-JL-7xz"/>

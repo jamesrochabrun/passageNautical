@@ -25,7 +25,6 @@
 @implementation FavoritesViewController
 
 - (void)viewDidLoad {
-    self.navigationController.navigationBar.hidden = YES;
 
     [self createToolbar];
     [self.fetchedResultsController performFetch:nil];
@@ -33,6 +32,10 @@
     if (self.fetchedResultsController.sections.count <= 0) {
         [self setImageIfNotfavorites];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 #pragma content layout in code
@@ -77,6 +80,7 @@
     wishLabel.text = @"Wish List";
     
     UITextView *textView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.75, 340)];
+    textView.userInteractionEnabled = NO;
     textView.backgroundColor = [UIColor clearColor];
     textView.center = CGPointMake(imageview.frame.size.width/2, imageview.frame.size.height*0.70);
     textView.text = @"Find the perfect yacht for a special ocassion, like wedings, birthday celebration, or just to take your mettings with clientes or friends to the next level";
@@ -106,7 +110,6 @@
     [self.view addSubview:textView];
     [self.view addSubview:middleLabel];
     [self.view addSubview:KeepLookingButton];
-
 }
 
 #pragma coredata 

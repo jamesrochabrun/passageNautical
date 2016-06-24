@@ -76,7 +76,6 @@ static NSString *keyFromJSON = @"products";
     [favorites setWidth:85];
     
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
     NSArray *buttonItems = [NSArray arrayWithObjects:spacer, home, spacer, contact , spacer, favorites,spacer, nil];
     [self.toolBar setItems:buttonItems];
 }
@@ -103,7 +102,7 @@ static NSString *keyFromJSON = @"products";
             [self createCharterObjectAndAddItToAnArrayCategory:arrayData];
             
         } failure:^(AFHTTPRequestOperation *operation, id responseObject){
-            [self alertUserNoInternetConnection];
+            [self setLabelFortUserNoInternetConnection];
             [self.activityIndicator stopAnimating];
         }];
         [operation start];
@@ -152,32 +151,17 @@ static NSString *keyFromJSON = @"products";
 }
 
 
-- (void)alertUserNoInternetConnection {
+- (void)setLabelFortUserNoInternetConnection {
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        UIAlertController *noInternetAlert = [UIAlertController alertControllerWithTitle:@"No internet Connection"
-                                                                                 message:@"Whoops, can't connect Please check your internet connection"
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Dismiss"
-                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                                                              
-                                                              UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 30)];
-                                                              label.textAlignment = NSTextAlignmentCenter;
-                                                              label.center = CGPointMake(self.view.frame.size.width/2, self.view
-                                                                                         .frame.size.height/2);
-                                                              label.text = @"no internet connection";
-                                                              label.textColor = [UIColor customTextColor];
-                                                              label.font = [UIFont regularFont:22];
-                                                              [self.view addSubview:label];
-                                                              self.toolBar.userInteractionEnabled = NO;
-                                                          }];
-        
-        [noInternetAlert addAction:dismiss];
-        [self presentViewController:noInternetAlert animated:YES completion:nil];
-        
-    });
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 30)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.center = CGPointMake(self.view.frame.size.width/2, self.view
+                               .frame.size.height/2);
+    label.text = @"no internet connection";
+    label.textColor = [UIColor customTextColor];
+    label.font = [UIFont regularFont:22];
+    [self.view addSubview:label];
+    self.toolBar.userInteractionEnabled = NO;
 }
 
 

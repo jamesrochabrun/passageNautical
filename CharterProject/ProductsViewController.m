@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property BOOL isItFavorite;
 @property NSString *categoryTitle;
-@property NSArray *productsManagedObjectsArray;
+@property NSMutableArray *productsManagedObjectsArray;
 
 @end
 
@@ -25,14 +25,10 @@
 
 - (void)viewDidLoad {
     
-    self.isItFavorite = NO;
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self setNavBar];
     
-    
-    [self loadProducts];
-    
+     [self loadProducts];
     if (self.productsManagedObjectsArray.count < 1) {
         [self saveInCoreDataWithArrayOfObjects:self.productsArray];
     }
@@ -40,29 +36,13 @@
     for (CharterService *charterservice in self.productsArray){
         NSLog(@"%@", charterservice.name);
     }
-    
 }
-
-- (void)setNavBar {
-    
-    self.navigationController.navigationBar.hidden = NO;
-    CharterService *charterService = [self.productsArray firstObject];
-    if ([charterService.name containsString:@"Full Day"]) {
-        self.categoryTitle = @"Full day Charters";
-    } else if ([charterService.name containsString:@"Half-Day"]){
-        self.categoryTitle = @"Half Day Charters";
-    } else if ([charterService.name containsString:@"Nautical Overnight"]) {
-        self.categoryTitle = @"Nautical Overnight";
-    } else {
-        self.categoryTitle = @"Bed & Boat";
-    }
-    self.title = self.categoryTitle;
-}
-
 
 - (void)saveInCoreDataWithArrayOfObjects:(NSArray*)array {
     
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    
+    self.productsManagedObjectsArray = [NSMutableArray new];
     
     for (CharterService *charterService in array) {
         CharterFavorite *charterFavorite = [NSEntityDescription insertNewObjectForEntityForName:@"CharterFavorite" inManagedObjectContext:coreDataStack.managedObjectContext];
@@ -89,6 +69,7 @@
         
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:charterService.bookingFields];
         charterFavorite.bookingFields = data;
+        [self.productsManagedObjectsArray addObject:charterFavorite];
     }
     [coreDataStack saveContext];
 }
@@ -111,6 +92,22 @@
     }else{
         NSLog(@"Error: %@", error);
     }
+}
+
+- (void)setNavBar {
+    
+    self.navigationController.navigationBar.hidden = NO;
+    CharterService *charterService = [self.productsArray firstObject];
+    if ([charterService.name containsString:@"Full Day"]) {
+        self.categoryTitle = @"Full day Charters";
+    } else if ([charterService.name containsString:@"Half-Day"]){
+        self.categoryTitle = @"Half Day Charters";
+    } else if ([charterService.name containsString:@"Nautical Overnight"]) {
+        self.categoryTitle = @"Nautical Overnight";
+    } else {
+        self.categoryTitle = @"Bed & Boat";
+    }
+    self.title = self.categoryTitle;
 }
 
 

@@ -30,34 +30,41 @@
 }
 
 - (void)configureCellwithCharterFavorite:(CharterFavorite*)charterfavorite {
-    //background Image of Cell
     
-    UIImageView *imageView = [UIImageView new];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [imageView setImageWithURL:[NSURL URLWithString:charterfavorite.imageURL]
-              placeholderImage:[UIImage imageNamed:@"yate"]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        //background Image of Cell
+        
+        UIImageView *imageView = [UIImageView new];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        
+        [imageView setImageWithURL:[NSURL URLWithString:charterfavorite.imageURL]
+                  placeholderImage:[UIImage imageNamed:@"yate"]];
+        
+        self.backgroundView.layer.shadowColor = [UIColor whiteColor].CGColor;
+        self.backgroundView.layer.shadowOffset = CGSizeMake(5, 5);
+        self.backgroundView.layer.shadowOpacity = 1;
+        self.backgroundView.layer.shadowRadius = 1.0;
+        self.backgroundView = imageView;
+        
+        //charter service name
+        self.nameLabel.text = charterfavorite.name;
+        self.nameLabel.textColor = [UIColor whiteColor];
+        self.nameLabel.font = [UIFont regularFont:15];
+        
+        //charter service price
+        self.priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterfavorite.currency, charterfavorite.advertisedPrice];
+        self.priceLabel.textColor = [UIColor whiteColor];
+        self.priceLabel.font = [UIFont regularFont:15];
+        
+        //charter service time
+        int hours = [charterfavorite.durationMinutes intValue] / 60;
+        self.timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
+        self.timeLabel.textColor = [UIColor whiteColor];
+        self.timeLabel.font = [UIFont regularFont:15];
+        
+    });
     
-    self.backgroundView.layer.shadowColor = [UIColor whiteColor].CGColor;
-    self.backgroundView.layer.shadowOffset = CGSizeMake(5, 5);
-    self.backgroundView.layer.shadowOpacity = 1;
-    self.backgroundView.layer.shadowRadius = 1.0;
-    self.backgroundView = imageView;
-    
-    //charter service name
-    self.nameLabel.text = charterfavorite.name;
-    self.nameLabel.textColor = [UIColor whiteColor];
-    self.nameLabel.font = [UIFont regularFont:15];
-    
-    //charter service price
-    self.priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterfavorite.currency, charterfavorite.advertisedPrice];
-    self.priceLabel.textColor = [UIColor whiteColor];
-    self.priceLabel.font = [UIFont regularFont:15];
-    
-    //charter service time
-    int hours = [charterfavorite.durationMinutes intValue] / 60;
-    self.timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
-    self.timeLabel.textColor = [UIColor whiteColor];
-    self.timeLabel.font = [UIFont regularFont:15];
 }
 
 

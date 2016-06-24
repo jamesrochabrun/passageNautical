@@ -242,11 +242,9 @@
     if (!isFavorite) {
         [sender setSelected:YES];
         [self changingIsFavoriteToTrue];
-        NSLog(@"te guard0");
     } else {
         [sender setSelected:NO];
         [self changingIsFavoriteToFalse];
-        NSLog(@"te borro");
     }
 }
 
