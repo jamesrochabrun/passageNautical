@@ -198,10 +198,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-oS-cJx">
-                                                    <rect key="frame" x="236" y="185" width="70" height="21"/>
+                                                    <rect key="frame" x="210" y="185" width="92" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="MFZ-iw-Qlk"/>
-                                                        <constraint firstAttribute="width" constant="70" id="hQH-gk-aHQ"/>
+                                                        <constraint firstAttribute="width" constant="92" id="hQH-gk-aHQ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -214,7 +214,7 @@
                                                 <constraint firstItem="mhQ-XO-WWS" firstAttribute="leading" secondItem="IQq-6X-scZ" secondAttribute="leading" id="Iqb-Lr-nD4"/>
                                                 <constraint firstItem="mhQ-XO-WWS" firstAttribute="leading" secondItem="wgP-mq-lrX" secondAttribute="leadingMargin" constant="20" id="N3K-SF-MlJ"/>
                                                 <constraint firstItem="6g1-Ma-5p1" firstAttribute="top" secondItem="wgP-mq-lrX" secondAttribute="topMargin" constant="11" id="VGk-Mv-gFG"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="SwX-oS-cJx" secondAttribute="trailing" constant="6" id="Yjc-vP-dUD"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="SwX-oS-cJx" secondAttribute="trailing" constant="10" id="Yjc-vP-dUD"/>
                                                 <constraint firstItem="oHK-8I-geR" firstAttribute="leading" secondItem="wgP-mq-lrX" secondAttribute="leading" id="cGk-WG-g3W"/>
                                                 <constraint firstItem="SwX-oS-cJx" firstAttribute="baseline" secondItem="mhQ-XO-WWS" secondAttribute="firstBaseline" id="f69-as-xGV"/>
                                                 <constraint firstAttribute="trailing" secondItem="oHK-8I-geR" secondAttribute="trailing" id="jF5-ci-n5F"/>
@@ -877,10 +877,10 @@
         <image name="shadow60" width="309" height="98"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UfH-bh-zA9"/>
-        <segue reference="k3m-3U-v7C"/>
         <segue reference="pLS-Og-OVT"/>
-        <segue reference="ggJ-y6-LyU"/>
+        <segue reference="k3m-3U-v7C"/>
+        <segue reference="TZ1-09-LEY"/>
+        <segue reference="2Px-gu-RX7"/>
         <segue reference="bJ7-37-sjF"/>
     </inferredMetricsTieBreakers>
 </document>
