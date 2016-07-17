@@ -56,6 +56,11 @@
         charterFavorite.durationMinutes = charterService.durationMinutes;
         charterFavorite.generalTerms = charterService.generalTerms;
         charterFavorite.productCode = charterService.productCode;
+        
+        //here I define the title of each category:
+        //- first I set the first item of the array and with an if statement i define the title if contains a string related to it [self setNavBar];
+        //- second, i set the category to all the products in the array passed to the title that i set using the method [sel setNavBar]
+        //- finally I just make a predicate using self.title or self.categoryTitle  , without coredata thats not possible
         charterFavorite.category = self.categoryTitle;
         
         BOOL myBool = NO;
