@@ -117,6 +117,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     CharterFavorite *charterFavorite = [self.productsManagedObjectsArray objectAtIndex:indexPath.row];
     [cell configureCellwithCharterFavorite:charterFavorite];

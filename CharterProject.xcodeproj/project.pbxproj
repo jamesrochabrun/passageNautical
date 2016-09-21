@@ -215,11 +215,11 @@
 			isa = PBXGroup;
 			children = (
 				645EBCB81D08D4C3007D1557 /* MainViewController.h */,
+				7B167D531D0F69AC00954CFF /* DetailViewController.m */,
 				645EBCB91D08D4C3007D1557 /* MainViewController.m */,
 				7B2AC3B71D0B800700975BE9 /* ProductsViewController.h */,
 				7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */,
 				7B167D521D0F69AC00954CFF /* DetailViewController.h */,
-				7B167D531D0F69AC00954CFF /* DetailViewController.m */,
 				7B79420E1D13572B00CFE2F8 /* DescriptionViewController.h */,
 				7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */,
 				7B6EA4491D15E9E200AFC708 /* ContactViewController.h */,
