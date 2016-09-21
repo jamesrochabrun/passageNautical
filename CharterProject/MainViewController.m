@@ -16,6 +16,7 @@
 #import "ContactViewController.h"
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
+#import "CharterAPI.h"
 
 
 
@@ -48,14 +49,14 @@ static NSString *keyFromJSON = @"products";
     [self.view addSubview:whiteView];
     
     
-    NSArray *fontFamilies = [UIFont familyNames];
-    
-    for (int i = 0; i < [fontFamilies count]; i++)
-    {
-        NSString *fontFamily = [fontFamilies objectAtIndex:i];
-        NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
-        NSLog (@"%@: %@", fontFamily, fontNames);
-    }
+//    NSArray *fontFamilies = [UIFont familyNames];
+//    
+//    for (int i = 0; i < [fontFamilies count]; i++)
+//    {
+//        NSString *fontFamily = [fontFamilies objectAtIndex:i];
+//        NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
+//        NSLog (@"%@: %@", fontFamily, fontNames);
+//    }
 }
 
 - (void)startActivityIndicator {
@@ -104,23 +105,36 @@ static NSString *keyFromJSON = @"products";
 
 - (void)getDataFromApi {
     
-    for (int i = 0; i < self.categoryIds.count ; i++) {
-        NSString *strURL = [NSString stringWithFormat:@"https://api.rezdy.com/v1/categories/%@/products?%@", [self.categoryIds objectAtIndex:i] ,apiKey];
-        NSURL *url = [NSURL URLWithString:strURL];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        operation.responseSerializer = [AFJSONResponseSerializer serializer];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSArray *arrayData = responseObject[keyFromJSON];
-            [self createCharterObjectAndAddItToAnArrayCategory:arrayData];
-            
-        } failure:^(AFHTTPRequestOperation *operation, id responseObject){
-            [self setLabelFortUserNoInternetConnection];
-            [self.activityIndicator stopAnimating];
-        }];
-        [operation start];
-    }
+//    for (int i = 0; i < self.categoryIds.count ; i++) {
+////        NSString *strURL = [NSString stringWithFormat:@"https://api.rezdy.com/v1/categories/%@/products?%@", [self.categoryIds objectAtIndex:i] ,apiKey];
+////        NSURL *url = [NSURL URLWithString:strURL];
+////        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+////        
+////        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+////        operation.responseSerializer = [AFJSONResponseSerializer serializer];
+////        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+////            
+////            NSArray *arrayData = responseObject[keyFromJSON];
+////            [self createCharterObjectAndAddItToAnArrayCategory:arrayData];
+////            
+////        } failure:^(AFHTTPRequestOperation *operation, id responseObject){
+////            [self setLabelFortUserNoInternetConnection];
+////            [self.activityIndicator stopAnimating];
+////        }];
+////        [operation start];
+//        
+//  
+//    }
+    
+    [CharterAPI getListOfServicesByID:52961 success:^(NSArray *services) {
+        
+        NSLog(@" the count is %lu", services.count);
+        NSLog(@"the services are %@", services);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure");
+    }];
+    
 }
 
 - (void)createCharterObjectAndAddItToAnArrayCategory:(NSArray*)arrayData {
@@ -136,7 +150,6 @@ static NSString *keyFromJSON = @"products";
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
         [self.activityIndicator stopAnimating];
-
     });
 }
 
