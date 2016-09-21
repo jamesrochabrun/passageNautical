@@ -47,7 +47,7 @@ NSString *const keyFromJSON = @"products";
         NSMutableArray *categoryProductsArray = [NSMutableArray new];
         
         for (id dict in arrayData) {
-            CharterService *charterService = [[CharterService alloc]initWithDictionary:dict];
+            CharterService *charterService = [CharterService charterServiceFromDict:dict];
             [categoryProductsArray addObject:charterService];
         }
         

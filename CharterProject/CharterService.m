@@ -7,6 +7,7 @@
 //
 
 #import "CharterService.h"
+#import "Common.h"
 
 @implementation CharterService
 
@@ -42,6 +43,44 @@ NSString *const CHterms = @"terms";
 NSString *const CHunitLabel = @"unitLabel";
 NSString *const CHunitLabelPlural = @"unitLabelPlural";
 
+
++ (CharterService *)charterServiceFromDict:(NSDictionary *)dict {
+    
+    CharterService *charter = [CharterService new];
+    charter.name = parseStringOrNullFromServer(dict[CHname]);
+    charter.advertisedPrice = parseNSNumberOrNullFromServer(dict[CHadvertisedPrice]);
+    charter.bookingFields = parseArrayOrNullFromServer(dict[CHbookingFields]);
+    charter.bookingMode = parseStringOrNullFromServer(dict[CHbookingMode]);
+    charter.charter = dict[CHcharter];
+    charter.confirmMode = parseStringOrNullFromServer(dict[CHconfirmMode]);
+    charter.confirmModeMinParticipants = parseNSNumberOrNullFromServer(dict[CHconfirmModeMinParticipants]);
+    charter.currency = parseStringOrNullFromServer(dict[CHcurrency]);
+    charter.dateUpdated = parseStringOrNullFromServer(dict[CHdateUpdated]);
+    charter.charterDescription = parseStringOrNullFromServer(dict[CHcharterDescription]);
+    charter.durationMinutes = parseNSNumberOrNullFromServer(dict[CHdurationMinutes]);
+    charter.extras = parseArrayOrNullFromServer(dict[CHextras]);
+    charter.generalTerms = parseStringOrNullFromServer(dict[CHgeneralTerms]);
+    charter.images = parseArrayOrNullFromServer(dict[CHimages]);
+    charter.internalCode = parseStringOrNullFromServer(dict[CHinternalCode]);
+    charter.latitude = parseStringOrNullFromServer(dict[CHlatitude]);
+    charter.longitude = parseStringOrNullFromServer(dict[CHlongitude]);
+    charter.locationAddress = parseDictionaryOrNullFromServer(dict[CHlocationAddress]);
+    charter.minimumNoticeMinutes = parseNSNumberOrNullFromServer(dict[CHminimumNoticeMinutes]);
+    charter.priceOptions = parseArrayOrNullFromServer(dict[CHpriceOptions]);
+    charter.productCode = parseStringOrNullFromServer(dict[CHproductCode]);
+    charter.productType = parseStringOrNullFromServer(dict[CHproductType]);
+    charter.quantityRequired = parseNSNumberOrNullFromServer(dict[CHquantityRequired]);
+    charter.quantityRequiredMax = parseNSNumberOrNullFromServer(dict[CHquantityRequiredMax]);
+    charter.quantityRequiredMin = parseNSNumberOrNullFromServer(dict[CHquantityRequiredMin]);
+    charter.shortDescription = parseStringOrNullFromServer(dict[CHshortDescription]);
+    charter.supplierAlias = parseStringOrNullFromServer(dict[CHsupplierAlias]);
+    charter.supplierId = parseNSNumberOrNullFromServer(dict[CHsupplierId]);
+    charter.terms = parseStringOrNullFromServer(dict[CHterms]);
+    charter.unitLabel = parseStringOrNullFromServer(dict[CHunitLabel]);
+    charter.unitLabelPlural = parseStringOrNullFromServer(dict[CHunitLabelPlural]);
+    return charter;
+ 
+}
 
 
 - (instancetype)initWithDictionary:(NSDictionary*)dict {
@@ -82,6 +121,7 @@ NSString *const CHunitLabelPlural = @"unitLabelPlural";
     }
     return self;
 }
+
 
 
 @end

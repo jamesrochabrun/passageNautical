@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Common.h"
+
 
 extern NSString *const CHname;
 extern NSString *const CHadvertisedPrice;
@@ -75,6 +77,7 @@ extern NSString *const CHunitLabelPlural;
 @property (nonatomic, strong) NSString *unitLabelPlural;
 
 - (instancetype)initWithDictionary:(NSDictionary*)dict;
++ (CharterService *)charterServiceFromDict:(NSDictionary *)dict;
 
 
 

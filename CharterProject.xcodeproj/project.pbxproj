@@ -18,6 +18,7 @@
 		645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645EBCB91D08D4C3007D1557 /* MainViewController.m */; };
 		73CE365C5B92CD49B39A1A91 /* libPods-CharterProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */; };
 		7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B167D531D0F69AC00954CFF /* DetailViewController.m */; };
+		7B1FA70A1D9345B100406508 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1FA7091D9345B100406508 /* Common.m */; };
 		7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B51D0B3C7600975BE9 /* CharterService.m */; };
 		7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */; };
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
@@ -73,6 +74,8 @@
 		67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CharterProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B167D521D0F69AC00954CFF /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		7B167D531D0F69AC00954CFF /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		7B1FA7081D9345B100406508 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		7B1FA7091D9345B100406508 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		7B2AC3B41D0B3C7600975BE9 /* CharterService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterService.h; sourceTree = "<group>"; };
 		7B2AC3B51D0B3C7600975BE9 /* CharterService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterService.m; sourceTree = "<group>"; };
 		7B2AC3B71D0B800700975BE9 /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
@@ -241,6 +244,8 @@
 		645EBCB41D08D441007D1557 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B1FA7081D9345B100406508 /* Common.h */,
+				7B1FA7091D9345B100406508 /* Common.m */,
 				7BB0583A1D920CB600E3476C /* CharterAPI.h */,
 				7BB0583B1D920CB600E3476C /* CharterAPI.m */,
 				7BB058371D920A9F00E3476C /* NetworkManager.h */,
@@ -545,6 +550,7 @@
 				7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */,
 				7B5599991D1B1402009B8EE7 /* FavoriteCell.m in Sources */,
 				7B5599961D1B11E5009B8EE7 /* CharterFavorite.m in Sources */,
+				7B1FA70A1D9345B100406508 /* Common.m in Sources */,
 				7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,
 				7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */,
