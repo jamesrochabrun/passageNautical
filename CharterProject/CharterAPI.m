@@ -31,11 +31,11 @@ NSString *const keyFromJSON = @"products";
     return [CharterAPI URL];
 }
 
-+ (AFHTTPRequestOperation *)getListOfServicesByID:(NSUInteger)listID
++ (AFHTTPRequestOperation *)getListOfServicesByID:(NSString *)listID
                                           success:(void (^)(NSArray *services))success
                                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@/categories/%lu/products?%@", kHTTPProtocol, [CharterAPI URL], (unsigned long)listID, kapiKey];
+    NSString *urlString = [NSString stringWithFormat:@"%@://%@/categories/%@/products?%@", kHTTPProtocol, [CharterAPI URL], listID, kapiKey];
     
     NetworkManager *nm = [NetworkManager new];
     

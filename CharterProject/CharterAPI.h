@@ -14,7 +14,7 @@
 
 + (NSString *)URL;
 
-+ (AFHTTPRequestOperation *)getListOfServicesByID:(NSUInteger)listID
++ (AFHTTPRequestOperation *)getListOfServicesByID:(NSString *)listID
                                         success:(void (^)(NSArray *services))success
                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

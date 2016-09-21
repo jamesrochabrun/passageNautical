@@ -126,15 +126,30 @@ static NSString *keyFromJSON = @"products";
 //  
 //    }
     
-    [CharterAPI getListOfServicesByID:52961 success:^(NSArray *services) {
+    for (int i = 0; i < self.categoryIds.count ; i++) {
+        
+    NSString *categoryID = [self.categoryIds objectAtIndex:i];
+
+    [CharterAPI getListOfServicesByID:categoryID success:^(NSArray *services) {
         
         NSLog(@" the count is %lu", services.count);
         NSLog(@"the services are %@", services);
+        [self.finalCategoryArray addObject:services];
+
+        NSLog(@"the count of final array is %lu", _finalCategoryArray.count);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self.activityIndicator stopAnimating];
+        });
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"failure");
     }];
-    
+        
+
+}
+
 }
 
 - (void)createCharterObjectAndAddItToAnArrayCategory:(NSArray*)arrayData {
