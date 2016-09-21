@@ -105,51 +105,31 @@ static NSString *keyFromJSON = @"products";
 
 - (void)getDataFromApi {
     
-//    for (int i = 0; i < self.categoryIds.count ; i++) {
-////        NSString *strURL = [NSString stringWithFormat:@"https://api.rezdy.com/v1/categories/%@/products?%@", [self.categoryIds objectAtIndex:i] ,apiKey];
-////        NSURL *url = [NSURL URLWithString:strURL];
-////        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-////        
-////        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-////        operation.responseSerializer = [AFJSONResponseSerializer serializer];
-////        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-////            
-////            NSArray *arrayData = responseObject[keyFromJSON];
-////            [self createCharterObjectAndAddItToAnArrayCategory:arrayData];
-////            
-////        } failure:^(AFHTTPRequestOperation *operation, id responseObject){
-////            [self setLabelFortUserNoInternetConnection];
-////            [self.activityIndicator stopAnimating];
-////        }];
-////        [operation start];
-//        
-//  
-//    }
-    
     for (int i = 0; i < self.categoryIds.count ; i++) {
         
-    NSString *categoryID = [self.categoryIds objectAtIndex:i];
-
-    [CharterAPI getListOfServicesByID:categoryID success:^(NSArray *services) {
+        NSString *categoryID = [self.categoryIds objectAtIndex:i];
         
-        NSLog(@" the count is %lu", services.count);
-        NSLog(@"the services are %@", services);
-        [self.finalCategoryArray addObject:services];
-
-        NSLog(@"the count of final array is %lu", _finalCategoryArray.count);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
+        [CharterAPI getListOfServicesByID:categoryID success:^(NSArray *services) {
+            
+            NSLog(@" the count is %lu", services.count);
+            NSLog(@"the services are %@", services);
+            [self.finalCategoryArray addObject:services];
+            
+            NSLog(@"the count of final array is %lu", _finalCategoryArray.count);
+            
+            __weak MainViewController *weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.activityIndicator stopAnimating];
+            });
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"failure");
+            
+            [self setLabelFortUserNoInternetConnection];
             [self.activityIndicator stopAnimating];
-        });
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure");
-    }];
-        
-
-}
-
+        }];
+    }
 }
 
 - (void)createCharterObjectAndAddItToAnArrayCategory:(NSArray*)arrayData {
@@ -157,7 +137,7 @@ static NSString *keyFromJSON = @"products";
     NSMutableArray *categoryProductsArray = [NSMutableArray new];
     
     for (NSDictionary *dict in arrayData) {
-        CharterService *charterService = [[CharterService alloc]initWithDictionary:dict];
+        CharterService *charterService = [[CharterService alloc] initWithDictionary:dict];
         [categoryProductsArray addObject:charterService];
     }
     [self.finalCategoryArray addObject:[categoryProductsArray mutableCopy]];
