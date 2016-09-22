@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomToolBar.h"
+#import "CoreDataStack.h"
 
-@interface FavoritesViewController : UIViewController
+
+@interface FavoritesViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, NSFetchedResultsControllerDelegate, CustomToolBarDelegate>
 
 @end

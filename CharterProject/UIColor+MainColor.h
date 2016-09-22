@@ -11,6 +11,8 @@
 @interface UIColor (MainColor)
 + (UIColor *)customMainColor;
 + (UIColor *)customTextColor;
++ (UIColor *)toolBarButtonColor;
+
 
 
 @end

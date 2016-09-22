@@ -21,4 +21,8 @@
 }
 
 
++ (UIColor *)toolBarButtonColor {
+    return  [UIColor colorWithRed:0.4976 green:0.4952 blue:0.5 alpha:1.0];
+}
+
 @end

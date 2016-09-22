@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomToolBar.h"
+#import <MessageUI/MessageUI.h>
 
-@interface ContactViewController : UIViewController
+
+@interface ContactViewController : UIViewController <CustomToolBarDelegate, MFMailComposeViewControllerDelegate>
 
 @end

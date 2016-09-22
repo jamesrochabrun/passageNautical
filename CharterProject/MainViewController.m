@@ -17,6 +17,7 @@
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
 #import "CharterAPI.h"
+#import "CustomToolBar.h"
 
 
 
@@ -36,18 +37,23 @@ static NSString *keyFromJSON = @"products";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.navigationController.navigationBar.hidden = YES;
-    self.categoryIds = @[@"52961" , @"50951" , @"87048", @"89968"];
-    self.finalCategoryArray = [NSMutableArray new];
-    [self getDataFromApi];
-    [self createToolbar];
-    [self startActivityIndicator];
     
     UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
     whiteView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:whiteView];
     
+    CustomToolBar *toolBar = [CustomToolBar new];
+    [toolBar.home setTintColor:[UIColor customMainColor]];
+    toolBar.del = self;
+    [self.view addSubview:toolBar];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.navigationController.navigationBar.hidden = YES;
+    self.categoryIds = @[@"52961" , @"50951" , @"87048", @"89968"];
+    self.finalCategoryArray = [NSMutableArray new];
+    
+    [self getDataFromApi];
+    [self startActivityIndicator];
     
 //    NSArray *fontFamilies = [UIFont familyNames];
 //    
@@ -75,37 +81,16 @@ static NSString *keyFromJSON = @"products";
     self.navigationController.navigationBar.hidden = YES;
 }
 
-- (void)createToolbar {
-    
-    CGRect frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 50, [[UIScreen mainScreen] bounds].size.width, 50);
-    self.toolBar = [[UIToolbar alloc] initWithFrame:frame];
-    [self.toolBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
-    [self.toolBar setBarTintColor:[UIColor whiteColor]];
-    [self.view addSubview:self.toolBar];
-    
-    UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chart"] style:UIBarButtonItemStylePlain target:self action:nil];
-    [home setTintColor:[UIColor customMainColor]];
-    [home setWidth:85];
-    
-    UIBarButtonItem *contact = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contact"] style:UIBarButtonItemStylePlain target:self action:@selector(goToContact)];
-    [contact setTintColor:[UIColor colorWithRed:0.4976 green:0.4952 blue:0.5 alpha:1.0]];
-    [home setWidth:85];
-    
-    UIBarButtonItem *favorites = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorites"] style:UIBarButtonItemStylePlain target:self action:@selector(goToFavorites)];
-    [favorites setTintColor:[UIColor colorWithRed:0.4976 green:0.4952 blue:0.5 alpha:1.0]];
-    [favorites setWidth:85];
-    
-    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    NSArray *buttonItems = [NSArray arrayWithObjects:spacer, home, spacer, contact , spacer, favorites,spacer, nil];
-    [self.toolBar setItems:buttonItems];
-}
-
 - (void)goToContact {
     [self performSegueWithIdentifier:@"contact" sender:self];
 }
 
 - (void)goToFavorites {
     [self performSegueWithIdentifier:@"favorites" sender:self];
+}
+
+- (void)goToHome {
+    NSLog(@"I am alredy at home :) ");
 }
 
 - (void)getDataFromApi {
@@ -116,11 +101,9 @@ static NSString *keyFromJSON = @"products";
         
         [CharterAPI getListOfServicesByID:categoryID success:^(NSArray *services) {
             
-            NSLog(@" the count is %lu", services.count);
             NSLog(@"the services are %@", services);
             [_finalCategoryArray addObject:services];
             
-            NSLog(@"the count of final array is %lu", _finalCategoryArray.count);
             
             __weak MainViewController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -164,7 +147,6 @@ static NSString *keyFromJSON = @"products";
         productVC.productsArray = [self.finalCategoryArray objectAtIndex:indexPath.row];
     } else{
     }
-   
 }
 
 

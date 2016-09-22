@@ -9,12 +9,15 @@
 #import "ContactViewController.h"
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
-#import <MessageUI/MessageUI.h>
 #import "Common.h"
 #import "CommonUIConstants.h"
+#import "CustomToolBar.h"
+#import <MessageUI/MessageUI.h>
 
 
-@interface ContactViewController()<MFMailComposeViewControllerDelegate>
+
+@interface ContactViewController()
+
 @property (nonatomic, strong) UIView *statusBarViewBackground;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
@@ -32,42 +35,23 @@
 - (void)viewDidLoad {
     
     [self displayContentInViewController];
-    [self createToolbar];
-
-}
-
-- (void)createToolbar {
     
-    CGRect frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 50, [[UIScreen mainScreen] bounds].size.width, 50);
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:frame];
-    [toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
-    [toolbar setBarTintColor:[UIColor whiteColor]];
-    [self.view addSubview:toolbar];
-    
-    UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chart"] style:UIBarButtonItemStylePlain target:self action:@selector(goToHome)];
-    [home setTintColor:[UIColor colorWithRed:0.4976 green:0.4952 blue:0.5 alpha:1.0]];
-    [home setWidth:85];
-
-    UIBarButtonItem *contact = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contact"] style:UIBarButtonItemStylePlain target:self action:nil];
-    [contact setTintColor:[UIColor customMainColor]];
-    [home setWidth:85];
-    
-    UIBarButtonItem *favorites = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorites"] style:UIBarButtonItemStylePlain target:self action:@selector(goToFavorites)];
-    [favorites setTintColor:[UIColor colorWithRed:0.4976 green:0.4952 blue:0.5 alpha:1.0]];
-    [favorites setWidth:85];
-    
-    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    NSArray *buttonItems = [NSArray arrayWithObjects:spacer, home, spacer, contact , spacer, favorites,spacer, nil];
-    [toolbar setItems:buttonItems];
+    CustomToolBar *toolBar = [CustomToolBar new];
+    [toolBar.contact setTintColor:[UIColor customMainColor]];
+    toolBar.del = self;
+    [self.view addSubview:toolBar];
 }
 
 - (void)goToHome {
     [self performSegueWithIdentifier:@"home" sender:self];
-}
 
+}
 - (void)goToFavorites {
     [self performSegueWithIdentifier:@"favorites" sender:self];
+}
+
+- (void)goToContact {
+    NSLog(@"I am already in contact");
 }
 
 
@@ -210,6 +194,7 @@
 }
 
 - (void)onMailButtonPressed {
+    
     NSLog(@"email");
     // Email Subject
     NSString *emailTitle = @"about Charter information";
