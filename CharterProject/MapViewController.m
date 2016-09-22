@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
 
-    self.dismissButton.tintColor = [UIColor whiteColor];
+    _dismissButton.tintColor = [UIColor whiteColor];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self.locationManager requestWhenInUseAuthorization];
@@ -37,6 +37,7 @@
 
 
 - (void)viewDidDisappear:(BOOL)animated {
+    
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -72,6 +73,7 @@
 }
 
 - (IBAction)getDirectionsButtonTapped:(UIButton *)sender {
+    
     NSString *stringUrl = [NSString stringWithFormat:@"http://maps.apple.com/maps?daddr=%@,%@", self.charterFavorite.latitude ,self.charterFavorite.longitude];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringUrl]];
 }
@@ -79,7 +81,11 @@
 
 
 - (IBAction)dismissView:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    __weak MapViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 

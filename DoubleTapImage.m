@@ -8,8 +8,7 @@
 
 #import "DoubleTapImage.h"
 
-@interface DoubleTapImage
-()<UIGestureRecognizerDelegate>
+@interface DoubleTapImage()<UIGestureRecognizerDelegate>
 
 @end
 @implementation DoubleTapImage

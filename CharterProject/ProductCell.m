@@ -48,20 +48,20 @@
         self.backgroundView = imageView;
         
         //charter service name
-        self.nameLabel.text = charterfavorite.name;
-        self.nameLabel.textColor = [UIColor whiteColor];
-        self.nameLabel.font = [UIFont regularFont:15];
+        _nameLabel.text = charterfavorite.name;
+        _nameLabel.textColor = [UIColor whiteColor];
+        _nameLabel.font = [UIFont regularFont:15];
         
         //charter service price
-        self.priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterfavorite.currency, charterfavorite.advertisedPrice];
-        self.priceLabel.textColor = [UIColor whiteColor];
-        self.priceLabel.font = [UIFont regularFont:15];
+        _priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterfavorite.currency, charterfavorite.advertisedPrice];
+        _priceLabel.textColor = [UIColor whiteColor];
+        _priceLabel.font = [UIFont regularFont:15];
         
         //charter service time
         int hours = [charterfavorite.durationMinutes intValue] / 60;
-        self.timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
-        self.timeLabel.textColor = [UIColor whiteColor];
-        self.timeLabel.font = [UIFont regularFont:15];
+        _timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
+        _timeLabel.textColor = [UIColor whiteColor];
+        _timeLabel.font = [UIFont regularFont:15];
         
     });
     
