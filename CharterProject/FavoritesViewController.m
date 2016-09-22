@@ -145,28 +145,31 @@
     [_wishLabel sizeToFit];
     frame = _wishLabel.frame;
     frame.origin.x = kGeomMarginBig;
-    frame.origin.y = CGRectGetMinY(_imageView.frame) + kGeomMarginBig *2;
+    frame.origin.y = CGRectGetMinY(_imageView.frame) + kGeomMarginBig;
     _wishLabel.frame = frame;
-    
-    frame = _textView.frame;
-    frame.size.width = width(self.view) *0.75;
-    frame.size.height = 110;
-    frame.origin.x = (width(self.view) - frame.size.width) /2;
-    frame.origin.y = CGRectGetMaxY(_wishLabel.frame) + kGeomMarginBig *2;
-    _textView.frame = frame;
-    
-    [_middleLabel sizeToFit];
-    frame = _middleLabel.frame;
-    frame.origin.x = (width(self.view) - width(_middleLabel)) /2;
-    frame.origin.y = CGRectGetMaxY(_textView.frame) + kGeomMarginMedium;
-    _middleLabel.frame = frame;
     
     frame = _keepLookingButton.frame;
     frame.size.height = kGeomHeightBigbutton;
     frame.size.width = kGeomWidthBigButton;
     frame.origin.x = (width(self.view) - kGeomWidthBigButton) /2;
-    frame.origin.y = CGRectGetMaxY(_middleLabel.frame) + kGeomMarginBig *2;
+    frame.origin.y = CGRectGetMaxY(self.view.frame) - kGeomHeightToolBar - kGeomHeightBigbutton - kGeomMarginMedium;
     _keepLookingButton.frame = frame;
+    
+    [_middleLabel sizeToFit];
+    frame = _middleLabel.frame;
+    frame.origin.x = (width(self.view) - width(_middleLabel)) /2;
+    frame.origin.y = (height(self.view) - height(_middleLabel)) /2;
+    _middleLabel.frame = frame;
+    
+    
+    frame = _textView.frame;
+    frame.size.width = width(self.view) *0.75;
+    frame.size.height = 110;
+    frame.origin.x = (width(self.view) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMinY(_middleLabel.frame) - frame.size.height - kGeomMarginMedium;
+    _textView.frame = frame;
+    
+
 }
 
 #pragma coredata
