@@ -257,6 +257,7 @@ static CGFloat kGeomBottomPadding = 100.0;
 static CGFloat kGeomMarginMedium = 20.0;
 static CGFloat kGeomHeightToolBar = 70.0;
 static CGFloat kGeomMarginBig = 40.0;
+static CGFloat kGeomHeaderHeightInSection = 40.0;
 
 
 

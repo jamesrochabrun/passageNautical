@@ -244,10 +244,10 @@
     return  self.fetchedResultsController.sections.count;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, tableView.frame.size.width, 32)];
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width(tableView), 18)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, width(tableView), 32)];
     [label setFont:[UIFont mediumFont:15]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setTextColor:[UIColor whiteColor]];
@@ -263,7 +263,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40;
+    return kGeomHeaderHeightInSection;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -284,17 +284,25 @@
                                     {
                                         NSLog(@"booking not available yet");
                                                             }];
-    button.backgroundColor = [UIColor customMainColor]; //arbitrary color
+    button.backgroundColor = [UIColor customMainColor];
+    
     UITableViewRowAction *button2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                      {
+                                         
+                                        
                                          CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
                                          
                                          BOOL myBool = NO;
                                          charterfavorite.isFavorite = [NSNumber numberWithBool:myBool];
                                          
                                          CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-                                         [coreDataStack saveContext];                                        }];
-    button2.backgroundColor = [UIColor colorWithRed:1.0 green:0.435 blue:0.4153 alpha:1.0]; //arbitrary color
+                                         [coreDataStack saveContext];
+                                         
+                                         if (self.fetchedResultsController.sections.count <= 0) {
+                                             [self setImageIfNotfavorites];
+                                         }
+                                     }];
+    button2.backgroundColor = [UIColor colorWithRed:1.0 green:0.435 blue:0.4153 alpha:1.0];
     
     return @[button, button2];
 }
