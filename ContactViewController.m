@@ -108,10 +108,9 @@
     _textView.font = [UIFont regularFont:15];
     _textView.textColor = [UIColor customTextColor];
     _textView.scrollEnabled = NO;
-    _textView.text= @"Passage Nautical is a San Francisco Bay Area based full service yacht dealer. We are the exclusive yacht dealer for Beneteau sailboats and powerboats, premier Lagoon catamarans and offer the largest selection of used boats in the Bay Area. We are an ASA (American Sailing Association) school, US Powerboating training facility and charter boat rental facility. What sets Passage Nautical apart from the rest is our full service approach to helping you enjoy the boating lifestyle, from our world class yacht sales division and our award-winning Service Department which offers repairs, installation, concierge services and a lifetime service relationship, to our power and sail training academy, educational seminar series and world-class yacht sales division.  We help people go boating. We make yacht financing easy and offer complete insurance services. Our Boat-As-A-Business workshop informs you how to receive tax savings through yacht charter placement programs. We host monthly test rides, educational workshops and other VIP events about the boating lifestyle. For 30+ years, we have been making people’s boating dreams a reality. Let us help you with yours.";
+    _textView.text = kcompanyDescription;
     [_scrollView addSubview:_textView];
     
-
 }
 
 - (void)viewWillLayoutSubviews {
@@ -179,11 +178,9 @@
 
 
 
-
 - (void)onCallButtonPressed {
     NSLog(@"call");
-    NSString *phNo = @"+919876543210";
-    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",phNo]];
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",kcontactNumber]];
     
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
         [[UIApplication sharedApplication] openURL:phoneUrl];
@@ -195,13 +192,12 @@
 
 - (void)onMailButtonPressed {
     
-    NSLog(@"email");
     // Email Subject
-    NSString *emailTitle = @"about Charter information";
+    NSString *emailTitle = kemailSubject;
     // Email Content
     NSString *messageBody = @"Hello";
     // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:@"passagenautical@passagenautical.com"];
+    NSArray *toRecipents = [NSArray arrayWithObject:kcontactEmail];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;
@@ -209,8 +205,13 @@
     [mc setMessageBody:messageBody isHTML:NO];
     [mc setToRecipients:toRecipents];
     
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:NULL];
+    if (mc) {
+        __weak ContactViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf presentViewController:mc animated:YES completion:NULL];
+        });
+    }
+
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {

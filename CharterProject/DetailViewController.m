@@ -18,6 +18,7 @@
 #import "CoreDataStack.h"
 #import "CharterFavorite.h"
 #import "DoubleTapImage.h"
+#import "CommonUIConstants.h"
 
 @interface DetailViewController ()<MFMailComposeViewControllerDelegate, DoubleTapImageDelegate>
 
@@ -163,8 +164,7 @@
 
 - (IBAction)callPassageNautical:(UIButton *)sender {
     
-    NSString *phNo = @"+919876543210";
-    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",phNo]];
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",kcontactNumber]];
     
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
         [[UIApplication sharedApplication] openURL:phoneUrl];
@@ -176,11 +176,11 @@
 
 - (IBAction)mailPassageNautical:(UIButton *)sender {
     // Email Subject
-    NSString *emailTitle = @"about Charter information";
+    NSString *emailTitle = kemailSubject;
     // Email Content
     NSString *messageBody = [NSString stringWithFormat:@"I am interested in rent the %@", self.charterFavorite.name];
     // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:@"passagenautical@passagenautical.com"];
+    NSArray *toRecipents = [NSArray arrayWithObject:kcontactEmail];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;
@@ -189,10 +189,12 @@
     [mc setToRecipients:toRecipents];
     
     // Present mail view controller on screen
-    __weak DetailViewController *weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf presentViewController:mc animated:YES completion:NULL];
-    });
+    if (mc) {
+        __weak DetailViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf presentViewController:mc animated:YES completion:NULL];
+        });
+    }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
