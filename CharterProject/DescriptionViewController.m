@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     
     [self displayContentInViewController];
-    [self.scrollView setScrollEnabled:YES];
+    [_scrollView setScrollEnabled:YES];
 }
 
 - (void)displayContentInViewController {
@@ -48,7 +48,11 @@
 }
 
 - (IBAction)dismissViewControllerButtonTapped:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    __weak DescriptionViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 - (void)viewDidAppear:(BOOL)animated {

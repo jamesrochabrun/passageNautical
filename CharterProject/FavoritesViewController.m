@@ -25,12 +25,17 @@
 @property (nonatomic, strong) UILabel *middleLabel;
 @property (nonatomic, strong) UIButton *keepLookingButton;
 @property (nonatomic, strong) UIImageView *shadow;
+@property (nonatomic, strong) UIView *statusBarViewBackground;
 
 @end
 
 @implementation FavoritesViewController
 
 - (void)viewDidLoad {
+    
+    _statusBarViewBackground = [UIView new];
+    _statusBarViewBackground.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_statusBarViewBackground];
 
     [self createToolbar];
     [self.fetchedResultsController performFetch:nil];
@@ -39,13 +44,11 @@
         [self setImageIfNotfavorites];
     }
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
-    whiteView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:whiteView];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     self.navigationController.navigationBar.hidden = YES;
 }
 
@@ -124,7 +127,14 @@
     
     [super viewWillLayoutSubviews];
     
-    CGRect frame = _imageView.frame;
+    CGRect frame = _statusBarViewBackground.frame;
+    frame.origin.x = CGRectGetMinX(self.view.frame);
+    frame.origin.y = CGRectGetMinY(self.view.frame);
+    frame.size.width = width(self.view);
+    frame.size.height = kGeomHeightStatusBar;
+    _statusBarViewBackground.frame = frame;
+    
+    frame = _imageView.frame;
     frame.origin.x = CGRectGetMinX(self.view.frame);
     frame.origin.y = kGeomHeightStatusBar;
     frame.size.height = height(self.view) - kGeomHeightToolBar;
