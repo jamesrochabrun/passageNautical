@@ -13,12 +13,18 @@
 #import "CoreDataStack.h"
 #import "CharterFavorite.h"
 #import "DetailViewController.h"
+#import "Common.h"
+#import "CommonUIConstants.h"
 
 @interface FavoritesViewController ()<UITableViewDelegate,UITableViewDataSource, NSFetchedResultsControllerDelegate>
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *wishLabel;
+@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UILabel *middleLabel;
+@property (nonatomic, strong) UIButton *keepLookingButton;
+@property (nonatomic, strong) UIImageView *shadow;
 
 @end
 
@@ -73,51 +79,87 @@
 - (void)setImageIfNotfavorites  {
     
     self.tableView.hidden = YES;
-    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-70)];
-    imageview.image = [UIImage imageNamed:@"sanfrancisco"];
-    UIImageView *shadow = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-70)];
-    shadow.image = [UIImage imageNamed:@"shadowA"];
     
-    UILabel *wishLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 30)];
-    wishLabel.center = CGPointMake(self.view.frame.size.width/2.5, self.view.frame.size.height*0.20);
-    wishLabel.textColor = [UIColor whiteColor];
-    wishLabel.font = [UIFont regularFont:24];
-    wishLabel.text = @"Wish List";
+    _imageView = [UIImageView new];
+    _imageView.image = [UIImage imageNamed:@"sanfrancisco"];
+    _shadow = [UIImageView new];
+    _shadow.image = [UIImage imageNamed:@"shadowA"];
     
-    UITextView *textView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.75, 340)];
-    textView.userInteractionEnabled = NO;
-    textView.backgroundColor = [UIColor clearColor];
-    textView.center = CGPointMake(imageview.frame.size.width/2, imageview.frame.size.height*0.70);
-    textView.text = @"Find the perfect yacht for a special ocassion, like wedings, birthday celebration, or just to take your mettings with clientes or friends to the next level";
-    textView.textColor = [UIColor whiteColor];
-    textView.font = [UIFont regularFont:14];
+    _wishLabel = [UILabel new];
+    _wishLabel.textColor = [UIColor whiteColor];
+    _wishLabel.font = [UIFont regularFont:24];
+    _wishLabel.text = @"Wish List";
     
-    UILabel *middleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.75 , 50)];
-    middleLabel.textAlignment = NSTextAlignmentNatural;
-    middleLabel.center = CGPointMake(imageview.frame.size.width/2, imageview.frame.size.height*0.6);
-    middleLabel.text = @"You dont have any favorites..yet";
-    middleLabel.textColor = [UIColor whiteColor];
-    middleLabel.font = [UIFont regularFont:22];
-    middleLabel.numberOfLines = 2;
+    _textView = [UITextView new];
+    _textView.userInteractionEnabled = NO;
+    _textView.backgroundColor = [UIColor clearColor];
+    _textView.text = @"Find the perfect yacht for a special ocassion, like wedings, birthday celebration, or just to take your mettings with clientes or friends to the next level";
+    _textView.textColor = [UIColor whiteColor];
+    _textView.font = [UIFont regularFont:14];
     
-    UIButton *KeepLookingButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 220, 55)];
-    KeepLookingButton.center = CGPointMake(imageview.frame.size.width/2, imageview.frame.size.height*0.77);
-    KeepLookingButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    KeepLookingButton.layer.borderWidth = 2.0f;
-    [KeepLookingButton setTitle:@"Keep Looking" forState:UIControlStateNormal];
-    [KeepLookingButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
-    [KeepLookingButton addTarget:self action:@selector(onKeepLookingButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [KeepLookingButton.titleLabel setFont:[UIFont regularFont:22]];
+    _middleLabel = [UILabel new];
+    _middleLabel.textAlignment = NSTextAlignmentNatural;
+    _middleLabel.text = @"You dont have any favorites ...yet";
+    _middleLabel.textColor = [UIColor whiteColor];
+    _middleLabel.font = [UIFont regularFont:20];
+    _middleLabel.numberOfLines = 0;
     
-    [self.view addSubview:imageview];
-    [self.view addSubview:shadow];
-    [self.view addSubview:wishLabel];
-    [self.view addSubview:textView];
-    [self.view addSubview:middleLabel];
-    [self.view addSubview:KeepLookingButton];
+    _keepLookingButton = [UIButton new];
+    _keepLookingButton.layer.borderColor = [UIColor customMainColor].CGColor;
+    _keepLookingButton.layer.borderWidth = 2.0f;
+    [_keepLookingButton setTitle:@"Keep Looking" forState:UIControlStateNormal];
+    [_keepLookingButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    [_keepLookingButton addTarget:self action:@selector(onKeepLookingButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [_keepLookingButton.titleLabel setFont:[UIFont regularFont:22]];
+    
+    [self.view addSubview:_imageView];
+    [self.view addSubview:_shadow];
+    [self.view addSubview:_wishLabel];
+    [self.view addSubview:_textView];
+    [self.view addSubview:_middleLabel];
+    [self.view addSubview:_keepLookingButton];
 }
 
-#pragma coredata 
+- (void)viewWillLayoutSubviews {
+    
+    [super viewWillLayoutSubviews];
+    
+    CGRect frame = _imageView.frame;
+    frame.origin.x = CGRectGetMinX(self.view.frame);
+    frame.origin.y = kGeomHeightStatusBar;
+    frame.size.height = height(self.view) - kGeomHeightToolBar;
+    frame.size.width = width(self.view);
+    _imageView.frame = frame;
+    _shadow.frame = frame;
+    
+    [_wishLabel sizeToFit];
+    frame = _wishLabel.frame;
+    frame.origin.x = kGeomMarginBig;
+    frame.origin.y = CGRectGetMinY(_imageView.frame) + kGeomMarginBig *2;
+    _wishLabel.frame = frame;
+    
+    frame = _textView.frame;
+    frame.size.width = width(self.view) *0.75;
+    frame.size.height = 110;
+    frame.origin.x = (width(self.view) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_wishLabel.frame) + kGeomMarginBig *2;
+    _textView.frame = frame;
+    
+    [_middleLabel sizeToFit];
+    frame = _middleLabel.frame;
+    frame.origin.x = (width(self.view) - width(_middleLabel)) /2;
+    frame.origin.y = CGRectGetMaxY(_textView.frame) + kGeomMarginMedium;
+    _middleLabel.frame = frame;
+    
+    frame = _keepLookingButton.frame;
+    frame.size.height = kGeomHeightBigbutton;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(self.view) - kGeomWidthBigButton) /2;
+    frame.origin.y = CGRectGetMaxY(_middleLabel.frame) + kGeomMarginBig *2;
+    _keepLookingButton.frame = frame;
+}
+
+#pragma coredata
 
 - (NSFetchRequest *)entrylistfetchRequest {
     

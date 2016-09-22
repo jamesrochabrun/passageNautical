@@ -30,19 +30,20 @@
 
 - (void)displayContentInViewController {
     
-    self.charterLabel.text = self.labelData;
-    self.charterLabel.font = [UIFont mediumFont:19];
-    self.charterLabel.textColor = [UIColor customMainColor];
+    _scrollView.showsVerticalScrollIndicator = NO;
+
+    _charterLabel.text = self.labelData;
+    _charterLabel.font = [UIFont mediumFont:19];
+    _charterLabel.textColor = [UIColor customMainColor];
     
-    self.textView.scrollEnabled = NO;
+    _textView.scrollEnabled = NO;
     NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.textFieldData];
     NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
-    [self.textView setText:stringWithNoHTML];
-    self.textView.font = [UIFont regularFont:14];
-    self.textView.textColor = [UIColor customTextColor];
-    CGSize sizeThatShouldFitTheContent = [self.textView sizeThatFits:self.textView.frame.size];
-    self.heightTextView.constant = sizeThatShouldFitTheContent.height;
-
+    [_textView setText:stringWithNoHTML];
+    _textView.font = [UIFont regularFont:14];
+    _textView.textColor = [UIColor customTextColor];
+    CGSize sizeThatShouldFitTheContent = [_textView sizeThatFits:_textView.bounds.size];
+    _heightTextView.constant = sizeThatShouldFitTheContent.height;
     
 }
 
@@ -50,7 +51,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [_scrollView setContentSize:CGSizeMake(width(self.view), CGRectGetMaxY(_textView.frame))];
+}
 
 
 

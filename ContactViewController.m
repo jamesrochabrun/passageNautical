@@ -190,7 +190,6 @@
     frame.origin.x = (width(self.view) - width(self.view) *0.75) /2;
     _textView.frame = frame;
     
-    
     [_scrollView setContentSize:CGSizeMake(width(self.view), CGRectGetMaxY(_textView.frame) + kGeomBottomPadding)];
 }
 
