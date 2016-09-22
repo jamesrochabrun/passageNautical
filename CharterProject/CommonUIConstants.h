@@ -251,10 +251,10 @@ static CGFloat kGeomMaxCommentLimit = 250;
 
 #pragma charter
 static CGFloat kGeomHeightStatusBar = 20.0;
-static CGFloat kGeomHeightLabel = 20.0;
 static CGFloat kGeomWidthBigButton = 210.0;
 static CGFloat kGeomHeightBigbutton = 40.0;
 static CGFloat kGeomBottomPadding = 100.0;
+static CGFloat kGeomMarginMedium = 20.0;
 
 
 

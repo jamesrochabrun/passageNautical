@@ -78,7 +78,6 @@
     [self.view addSubview:_statusBarViewBackground];
 
     _scrollView = [UIScrollView new];
-    _scrollView.backgroundColor = [UIColor blueColor];
     [self.view addSubview:_scrollView];
     _scrollView.showsVerticalScrollIndicator = NO;
 
@@ -153,42 +152,41 @@
     frame.origin.y = CGRectGetMinY(self.view.frame);
     frame.origin.x = CGRectGetMinX(_scrollView.frame);
     frame.size.width = width(_scrollView);
-    frame.size.height = height(_scrollView);
+    frame.size.height = height(_scrollView) * 0.9;
     _imageView.frame = frame;
     
+    [_contactLabel sizeToFit];
     frame = _contactLabel.frame;
-    frame.size.width = width(self.view);
-    frame.size.height = kGeomHeightLabel;
-    frame.origin.x = CGRectGetMinX(_imageView.frame);
-    frame.origin.y = (height(_imageView) - kGeomHeightLabel) /2;
+    frame.origin.x = (width(self.view) - width(_contactLabel)) /2;
+    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *4 - kGeomMarginMedium;
     _contactLabel.frame = frame;
     
     frame = _callButton.frame;
     frame.size.width = kGeomWidthBigButton;
     frame.size.height = kGeomHeightBigbutton;
     frame.origin.x = (width(_imageView) - kGeomWidthBigButton) /2;
-    frame.origin.y = CGRectGetMaxY(_contactLabel.frame);
+    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *3 - kGeomMarginMedium;
     _callButton.frame = frame;
     
     frame = _mailButton.frame;
     frame.size.width = kGeomWidthBigButton;
     frame.size.height = kGeomHeightBigbutton;
     frame.origin.x = (width(_imageView) - kGeomWidthBigButton) /2;
-    frame.origin.y = CGRectGetMaxY(_callButton.frame);
+    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *2;
     _mailButton.frame = frame;
     
     frame = _logoView.frame;
     frame.size.width = 220;
     frame.size.height = 70;
     frame.origin.x = (width(_scrollView) - 220) /2;
-    frame.origin.y = CGRectGetMaxY(_imageView.frame);
+    frame.origin.y = CGRectGetMaxY(_imageView.frame) + kGeomMarginMedium;
     _logoView.frame = frame;
     
     
     frame = _textView.frame;
     frame.size.width = width(self.view) * 0.75;
     frame.size.height = [_textView sizeThatFits:CGSizeMake(frame.size.width, FLT_MAX)].height;
-    frame.origin.y = CGRectGetMaxY(_logoView.frame);
+    frame.origin.y = CGRectGetMaxY(_logoView.frame) + kGeomMarginMedium;
     frame.origin.x = (width(self.view) - width(self.view) *0.75) /2;
     _textView.frame = frame;
     
