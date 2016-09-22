@@ -288,7 +288,6 @@
     
     UITableViewRowAction *button2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                      {
-                                         
                                         
                                          CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
                                          

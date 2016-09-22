@@ -60,10 +60,15 @@ static NSString *keyFromJSON = @"products";
 }
 
 - (void)startActivityIndicator {
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [self.view addSubview: self.activityIndicator];
-    self.activityIndicator.center = CGPointMake(self.view.frame.size.width/2,self.view.frame.size.height/2);
-    [self.activityIndicator startAnimating];
+    
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.view addSubview:_activityIndicator];
+    _activityIndicator.center = CGPointMake(width(self.view) /2,height(self.view) /2);
+    
+    __weak MainViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.activityIndicator startAnimating];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -113,7 +118,7 @@ static NSString *keyFromJSON = @"products";
             
             NSLog(@" the count is %lu", services.count);
             NSLog(@"the services are %@", services);
-            [self.finalCategoryArray addObject:services];
+            [_finalCategoryArray addObject:services];
             
             NSLog(@"the count of final array is %lu", _finalCategoryArray.count);
             
@@ -126,26 +131,16 @@ static NSString *keyFromJSON = @"products";
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"failure");
             
-            [self setLabelFortUserNoInternetConnection];
-            [self.activityIndicator stopAnimating];
+            if (error) {
+                
+                __weak MainViewController *weakSelf = self;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf setLabelFortUserNoInternetConnection];
+                    [weakSelf.activityIndicator stopAnimating];
+                });
+            };
         }];
     }
-}
-
-- (void)createCharterObjectAndAddItToAnArrayCategory:(NSArray*)arrayData {
-    
-    NSMutableArray *categoryProductsArray = [NSMutableArray new];
-    
-    for (NSDictionary *dict in arrayData) {
-        CharterService *charterService = [[CharterService alloc] initWithDictionary:dict];
-        [categoryProductsArray addObject:charterService];
-    }
-    [self.finalCategoryArray addObject:[categoryProductsArray mutableCopy]];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-        [self.activityIndicator stopAnimating];
-    });
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -177,13 +172,12 @@ static NSString *keyFromJSON = @"products";
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 30)];
     label.textAlignment = NSTextAlignmentCenter;
-    label.center = CGPointMake(self.view.frame.size.width/2, self.view
-                               .frame.size.height/2);
+    label.center = CGPointMake(width(self.view)/2, height(self.view)/2);
     label.text = @"no internet connection";
     label.textColor = [UIColor customTextColor];
     label.font = [UIFont regularFont:22];
     [self.view addSubview:label];
-    self.toolBar.userInteractionEnabled = NO;
+    _toolBar.userInteractionEnabled = NO;
 }
 
 

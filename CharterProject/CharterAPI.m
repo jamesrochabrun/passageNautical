@@ -50,16 +50,14 @@ NSString *const keyFromJSON = @"products";
             CharterService *charterService = [CharterService charterServiceFromDict:dict];
             [categoryProductsArray addObject:charterService];
         }
-        
         success(categoryProductsArray);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        failure(operation, error);
     }];
                                   
     return op;
 }
-
 
 + (NSString *)URL {
     return kURLProduction;

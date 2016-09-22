@@ -38,11 +38,11 @@
     }
 }
 
-- (void)saveInCoreDataWithArrayOfObjects:(NSArray*)array {
+- (void)saveInCoreDataWithArrayOfObjects:(NSArray *)array {
     
     CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
     
-    self.productsManagedObjectsArray = [NSMutableArray new];
+    _productsManagedObjectsArray = [NSMutableArray new];
     
     for (CharterService *charterService in array) {
         CharterFavorite *charterFavorite = [NSEntityDescription insertNewObjectForEntityForName:@"CharterFavorite" inManagedObjectContext:coreDataStack.managedObjectContext];
@@ -91,9 +91,14 @@
     
     NSError *error;
     //the & is using the addres of error
-    self.productsManagedObjectsArray = [[coreDataStack.managedObjectContext executeFetchRequest:request error:&error]mutableCopy];
+    _productsManagedObjectsArray = [[coreDataStack.managedObjectContext executeFetchRequest:request error:&error]mutableCopy];
     if(error == nil){
-        [self.tableView reloadData];
+        
+        __weak ProductsViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+        });
+        
     }else{
         NSLog(@"Error: %@", error);
     }
