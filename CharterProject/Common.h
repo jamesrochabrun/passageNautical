@@ -7,6 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+@class AppDelegate;
+#define APP ((AppDelegate* )[UIApplication sharedApplication].delegate)
+
+static inline CGFloat width(UIView *view) { return view.bounds.size.width; }
+static inline CGFloat height(UIView *view) { return view.bounds.size.height; }
 
 extern NSArray * parseArrayOrNullFromServer (id object);
 extern NSString * parseStringOrNullFromServer (id object);

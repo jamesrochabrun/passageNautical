@@ -32,6 +32,7 @@
     if (self.fetchedResultsController.sections.count <= 0) {
         [self setImageIfNotfavorites];
     }
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
     whiteView.backgroundColor = [UIColor whiteColor];

@@ -19,6 +19,7 @@
 		73CE365C5B92CD49B39A1A91 /* libPods-CharterProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */; };
 		7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B167D531D0F69AC00954CFF /* DetailViewController.m */; };
 		7B1FA70A1D9345B100406508 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1FA7091D9345B100406508 /* Common.m */; };
+		7B1FA7111D935C2D00406508 /* CommonUIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1FA70F1D935C2D00406508 /* CommonUIConstants.m */; };
 		7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B51D0B3C7600975BE9 /* CharterService.m */; };
 		7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */; };
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
@@ -76,6 +77,8 @@
 		7B167D531D0F69AC00954CFF /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		7B1FA7081D9345B100406508 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		7B1FA7091D9345B100406508 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		7B1FA70F1D935C2D00406508 /* CommonUIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUIConstants.m; sourceTree = "<group>"; };
+		7B1FA7101D935C2D00406508 /* CommonUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUIConstants.h; sourceTree = "<group>"; };
 		7B2AC3B41D0B3C7600975BE9 /* CharterService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterService.h; sourceTree = "<group>"; };
 		7B2AC3B51D0B3C7600975BE9 /* CharterService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterService.m; sourceTree = "<group>"; };
 		7B2AC3B71D0B800700975BE9 /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
@@ -181,6 +184,7 @@
 		645EBC891D08BF3B007D1557 /* CharterProject */ = {
 			isa = PBXGroup;
 			children = (
+				7B1FA70B1D93545D00406508 /* CommonTools */,
 				645EBCB41D08D441007D1557 /* Model */,
 				645EBCB21D08D425007D1557 /* View */,
 				645EBCB31D08D432007D1557 /* Controller */,
@@ -215,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				7B55999D1D1B6972009B8EE7 /* customViews */,
-				7BA11F2D1D1271810072DBA7 /* categories */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -244,17 +247,27 @@
 		645EBCB41D08D441007D1557 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B55999C1D1B694B009B8EE7 /* CharterManagedObject */,
+				7B55999B1D1B6927009B8EE7 /* CharterObject */,
+				7B55999A1D1B68F6009B8EE7 /* coreDataStack */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7B1FA70B1D93545D00406508 /* CommonTools */ = {
+			isa = PBXGroup;
+			children = (
+				7BA11F2D1D1271810072DBA7 /* categories */,
+				7B1FA70F1D935C2D00406508 /* CommonUIConstants.m */,
+				7B1FA7101D935C2D00406508 /* CommonUIConstants.h */,
 				7B1FA7081D9345B100406508 /* Common.h */,
 				7B1FA7091D9345B100406508 /* Common.m */,
 				7BB0583A1D920CB600E3476C /* CharterAPI.h */,
 				7BB0583B1D920CB600E3476C /* CharterAPI.m */,
 				7BB058371D920A9F00E3476C /* NetworkManager.h */,
 				7BB058381D920A9F00E3476C /* NetworkManager.m */,
-				7B55999C1D1B694B009B8EE7 /* CharterManagedObject */,
-				7B55999B1D1B6927009B8EE7 /* CharterObject */,
-				7B55999A1D1B68F6009B8EE7 /* coreDataStack */,
 			);
-			name = Model;
+			name = CommonTools;
 			sourceTree = "<group>";
 		};
 		7B55999A1D1B68F6009B8EE7 /* coreDataStack */ = {
@@ -557,6 +570,7 @@
 				7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
 				7B5599951D1B11E5009B8EE7 /* CharterFavorite+CoreDataProperties.m in Sources */,
+				7B1FA7111D935C2D00406508 /* CommonUIConstants.m in Sources */,
 				7B55998A1D1AF1D9009B8EE7 /* CoreDataStack.m in Sources */,
 				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,
 				7B4858741D1DE06600AAE2A7 /* DoubleTapImage.m in Sources */,
