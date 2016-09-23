@@ -18,8 +18,7 @@
 #import "UIFont+CustomFont.h"
 #import "CharterAPI.h"
 #import "CustomToolBar.h"
-
-
+#import "CommonUIConstants.h"
 
 static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 static NSString *keyFromJSON = @"products";
@@ -49,7 +48,7 @@ static NSString *keyFromJSON = @"products";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationController.navigationBar.hidden = YES;
-    self.categoryIds = @[@"52961" , @"50951" , @"87048", @"89968"];
+    self.categoryIds = @[khalfDayCategoryID, kfullDayCategoryID,knauticalOvernightCategoryId,kbedAndBoatCategoryID];
     self.finalCategoryArray = [NSMutableArray new];
     
     [self getDataFromApi];
