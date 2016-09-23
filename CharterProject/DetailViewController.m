@@ -17,6 +17,7 @@
 #import "MapViewController.h"
 #import "DoubleTapImage.h"
 #import "CommonUIConstants.h"
+#import "BookingViewController.h"
 
 @interface DetailViewController ()<MFMailComposeViewControllerDelegate, DoubleTapImageDelegate>
 
@@ -52,9 +53,6 @@
     [self displayCharterServiceData];
 
     _doubleTapImageView.delegate = self;
-    
-
-    NSLog(@"the latitude is %@ and longitude is %@", _charterService.latitude, _charterService.longitude);
 }
 
 - (void)addShadowToImageView {
@@ -145,9 +143,11 @@
         } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
             desVC.labelData = @"General Terms";
             desVC.textFieldData = _charterService.generalTerms;
-        } else{
+        } else if ([segue.identifier isEqualToString:@"map"]){
             MapViewController *mapViewController = segue.destinationViewController;
             mapViewController.charterService = _charterService;
+        } else if ([segue.identifier isEqualToString:@"book"]) {
+            BookingViewController *bVC = segue.destinationViewController;
         }
 }
 

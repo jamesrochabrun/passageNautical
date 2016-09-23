@@ -17,6 +17,7 @@
 		645EBCA81D08BF3B007D1557 /* CharterProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 645EBCA71D08BF3B007D1557 /* CharterProjectTests.m */; };
 		645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645EBCB91D08D4C3007D1557 /* MainViewController.m */; };
 		73CE365C5B92CD49B39A1A91 /* libPods-CharterProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */; };
+		7B0B22171D95CDC5000830C4 /* BookingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B22161D95CDC5000830C4 /* BookingViewController.m */; };
 		7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B167D531D0F69AC00954CFF /* DetailViewController.m */; };
 		7B1FA70A1D9345B100406508 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1FA7091D9345B100406508 /* Common.m */; };
 		7B1FA7111D935C2D00406508 /* CommonUIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B1FA70F1D935C2D00406508 /* CommonUIConstants.m */; };
@@ -70,6 +71,8 @@
 		645EBCB81D08D4C3007D1557 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		645EBCB91D08D4C3007D1557 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		67EFECF4A9A328E88E47F59E /* libPods-CharterProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CharterProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B0B22151D95CDC5000830C4 /* BookingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookingViewController.h; sourceTree = "<group>"; };
+		7B0B22161D95CDC5000830C4 /* BookingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookingViewController.m; sourceTree = "<group>"; };
 		7B167D521D0F69AC00954CFF /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		7B167D531D0F69AC00954CFF /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		7B1FA7081D9345B100406508 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
@@ -219,6 +222,8 @@
 		645EBCB31D08D432007D1557 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7B0B22151D95CDC5000830C4 /* BookingViewController.h */,
+				7B0B22161D95CDC5000830C4 /* BookingViewController.m */,
 				645EBCB81D08D4C3007D1557 /* MainViewController.h */,
 				645EBCB91D08D4C3007D1557 /* MainViewController.m */,
 				7B167D521D0F69AC00954CFF /* DetailViewController.h */,
@@ -526,6 +531,7 @@
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
+				7B0B22171D95CDC5000830C4 /* BookingViewController.m in Sources */,
 				7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */,
 				7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */,
 				7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */,

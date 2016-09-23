@@ -63,18 +63,18 @@
     _wishLabel = [UILabel new];
     _wishLabel.textColor = [UIColor whiteColor];
     _wishLabel.font = [UIFont regularFont:24];
-    _wishLabel.text = @"Wish List";
+    _wishLabel.text = @"Coming soon";
     
     _textView = [UITextView new];
     _textView.userInteractionEnabled = NO;
     _textView.backgroundColor = [UIColor clearColor];
-    _textView.text = @"Find the perfect yacht for a special ocassion, like wedings, birthday celebration, or just to take your mettings with clientes or friends to the next level";
+    _textView.text = @"here we can add other feature";
     _textView.textColor = [UIColor whiteColor];
     _textView.font = [UIFont regularFont:14];
     
     _middleLabel = [UILabel new];
     _middleLabel.textAlignment = NSTextAlignmentNatural;
-    _middleLabel.text = @"You dont have any favorites ...yet";
+    _middleLabel.text = @"Comming soon";
     _middleLabel.textColor = [UIColor whiteColor];
     _middleLabel.font = [UIFont regularFont:20];
     _middleLabel.numberOfLines = 0;

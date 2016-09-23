@@ -166,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bsu-SU-9qp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1183" y="1159"/>
+            <point key="canvasLocation" x="1036" y="1248"/>
         </scene>
         <!--Products View Controller-->
         <scene sceneID="T6l-bS-Tbh">
@@ -473,6 +473,9 @@
                                 <state key="normal" title="Book Now">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="gfs-43-44o" kind="modal" identifier="book" id="IIT-V4-Zbe"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -597,7 +600,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmB-vu-yMM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2033" y="430"/>
+            <point key="canvasLocation" x="2049" y="370"/>
+        </scene>
+        <!--Booking View Controller-->
+        <scene sceneID="4TK-cb-RsS">
+            <objects>
+                <viewController id="gfs-43-44o" customClass="BookingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qD8-cR-82K"/>
+                        <viewControllerLayoutGuide type="bottom" id="UEk-Td-V82"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5AD-Fl-hV5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SaN-xx-OYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1607" y="1436"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="ANf-ok-C7g">
