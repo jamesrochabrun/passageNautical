@@ -42,6 +42,8 @@ NSString *const CHsupplierId = @"supplierId";
 NSString *const CHterms = @"terms";
 NSString *const CHunitLabel = @"unitLabel";
 NSString *const CHunitLabelPlural = @"unitLabelPlural";
+NSString *const CHimageURL = @"itemUrl";
+
 
 
 + (CharterService *)charterServiceFromDict:(NSDictionary *)dict {
@@ -62,8 +64,8 @@ NSString *const CHunitLabelPlural = @"unitLabelPlural";
     charter.generalTerms = parseStringOrNullFromServer(dict[CHgeneralTerms]);
     charter.images = parseArrayOrNullFromServer(dict[CHimages]);
     charter.internalCode = parseStringOrNullFromServer(dict[CHinternalCode]);
-    charter.latitude = parseStringOrNullFromServer(dict[CHlatitude]);
-    charter.longitude = parseStringOrNullFromServer(dict[CHlongitude]);
+    charter.latitude = parseNSNumberOrNullFromServer(dict[CHlatitude]);
+    charter.longitude = parseNSNumberOrNullFromServer(dict[CHlongitude]);
     charter.locationAddress = parseDictionaryOrNullFromServer(dict[CHlocationAddress]);
     charter.minimumNoticeMinutes = parseNSNumberOrNullFromServer(dict[CHminimumNoticeMinutes]);
     charter.priceOptions = parseArrayOrNullFromServer(dict[CHpriceOptions]);
@@ -78,50 +80,18 @@ NSString *const CHunitLabelPlural = @"unitLabelPlural";
     charter.terms = parseStringOrNullFromServer(dict[CHterms]);
     charter.unitLabel = parseStringOrNullFromServer(dict[CHunitLabel]);
     charter.unitLabelPlural = parseStringOrNullFromServer(dict[CHunitLabelPlural]);
+    
+    //setting the ImageURL :
+    NSDictionary *imagesDictionary = [charter.images firstObject];
+    NSString *itemUrl = [imagesDictionary valueForKey:CHimageURL];
+    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    charter.imageURL = itemUrlWithNoSpaces;
+    
+    
     return charter;
  
 }
 
-
-- (instancetype)initWithDictionary:(NSDictionary*)dict {
-    
-    self = [super init];
-    if (self) {
-        
-        _name = [dict valueForKey:CHname];
-        _advertisedPrice = [dict valueForKey:CHadvertisedPrice];
-        _bookingFields = [dict valueForKey:CHbookingFields];
-        _bookingMode = [dict valueForKey:CHbookingMode];
-        _charter = [dict valueForKey:CHcharter];
-        _confirmMode = [dict valueForKey:CHconfirmMode];
-        _confirmModeMinParticipants = [dict valueForKey:CHconfirmModeMinParticipants];
-        _currency = [dict valueForKey:CHcurrency];
-        _dateUpdated = [dict valueForKey:CHdateUpdated];
-        _charterDescription = [dict valueForKey:CHcharterDescription];
-        _durationMinutes = [dict valueForKey:CHdurationMinutes];
-        _extras = [dict valueForKey:CHextras];
-        _generalTerms = [dict valueForKey:CHgeneralTerms];
-        _images = [dict valueForKey:CHimages];
-        _internalCode = [dict valueForKey:CHinternalCode];
-        _latitude = [dict valueForKey:CHlatitude];
-        _longitude = [dict valueForKey:CHlongitude];
-        _locationAddress = [dict valueForKey:CHlocationAddress];
-        _minimumNoticeMinutes = [dict valueForKey:CHminimumNoticeMinutes];
-        _priceOptions = [dict valueForKey:CHpriceOptions];
-        _productCode = [dict valueForKey:CHproductCode];
-        _productType = [dict valueForKey:CHproductType];
-        _quantityRequired = [dict valueForKey:CHquantityRequired];
-        _quantityRequiredMax = [dict valueForKey:CHquantityRequiredMax];
-        _quantityRequiredMin = [dict valueForKey:CHquantityRequiredMin];
-        _shortDescription = [dict valueForKey:CHshortDescription];
-        _supplierAlias = [dict valueForKey:CHsupplierAlias];
-        _supplierId = [dict valueForKey:CHsupplierId];
-        _terms = [dict valueForKey:CHterms];
-        _unitLabel = [dict valueForKey:CHunitLabel];
-        _unitLabelPlural = [dict valueForKey:CHunitLabelPlural];
-    }
-    return self;
-}
 
 
 

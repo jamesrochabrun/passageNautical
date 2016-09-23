@@ -10,14 +10,10 @@
 #import "ProductCell.h"
 #import "CharterService.h"
 #import "DetailViewController.h"
-#import "CoreDataStack.h"
-#import "CharterFavorite.h"
 
 @interface ProductsViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property BOOL isItFavorite;
 @property NSString *categoryTitle;
-@property NSMutableArray *productsManagedObjectsArray;
 
 @end
 
@@ -27,81 +23,10 @@
     
     [super viewDidLoad];
     [self setNavBar];
-    
-     [self loadProducts];
-    if (self.productsManagedObjectsArray.count < 1) {
-        [self saveInCoreDataWithArrayOfObjects:self.productsArray];
-    }
-    
+
   //  for (CharterService *charterservice in self.productsArray){
        // NSLog(@"%@", charterservice.name);
     //}
-}
-
-- (void)saveInCoreDataWithArrayOfObjects:(NSArray *)array {
-    
-    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    
-    _productsManagedObjectsArray = [NSMutableArray new];
-    
-    for (CharterService *charterService in array) {
-        CharterFavorite *charterFavorite = [NSEntityDescription insertNewObjectForEntityForName:@"CharterFavorite" inManagedObjectContext:coreDataStack.managedObjectContext];
-        charterFavorite.name = charterService.name;
-        charterFavorite.currency = charterService.currency;
-        charterFavorite.advertisedPrice = charterService.advertisedPrice;
-        charterFavorite.charterDescription = charterService.charterDescription;
-        charterFavorite.shortCharterDescription = charterService.shortDescription;
-        charterFavorite.latitude = [NSString stringWithFormat:@"%@",charterService.latitude];
-        charterFavorite.longitude = [NSString stringWithFormat:@"%@",charterService.longitude];
-        charterFavorite.durationMinutes = charterService.durationMinutes;
-        charterFavorite.generalTerms = charterService.generalTerms;
-        charterFavorite.productCode = charterService.productCode;
-        
-        //here I define the title of each category:
-        //- first I set the first item of the array and with an if statement i define the title if contains a string related to it [self setNavBar];
-        //- second, i set the category to all the products in the array passed to the title that i set using the method [sel setNavBar]
-        //- finally I just make a predicate using self.title or self.categoryTitle  , without coredata thats not possible
-        charterFavorite.category = self.categoryTitle;
-        
-        BOOL myBool = NO;
-        charterFavorite.isFavorite = [NSNumber numberWithBool:myBool];
-        charterFavorite.date = [[NSDate date] timeIntervalSince1970];
-        
-        NSDictionary *imagesDictionary = [charterService.images firstObject];
-        NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
-        NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-        charterFavorite.imageURL = itemUrlWithNoSpaces;
-        
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:charterService.bookingFields];
-        charterFavorite.bookingFields = data;
-        [self.productsManagedObjectsArray addObject:charterFavorite];
-    }
-    [coreDataStack saveContext];
-}
-
--(void)loadProducts {
-    
-    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"CharterFavorite"];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"advertisedPrice" ascending:NO]];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", self.title];
-    [request setPredicate:predicate];
-    
-    NSError *error;
-    //the & is using the addres of error
-    _productsManagedObjectsArray = [[coreDataStack.managedObjectContext executeFetchRequest:request error:&error]mutableCopy];
-    if(error == nil){
-        
-        __weak ProductsViewController *weakSelf = self;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView reloadData];
-        });
-        
-    }else{
-        NSLog(@"Error: %@", error);
-    }
 }
 
 - (void)setNavBar {
@@ -124,20 +49,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    CharterFavorite *charterFavorite = [self.productsManagedObjectsArray objectAtIndex:indexPath.row];
-    [cell configureCellwithCharterFavorite:charterFavorite];
+    CharterService *charterFavorite = [self.productsArray objectAtIndex:indexPath.row];
+    [cell configureCellwithCharterService:charterFavorite];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.productsManagedObjectsArray.count;
+    return self.productsArray.count;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     DetailViewController *detailVC = segue.destinationViewController;
-    detailVC.charterFavorite = [self.productsManagedObjectsArray objectAtIndex:indexPath.row];
+    detailVC.charterService = [self.productsArray objectAtIndex:indexPath.row];
 }
 
 

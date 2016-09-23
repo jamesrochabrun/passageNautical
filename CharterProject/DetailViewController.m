@@ -15,8 +15,6 @@
 #import "NSString+DecodeHTML.h"
 #import <MessageUI/MessageUI.h>
 #import "MapViewController.h"
-#import "CoreDataStack.h"
-#import "CharterFavorite.h"
 #import "DoubleTapImage.h"
 #import "CommonUIConstants.h"
 
@@ -32,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextViewConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *phoneButton;
 @property (weak, nonatomic) IBOutlet UIButton *mailButton;
-@property (weak, nonatomic) IBOutlet UIButton *loveButton;
 @property (weak, nonatomic) IBOutlet UILabel *numberOFpeopleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *durationHoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *extraLabel;
@@ -52,17 +49,12 @@
     [self setlabelsAppereance];
     [self addShadowToImageView];
     [_scrollView setContentSize:CGSizeMake(width(self.view), height(self.view) *3)];
-    [self displayCharterFavoriteObjectData];
-    
-    BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
-    
-    if (isFavorite) {
-        [_loveButton setSelected:YES];
-    } else {
-        [_loveButton setSelected:NO];
-    }
-    
+    [self displayCharterServiceData];
+
     _doubleTapImageView.delegate = self;
+    
+
+    NSLog(@"the latitude is %@ and longitude is %@", _charterService.latitude, _charterService.longitude);
 }
 
 - (void)addShadowToImageView {
@@ -88,9 +80,6 @@
     [_phoneButton setImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
     [_phoneButton setTintColor:[UIColor whiteColor]];
     [_mailButton setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];
-    [_loveButton setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
-    [_loveButton setImage:[UIImage imageNamed:@"fullLove"] forState:UIControlStateSelected];
-    [_loveButton setTintColor:[UIColor customMainColor]];
     [_mailButton setTintColor:[UIColor whiteColor]];
     [_mapButton setTintColor:[UIColor customMainColor]];
     _mapButton.titleLabel.font = [UIFont regularFont:15];
@@ -127,21 +116,21 @@
     _priceLabel.font = [UIFont regularFont:20];
 }
 
-- (void)displayCharterFavoriteObjectData {
+- (void)displayCharterServiceData {
     
-    self.title = self.charterFavorite.name;
+    self.title = self.charterService.name;
     //display the first image of the charter gallery
-    [_doubleTapImageView setImageWithURL:[NSURL URLWithString:_charterFavorite.imageURL]
+    [_doubleTapImageView setImageWithURL:[NSURL URLWithString:_charterService.imageURL]
                    placeholderImage:[UIImage imageNamed:@"yate"]];
     //display price
-    _priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterFavorite.currency , _charterFavorite.advertisedPrice];
+    _priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.advertisedPrice];
 
     //display information labels
-    int hours = [_charterFavorite.durationMinutes intValue] /60;
+    int hours = [_charterService.durationMinutes intValue] /60;
     _durationHoursLabel.text = [NSString stringWithFormat:@"%d H",hours];
     
     //display shortDescription
-    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:_charterFavorite.shortCharterDescription];
+    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:_charterService.shortDescription];
     NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
     [_textView setText:stringWithNoHTML];
     
@@ -151,14 +140,14 @@
     
         DescriptionViewController *desVC = segue.destinationViewController;
         if ([segue.identifier isEqualToString:@"DescriptionSegue"]) {
-            desVC.labelData = _charterFavorite.name;
-            desVC.textFieldData = _charterFavorite.charterDescription;
+            desVC.labelData = _charterService.name;
+            desVC.textFieldData = _charterService.charterDescription;
         } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
             desVC.labelData = @"General Terms";
-            desVC.textFieldData = _charterFavorite.generalTerms;
+            desVC.textFieldData = _charterService.generalTerms;
         } else{
             MapViewController *mapViewController = segue.destinationViewController;
-            mapViewController.charterFavorite = _charterFavorite;
+            mapViewController.charterService = _charterService;
         }
 }
 
@@ -178,7 +167,7 @@
     // Email Subject
     NSString *emailTitle = kemailSubject;
     // Email Content
-    NSString *messageBody = [NSString stringWithFormat:@"I am interested in rent the %@", self.charterFavorite.name];
+    NSString *messageBody = [NSString stringWithFormat:@"I am interested in rent the %@", self.charterService.name];
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:kcontactEmail];
     
@@ -227,7 +216,7 @@
 
 - (IBAction)onShareButtonPressed:(UIButton *)sender {
     
-    NSString *shareText = [NSString stringWithFormat:@"%@, %@", self.charterFavorite.advertisedPrice , self.charterFavorite.shortCharterDescription];
+    NSString *shareText = [NSString stringWithFormat:@"%@, %@", self.charterService.advertisedPrice , self.charterService.shortDescription];
     NSURL *shareLink = [[NSURL alloc] initWithString:@"www.passagenautical.com"];
     
     UIActivityViewController *activityViewController =
@@ -246,59 +235,10 @@
     });
 }
 
-
-- (IBAction)addToFavorites:(UIButton *)sender {
-
-    BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
-    if (!isFavorite) {
-        [sender setSelected:YES];
-        [self changingIsFavoriteToTrue];
-    } else {
-        [sender setSelected:NO];
-        [self changingIsFavoriteToFalse];
-    }
-}
-
 - (void)didIamgeDoubleTapped {
-    
-    BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
-    if (!isFavorite) {
-        [_loveButton setSelected:YES];
-        [self changingIsFavoriteToTrue];
-    } else {
-        [_loveButton setSelected:NO];
-        [self changingIsFavoriteToFalse];
-    }
+    NSLog(@"hehh");
 }
 
-- (void)changingIsFavoriteToTrue {
-    
-    BOOL myBool = YES;
-    self.charterFavorite.isFavorite = [NSNumber numberWithBool:myBool];
-    
-    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    [coreDataStack saveContext];
-    
-    UIAlertController *alertSaved = [UIAlertController alertControllerWithTitle:@"Added to favorites!" message:@"You can revisit this in your favorites section" preferredStyle:UIAlertControllerStyleAlert];
-    
-    __weak DetailViewController *weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf presentViewController:alertSaved animated:YES completion:nil];
-    });
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [alertSaved dismissViewControllerAnimated:YES completion:nil];
-    });
-}
-
-- (void)changingIsFavoriteToFalse {
-    
-    BOOL myBool = NO;
-    _charterFavorite.isFavorite = [NSNumber numberWithBool:myBool];
-    
-    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    [coreDataStack saveContext];
-}
 
 
 

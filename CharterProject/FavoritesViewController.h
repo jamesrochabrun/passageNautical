@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomToolBar.h"
-#import "CoreDataStack.h"
 
 
-@interface FavoritesViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, NSFetchedResultsControllerDelegate, CustomToolBarDelegate>
+@interface FavoritesViewController : UIViewController <CustomToolBarDelegate>
 
 @end

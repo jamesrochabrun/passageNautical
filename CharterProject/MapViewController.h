@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CharterFavorite;
+@class CharterService;
 
 
 @interface MapViewController : UIViewController
-@property CharterFavorite *charterFavorite;
+@property CharterService *charterService;
 
 
 @end

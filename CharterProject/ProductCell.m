@@ -8,7 +8,6 @@
 
 #import "ProductCell.h"
 #import "CharterService.h"
-#import "CharterFavorite.h"
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
@@ -29,7 +28,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)configureCellwithCharterFavorite:(CharterFavorite*)charterfavorite {
+- (void)configureCellwithCharterService:(CharterService *)charterService {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -38,9 +37,8 @@
         UIImageView *imageView = [UIImageView new];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         
-        [imageView setImageWithURL:[NSURL URLWithString:charterfavorite.imageURL]
+        [imageView setImageWithURL:[NSURL URLWithString:charterService.imageURL]
                   placeholderImage:[UIImage imageNamed:@"yate"]];
-        
         self.backgroundView.layer.shadowColor = [UIColor whiteColor].CGColor;
         self.backgroundView.layer.shadowOffset = CGSizeMake(5, 5);
         self.backgroundView.layer.shadowOpacity = 1;
@@ -48,17 +46,17 @@
         self.backgroundView = imageView;
         
         //charter service name
-        _nameLabel.text = charterfavorite.name;
+        _nameLabel.text = charterService.name;
         _nameLabel.textColor = [UIColor whiteColor];
         _nameLabel.font = [UIFont regularFont:15];
         
         //charter service price
-        _priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterfavorite.currency, charterfavorite.advertisedPrice];
+        _priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterService.currency, charterService.advertisedPrice];
         _priceLabel.textColor = [UIColor whiteColor];
         _priceLabel.font = [UIFont regularFont:15];
         
         //charter service time
-        int hours = [charterfavorite.durationMinutes intValue] / 60;
+        int hours = [charterService.durationMinutes intValue] / 60;
         _timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
         _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.font = [UIFont regularFont:15];

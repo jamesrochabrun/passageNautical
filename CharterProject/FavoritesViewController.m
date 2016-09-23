@@ -9,9 +9,6 @@
 #import "FavoritesViewController.h"
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
-#import "FavoriteCell.h"
-#import "CoreDataStack.h"
-#import "CharterFavorite.h"
 #import "DetailViewController.h"
 #import "Common.h"
 #import "CommonUIConstants.h"
@@ -19,7 +16,6 @@
 
 @interface FavoritesViewController ()
 
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *wishLabel;
@@ -28,6 +24,7 @@
 @property (nonatomic, strong) UIButton *keepLookingButton;
 @property (nonatomic, strong) UIImageView *shadow;
 @property (nonatomic, strong) UIView *statusBarViewBackground;
+
 
 @end
 
@@ -44,11 +41,7 @@
     toolBar.del = self;
     [self.view addSubview:toolBar];
     
-    [self.fetchedResultsController performFetch:nil];
-    
-    if (self.fetchedResultsController.sections.count <= 0) {
-        [self setImageIfNotfavorites];
-    }
+    [self setImageIfNotfavorites];
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
@@ -147,171 +140,7 @@
     frame.origin.x = (width(self.view) - frame.size.width) /2;
     frame.origin.y = CGRectGetMinY(_middleLabel.frame) - frame.size.height - kGeomMarginMedium;
     _textView.frame = frame;
-    
-
 }
-
-#pragma coredata
-
-- (NSFetchRequest *)entrylistfetchRequest {
-    
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"CharterFavorite"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFavorite == %d", YES];
-    [fetchRequest setPredicate:predicate];
-    return  fetchRequest;
-}
-
-- (NSFetchedResultsController*)fetchedResultsController {
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
-    CoreDataStack *coreDataStack = [CoreDataStack  defaultStack];
-    NSFetchRequest *fetchRequest = [self entrylistfetchRequest];
-    
-    _fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.managedObjectContext sectionNameKeyPath:@"sectionName" cacheName:nil];
-    _fetchedResultsController.delegate = self;
-    return _fetchedResultsController;
-}
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView endUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-        case NSFetchedResultsChangeUpdate:
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-        default:
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-            
-        default:
-            break;
-    }
-}
-
-#pragma tableViewMethods
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    FavoriteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    CharterFavorite *charterFavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [cell configureCellForFavorite:charterFavorite];
-    
-    return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return  self.fetchedResultsController.sections.count;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width(tableView), 18)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, width(tableView), 32)];
-    [label setFont:[UIFont mediumFont:15]];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [label setTextColor:[UIColor whiteColor]];
-    //NSFETCHRESULTCONTROLLER
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    //this is setted in CharterFavorite+CoreDataProperties.m
-    NSString *sectionName = [sectionInfo name];
-    ///////////////////////////////////////////
-    [label setText:[NSString stringWithFormat:@"favorite on %@" ,sectionName]];
-    [view addSubview:label];
-    [view setBackgroundColor:[UIColor customMainColor]]; 
-    return view;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kGeomHeaderHeightInSection;
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
-}
-
-//updating the bool isFavorite
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
--(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-    UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Book Now!" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
-                                    {
-                                        CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
-                                        NSLog(@"the charter is %@", charterfavorite.productCode);
-                                        
-                                        //NSMutableArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:charterfavorite.bookingFields];
-                                        
-                                        //NSLog(@"the array of booking %@",array);
-                                        [CharterAPI bookService:charterfavorite success:^{
-                                            
-                                            NSLog(@"the succes is ");
-                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                        }];
-                                        
-                                        
-                                        
-                                                            }];
-    button.backgroundColor = [UIColor customMainColor];
-    
-    UITableViewRowAction *button2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
-                                     {
-                                        
-                                         CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
-                                         
-                                         BOOL myBool = NO;
-                                         charterfavorite.isFavorite = [NSNumber numberWithBool:myBool];
-                                         
-                                         CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-                                         [coreDataStack saveContext];
-                                         
-                                         if (self.fetchedResultsController.sections.count <= 0) {
-                                             [self setImageIfNotfavorites];
-                                         }
-                                     }];
-    button2.backgroundColor = [UIColor colorWithRed:1.0 green:0.435 blue:0.4153 alpha:1.0];
-    
-    return @[button, button2];
-}
-
 
 #pragma segues
 
@@ -330,15 +159,6 @@
 - (void)onKeepLookingButtonTapped {
 
     [self performSegueWithIdentifier:@"home" sender:self];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqual :@"charterFavorite"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        DetailViewController *detailVC = segue.destinationViewController;
-        detailVC.charterFavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    }
 }
 
 

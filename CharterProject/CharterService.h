@@ -59,8 +59,8 @@ extern NSString *const CHunitLabelPlural;
 @property (nonatomic, strong) NSString *generalTerms;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSString *internalCode;
-@property (nonatomic, strong) NSString *latitude;
-@property (nonatomic, strong) NSString *longitude;
+@property (nonatomic, strong) NSNumber *latitude;
+@property (nonatomic, strong) NSNumber *longitude;
 @property (nonatomic, strong) NSDictionary *locationAddress;
 @property (nonatomic, strong) NSNumber *minimumNoticeMinutes;
 @property (nonatomic, strong) NSArray *priceOptions;
@@ -75,9 +75,18 @@ extern NSString *const CHunitLabelPlural;
 @property (nonatomic, strong) NSString *terms;
 @property (nonatomic, strong) NSString *unitLabel;
 @property (nonatomic, strong) NSString *unitLabelPlural;
+@property (nonatomic, strong) NSString *imageURL;
 
-- (instancetype)initWithDictionary:(NSDictionary*)dict;
 + (CharterService *)charterServiceFromDict:(NSDictionary *)dict;
+
+
+
+
+
+
+
+
+
 
 
 

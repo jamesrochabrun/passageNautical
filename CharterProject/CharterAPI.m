@@ -8,7 +8,6 @@
 
 #import "CharterAPI.h"
 #import "CharterService.h"
-#import "CharterFavorite.h"
 
 NSString *const kapiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 NSString *const kHTTPProtocol = @"https";
@@ -60,7 +59,7 @@ NSString *const keyFromJSON = @"products";
     return op;
 }
 
-+ (AFHTTPRequestOperation *)bookService:(CharterFavorite *)charter
++ (AFHTTPRequestOperation *)bookService:(CharterService *)charter
                                 success:(void (^)())success
                                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     

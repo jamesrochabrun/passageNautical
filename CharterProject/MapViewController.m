@@ -10,7 +10,6 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "CharterService.h"
-#import "CharterFavorite.h"
 
 @interface MapViewController ()<MKMapViewDelegate,CLLocationManagerDelegate>
 @property CLLocationManager *locationManager;
@@ -44,7 +43,10 @@
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = CLLocationCoordinate2DMake([self.charterFavorite.latitude doubleValue], [self.charterFavorite.longitude doubleValue]);
+    
+    NSLog(@"the latitude is %@ , and the longitude is %@", _charterService.latitude , _charterService.longitude);
+    
+    point.coordinate = CLLocationCoordinate2DMake([self.charterService.latitude doubleValue], [self.charterService.longitude doubleValue]);
     point.title = @"Passage Nautical";
     point.subtitle = @"Richmond";
     
@@ -74,7 +76,7 @@
 
 - (IBAction)getDirectionsButtonTapped:(UIButton *)sender {
     
-    NSString *stringUrl = [NSString stringWithFormat:@"http://maps.apple.com/maps?daddr=%@,%@", self.charterFavorite.latitude ,self.charterFavorite.longitude];
+    NSString *stringUrl = [NSString stringWithFormat:@"http://maps.apple.com/maps?daddr=%@,%@", self.charterService.latitude ,self.charterService.longitude];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringUrl]];
 }
 
