@@ -50,4 +50,30 @@
     }];
 }
 
+- (AFHTTPRequestOperation *)POST:(NSString *)path parameters:(NSString *)parameters
+                         success:(void (^)(id responseObject))success
+                         failure:(void (^)(AFHTTPRequestOperation*operation, NSError *error))failure
+{
+    NSLog(@"POST: %@", path);
+    NetworkManager *nm = [NetworkManager sharedRequestManager];
+    nm.requestManager.responseSerializer = [AFJSONResponseSerializer serializer];
+    nm.requestManager.responseSerializer.acceptableContentTypes = [NSMutableSet setWithObjects:@"application/json", @"text/html",@"text/plain", nil];
+    
+    [nm.requestManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSLog (@"POST PARAMETERS:  %@",parameters);
+    NSLog (@"SERIALIZER SAYS HEADERS:  %@", nm.requestManager.requestSerializer.HTTPRequestHeaders);
+    //NSLog (@"SERIALIZER SAYS TIMEOUT:   %g", nm.requestManager.requestSerializer.timeoutInterval);
+    return [nm.requestManager POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               NSLog(@"JSON: %@", responseObject);;
+        success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+        
+        NSLog(@"the error is %@", error);
+    }];
+}
+
+
+
 @end

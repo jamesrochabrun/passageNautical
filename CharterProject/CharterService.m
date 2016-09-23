@@ -87,6 +87,7 @@ NSString *const CHunitLabelPlural = @"unitLabelPlural";
     
     self = [super init];
     if (self) {
+        
         _name = [dict valueForKey:CHname];
         _advertisedPrice = [dict valueForKey:CHadvertisedPrice];
         _bookingFields = [dict valueForKey:CHbookingFields];

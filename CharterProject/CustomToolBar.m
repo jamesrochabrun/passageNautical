@@ -46,9 +46,7 @@
     
     CGRect frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 50, [[UIScreen mainScreen] bounds].size.width, 50);
     self.frame = frame;
-    
 }
-
 
 - (void)goToContact {
     [self.del goToContact];

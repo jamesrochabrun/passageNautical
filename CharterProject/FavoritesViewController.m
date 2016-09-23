@@ -15,6 +15,7 @@
 #import "DetailViewController.h"
 #import "Common.h"
 #import "CommonUIConstants.h"
+#import "CharterAPI.h"
 
 @interface FavoritesViewController ()
 
@@ -273,7 +274,17 @@
    
     UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Book Now!" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                     {
-                                        NSLog(@"booking not available yet");
+                                        CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+                                        NSLog(@"the charter is %@", charterfavorite.productCode);
+                                        [CharterAPI bookService:charterfavorite success:^{
+                                            
+                                            NSLog(@"the succes is ");
+                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                        }];
+                                        
+                                        
+                                        
                                                             }];
     button.backgroundColor = [UIColor customMainColor];
     

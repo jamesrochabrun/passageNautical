@@ -101,9 +101,7 @@ static NSString *keyFromJSON = @"products";
         
         [CharterAPI getListOfServicesByID:categoryID success:^(NSArray *services) {
             
-            NSLog(@"the services are %@", services);
             [_finalCategoryArray addObject:services];
-            
             
             __weak MainViewController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{

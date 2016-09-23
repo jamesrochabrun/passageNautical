@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "NetworkManager.h"
+@class CharterService;
+@class CharterFavorite;
 
 
 @interface CharterAPI : NSObject
@@ -17,4 +19,8 @@
 + (AFHTTPRequestOperation *)getListOfServicesByID:(NSString *)listID
                                         success:(void (^)(NSArray *services))success
                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
++ (AFHTTPRequestOperation *)bookService:(CharterFavorite *)charter
+                                success:(void (^)())success
+                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

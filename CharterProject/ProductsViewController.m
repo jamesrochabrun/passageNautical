@@ -33,9 +33,9 @@
         [self saveInCoreDataWithArrayOfObjects:self.productsArray];
     }
     
-    for (CharterService *charterservice in self.productsArray){
-        NSLog(@"%@", charterservice.name);
-    }
+  //  for (CharterService *charterservice in self.productsArray){
+       // NSLog(@"%@", charterservice.name);
+    //}
 }
 
 - (void)saveInCoreDataWithArrayOfObjects:(NSArray *)array {
