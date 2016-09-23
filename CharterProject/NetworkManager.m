@@ -61,6 +61,7 @@
     
     [nm.requestManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
+    
     NSLog (@"POST PARAMETERS:  %@",parameters);
     NSLog (@"SERIALIZER SAYS HEADERS:  %@", nm.requestManager.requestSerializer.HTTPRequestHeaders);
     //NSLog (@"SERIALIZER SAYS TIMEOUT:   %g", nm.requestManager.requestSerializer.timeoutInterval);
@@ -70,7 +71,9 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation,error);
         
-        NSLog(@"the error is %@", error);
+        NSLog(@"the response string is %@" , operation.responseString);
+        NSLog(@"the response object is %@", operation.responseObject);
+        //NSLog(@"the error is %@", error);
     }];
 }
 

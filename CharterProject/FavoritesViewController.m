@@ -277,6 +277,10 @@
                                         CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
                                         NSLog(@"the charter is %@", charterfavorite.productCode);
+                                        
+                                        //NSMutableArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:charterfavorite.bookingFields];
+                                        
+                                        //NSLog(@"the array of booking %@",array);
                                         [CharterAPI bookService:charterfavorite success:^{
                                             
                                             NSLog(@"the succes is ");

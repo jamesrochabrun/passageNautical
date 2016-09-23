@@ -129,11 +129,12 @@ NSString *const keyFromJSON = @"products";
                                               ]
                                  };
     
+    
     NSError *error;
     NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:dict  options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
     
-    //NSDictionary *parameters = @{@"bookings":jsonString};
+    //NSDictionary *parameters = @{@"bookingFields":jsonString};
     //parameters
     NetworkManager *rm = [NetworkManager new];
     
