@@ -1,5 +1,5 @@
 //
-//  CharterFavorite.h
+//  Charter.h
 //  CharterProject
 //
 //  Created by James Rochabrun on 22-06-16.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CharterFavorite : NSManagedObject
+@interface Charter : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -19,4 +19,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "CharterFavorite+CoreDataProperties.h"
+#import "Charter+CoreDataProperties.h"

@@ -62,7 +62,7 @@
     [nm.requestManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     
-    NSLog (@"POST PARAMETERS:  %@",parameters);
+   // NSLog (@"POST PARAMETERS:  %@",parameters);
     NSLog (@"SERIALIZER SAYS HEADERS:  %@", nm.requestManager.requestSerializer.HTTPRequestHeaders);
     //NSLog (@"SERIALIZER SAYS TIMEOUT:   %g", nm.requestManager.requestSerializer.timeoutInterval);
     return [nm.requestManager POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -1,5 +1,5 @@
 //
-//  CharterFavorite+CoreDataProperties.h
+//  Charter+CoreDataProperties.h
 //  CharterProject
 //
 //  Created by James Rochabrun on 23-06-16.
@@ -9,11 +9,11 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "CharterFavorite.h"
+#import "Charter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CharterFavorite (CoreDataProperties)
+@interface Charter (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSNumber *advertisedPrice;
 @property (nullable, nonatomic, retain) NSData *bookingFields;

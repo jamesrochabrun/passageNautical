@@ -1,5 +1,5 @@
 //
-//  CharterFavorite+CoreDataProperties.m
+//  Charter+CoreDataProperties.m
 //  CharterProject
 //
 //  Created by James Rochabrun on 23-06-16.
@@ -9,9 +9,9 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "CharterFavorite+CoreDataProperties.h"
+#import "Charter+CoreDataProperties.h"
 
-@implementation CharterFavorite (CoreDataProperties)
+@implementation Charter (CoreDataProperties)
 
 @dynamic advertisedPrice;
 @dynamic bookingFields;

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "NetworkManager.h"
 @class CharterService;
-@class CharterFavorite;
+@class Charter;
 
 
 @interface CharterAPI : NSObject
@@ -20,7 +20,7 @@
                                         success:(void (^)(NSArray *services))success
                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
-+ (AFHTTPRequestOperation *)bookService:(CharterFavorite *)charter
++ (AFHTTPRequestOperation *)bookService:(Charter *)charter
                                 success:(void (^)())success
                                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CharterFavorite;
+@class Charter;
 
 @interface FavoriteCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *durationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
-- (void)configureCellForFavorite:(CharterFavorite*)charterFavorite;
+- (void)configureCellForFavorite:(Charter *)charterFavorite;
 
 
 @end

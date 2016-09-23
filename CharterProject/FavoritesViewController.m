@@ -11,7 +11,7 @@
 #import "UIFont+CustomFont.h"
 #import "FavoriteCell.h"
 #import "CoreDataStack.h"
-#import "CharterFavorite.h"
+#import "Charter.h"
 #import "DetailViewController.h"
 #import "Common.h"
 #import "CommonUIConstants.h"
@@ -155,7 +155,7 @@
 
 - (NSFetchRequest *)entrylistfetchRequest {
     
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"CharterFavorite"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Charter"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFavorite == %d", YES];
@@ -221,7 +221,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FavoriteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    CharterFavorite *charterFavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Charter *charterFavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [cell configureCellForFavorite:charterFavorite];
     
     return cell;
@@ -274,7 +274,7 @@
    
     UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Book Now!" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                     {
-                                        CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
+                                        Charter *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
                                         NSLog(@"the charter is %@", charterfavorite.productCode);
                                         
@@ -295,7 +295,7 @@
     UITableViewRowAction *button2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                      {
                                         
-                                         CharterFavorite *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
+                                         Charter *charterfavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
                                          
                                          BOOL myBool = NO;
                                          charterfavorite.isFavorite = [NSNumber numberWithBool:myBool];
@@ -337,7 +337,7 @@
     if ([segue.identifier isEqual :@"charterFavorite"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         DetailViewController *detailVC = segue.destinationViewController;
-        detailVC.charterFavorite = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        detailVC.charter = [self.fetchedResultsController objectAtIndexPath:indexPath];
     }
 }
 

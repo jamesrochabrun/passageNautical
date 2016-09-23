@@ -7,7 +7,7 @@
 //
 
 #import "FavoriteCell.h"
-#import "CharterFavorite.h"
+#import "Charter.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
@@ -23,7 +23,7 @@
 }
 
 
-- (void)configureCellForFavorite:(CharterFavorite *)charterFavorite {
+- (void)configureCellForFavorite:(Charter *)charterFavorite {
     
     _nameLabel.text = charterFavorite.name;
     UIImageView *imageView = [UIImageView new];

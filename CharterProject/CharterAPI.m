@@ -8,7 +8,7 @@
 
 #import "CharterAPI.h"
 #import "CharterService.h"
-#import "CharterFavorite.h"
+#import "Charter.h"
 
 NSString *const kapiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 NSString *const kHTTPProtocol = @"https";
@@ -44,8 +44,22 @@ NSString *const keyFromJSON = @"products";
         
 
        NSArray *arrayData = responseObject[keyFromJSON];
+        
+        
+        NSDictionary *firstDict = [arrayData firstObject];
+        
+        
+        NSArray *bookinFields = [firstDict objectForKey:@"bookingFields"];
+        
+        
+        NSError *error;
+        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:bookinFields  options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+
+        NSLog(@"the %@", jsonString);
     
         NSMutableArray *categoryProductsArray = [NSMutableArray new];
+        
         
         for (id dict in arrayData) {
             CharterService *charterService = [CharterService charterServiceFromDict:dict];
@@ -60,7 +74,7 @@ NSString *const keyFromJSON = @"products";
     return op;
 }
 
-+ (AFHTTPRequestOperation *)bookService:(CharterFavorite *)charter
++ (AFHTTPRequestOperation *)bookService:(Charter *)charter
                                 success:(void (^)())success
                                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
