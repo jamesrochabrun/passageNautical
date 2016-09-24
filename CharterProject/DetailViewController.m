@@ -138,10 +138,10 @@
     
         DescriptionViewController *desVC = segue.destinationViewController;
         if ([segue.identifier isEqualToString:@"DescriptionSegue"]) {
-            desVC.labelData = _charterService.name;
+            desVC.labelDataText = _charterService.name;
             desVC.textFieldData = _charterService.charterDescription;
         } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
-            desVC.labelData = @"General Terms";
+            desVC.labelDataText = @"General Terms";
             desVC.textFieldData = _charterService.generalTerms;
         } else if ([segue.identifier isEqualToString:@"map"]){
             MapViewController *mapViewController = segue.destinationViewController;

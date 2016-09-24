@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TopView.h"
 
-@interface DescriptionViewController : UIViewController
-@property NSString *labelData;
-@property NSString *textFieldData;
+@interface DescriptionViewController : UIViewController<TopViewDelegate>
+@property (nonatomic, strong) NSString *labelDataText;
+@property (nonatomic, strong) NSString *textFieldData;
 
 
 @end

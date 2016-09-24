@@ -13,9 +13,10 @@
 #import "CharterService.h"
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
+#import "TopView.h"
 
 @interface BookingViewController ()
-@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, strong) TopView *topView;
 @property (nonatomic, strong) UIButton *dismissButton;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *charterLabel;
@@ -39,13 +40,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _topView = [UIView new];
+    _topView = [TopView new];
+    _topView.delegate = self;
     [self.view addSubview:_topView];
-    
-    _dismissButton = [UIButton new];
-    [_dismissButton setImage:[UIImage imageNamed:@"dismiss"] forState:UIControlStateNormal];
-    [_dismissButton addTarget:self action:@selector(dismissView) forControlEvents:UIControlEventTouchUpInside];
-    [_topView addSubview:_dismissButton];
     
     _scrollView = [UIScrollView new];
     _scrollView.showsVerticalScrollIndicator = NO;
@@ -58,7 +55,6 @@
     _charterLabel.numberOfLines = 0;
     _charterLabel.textAlignment = NSTextAlignmentCenter;
     [_charterLabel setTextColor:[UIColor customMainColor]];
-    
     [_scrollView addSubview:_charterLabel];
     
     _nameField = [[BookingField alloc] initWithLabelName:@"Name"];
@@ -113,13 +109,6 @@
     frame.size.height = kGeomTopViewHeight;
     _topView.frame = frame;
     
-    frame = _dismissButton.frame;
-    frame.origin.x = kGeomMarginDismissButton;
-    frame.origin.y = kGeomMarginDismissButton;
-    frame.size.width = kGeomDismmissButton;
-    frame.size.height = kGeomDismmissButton;
-    _dismissButton.frame = frame;
-    
     frame = _scrollView.frame;
     frame.origin.y = CGRectGetMaxY(_topView.frame);
     frame.origin.x = CGRectGetMinX(self.view.frame);
@@ -158,7 +147,8 @@
     
 }
 
-- (void)dismissView {
+
+- (void)dismissVC {
     
     __weak BookingViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
