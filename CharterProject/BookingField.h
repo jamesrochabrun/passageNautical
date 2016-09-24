@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-
-
-@interface BookingField : UIView
+@interface BookingField : UIView<UITextFieldDelegate>
 @property (nonatomic, strong) UILabel *labelField;
 @property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UIView *lineView;
 - (instancetype)initWithLabelName:(NSString *)labelName;
+
 @end

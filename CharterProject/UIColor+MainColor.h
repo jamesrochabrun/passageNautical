@@ -12,6 +12,7 @@
 + (UIColor *)customMainColor;
 + (UIColor *)customTextColor;
 + (UIColor *)toolBarButtonColor;
++ (UIColor *)alertColor;
 
 
 

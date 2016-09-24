@@ -29,7 +29,12 @@
         _textField = [UITextField new];
         [_textField setTextColor:[UIColor customTextColor]];
         [_textField setFont:[UIFont regularFont:15]];
+        _textField.delegate = self;
         [self addSubview:_textField];
+        
+        _lineView = [UIView new];
+        _lineView.backgroundColor = [UIColor customTextColor];
+        [self addSubview:_lineView];
     }
     return self;
 }
@@ -51,6 +56,32 @@
     frame.origin.y = CGRectGetMaxY(_labelField.frame) + kGeomSpaceEdge;
     _textField.frame = frame;
     
+    frame = _lineView.frame;
+    frame.origin.x = kGeomMarginMedium;
+    frame.origin.y = CGRectGetMaxY(_textField.frame);
+    frame.size.width = width(self) * 0.8;
+    frame.size.height = kGeomMinSpace;
+    _lineView.frame = frame;
+    
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+        //do stuff for booking object
+        _lineView.backgroundColor = [UIColor customMainColor];
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    
+    if (textField.text.length == 0) {
+        _lineView.backgroundColor = [UIColor alertColor];
+    }
+    
+    return YES;
+}
+
+
 
 @end

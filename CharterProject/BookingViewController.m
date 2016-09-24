@@ -159,7 +159,6 @@
 - (void)bookNow {
     
     //BOOK NOW
-    
 }
 
 - (void)didReceiveMemoryWarning {
