@@ -148,6 +148,7 @@
             mapViewController.charterService = _charterService;
         } else if ([segue.identifier isEqualToString:@"book"]) {
             BookingViewController *bVC = segue.destinationViewController;
+            bVC.charterService = _charterService;
         }
 }
 

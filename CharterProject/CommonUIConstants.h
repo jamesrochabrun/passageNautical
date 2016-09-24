@@ -23,6 +23,8 @@ static CGFloat kGeomWidthToolBarButton = 85.0;
 static CGFloat kGeomTopViewHeight = 75.0;
 static CGFloat kGeomDismmissButton = 44.0;
 static CGFloat kGeomMarginDismissButton = 26.0;
+static CGFloat kGeomHeightTextField = 35.0;
+static CGFloat kGeomSpaceEdge = 4.0;
 
 
 extern NSString *const kcontactNumber;
