@@ -39,7 +39,6 @@
 		7B995CF51D9A05270047B6D5 /* ListCVFL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CF41D9A05270047B6D5 /* ListCVFL.m */; };
 		7B995CF81D9A05CA0047B6D5 /* UICollectionView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CF71D9A05CA0047B6D5 /* UICollectionView+Additions.m */; };
 		7B995CFB1D9A0AF60047B6D5 /* CharterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */; };
-		7BA0FA281D9B1B50004A6F41 /* ZoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0FA271D9B1B50004A6F41 /* ZoomViewController.m */; };
 		7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */; };
 		7BA833171D943EC400841B40 /* CustomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA833161D943EC400841B40 /* CustomToolBar.m */; };
 		7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD5DB91D9B0EE60071DB1A /* UIImage+Additions.m */; };
@@ -119,8 +118,6 @@
 		7B995CF71D9A05CA0047B6D5 /* UICollectionView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Additions.m"; sourceTree = "<group>"; };
 		7B995CF91D9A0AF60047B6D5 /* CharterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterCollectionViewCell.h; sourceTree = "<group>"; };
 		7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterCollectionViewCell.m; sourceTree = "<group>"; };
-		7BA0FA261D9B1B50004A6F41 /* ZoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomViewController.h; sourceTree = "<group>"; };
-		7BA0FA271D9B1B50004A6F41 /* ZoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomViewController.m; sourceTree = "<group>"; };
 		7BA11F2A1D12716F0072DBA7 /* UIFont+CustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFont.h"; sourceTree = "<group>"; };
 		7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFont.m"; sourceTree = "<group>"; };
 		7BA833151D943EC400841B40 /* CustomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomToolBar.h; sourceTree = "<group>"; };
@@ -251,8 +248,6 @@
 		645EBCB31D08D432007D1557 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7BA0FA261D9B1B50004A6F41 /* ZoomViewController.h */,
-				7BA0FA271D9B1B50004A6F41 /* ZoomViewController.m */,
 				7B0B22151D95CDC5000830C4 /* BookingViewController.h */,
 				7B0B22161D95CDC5000830C4 /* BookingViewController.m */,
 				645EBCB81D08D4C3007D1557 /* MainViewController.h */,
@@ -569,7 +564,6 @@
 				7B0B22171D95CDC5000830C4 /* BookingViewController.m in Sources */,
 				7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */,
 				7B995CF51D9A05270047B6D5 /* ListCVFL.m in Sources */,
-				7BA0FA281D9B1B50004A6F41 /* ZoomViewController.m in Sources */,
 				7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */,
 				7B995CFB1D9A0AF60047B6D5 /* CharterCollectionViewCell.m in Sources */,
 				7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */,

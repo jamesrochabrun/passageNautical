@@ -13,7 +13,6 @@
 
 - (void)callNumber;
 - (void)sendEmail;
-- (void)zoom;
 
 @end
 

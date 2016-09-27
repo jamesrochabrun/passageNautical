@@ -90,12 +90,12 @@
     _arrayOfBookingFields = @[_nameField, _lastNameField, _phoneField, _mobilePhoneField, _emailField, _addressField, _cityField, _countryField, _stateField, _postCodeField];
     
     _bookButton = [UIButton new];
-    [_bookButton setTitle:@"BOOK NOW" forState:UIControlStateNormal];
+    [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
     [_bookButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
     [_bookButton addTarget:self action:@selector(bookNow) forControlEvents:UIControlEventTouchUpInside];
     _bookButton.layer.borderColor = [UIColor customMainColor].CGColor;
     _bookButton.layer.borderWidth = 2.0f;
-    [_bookButton.titleLabel setFont:[UIFont mediumFont:22]];
+    [_bookButton.titleLabel setFont:[UIFont mediumFont:20]];
     [_scrollView addSubview:_bookButton];
 }
 

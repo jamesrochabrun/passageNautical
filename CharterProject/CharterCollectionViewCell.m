@@ -91,7 +91,11 @@
 }
 
 - (void)didIamgeDoubleTapped {
-    [self.delegate zoom];
+    
+    //do something if we want
+    //[self.delegate dosomething];
+    
+
 }
 
 

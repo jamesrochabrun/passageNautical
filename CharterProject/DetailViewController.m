@@ -296,10 +296,6 @@ static NSString *const itemURL =  @"itemUrl";
     return UIEdgeInsetsMake(0,0,0,0);
 }
 
-- (void)zoom {
-    
-    [self performSegueWithIdentifier:@"zoom" sender:self];
-}
 
 
 

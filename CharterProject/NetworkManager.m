@@ -42,7 +42,7 @@
     
     return [nm.requestManager GET:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-           NSLog(@"JSON: %@", responseObject);
+          // NSLog(@"JSON: %@", responseObject);
         
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
