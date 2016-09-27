@@ -45,21 +45,21 @@
     
     [_labelField sizeToFit];
     CGRect frame = _labelField.frame;
-    frame.origin.x = kGeomMarginMedium;
+    frame.origin.x = kGeomMarginBig;
     frame.origin.y = kGeomSpaceEdge;
     _labelField.frame = frame;
     
     frame = _textField.frame;
     frame.size.height = kGeomHeightTextField;
-    frame.size.width = width(self) * 0.8;
-    frame.origin.x = kGeomMarginMedium;
+    frame.size.width = width(self) * 0.75;
+    frame.origin.x = kGeomMarginBig;
     frame.origin.y = CGRectGetMaxY(_labelField.frame) + kGeomSpaceEdge;
     _textField.frame = frame;
     
     frame = _lineView.frame;
-    frame.origin.x = kGeomMarginMedium;
+    frame.origin.x = kGeomMarginBig;
     frame.origin.y = CGRectGetMaxY(_textField.frame);
-    frame.size.width = width(self) * 0.8;
+    frame.size.width = width(self) * 0.75;
     frame.size.height = kGeomMinSpace;
     _lineView.frame = frame;
     

@@ -32,6 +32,8 @@
 @property (nonatomic, strong) BookingField *postCodeField;
 @property (nonatomic, strong) NSArray *arrayOfBookingFields;
 @property (nonatomic, strong) UIButton *bookButton;
+@property CGFloat keyBoardHeight;
+
 
 @end
 
@@ -112,7 +114,7 @@
     frame = _scrollView.frame;
     frame.origin.y = CGRectGetMaxY(_topView.frame);
     frame.origin.x = CGRectGetMinX(self.view.frame);
-    frame.size.height = height(self.view) ;
+    frame.size.height = height(self.view) - _keyBoardHeight ;
     frame.size.width = width( self.view);
     _scrollView.frame = frame;
     
@@ -147,10 +149,14 @@
     
 }
 
+//delegate methdds
+
 - (void)dismissVC {
     
     __weak BookingViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [weakSelf.view endEditing:YES];
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     });
 }
@@ -159,6 +165,53 @@
     
     //BOOK NOW
 }
+
+#pragma Keyboard hide and show
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification*)notification {
+    
+    NSDictionary *info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    _keyBoardHeight = kbSize.height;
+    
+    [self.view setNeedsLayout];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationBeginsFromCurrentState:TRUE];
+    [self.view layoutIfNeeded];
+    [UIView commitAnimations];
+}
+
+- (void)keyboardWillHide:(NSNotification*)notification {
+    
+    [self.view setNeedsLayout];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationBeginsFromCurrentState:TRUE];
+    [UIView commitAnimations];
+    _keyBoardHeight = 0.0f;
+    [self.view layoutIfNeeded];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

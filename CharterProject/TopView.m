@@ -37,6 +37,7 @@
     _dismissButton.frame = frame;
 }
 
+
 - (void)dismissView {
     
     [self.delegate dismissVC];
