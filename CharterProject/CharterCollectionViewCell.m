@@ -20,10 +20,11 @@
     if (self) {
         
         self.backgroundColor = UIColorRGBA(kColorOffBlack);
-        _imageView = [UIImageView new];
-        _imageView.clipsToBounds = YES;
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self addSubview:_imageView];
+        _doubleTapImage = [DoubleTapImage new];
+        _doubleTapImage.clipsToBounds = YES;
+        _doubleTapImage.contentMode = UIViewContentModeScaleAspectFit;
+        _doubleTapImage.delegate = self;
+        [self addSubview:_doubleTapImage];
         
         _phoneButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [_phoneButton setTintColor:[UIColor whiteColor]];
@@ -52,12 +53,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGRect frame = _imageView.frame;
+    CGRect frame = _doubleTapImage.frame;
     frame.origin.x = 0;
     frame.origin.y = 0;
     frame.size.width = width(self);
     frame.size.height = height(self);
-    _imageView.frame = frame;
+    _doubleTapImage.frame = frame;
     
     [_priceLabel sizeToFit];
     frame = _priceLabel.frame;
@@ -88,5 +89,10 @@
 - (void)email {
     [self.delegate sendEmail];
 }
+
+- (void)didIamgeDoubleTapped {
+    [self.delegate zoom];
+}
+
 
 @end

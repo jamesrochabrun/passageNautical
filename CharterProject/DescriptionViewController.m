@@ -114,14 +114,6 @@
 
 
 
-//- (void)viewDidAppear:(BOOL)animated {
-//    
-//    [_scrollView setContentSize:CGSizeMake(width(self.view), CGRectGetMaxY(_textView.frame))];
-//}
-
-
-
-
 
 
 @end

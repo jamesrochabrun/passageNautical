@@ -464,11 +464,30 @@
                         <outlet property="scrollView" destination="Q2G-F7-w5o" id="urB-Bo-eri"/>
                         <outlet property="textView" destination="1Ju-v9-Gpd" id="l9L-3Q-bb6"/>
                         <outlet property="videoButton" destination="QPQ-Xs-Daf" id="Ifj-cs-cDY"/>
+                        <segue destination="hKZ-6Q-Rkk" kind="modal" identifier="zoom" id="IP2-SB-xhY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sR4-82-PTK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1614" y="438"/>
+        </scene>
+        <!--Zoom View Controller-->
+        <scene sceneID="o06-Na-JVf">
+            <objects>
+                <viewController id="hKZ-6Q-Rkk" customClass="ZoomViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wDa-ij-143"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vmd-EG-Q6z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eg7-KM-74f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="05j-1F-uK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2054" y="-361"/>
         </scene>
         <!--Description View Controller-->
         <scene sceneID="hrQ-7j-vb7">

@@ -285,7 +285,7 @@ static NSString *const itemURL =  @"itemUrl";
     NSDictionary *imagesDictionary = [_charterService.images objectAtIndex:indexPath.row];
     NSString *urlStr = [CharterService urlStringWithNoSpaces:imagesDictionary];
     cell.priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.advertisedPrice];
-    [cell.imageView setImageWithURL:[NSURL URLWithString:urlStr]
+    [cell.doubleTapImage setImageWithURL:[NSURL URLWithString:urlStr]
                         placeholderImage:[UIImage imageNamed:@"yate"]];
     return cell;
 }
@@ -296,7 +296,10 @@ static NSString *const itemURL =  @"itemUrl";
     return UIEdgeInsetsMake(0,0,0,0);
 }
 
-
+- (void)zoom {
+    
+    [self performSegueWithIdentifier:@"zoom" sender:self];
+}
 
 
 
