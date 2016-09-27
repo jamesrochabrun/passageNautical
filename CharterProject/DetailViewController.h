@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CharterCollectionViewCell.h"
 @class CharterService;
 
-@interface DetailViewController : UIViewController
+@interface DetailViewController : UIViewController<CharterCollectionViewCellDelegate>
 @property CharterService *charterService;
 
 

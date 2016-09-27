@@ -22,9 +22,8 @@
 #import "UICollectionView+Additions.h"
 #import "CharterCollectionViewCell.h"
 
-@interface DetailViewController ()<MFMailComposeViewControllerDelegate, DoubleTapImageDelegate>
+@interface DetailViewController ()<MFMailComposeViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet DoubleTapImage *doubleTapImageView;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -32,8 +31,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *readMoreButton;
 @property (weak, nonatomic) IBOutlet UIButton *giftCardButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextViewConstraint;
-@property (weak, nonatomic) IBOutlet UIButton *phoneButton;
-@property (weak, nonatomic) IBOutlet UIButton *mailButton;
 @property (weak, nonatomic) IBOutlet UILabel *numberOFpeopleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *durationHoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *extraLabel;
@@ -47,6 +44,7 @@
 @end
 
 static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
+static NSString *const itemURL =  @"itemUrl";
 
 @implementation DetailViewController
 
@@ -57,13 +55,9 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     [self setButtonssAppereance];
     [self setTextViewsAppereance];
     [self setlabelsAppereance];
-    [self addShadowToImageView];
     [_scrollView setContentSize:CGSizeMake(width(self.view), height(self.view) *3)];
     [self displayCharterServiceData];
 
-    _doubleTapImageView.delegate = self;
-    _doubleTapImageView.hidden = YES;
-    
     _listsLayout = [[ListCVFL alloc] init];
     [_listsLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     _listsLayout.minimumInteritemSpacing = 0;
@@ -72,24 +66,17 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     _collectionView = [UICollectionView collectionViewWithLayout:_listsLayout inView:self.view delegate:self];
     [_collectionView registerClass:[CharterCollectionViewCell class] forCellWithReuseIdentifier:FilterCelIdentifier];
     _collectionView.pagingEnabled = YES;
-    [self.view addSubview:_collectionView];
+    [self setShadowToCollectionView];
+    [self.scrollView addSubview:_collectionView];
 }
 
-- (void)addShadowToImageView {
-    
-    _doubleTapImageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _doubleTapImageView.layer.shadowOffset = CGSizeMake(0, 4);
-    _doubleTapImageView.layer.shadowOpacity = 0.7;
-    _doubleTapImageView.layer.shadowRadius = 10;
-    _doubleTapImageView.clipsToBounds = NO;
-}
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
     CGRect frame = _collectionView.frame;
-    frame.origin.x =  0;//CGRectGetMinX(self.view.frame);
-    frame.origin.y = 0;//self.navigationController.navigationBar.frame.size.height;
+    frame.origin.x =  8;
+    frame.origin.y = 0;
     frame.size.width = width(self.view);
     frame.size.height = 220;
     _collectionView.frame = frame;
@@ -106,10 +93,6 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     _giftCardButton.layer.borderWidth = 2.0f;
     [_giftCardButton setTintColor:[UIColor customMainColor]];
     _giftCardButton.titleLabel.font = [UIFont regularFont:17];
-    [_phoneButton setImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
-    [_phoneButton setTintColor:[UIColor whiteColor]];
-    [_mailButton setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];
-    [_mailButton setTintColor:[UIColor whiteColor]];
     [_mapButton setTintColor:[UIColor customMainColor]];
     _mapButton.titleLabel.font = [UIFont regularFont:15];
     _mapButton.layer.borderWidth = 2.0f;
@@ -118,6 +101,14 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     _generalTermsButton.titleLabel.font = [UIFont regularFont:14];
 }
 
+- (void)setShadowToCollectionView {
+    
+    _collectionView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _collectionView.layer.shadowOffset = CGSizeMake(0, 4);
+    _collectionView.layer.shadowOpacity = 0.7;
+    _collectionView.layer.shadowRadius = 10;
+    _collectionView.clipsToBounds = NO;
+}
 
 - (void)setTextViewsAppereance {
     
@@ -149,11 +140,7 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     
     self.title = self.charterService.name;
     //display the first image of the charter gallery
-    [_doubleTapImageView setImageWithURL:[NSURL URLWithString:_charterService.imageURL]
-                   placeholderImage:[UIImage imageNamed:@"yate"]];
-    //display price
-    _priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.advertisedPrice];
-
+   
     //display information labels
     int hours = [_charterService.durationMinutes intValue] /60;
     _durationHoursLabel.text = [NSString stringWithFormat:@"%d H",hours];
@@ -183,8 +170,10 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
         }
 }
 
-- (IBAction)callPassageNautical:(UIButton *)sender {
+- (void)callNumber {
     
+    NSLog(@"call");
+
     NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",kcontactNumber]];
     
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
@@ -195,8 +184,9 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     }
 }
 
-- (IBAction)mailPassageNautical:(UIButton *)sender {
-    // Email Subject
+- (void)sendEmail {
+    NSLog(@"email");
+    
     NSString *emailTitle = kemailSubject;
     // Email Content
     NSString *messageBody = [NSString stringWithFormat:@"I am interested in rent the %@", self.charterService.name];
@@ -245,7 +235,6 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
 }
 
 
-
 - (IBAction)onShareButtonPressed:(UIButton *)sender {
     
     NSString *shareText = [NSString stringWithFormat:@"%@, %@", self.charterService.advertisedPrice , self.charterService.shortDescription];
@@ -275,7 +264,7 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
 #pragma collectionView Methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 2;
+    return _charterService.images.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -291,7 +280,13 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CharterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FilterCelIdentifier forIndexPath:indexPath];
-    cell.imageView.image = [UIImage imageNamed:@"yate"];
+    cell.delegate = self;
+    
+    NSDictionary *imagesDictionary = [_charterService.images objectAtIndex:indexPath.row];
+    NSString *urlStr = [CharterService urlStringWithNoSpaces:imagesDictionary];
+    cell.priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.advertisedPrice];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:urlStr]
+                        placeholderImage:[UIImage imageNamed:@"yate"]];
     return cell;
 }
 

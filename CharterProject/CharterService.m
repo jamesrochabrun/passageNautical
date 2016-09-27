@@ -83,14 +83,18 @@ NSString *const CHimageURL = @"itemUrl";
     
     //setting the ImageURL :
     NSDictionary *imagesDictionary = [charter.images firstObject];
-    NSString *itemUrl = [imagesDictionary valueForKey:CHimageURL];
-    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    charter.imageURL = itemUrlWithNoSpaces;
-    
+    charter.imageURL = [self urlStringWithNoSpaces:imagesDictionary];
     
     return charter;
- 
 }
+
++ (NSString *)urlStringWithNoSpaces:(NSDictionary *)dict {
+    
+    NSString *itemUrl = [dict valueForKey:CHimageURL];
+    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    return itemUrlWithNoSpaces;
+}
+
 
 
 

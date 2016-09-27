@@ -78,6 +78,7 @@ extern NSString *const CHunitLabelPlural;
 @property (nonatomic, strong) NSString *imageURL;
 
 + (CharterService *)charterServiceFromDict:(NSDictionary *)dict;
++ (NSString *)urlStringWithNoSpaces:(NSDictionary *)dict;
 
 
 

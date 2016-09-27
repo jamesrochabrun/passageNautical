@@ -227,8 +227,8 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7B995CF91D9A0AF60047B6D5 /* CharterCollectionViewCell.h */,
-				7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */,
+				7B4858721D1DE06600AAE2A7 /* DoubleTapImage.h */,
+				7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */,
 				7B995CF31D9A05270047B6D5 /* ListCVFL.h */,
 				7B995CF41D9A05270047B6D5 /* ListCVFL.m */,
 				7B1484171D964A95002ADC55 /* TopView.h */,
@@ -237,7 +237,7 @@
 				7B0B22191D95E32F000830C4 /* BookingField.m */,
 				7BA833151D943EC400841B40 /* CustomToolBar.h */,
 				7BA833161D943EC400841B40 /* CustomToolBar.m */,
-				7B55999D1D1B6972009B8EE7 /* customViews */,
+				7B55999D1D1B6972009B8EE7 /* cells */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -298,17 +298,17 @@
 			name = CharterObject;
 			sourceTree = "<group>";
 		};
-		7B55999D1D1B6972009B8EE7 /* customViews */ = {
+		7B55999D1D1B6972009B8EE7 /* cells */ = {
 			isa = PBXGroup;
 			children = (
-				7B4858721D1DE06600AAE2A7 /* DoubleTapImage.h */,
-				7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */,
+				7B995CF91D9A0AF60047B6D5 /* CharterCollectionViewCell.h */,
+				7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */,
 				7B2AC3BA1D0BA4B200975BE9 /* CategoryTableViewCell.h */,
 				7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */,
 				7B5124811D0E79270068A6F7 /* ProductCell.h */,
 				7B5124821D0E79270068A6F7 /* ProductCell.m */,
 			);
-			name = customViews;
+			name = cells;
 			sourceTree = "<group>";
 		};
 		7B9749C81D0CA88E003123CB /* fonts */ = {

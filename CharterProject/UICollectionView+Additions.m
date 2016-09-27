@@ -8,6 +8,7 @@
 
 #import "UICollectionView+Additions.h"
 #import "CommonUIConstants.h"
+#import "UIColor+MainColor.h"
 
 @implementation UICollectionView (Additions)
 
@@ -20,7 +21,7 @@
     collectionView.showsVerticalScrollIndicator = NO;
     collectionView.alwaysBounceHorizontal = NO;
     collectionView.allowsSelection = YES;
-    //collectionView.backgroundColor = UIColorRGBA(kColorClear);
+    collectionView.backgroundColor = [UIColor customTextColor];
     [view addSubview:collectionView];
     return collectionView;
 }
