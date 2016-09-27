@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "UIFont+CustomFont.h"
 #import "CommonUIConstants.h"
+#import "UIImage+Additions.h"
 
 @implementation CharterCollectionViewCell
 
@@ -17,18 +18,22 @@
     
     self = [super initWithFrame:frame];
     if (self) {
+        
+        self.backgroundColor = UIColorRGBA(kColorOffBlack);
         _imageView = [UIImageView new];
         _imageView.clipsToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_imageView];
         
-        _phoneButton = [UIButton new];
+        _phoneButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_phoneButton setTintColor:[UIColor whiteColor]];
         [_phoneButton addTarget:self action:@selector(call) forControlEvents:UIControlEventTouchUpInside];
         [_phoneButton setImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
         [_phoneButton setTintColor:[UIColor whiteColor]];
         [self addSubview:_phoneButton];
         
-        _emailButton = [UIButton new];
+        _emailButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_emailButton setTintColor:[UIColor whiteColor]];
         [_emailButton addTarget:self action:@selector(email) forControlEvents:UIControlEventTouchUpInside];
         
         [_emailButton setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];
@@ -39,7 +44,7 @@
         [_priceLabel setFont:[UIFont regularFont:17]];
         [_priceLabel setTextColor:[UIColor whiteColor]];
         [self addSubview:_priceLabel];
-            
+        
     }
     return self;
 }
@@ -64,7 +69,7 @@
     frame.size.width = kGeomContactButton;
     frame.size.height = kGeomContactButton;
     frame.origin.y = CGRectGetMaxY(self.frame) - frame.size.height - kGeomSpaceEdge *2;
-    frame.origin.x = CGRectGetMaxX(self.frame) - frame.size.width - kGeomSpaceEdge *2;
+    frame.origin.x = width(self) - frame.size.width - kGeomSpaceEdge *2;
     _emailButton.frame = frame;
     
     frame = _phoneButton.frame;

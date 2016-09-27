@@ -41,6 +41,7 @@
 		7B995CFB1D9A0AF60047B6D5 /* CharterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */; };
 		7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */; };
 		7BA833171D943EC400841B40 /* CustomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA833161D943EC400841B40 /* CustomToolBar.m */; };
+		7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD5DB91D9B0EE60071DB1A /* UIImage+Additions.m */; };
 		7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB058381D920A9F00E3476C /* NetworkManager.m */; };
 		7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0583B1D920CB600E3476C /* CharterAPI.m */; };
 		7BF9DA661D19ACBC00695161 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA651D19ACBC00695161 /* MapKit.framework */; };
@@ -121,6 +122,8 @@
 		7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFont.m"; sourceTree = "<group>"; };
 		7BA833151D943EC400841B40 /* CustomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomToolBar.h; sourceTree = "<group>"; };
 		7BA833161D943EC400841B40 /* CustomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomToolBar.m; sourceTree = "<group>"; };
+		7BAD5DB81D9B0EE60071DB1A /* UIImage+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Additions.h"; sourceTree = "<group>"; };
+		7BAD5DB91D9B0EE60071DB1A /* UIImage+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Additions.m"; sourceTree = "<group>"; };
 		7BB058371D920A9F00E3476C /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		7BB058381D920A9F00E3476C /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		7BB0583A1D920CB600E3476C /* CharterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterAPI.h; sourceTree = "<group>"; };
@@ -324,6 +327,8 @@
 		7BA11F2D1D1271810072DBA7 /* categories */ = {
 			isa = PBXGroup;
 			children = (
+				7BAD5DB81D9B0EE60071DB1A /* UIImage+Additions.h */,
+				7BAD5DB91D9B0EE60071DB1A /* UIImage+Additions.m */,
 				7B995CF61D9A05CA0047B6D5 /* UICollectionView+Additions.h */,
 				7B995CF71D9A05CA0047B6D5 /* UICollectionView+Additions.m */,
 				7B7942111D13607800CFE2F8 /* NSString+DecodeHTML.h */,
@@ -576,6 +581,7 @@
 				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,
 				7B4858741D1DE06600AAE2A7 /* DoubleTapImage.m in Sources */,
 				7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */,
+				7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */,
 				7B0B221A1D95E32F000830C4 /* BookingField.m in Sources */,
 				7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */,
 			);
