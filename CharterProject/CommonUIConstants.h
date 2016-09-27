@@ -26,6 +26,9 @@ static CGFloat kGeomMarginDismissButton = 26.0;
 static CGFloat kGeomHeightTextField = 35.0;
 static CGFloat kGeomSpaceEdge = 4.0;
 static CGFloat kGeomMinSpace = 1.0;
+static CGFloat kGeomMinimunInterItemSpacing = 5;
+static CGFloat kGeomSpaceCellPadding = 3;
+
 
 
 extern NSString *const kcontactNumber;

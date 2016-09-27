@@ -36,6 +36,9 @@
 		7B9749C91D0CA928003123CB /* GOTHAM-MEDIUM.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */; };
 		7B9749CA1D0CA937003123CB /* billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C71D0CA86F003123CB /* billabong.ttf */; };
 		7B9749CB1D0CA93A003123CB /* Gotham Narrow Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */; };
+		7B995CF51D9A05270047B6D5 /* ListCVFL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CF41D9A05270047B6D5 /* ListCVFL.m */; };
+		7B995CF81D9A05CA0047B6D5 /* UICollectionView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CF71D9A05CA0047B6D5 /* UICollectionView+Additions.m */; };
+		7B995CFB1D9A0AF60047B6D5 /* CharterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */; };
 		7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */; };
 		7BA833171D943EC400841B40 /* CustomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA833161D943EC400841B40 /* CustomToolBar.m */; };
 		7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB058381D920A9F00E3476C /* NetworkManager.m */; };
@@ -108,6 +111,12 @@
 		7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham Narrow Book.otf"; sourceTree = "<group>"; };
 		7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GOTHAM-MEDIUM.TTF"; sourceTree = "<group>"; };
 		7B9749C71D0CA86F003123CB /* billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billabong.ttf; sourceTree = "<group>"; };
+		7B995CF31D9A05270047B6D5 /* ListCVFL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListCVFL.h; sourceTree = "<group>"; };
+		7B995CF41D9A05270047B6D5 /* ListCVFL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListCVFL.m; sourceTree = "<group>"; };
+		7B995CF61D9A05CA0047B6D5 /* UICollectionView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Additions.h"; sourceTree = "<group>"; };
+		7B995CF71D9A05CA0047B6D5 /* UICollectionView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Additions.m"; sourceTree = "<group>"; };
+		7B995CF91D9A0AF60047B6D5 /* CharterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterCollectionViewCell.h; sourceTree = "<group>"; };
+		7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterCollectionViewCell.m; sourceTree = "<group>"; };
 		7BA11F2A1D12716F0072DBA7 /* UIFont+CustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFont.h"; sourceTree = "<group>"; };
 		7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFont.m"; sourceTree = "<group>"; };
 		7BA833151D943EC400841B40 /* CustomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomToolBar.h; sourceTree = "<group>"; };
@@ -218,6 +227,10 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B995CF91D9A0AF60047B6D5 /* CharterCollectionViewCell.h */,
+				7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */,
+				7B995CF31D9A05270047B6D5 /* ListCVFL.h */,
+				7B995CF41D9A05270047B6D5 /* ListCVFL.m */,
 				7B1484171D964A95002ADC55 /* TopView.h */,
 				7B1484181D964A95002ADC55 /* TopView.m */,
 				7B0B22181D95E32F000830C4 /* BookingField.h */,
@@ -311,6 +324,8 @@
 		7BA11F2D1D1271810072DBA7 /* categories */ = {
 			isa = PBXGroup;
 			children = (
+				7B995CF61D9A05CA0047B6D5 /* UICollectionView+Additions.h */,
+				7B995CF71D9A05CA0047B6D5 /* UICollectionView+Additions.m */,
 				7B7942111D13607800CFE2F8 /* NSString+DecodeHTML.h */,
 				7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */,
 				7B51247E1D0E76AC0068A6F7 /* UIColor+MainColor.h */,
@@ -543,11 +558,14 @@
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
 				7B0B22171D95CDC5000830C4 /* BookingViewController.m in Sources */,
 				7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */,
+				7B995CF51D9A05270047B6D5 /* ListCVFL.m in Sources */,
 				7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */,
+				7B995CFB1D9A0AF60047B6D5 /* CharterCollectionViewCell.m in Sources */,
 				7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */,
 				7B167D541D0F69AC00954CFF /* DetailViewController.m in Sources */,
 				7BA833171D943EC400841B40 /* CustomToolBar.m in Sources */,
 				7B1FA70A1D9345B100406508 /* Common.m in Sources */,
+				7B995CF81D9A05CA0047B6D5 /* UICollectionView+Additions.m in Sources */,
 				7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,
 				7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */,

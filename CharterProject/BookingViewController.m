@@ -147,7 +147,6 @@
     
 }
 
-
 - (void)dismissVC {
     
     __weak BookingViewController *weakSelf = self;

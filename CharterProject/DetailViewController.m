@@ -18,6 +18,9 @@
 #import "DoubleTapImage.h"
 #import "CommonUIConstants.h"
 #import "BookingViewController.h"
+#import "ListCVFL.h"
+#import "UICollectionView+Additions.h"
+#import "CharterCollectionViewCell.h"
 
 @interface DetailViewController ()<MFMailComposeViewControllerDelegate, DoubleTapImageDelegate>
 
@@ -37,7 +40,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) IBOutlet UIButton *generalTermsButton;
 
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout *listsLayout;
+
+
 @end
+
+static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
 
 @implementation DetailViewController
 
@@ -53,6 +62,15 @@
     [self displayCharterServiceData];
 
     _doubleTapImageView.delegate = self;
+    _doubleTapImageView.hidden = YES;
+    
+    _listsLayout = [[ListCVFL alloc] init];
+    [_listsLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    
+    _collectionView = [UICollectionView collectionViewWithLayout:_listsLayout inView:self.view delegate:self];
+    [_collectionView registerClass:[CharterCollectionViewCell class] forCellWithReuseIdentifier:FilterCelIdentifier];
+    _collectionView.pagingEnabled = YES;
+    [self.scrollView addSubview:_collectionView];
 }
 
 - (void)addShadowToImageView {
@@ -62,6 +80,17 @@
     _doubleTapImageView.layer.shadowOpacity = 0.7;
     _doubleTapImageView.layer.shadowRadius = 10;
     _doubleTapImageView.clipsToBounds = NO;
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    CGRect frame = _collectionView.frame;
+    frame.origin.x = CGRectGetMinX(self.view.frame);
+    frame.origin.y = 0;//self.navigationController.navigationBar.frame.size.height;
+    frame.size.width = width(self.view);
+    frame.size.height = 220;
+    _collectionView.frame = frame;
 }
 
 - (void)setButtonssAppereance {
@@ -240,6 +269,34 @@
     NSLog(@"hehh");
 }
 
+
+#pragma collectionView Methods
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return kGeomMinSpace;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return CGSizeMake(width(self.view) , 220);
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CharterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FilterCelIdentifier forIndexPath:indexPath];
+    cell.imageView.image = [UIImage imageNamed:@"yate"];
+    return cell;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    
+    return UIEdgeInsetsMake(0,kGeomSpaceEdge,0,kGeomSpaceEdge);
+}
 
 
 
