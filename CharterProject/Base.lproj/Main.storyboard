@@ -688,9 +688,9 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="2Px-gu-RX7"/>
-        <segue reference="pLS-Og-OVT"/>
         <segue reference="2hU-gD-QaT"/>
-        <segue reference="bJ7-37-sjF"/>
+        <segue reference="pLS-Og-OVT"/>
+        <segue reference="2Px-gu-RX7"/>
+        <segue reference="NN3-O5-iNK"/>
     </inferredMetricsTieBreakers>
 </document>

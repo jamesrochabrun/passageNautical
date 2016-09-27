@@ -66,11 +66,13 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     
     _listsLayout = [[ListCVFL alloc] init];
     [_listsLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    _listsLayout.minimumInteritemSpacing = 0;
+    _listsLayout.minimumLineSpacing = 0;
     
     _collectionView = [UICollectionView collectionViewWithLayout:_listsLayout inView:self.view delegate:self];
     [_collectionView registerClass:[CharterCollectionViewCell class] forCellWithReuseIdentifier:FilterCelIdentifier];
     _collectionView.pagingEnabled = YES;
-    [self.scrollView addSubview:_collectionView];
+    [self.view addSubview:_collectionView];
 }
 
 - (void)addShadowToImageView {
@@ -86,7 +88,7 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     [super viewWillLayoutSubviews];
     
     CGRect frame = _collectionView.frame;
-    frame.origin.x = CGRectGetMinX(self.view.frame);
+    frame.origin.x =  0;//CGRectGetMinX(self.view.frame);
     frame.origin.y = 0;//self.navigationController.navigationBar.frame.size.height;
     frame.size.width = width(self.view);
     frame.size.height = 220;
@@ -282,7 +284,7 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake(width(self.view) , 220);
+    return CGSizeMake(width(_collectionView) , height(_collectionView));
 }
 
 
@@ -293,13 +295,11 @@ static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
     return cell;
 }
 
+
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
-    return UIEdgeInsetsMake(0,kGeomSpaceEdge,0,kGeomSpaceEdge);
+    return UIEdgeInsetsMake(0,0,0,0);
 }
-
-
-
 
 
 
