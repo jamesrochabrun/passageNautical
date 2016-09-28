@@ -32,6 +32,7 @@
 @property (nonatomic, strong) BookingField *postCodeField;
 @property (nonatomic, strong) NSArray *arrayOfBookingFields;
 @property (nonatomic, strong) UIButton *bookButton;
+@property (nonatomic, strong) UIDatePicker *pickerBookingDate;
 @property CGFloat keyBoardHeight;
 
 
@@ -93,12 +94,29 @@
     
     _bookButton = [UIButton new];
     [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
-    [_bookButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    [_bookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_bookButton addTarget:self action:@selector(bookNow) forControlEvents:UIControlEventTouchUpInside];
-    _bookButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    _bookButton.layer.borderWidth = 2.0f;
-    [_bookButton.titleLabel setFont:[UIFont mediumFont:20]];
+    //_bookButton.layer.borderColor = [UIColor customMainColor].CGColor;
+    //_bookButton.layer.borderWidth = 2.0f;
+    _bookButton.backgroundColor = [UIColor customMainColor];
+    _bookButton.alpha = 0.7;
+    [_bookButton.titleLabel setFont:[UIFont regularFont:20]];
     [_scrollView addSubview:_bookButton];
+    
+    _pickerBookingDate = [[UIDatePicker alloc] init];
+    _pickerBookingDate.backgroundColor = [UIColor whiteColor];//UIColorRGBA(kColorBackgroundTheme);
+    _pickerBookingDate.tintColor = [UIColor customMainColor];
+    _pickerBookingDate.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+    [_pickerBookingDate addTarget:self action:@selector(userAlteredPicker:) forControlEvents:UIControlEventValueChanged];
+    [_pickerBookingDate setValue:[UIColor customMainColor] forKey:@"textColor"];
+    _pickerBookingDate.minimumDate= [NSDate date ];
+
+    [_scrollView addSubview:_pickerBookingDate];
+}
+
+- (void)userAlteredPicker:(id)sender
+{
+    NSLog(@"the date is %@",  _pickerBookingDate.date);
 }
 
 - (void)viewWillLayoutSubviews {
@@ -120,7 +138,7 @@
     
     frame = _charterLabel.frame;
     frame.size.height = kGeomHeightTextField;
-    frame.size.width = width(self.view) * 0.75;
+    frame.size.width = width(self.view) * 0.85;
     frame.origin.y = CGRectGetMinY(_scrollView.frame) - kGeomTopViewHeight + kGeomMarginMedium;
     frame.origin.x = (width(self.view) - frame.size.width) /2;
     _charterLabel.frame = frame;
@@ -138,14 +156,22 @@
     }
     
     BookingField *bField = [_arrayOfBookingFields lastObject];
-    frame = _bookButton.frame;
-    frame.size.width = kGeomWidthBigButton;
-    frame.size.height = kGeomHeightBigbutton;
-    frame.origin.x = (width(_scrollView) - kGeomWidthBigButton) /2;
+    
+    frame = _pickerBookingDate.frame;
+    frame.origin.x = 0;
     frame.origin.y = CGRectGetMaxY(bField.frame) + kGeomMarginMedium;
+    frame.size.height =  _pickerBookingDate.intrinsicContentSize.height;
+    frame.size.width = width(self.view);
+    _pickerBookingDate.frame = frame;
+    
+    frame = _bookButton.frame;
+    frame.size.width = width(self.view) * 0.7;
+    frame.size.height = kGeomHeightBigbutton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_pickerBookingDate.frame) + kGeomMarginBig;
     _bookButton.frame = frame;
     
-    _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_bookButton.frame) + kGeomBottomPadding);
+    _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_bookButton.frame) + kGeomBottomPadding + kGeomMarginMedium);
     
 }
 
@@ -163,7 +189,8 @@
 
 - (void)bookNow {
     
-    //BOOK NOW
+    //BOOK NOW HERE GOES THE POST
+    
 }
 
 #pragma Keyboard hide and show

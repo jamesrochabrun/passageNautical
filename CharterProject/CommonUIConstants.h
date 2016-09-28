@@ -30,7 +30,7 @@ static NSUInteger kColorOffBlack = 0xFF272727;
 
 static CGFloat kGeomHeightStatusBar = 20.0;
 static CGFloat kGeomWidthBigButton = 210.0;
-static CGFloat kGeomHeightBigbutton = 40.0;
+static CGFloat kGeomHeightBigbutton = 44.0;
 static CGFloat kGeomBottomPadding = 100.0;
 static CGFloat kGeomMarginMedium = 20.0;
 static CGFloat kGeomHeightToolBar = 70.0;
