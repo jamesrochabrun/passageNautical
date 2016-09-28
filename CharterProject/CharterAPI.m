@@ -64,14 +64,16 @@ NSString *const keyFromJSON = @"products";
                                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     
-    if  (!charter) {
-        failure (nil,nil);
-        return nil;
-    }
+//    if  (!charter) {
+//        failure (nil,nil);
+//        return nil;
+//    }
     
     //https://api.rezdy.com/v1/bookings?apiKey=8d9c11062ab244c7ab15f44dcaa30c7b
     
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@/bookings?%@", kHTTPProtocol, [CharterAPI URL], kapiKey];
+    //NSString *urlString = [NSString stringWithFormat:@"%@://%@/bookings?%@", kHTTPProtocol, [CharterAPI URL], kapiKey];
+    
+    NSString *urlString = @"https://api.rezdy.com/latest/bookings?apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
     
    // NSLog(@"the post string is %@", urlString);
     NSDictionary *dict = @{

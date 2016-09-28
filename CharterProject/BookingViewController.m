@@ -14,6 +14,7 @@
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
 #import "TopView.h"
+#import "CharterAPI.h"
 
 @interface BookingViewController ()
 @property (nonatomic, strong) TopView *topView;
@@ -190,6 +191,14 @@
 - (void)bookNow {
     
     //BOOK NOW HERE GOES THE POST
+    
+    [CharterAPI bookService:nil success:^{
+        
+        
+        NSLog(@"success");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
     
 }
 
