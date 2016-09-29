@@ -9,6 +9,7 @@
 #import "CharterAPI.h"
 #import "CharterService.h"
 
+
 NSString *const kapiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 NSString *const kHTTPProtocol = @"https";
 NSString *const kURLProduction = @"api.rezdy.com/v1";
@@ -41,7 +42,6 @@ NSString *const keyFromJSON = @"products";
     
     AFHTTPRequestOperation *op = [nm GET:urlString parameters:nil success:^(id responseObject) {
         
-
        NSArray *arrayData = responseObject[keyFromJSON];
     
         NSMutableArray *categoryProductsArray = [NSMutableArray new];
@@ -59,96 +59,83 @@ NSString *const keyFromJSON = @"products";
     return op;
 }
 
-+ (AFHTTPRequestOperation *)bookService:(CharterService *)charter
-                                success:(void (^)())success
-                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    
-    
-//    if  (!charter) {
-//        failure (nil,nil);
-//        return nil;
-//    }
-    
-    //https://api.rezdy.com/v1/bookings?apiKey=8d9c11062ab244c7ab15f44dcaa30c7b
-    
-    //NSString *urlString = [NSString stringWithFormat:@"%@://%@/bookings?%@", kHTTPProtocol, [CharterAPI URL], kapiKey];
-    
-    NSString *urlString = @"https://api.rezdy.com/latest/bookings?apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
-    
-   // NSLog(@"the post string is %@", urlString);
-    NSDictionary *dict = @{
-                                 @"customer": @{
-                                     @"firstName": @"Hugo",
-                                     @"lastName": @"Sterin",
-                                     @"email": @"noreply@rezdy.com",
-                                     @"phone": @"0282443060"
-                                 },
-                                 @"items": @[
-                                           @{
-                                               @"productCode": charter.productCode,
-                                               @"startTimeLocal": @"2016-11-03 09:00:00",
-                                               @"amount": @200,
-                                               @"quantities": @[
-                                                              @{
-                                                                  @"optionLabel": @"Adult",
-                                                                  @"value": @"2"
-                                                              }
-                                                              ],
-                                               @"participants": @[
-                                                               @{
-                                                                    @"fields": @[
-                                                                               @{
-                                                                                   @"label": @"First Name",
-                                                                                   @"value": @"Hugo"
-                                                                               },
-                                                                               @{
-                                                                                   @"label": @"Last Name",
-                                                                                   @"value": @"Sterin"
-                                                                               }
-                                                                               ]
-                                                                },
-                                       
-                                                                ]
-                                           }
-                                           ],
-                                 @"fields": @[
-                                            @{
-                                                @"label": @"Do you have any dietary requirements?",
-                                                @"value": @"No, I have no requirements. "
-                                            }
-                                            ],
-                                 @"comments": @"Special requirements go here",
-                                 @"resellerComments": @"Your Agent voucher/redemption code should go here",
-                                 @"payments": @[
-                                              @{
-                                                  @"type": @"CREDITCARD",
-                                                  @"amount": @"200",
-                                                  @"currency": @"USD",
-                                                  @"date": @"2014-11-01T10:26:00Z",
-                                                  @"label": @"Payment processed by RezdyDemoAgent"
-                                              }
-                                              ]
-                                 };
-    
+//NSURLSESSION
+- (void)sendBooking:(NSDictionary *)booking
+                        success:(void (^)(id responseObject))success
+            failure:(void (^)(NSURLResponse *response, NSError *error))failure {
     
     NSError *error;
-    NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:dict  options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     
-    //NSDictionary *parameters = @{@"bookingFields":jsonString};
-    //parameters
-    NetworkManager *rm = [NetworkManager new];
+    NSString *urlString = [NSString stringWithFormat:@"%@://%@/bookings?%@", kHTTPProtocol, [CharterAPI URL], kapiKey];
     
-    AFHTTPRequestOperation *op = [rm POST:urlString parameters:jsonString success:^(id responseObject) {
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:booking options:0 error:&error];
+    [request setHTTPBody:postData];
+    
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        success(responseObject);
+        //NSLog(@"response %@", response);
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
+        success(string);
     }];
     
-    return op;
+    [postDataTask resume];
+    
 }
+
+
+
+
+
+//+ (AFHTTPRequestOperation *)bookService:(id)charterJson
+//                                success:(void (^)())success
+//                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+//    
+//    
+////    if  (!charter) {
+////        failure (nil,nil);
+////        return nil;
+////    }
+//    
+//    
+//    
+//    //https://api.rezdy.com/v1/bookings?apiKey=8d9c11062ab244c7ab15f44dcaa30c7b
+//    
+//    NSString *urlString = [NSString stringWithFormat:@"%@://%@/bookings?%@", kHTTPProtocol, [CharterAPI URL], kapiKey];
+//    
+////    NSString *urlString = @"https://api.rezdy.com/latest/bookings?apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
+//    
+//   NSLog(@"the post string is %@", urlString);
+//    
+//   // NSDictionary *parameters = @{@"bookings" : charterJson};
+//    //parameters
+//    NetworkManager *rm = [NetworkManager new];
+//    
+//    AFHTTPRequestOperation *op = [rm POST:urlString parameters:charterJson success:^(id responseObject) {
+//        
+//        success(responseObject);
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//    }];
+//    
+//    return op;
+//}
 
 
 + (NSString *)URL {

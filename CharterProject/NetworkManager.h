@@ -20,7 +20,7 @@
                         success:(void (^)(id responseObject))success
                         failure:(void (^)(AFHTTPRequestOperation*operation, NSError *error))failure;
 
-- (AFHTTPRequestOperation *)POST:(NSString *)path parameters:(NSString *)parameters
+- (AFHTTPRequestOperation *)POST:(NSString *)path parameters:(id)parameters
                          success:(void (^)(id responseObject))success
                          failure:(void (^)(AFHTTPRequestOperation*operation, NSError *error))failure;
 

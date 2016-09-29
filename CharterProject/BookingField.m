@@ -78,9 +78,16 @@
     if (textField.text.length == 0) {
         _lineView.backgroundColor = [UIColor alertColor];
     }
-    
     return YES;
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
 
 
 

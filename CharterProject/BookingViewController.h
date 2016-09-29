@@ -10,7 +10,7 @@
 #import "TopView.h"
 @class CharterService;
 
-@interface BookingViewController : UIViewController<TopViewDelegate>
+@interface BookingViewController : UIViewController<TopViewDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) CharterService *charterService;
 
 @end

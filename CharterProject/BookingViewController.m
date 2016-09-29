@@ -105,7 +105,7 @@
     [_scrollView addSubview:_bookButton];
     
     _pickerBookingDate = [[UIDatePicker alloc] init];
-    _pickerBookingDate.backgroundColor = [UIColor whiteColor];//UIColorRGBA(kColorBackgroundTheme);
+    _pickerBookingDate.backgroundColor = [UIColor whiteColor];
     _pickerBookingDate.tintColor = [UIColor customMainColor];
     _pickerBookingDate.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     [_pickerBookingDate addTarget:self action:@selector(userAlteredPicker:) forControlEvents:UIControlEventValueChanged];
@@ -115,8 +115,8 @@
     [_scrollView addSubview:_pickerBookingDate];
 }
 
-- (void)userAlteredPicker:(id)sender
-{
+- (void)userAlteredPicker:(id)sender {
+    
     NSLog(@"the date is %@",  _pickerBookingDate.date);
 }
 
@@ -176,8 +176,7 @@
     
 }
 
-//delegate methdds
-
+//delegate methods
 - (void)dismissVC {
     
     __weak BookingViewController *weakSelf = self;
@@ -192,14 +191,70 @@
     
     //BOOK NOW HERE GOES THE POST
     
-    [CharterAPI bookService:nil success:^{
+    NSDictionary *dict = @{
+                           @"customer": @{
+                                   @"firstName": @"Hugo",
+                                   @"lastName": @"Sterin",
+                                   @"email": @"noreply@rezdy.com",
+                                   @"phone": @"0282443060"
+                                   },
+                           @"items": @[
+                                   @{
+                                       @"productCode": @"P9K61H",//charter.productCode,
+                                       @"startTimeLocal": @"2016-11-03 09:00:00",
+                                       @"amount": @200,
+                                       @"quantities": @[
+                                               @{
+                                                   @"optionLabel": @"Adult",
+                                                   @"value": @"2"
+                                                   }
+                                               ],
+                                       @"participants": @[
+                                               @{
+                                                   @"fields": @[
+                                                           @{
+                                                               @"label": @"First Name",
+                                                               @"value": @"Hugo"
+                                                               },
+                                                           @{
+                                                               @"label": @"Last Name",
+                                                               @"value": @"Sterin"
+                                                               }
+                                                           ]
+                                                   },
+                                               
+                                               ]
+                                       }
+                                   ],
+                           @"fields": @[
+                                   @{
+                                       @"label": @"Do you have any dietary requirements?",
+                                       @"value": @"No, I have no requirements. "
+                                       }
+                                   ],
+                           @"comments": @"Special requirements go here",
+                           @"resellerComments": @"Your Agent voucher/redemption code should go here",
+                           @"payments": @[
+                                   @{
+                                       @"type": @"CREDITCARD",
+                                       @"amount": @"200",
+                                       @"currency": @"USD",
+                                       @"date": @"2014-11-01T10:26:00Z",
+                                       @"label": @"Payment processed by RezdyDemoAgent"
+                                       }
+                                   ]
+                           };
+    
+    CharterAPI *api = [CharterAPI new];
+    
+    [api sendBooking:dict success:^(id responseObject) {
         
+        NSLog(@"the response %@", responseObject);
         
-        NSLog(@"success");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //handle the response
+    } failure:^(NSURLResponse *response, NSError *error) {
         
     }];
-    
 }
 
 #pragma Keyboard hide and show
