@@ -75,7 +75,11 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     
-    if (textField.text.length == 0) {
+    NSString *rawString = [textField text];
+    NSCharacterSet *whitespace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmed = [rawString stringByTrimmingCharactersInSet:whitespace];
+    
+    if (trimmed.length == 0) {
         _lineView.backgroundColor = [UIColor alertColor];
     }
     return YES;
@@ -87,6 +91,12 @@
     return YES;
 }
 
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    //do the setup of the object here 
+    
+}
 
 
 

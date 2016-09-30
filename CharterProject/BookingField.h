@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BookingObject.h"
 
 @interface BookingField : UIView<UITextFieldDelegate>
 @property (nonatomic, strong) UILabel *labelField;

@@ -31,6 +31,7 @@
 @property (nonatomic, strong) BookingField *phoneField;
 @property (nonatomic, strong) BookingField *mobilePhoneField;
 @property (nonatomic, strong) BookingField *emailField;
+@property (nonatomic, strong) BookingField *companyField;
 @property (nonatomic, strong) BookingField *addressField;
 @property (nonatomic, strong) BookingField *cityField;
 @property (nonatomic, strong) BookingField *countryField;
@@ -81,6 +82,9 @@
     _emailField = [[BookingField alloc] initWithLabelName:@"Email"];
     [_scrollView addSubview:_emailField];
     
+    _companyField = [[BookingField alloc] initWithLabelName:@"Company Name"];
+    [_scrollView addSubview:_companyField];
+    
     _addressField = [[BookingField alloc] initWithLabelName:@"Address"];
     [_scrollView addSubview:_addressField];
     
@@ -96,7 +100,7 @@
     _postCodeField = [[BookingField alloc] initWithLabelName:@"Postal Code"];
     [_scrollView addSubview:_postCodeField];
     
-    _arrayOfBookingFields = @[_nameField, _lastNameField, _phoneField, _mobilePhoneField, _emailField, _addressField, _cityField, _countryField, _stateField, _postCodeField];
+    _arrayOfBookingFields = @[_nameField, _lastNameField, _phoneField, _mobilePhoneField, _emailField, _companyField, _addressField, _cityField, _countryField, _stateField, _postCodeField];
     
     _bookButton = [UIButton new];
     [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
@@ -235,30 +239,43 @@
     
     BookingObject *booking = [BookingObject new];
     
-    booking.customer.firstName = @"james";
-    booking.customer.lastName = @"rochabrun";
-    booking.items.amount = @200;
+    booking.customer.firstName = _nameField.textField.text;
+    booking.customer.lastName = _lastNameField.textField.text;
+    booking.customer.email = _emailField.textField.text;
+    booking.customer.phone = _phoneField.textField.text;
+    booking.customer.companyName = _companyField.textField.text;
+    booking.customer.postCode = _postCodeField.textField.text;
+    booking.customer.state = _stateField.textField.text;
+    booking.customer.city = _cityField.textField.text;
+    booking.customer.addressLine = _addressField.textField.text;
+    
+    booking.items.amount = _charterService.advertisedPrice;
     booking.items.startTimeLocal = @"2014-11-03 09:00:00";
     booking.items.quantitiesValue = @1;
-
-    booking.items.productCode = @"PBEHQ0";
+    booking.items.productCode = _charterService.productCode;
+    
     booking.comment.comments = @"hello";
-    booking.payment.amountPayment = @200;
+    
     booking.payment.type = @"CREDITCARD";
+    booking.payment.amountPayment = _charterService.advertisedPrice;
+    booking.payment.currency = _charterService.currency;
+    booking.payment.date = @200;//date of booking
+
+    
     
     NSDictionary *bookDict = [booking dictionaryFromBookingObject];
     NSLog(@"the dict is %@", bookDict);
-        
-    CharterAPI *api = [CharterAPI new];
     
-    [api sendBooking:bookDict success:^(id responseObject) {
-        
-        NSLog(@"THE RESPONSE : %@", responseObject);
-        
-        //handle the response
-    } failure:^(NSURLResponse *response, NSError *error) {
-        
-    }];
+//    CharterAPI *api = [CharterAPI new];
+//    
+//    [api sendBooking:bookDict success:^(id responseObject) {
+//        
+//        NSLog(@"THE RESPONSE : %@", responseObject);
+//        
+//        //handle the response
+//    } failure:^(NSURLResponse *response, NSError *error) {
+    
+//    }];
 }
 
 #pragma Keyboard hide and show
