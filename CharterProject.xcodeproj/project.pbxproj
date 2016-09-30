@@ -39,6 +39,11 @@
 		7B995CF51D9A05270047B6D5 /* ListCVFL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CF41D9A05270047B6D5 /* ListCVFL.m */; };
 		7B995CF81D9A05CA0047B6D5 /* UICollectionView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CF71D9A05CA0047B6D5 /* UICollectionView+Additions.m */; };
 		7B995CFB1D9A0AF60047B6D5 /* CharterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */; };
+		7BA0FA2E1D9DCEEC004A6F41 /* CustomerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0FA2D1D9DCEEC004A6F41 /* CustomerObject.m */; };
+		7BA0FA311D9DE567004A6F41 /* ItemsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0FA301D9DE567004A6F41 /* ItemsObject.m */; };
+		7BA0FA341D9DEC67004A6F41 /* CommentsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0FA331D9DEC67004A6F41 /* CommentsObject.m */; };
+		7BA0FA371D9DED3C004A6F41 /* PaymentsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0FA361D9DED3C004A6F41 /* PaymentsObject.m */; };
+		7BA0FA3D1D9E1E20004A6F41 /* BookingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0FA3C1D9E1E20004A6F41 /* BookingObject.m */; };
 		7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */; };
 		7BA833171D943EC400841B40 /* CustomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA833161D943EC400841B40 /* CustomToolBar.m */; };
 		7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD5DB91D9B0EE60071DB1A /* UIImage+Additions.m */; };
@@ -118,6 +123,16 @@
 		7B995CF71D9A05CA0047B6D5 /* UICollectionView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Additions.m"; sourceTree = "<group>"; };
 		7B995CF91D9A0AF60047B6D5 /* CharterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterCollectionViewCell.h; sourceTree = "<group>"; };
 		7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterCollectionViewCell.m; sourceTree = "<group>"; };
+		7BA0FA2C1D9DCEEC004A6F41 /* CustomerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerObject.h; sourceTree = "<group>"; };
+		7BA0FA2D1D9DCEEC004A6F41 /* CustomerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerObject.m; sourceTree = "<group>"; };
+		7BA0FA2F1D9DE567004A6F41 /* ItemsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsObject.h; sourceTree = "<group>"; };
+		7BA0FA301D9DE567004A6F41 /* ItemsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsObject.m; sourceTree = "<group>"; };
+		7BA0FA321D9DEC67004A6F41 /* CommentsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsObject.h; sourceTree = "<group>"; };
+		7BA0FA331D9DEC67004A6F41 /* CommentsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsObject.m; sourceTree = "<group>"; };
+		7BA0FA351D9DED3C004A6F41 /* PaymentsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentsObject.h; sourceTree = "<group>"; };
+		7BA0FA361D9DED3C004A6F41 /* PaymentsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentsObject.m; sourceTree = "<group>"; };
+		7BA0FA3B1D9E1E20004A6F41 /* BookingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookingObject.h; sourceTree = "<group>"; };
+		7BA0FA3C1D9E1E20004A6F41 /* BookingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookingObject.m; sourceTree = "<group>"; };
 		7BA11F2A1D12716F0072DBA7 /* UIFont+CustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFont.h"; sourceTree = "<group>"; };
 		7BA11F2B1D12716F0072DBA7 /* UIFont+CustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFont.m"; sourceTree = "<group>"; };
 		7BA833151D943EC400841B40 /* CustomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomToolBar.h; sourceTree = "<group>"; };
@@ -271,6 +286,16 @@
 		645EBCB41D08D441007D1557 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7BA0FA3B1D9E1E20004A6F41 /* BookingObject.h */,
+				7BA0FA3C1D9E1E20004A6F41 /* BookingObject.m */,
+				7BA0FA351D9DED3C004A6F41 /* PaymentsObject.h */,
+				7BA0FA361D9DED3C004A6F41 /* PaymentsObject.m */,
+				7BA0FA2F1D9DE567004A6F41 /* ItemsObject.h */,
+				7BA0FA301D9DE567004A6F41 /* ItemsObject.m */,
+				7BA0FA2C1D9DCEEC004A6F41 /* CustomerObject.h */,
+				7BA0FA321D9DEC67004A6F41 /* CommentsObject.h */,
+				7BA0FA331D9DEC67004A6F41 /* CommentsObject.m */,
+				7BA0FA2D1D9DCEEC004A6F41 /* CustomerObject.m */,
 				7B55999B1D1B6927009B8EE7 /* CharterObject */,
 			);
 			name = Model;
@@ -563,6 +588,7 @@
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
 				7B0B22171D95CDC5000830C4 /* BookingViewController.m in Sources */,
 				7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */,
+				7BA0FA341D9DEC67004A6F41 /* CommentsObject.m in Sources */,
 				7B995CF51D9A05270047B6D5 /* ListCVFL.m in Sources */,
 				7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */,
 				7B995CFB1D9A0AF60047B6D5 /* CharterCollectionViewCell.m in Sources */,
@@ -573,16 +599,20 @@
 				7B995CF81D9A05CA0047B6D5 /* UICollectionView+Additions.m in Sources */,
 				7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,
+				7BA0FA311D9DE567004A6F41 /* ItemsObject.m in Sources */,
 				7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */,
 				7B1484191D964A95002ADC55 /* TopView.m in Sources */,
 				7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
+				7BA0FA3D1D9E1E20004A6F41 /* BookingObject.m in Sources */,
+				7BA0FA2E1D9DCEEC004A6F41 /* CustomerObject.m in Sources */,
 				7B1FA7111D935C2D00406508 /* CommonUIConstants.m in Sources */,
 				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,
 				7B4858741D1DE06600AAE2A7 /* DoubleTapImage.m in Sources */,
 				7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */,
 				7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */,
 				7B0B221A1D95E32F000830C4 /* BookingField.m in Sources */,
+				7BA0FA371D9DED3C004A6F41 /* PaymentsObject.m in Sources */,
 				7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

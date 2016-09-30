@@ -10,7 +10,7 @@
 #import "CharterService.h"
 
 
-NSString *const kapiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
+NSString *const kapiKey = @"apiKey=15132eb9747f46baaa149e85aab49aeb";
 NSString *const kHTTPProtocol = @"https";
 NSString *const kURLProduction = @"api.rezdy.com/v1";
 NSString *const keyFromJSON = @"products";
@@ -87,7 +87,7 @@ NSString *const keyFromJSON = @"products";
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        //NSLog(@"response %@", response);
+        NSLog(@"HEADER RESPONSE %@", response);
         
         NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         

@@ -15,6 +15,11 @@
 #import "UIFont+CustomFont.h"
 #import "TopView.h"
 #import "CharterAPI.h"
+#import "CustomerObject.h"
+#import "ItemsObject.h"
+#import "CommentsObject.h"
+#import "PaymentsObject.h"
+#import "BookingObject.h"
 
 @interface BookingViewController ()
 @property (nonatomic, strong) TopView *topView;
@@ -191,65 +196,64 @@
     
     //BOOK NOW HERE GOES THE POST
     
-    NSDictionary *dict = @{
-                           @"customer": @{
-                                   @"firstName": @"Hugo",
-                                   @"lastName": @"Sterin",
-                                   @"email": @"noreply@rezdy.com",
-                                   @"phone": @"0282443060"
-                                   },
-                           @"items": @[
-                                   @{
-                                       @"productCode": @"P9K61H",//charter.productCode,
-                                       @"startTimeLocal": @"2016-11-03 09:00:00",
-                                       @"amount": @200,
-                                       @"quantities": @[
-                                               @{
-                                                   @"optionLabel": @"Adult",
-                                                   @"value": @"2"
-                                                   }
-                                               ],
-                                       @"participants": @[
-                                               @{
-                                                   @"fields": @[
-                                                           @{
-                                                               @"label": @"First Name",
-                                                               @"value": @"Hugo"
-                                                               },
-                                                           @{
-                                                               @"label": @"Last Name",
-                                                               @"value": @"Sterin"
-                                                               }
-                                                           ]
-                                                   },
-                                               
-                                               ]
-                                       }
-                                   ],
-                           @"fields": @[
-                                   @{
-                                       @"label": @"Do you have any dietary requirements?",
-                                       @"value": @"No, I have no requirements. "
-                                       }
-                                   ],
-                           @"comments": @"Special requirements go here",
-                           @"resellerComments": @"Your Agent voucher/redemption code should go here",
-                           @"payments": @[
-                                   @{
-                                       @"type": @"CREDITCARD",
-                                       @"amount": @"200",
-                                       @"currency": @"USD",
-                                       @"date": @"2014-11-01T10:26:00Z",
-                                       @"label": @"Payment processed by RezdyDemoAgent"
-                                       }
-                                   ]
-                           };
+//    NSDictionary *dict = @{ @"customer": @{
+//                                    @"postCode" : @"94563",
+//                                    @"state" : @"california",
+//                                    @"city" : @"san francisco",
+//                                    @"addressLine" : @"alameda 15",
+//                                   @"companyName" : @"deemelo",
+//                                   @"firstName": @"James",
+//                                   @"lastName": @"Rochabrun",
+//                                   @"email": @"jamesrochabrun@gmail.com",
+//                                   @"phone": @"0282443060",
+//                                   },
+//                           @"items": @[
+//                                   @{
+//                                       @"productCode": @"PBEHQ0",
+//                                       @"startTimeLocal": @"2016-11-07 09:00:00",
+//                                       @"amount": @200,
+//                                       @"quantities": @[
+//                                               @{
+//                                                   @"value": @"1"
+//                                                   }
+//                                               ]
+//                                       }
+//                                   ],
+//                           @"comments": @"Special requirements go here",
+//                            
+//                           @"payments": @[
+//                                   @{
+//                                       @"type": @"CREDITCARD",
+//                                       @"amount": @"200",
+//                                       @"currency": @"USD",
+//                                       @"date": @"2014-11-01T10:26:00Z",
+//                                       @"label": @"Payment processed by RezdyDemoAgent"
+//                                       }
+//                                   ]
+//                           };
+
     
+    BookingObject *booking = [BookingObject new];
+    
+    booking.customer.firstName = @"james";
+    booking.customer.lastName = @"rochabrun";
+    booking.items.amount = @200;
+    booking.items.startTimeLocal = @"2014-11-03 09:00:00";
+    booking.items.quantitiesValue = @1;
+
+    booking.items.productCode = @"PBEHQ0";
+    booking.comment.comments = @"hello";
+    booking.payment.amountPayment = @200;
+    booking.payment.type = @"CREDITCARD";
+    
+    NSDictionary *bookDict = [booking dictionaryFromBookingObject];
+    NSLog(@"the dict is %@", bookDict);
+        
     CharterAPI *api = [CharterAPI new];
     
-    [api sendBooking:dict success:^(id responseObject) {
+    [api sendBooking:bookDict success:^(id responseObject) {
         
-        NSLog(@"the response %@", responseObject);
+        NSLog(@"THE RESPONSE : %@", responseObject);
         
         //handle the response
     } failure:^(NSURLResponse *response, NSError *error) {

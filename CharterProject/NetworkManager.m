@@ -37,7 +37,7 @@ static NSString *textHtml = @"text/html";
                         success:(void (^)(id responseObject))success
                         failure:(void (^)(AFHTTPRequestOperation*operation, NSError *error))failure
 {
-        NSLog(@"GET:  %@", path);
+    //NSLog(@"GET:  %@", path);
     NetworkManager *nm = [NetworkManager sharedRequestManager];
     nm.requestManager.responseSerializer = [AFJSONResponseSerializer serializer];
     nm.requestManager.responseSerializer.acceptableContentTypes = [NSMutableSet setWithObjects:applicationJson, textHtml , nil];
@@ -46,43 +46,43 @@ static NSString *textHtml = @"text/html";
     
     return [nm.requestManager GET:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-       // NSLog(@"JSON: %@", responseObject);
+        NSLog(@"JSON: %@", responseObject);
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation,error);
     }];
 }
 
-- (AFHTTPRequestOperation *)POST:(NSString *)path parameters:(id)parameters
-                         success:(void (^)(id responseObject))success
-                         failure:(void (^)(AFHTTPRequestOperation*operation, NSError *error))failure
-{
-    NSLog(@"POST: %@", path);
-    NetworkManager *nm = [NetworkManager sharedRequestManager];
-    nm.requestManager.responseSerializer = [AFJSONResponseSerializer serializer];
-    nm.requestManager.responseSerializer.acceptableContentTypes = [NSMutableSet setWithObjects:applicationJson, textHtml, nil];
-    
-
-    
-    //[nm.requestManager.requestSerializer setValue:nil forHTTPHeaderField:@"Content-Type"];
-    [nm.requestManager.requestSerializer setValue:applicationJson forHTTPHeaderField:contentType];
-        [nm.requestManager.requestSerializer setValue:applicationJson forHTTPHeaderField:@"Accept"];
-
-    NSLog (@"POST PARAMETERS:  %@",parameters);
-    NSLog (@"SERIALIZER SAYS HEADERS:  %@", nm.requestManager.requestSerializer.HTTPRequestHeaders);
-    //NSLog (@"SERIALIZER SAYS TIMEOUT:   %g", nm.requestManager.requestSerializer.timeoutInterval);
-    return [nm.requestManager POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-               NSLog(@"success JSON: %@", responseObject);;
-        success(responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(operation,error);
-        
-        NSLog(@"error - the response string is %@" , operation.responseString);
-        NSLog(@"error - the response object is %@", operation.responseObject);
-        //NSLog(@"the error is %@", error);
-    }];
-}
+//- (AFHTTPRequestOperation *)POST:(NSString *)path parameters:(id)parameters
+//                         success:(void (^)(id responseObject))success
+//                         failure:(void (^)(AFHTTPRequestOperation*operation, NSError *error))failure
+//{
+//    //NSLog(@"POST: %@", path);
+//    NetworkManager *nm = [NetworkManager sharedRequestManager];
+//    nm.requestManager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    nm.requestManager.responseSerializer.acceptableContentTypes = [NSMutableSet setWithObjects:applicationJson, textHtml, nil];
+//    
+//
+//    
+//    //[nm.requestManager.requestSerializer setValue:nil forHTTPHeaderField:@"Content-Type"];
+//    [nm.requestManager.requestSerializer setValue:applicationJson forHTTPHeaderField:contentType];
+//        [nm.requestManager.requestSerializer setValue:applicationJson forHTTPHeaderField:@"Accept"];
+//
+//    NSLog (@"POST PARAMETERS:  %@",parameters);
+//    NSLog (@"SERIALIZER SAYS HEADERS:  %@", nm.requestManager.requestSerializer.HTTPRequestHeaders);
+//    //NSLog (@"SERIALIZER SAYS TIMEOUT:   %g", nm.requestManager.requestSerializer.timeoutInterval);
+//    return [nm.requestManager POST:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+//               NSLog(@"success JSON: %@", responseObject);;
+//        success(responseObject);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        failure(operation,error);
+//        
+//        NSLog(@"error - the response string is %@" , operation.responseString);
+//        NSLog(@"error - the response object is %@", operation.responseObject);
+//        //NSLog(@"the error is %@", error);
+//    }];
+//}
 
 
 
