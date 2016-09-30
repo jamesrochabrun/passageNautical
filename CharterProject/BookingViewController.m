@@ -41,6 +41,7 @@
 @property (nonatomic, strong) UIButton *bookButton;
 @property (nonatomic, strong) UIDatePicker *pickerBookingDate;
 @property CGFloat keyBoardHeight;
+@property (nonatomic, strong) NSString *stringDate;
 
 
 @end
@@ -124,10 +125,32 @@
     [_scrollView addSubview:_pickerBookingDate];
 }
 
-- (void)userAlteredPicker:(id)sender {
+- (void)userAlteredPicker:(id)sender { //@"2016-11-07 09:00:00",
     
-    NSLog(@"the date is %@",  _pickerBookingDate.date);
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+   // [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"PST"]];
+    
+    // change to a readable time format and change to local time zone
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    _stringDate = [dateFormatter stringFromDate:_pickerBookingDate.date];
+    
+    NSLog(@"the date %@", _stringDate);
+
+
 }
+
+//- (NSNumber *)returnNSNumberFromDate {
+
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+//    [dateFormatter setLocale:enUSPOSIXLocale];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+//    
+//    NSDate *now = [NSDate date];
+//    NSString *UYy = [dateFormatter stringFromDate:now];
+    
+//}
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
@@ -239,9 +262,9 @@
     
     BookingObject *booking = [BookingObject new];
     
-    booking.customer.firstName = _nameField.textField.text;
-    booking.customer.lastName = _lastNameField.textField.text;
-    booking.customer.email = _emailField.textField.text;
+    booking.customer.firstName = @"james";//_nameField.textField.text;
+    booking.customer.lastName = @"rochabrun";//_lastNameField.textField.text;
+    booking.customer.email = @"jamesrochabrun@gmail.com";//_emailField.textField.text;
     booking.customer.phone = _phoneField.textField.text;
     booking.customer.companyName = _companyField.textField.text;
     booking.customer.postCode = _postCodeField.textField.text;
@@ -250,32 +273,35 @@
     booking.customer.addressLine = _addressField.textField.text;
     
     booking.items.amount = _charterService.advertisedPrice;
-    booking.items.startTimeLocal = @"2014-11-03 09:00:00";
+    booking.items.startTimeLocal = _stringDate;//@"2016-11-03 09:00:00";
     booking.items.quantitiesValue = @1;
     booking.items.productCode = _charterService.productCode;
     
     booking.comment.comments = @"hello";
     
-    booking.payment.type = @"CREDITCARD";
-    booking.payment.amountPayment = _charterService.advertisedPrice;
+    booking.payment.type = @"INVOICE";
+   // booking.payment.amountPayment = @"";//_charterService.advertisedPrice;
     booking.payment.currency = _charterService.currency;
-    booking.payment.date = @200;//date of booking
-
     
+//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+//    f.numberStyle = NSNumberFormatterDecimalStyle;
+//    NSNumber *myNumber = [f numberFromString:_stringDate];
+    
+    booking.payment.date = @200;//[NSDate date];;//myNumber;//date of booking
     
     NSDictionary *bookDict = [booking dictionaryFromBookingObject];
     NSLog(@"the dict is %@", bookDict);
     
-//    CharterAPI *api = [CharterAPI new];
-//    
-//    [api sendBooking:bookDict success:^(id responseObject) {
-//        
-//        NSLog(@"THE RESPONSE : %@", responseObject);
-//        
-//        //handle the response
-//    } failure:^(NSURLResponse *response, NSError *error) {
+    CharterAPI *api = [CharterAPI new];
     
-//    }];
+    [api sendBooking:bookDict success:^(id responseObject) {
+        
+      NSLog(@"THE RESPONSE : %@", responseObject);
+        
+        //handle the response
+    } failure:^(NSURLResponse *response, NSError *error) {
+    
+    }];
 }
 
 #pragma Keyboard hide and show

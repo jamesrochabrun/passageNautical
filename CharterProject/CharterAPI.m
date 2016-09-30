@@ -17,7 +17,6 @@ NSString *const keyFromJSON = @"products";
 
 
 @interface CharterAPI()
-- (NSString *)charterURL;
 @end
 
 @implementation CharterAPI
@@ -28,9 +27,7 @@ NSString *const keyFromJSON = @"products";
     }
     return self;
 }
-- (NSString *)charterURL {
-    return [CharterAPI URL];
-}
+
 
 + (AFHTTPRequestOperation *)getListOfServicesByID:(NSString *)listID
                                           success:(void (^)(NSArray *services))success
