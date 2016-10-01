@@ -31,6 +31,7 @@
 		7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */; };
 		7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5124821D0E79270068A6F7 /* ProductCell.m */; };
 		7B5844EC1D9F1C0000ED2AFC /* CommentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5844EB1D9F1C0000ED2AFC /* CommentTextView.m */; };
+		7B5844EF1D9F4DF900ED2AFC /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5844EE1D9F4DF900ED2AFC /* DatePickerView.m */; };
 		7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */; };
 		7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */; };
 		7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */; };
@@ -111,6 +112,8 @@
 		7B5124821D0E79270068A6F7 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
 		7B5844EA1D9F1C0000ED2AFC /* CommentTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTextView.h; sourceTree = "<group>"; };
 		7B5844EB1D9F1C0000ED2AFC /* CommentTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTextView.m; sourceTree = "<group>"; };
+		7B5844ED1D9F4DF900ED2AFC /* DatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerView.h; sourceTree = "<group>"; };
+		7B5844EE1D9F4DF900ED2AFC /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
 		7B6EA4491D15E9E200AFC708 /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactViewController.h; path = ../ContactViewController.h; sourceTree = "<group>"; };
 		7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactViewController.m; path = ../ContactViewController.m; sourceTree = "<group>"; };
 		7B79420E1D13572B00CFE2F8 /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
@@ -248,6 +251,8 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B5844ED1D9F4DF900ED2AFC /* DatePickerView.h */,
+				7B5844EE1D9F4DF900ED2AFC /* DatePickerView.m */,
 				7B5844EA1D9F1C0000ED2AFC /* CommentTextView.h */,
 				7B5844EB1D9F1C0000ED2AFC /* CommentTextView.m */,
 				7B0B22181D95E32F000830C4 /* BookingField.h */,
@@ -611,6 +616,7 @@
 				7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
 				7BA0FA3D1D9E1E20004A6F41 /* BookingObject.m in Sources */,
+				7B5844EF1D9F4DF900ED2AFC /* DatePickerView.m in Sources */,
 				7BA0FA2E1D9DCEEC004A6F41 /* CustomerObject.m in Sources */,
 				7B1FA7111D935C2D00406508 /* CommonUIConstants.m in Sources */,
 				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,

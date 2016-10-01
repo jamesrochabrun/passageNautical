@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "TopView.h"
+#import "DatePickerView.h"
 @class CharterService;
 
-@interface BookingViewController : UIViewController<TopViewDelegate,UITextFieldDelegate, UITextViewDelegate>
+@interface BookingViewController : UIViewController<TopViewDelegate,UITextFieldDelegate, UITextViewDelegate,DatePickerViewDelegate >
 @property (nonatomic, strong) CharterService *charterService;
 
 @end
