@@ -79,9 +79,11 @@
     [_scrollView addSubview:_lastNameField];
     
     _phoneField = [[BookingField alloc] initWithLabelName:@"Phone"];
+    _phoneField.textField.keyboardType = UIKeyboardTypePhonePad;
     [_scrollView addSubview: _phoneField];
     
     _emailField = [[BookingField alloc] initWithLabelName:@"Email"];
+    _emailField.textField.keyboardType = UIKeyboardTypeEmailAddress;
     [_scrollView addSubview:_emailField];
     
     _companyField = [[BookingField alloc] initWithLabelName:@"Company Name"];
@@ -105,6 +107,7 @@
     _arrayOfBookingFields = @[_nameField, _lastNameField, _phoneField, _emailField, _companyField, _addressField, _cityField, _countryField, _stateField, _postCodeField];
   
     _datePickerView = [DatePickerView new];
+    _datePickerView.minRequiredHours = [_charterService.minimumNoticeMinutes intValue];
     _datePickerView.delegate = self;
     [_scrollView addSubview:_datePickerView];
     
@@ -302,7 +305,7 @@
     booking.customer.addressLine = _addressField.textField.text;
     
     booking.items.amount = _charterService.advertisedPrice;
-    booking.items.startTimeLocal =  @"2016-10-05 19:52:55";//_stringDate;
+    booking.items.startTimeLocal = @"2016-10-08 12:00:00";//_stringDate;
     
     NSLog(@"the string date inside the booking is %@", _stringDate);
     booking.items.quantitiesValue = @1;

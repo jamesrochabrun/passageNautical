@@ -13,6 +13,9 @@
 #import "CommonUIConstants.h"
 #import "NSString+DecodeHTML.h"
 
+static CGFloat secondsInMinute = 60.0;
+static CGFloat minuteInHour = 60.0;
+
 
 @implementation DatePickerView
 
@@ -95,12 +98,10 @@
 
     NSTimeInterval distanceBetweenDates = [_pickerBookingDate.date timeIntervalSinceDate:_pickerBookingDate.minimumDate];
 
-    CGFloat secondsInMinute = 60;
-    CGFloat minuteInHour = 60;
     CGFloat minutesBetweenDates = distanceBetweenDates / secondsInMinute;
     CGFloat hoursBetweenDates = minutesBetweenDates / minuteInHour;
 
-    if (ceil(hoursBetweenDates) < 48)
+    if (ceil(hoursBetweenDates) < _minRequiredHours)
         _dateSatisfyMinRequiredDate = NO;
     else {
         _dateSatisfyMinRequiredDate = YES;
@@ -109,7 +110,10 @@
     return _dateSatisfyMinRequiredDate;
 }
 
-
+- (void)setMinRequiredHours:(CGFloat)minRequiredHours {
+    if (_minRequiredHours == minRequiredHours) return;
+    _minRequiredHours = minRequiredHours / minuteInHour;
+}
 
 
 

@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UILabel *alertPickerLabel;
 @property (nonatomic, assign) BOOL dateSatisfyMinRequiredDate;
 @property (nonatomic, weak) id<DatePickerViewDelegate> delegate;
+@property (nonatomic, assign) CGFloat minRequiredHours;
 - (BOOL)isBookingDateSatisfyMinBookingTime;
 
 @end
