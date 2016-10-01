@@ -19,7 +19,7 @@ extern NSString *const kKeyLabel;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSNumber *amountPayment;
 @property (nonatomic, strong) NSString *currency;
-@property (nonatomic, strong) NSNumber *date;
+@property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *label;
 - (NSArray *)arrayFromPaymentsObject;
 

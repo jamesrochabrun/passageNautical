@@ -51,15 +51,15 @@
     
     frame = _textField.frame;
     frame.size.height = kGeomHeightTextField;
-    frame.size.width = width(self) * 0.75;
-    frame.origin.x = kGeomMarginBig;
+    frame.size.width = width(self) * 0.8;
+    frame.origin.x = (width(self) - frame.size.width) /2;
     frame.origin.y = CGRectGetMaxY(_labelField.frame) + kGeomSpaceEdge;
     _textField.frame = frame;
     
     frame = _lineView.frame;
-    frame.origin.x = kGeomMarginBig;
+    frame.origin.x = (width(self) - frame.size.width) /2;
     frame.origin.y = CGRectGetMaxY(_textField.frame);
-    frame.size.width = width(self) * 0.75;
+    frame.size.width = width(self) * 0.8;
     frame.size.height = kGeomMinSpace;
     _lineView.frame = frame;
     

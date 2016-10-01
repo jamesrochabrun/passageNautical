@@ -30,6 +30,7 @@
 		7B4858741D1DE06600AAE2A7 /* DoubleTapImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */; };
 		7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */; };
 		7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5124821D0E79270068A6F7 /* ProductCell.m */; };
+		7B5844EC1D9F1C0000ED2AFC /* CommentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5844EB1D9F1C0000ED2AFC /* CommentTextView.m */; };
 		7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */; };
 		7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */; };
 		7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */; };
@@ -108,6 +109,8 @@
 		7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MainColor.m"; sourceTree = "<group>"; };
 		7B5124811D0E79270068A6F7 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
 		7B5124821D0E79270068A6F7 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		7B5844EA1D9F1C0000ED2AFC /* CommentTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTextView.h; sourceTree = "<group>"; };
+		7B5844EB1D9F1C0000ED2AFC /* CommentTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTextView.m; sourceTree = "<group>"; };
 		7B6EA4491D15E9E200AFC708 /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactViewController.h; path = ../ContactViewController.h; sourceTree = "<group>"; };
 		7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactViewController.m; path = ../ContactViewController.m; sourceTree = "<group>"; };
 		7B79420E1D13572B00CFE2F8 /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
@@ -245,14 +248,16 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B5844EA1D9F1C0000ED2AFC /* CommentTextView.h */,
+				7B5844EB1D9F1C0000ED2AFC /* CommentTextView.m */,
+				7B0B22181D95E32F000830C4 /* BookingField.h */,
+				7B0B22191D95E32F000830C4 /* BookingField.m */,
 				7B4858721D1DE06600AAE2A7 /* DoubleTapImage.h */,
 				7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */,
 				7B995CF31D9A05270047B6D5 /* ListCVFL.h */,
 				7B995CF41D9A05270047B6D5 /* ListCVFL.m */,
 				7B1484171D964A95002ADC55 /* TopView.h */,
 				7B1484181D964A95002ADC55 /* TopView.m */,
-				7B0B22181D95E32F000830C4 /* BookingField.h */,
-				7B0B22191D95E32F000830C4 /* BookingField.m */,
 				7BA833151D943EC400841B40 /* CustomToolBar.h */,
 				7BA833161D943EC400841B40 /* CustomToolBar.m */,
 				7B55999D1D1B6972009B8EE7 /* cells */,
@@ -293,9 +298,9 @@
 				7BA0FA2F1D9DE567004A6F41 /* ItemsObject.h */,
 				7BA0FA301D9DE567004A6F41 /* ItemsObject.m */,
 				7BA0FA2C1D9DCEEC004A6F41 /* CustomerObject.h */,
+				7BA0FA2D1D9DCEEC004A6F41 /* CustomerObject.m */,
 				7BA0FA321D9DEC67004A6F41 /* CommentsObject.h */,
 				7BA0FA331D9DEC67004A6F41 /* CommentsObject.m */,
-				7BA0FA2D1D9DCEEC004A6F41 /* CustomerObject.m */,
 				7B55999B1D1B6927009B8EE7 /* CharterObject */,
 			);
 			name = Model;
@@ -599,6 +604,7 @@
 				7B995CF81D9A05CA0047B6D5 /* UICollectionView+Additions.m in Sources */,
 				7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */,
 				645EBCBA1D08D4C3007D1557 /* MainViewController.m in Sources */,
+				7B5844EC1D9F1C0000ED2AFC /* CommentTextView.m in Sources */,
 				7BA0FA311D9DE567004A6F41 /* ItemsObject.m in Sources */,
 				7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */,
 				7B1484191D964A95002ADC55 /* TopView.m in Sources */,

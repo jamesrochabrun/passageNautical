@@ -34,6 +34,35 @@
     return html;
 }
 
++ (NSString *)trimString:(NSString *)string {
+    
+    NSCharacterSet *whitespace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmed = [string stringByTrimmingCharactersInSet:whitespace];
+    return trimmed;
+}
+
++ (NSString *)stringFromCurrentDate {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
+    return now;
+}
+
++ (NSString *)stringFromLocalTimeZone:(NSDate *)date {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    NSString *localDate = [dateFormatter stringFromDate:date];
+    return localDate;
+}
+
+
+
+
+
 
 
 

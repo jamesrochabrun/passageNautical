@@ -11,6 +11,8 @@
 @interface NSString (DecodeHTML)
 + (NSString*)decodeHTMLEntities:(NSString*)string;
 + (NSString *)convertHTMLInString:(NSString *)html;
-
++ (NSString *)trimString:(NSString *)string;
++ (NSString *)stringFromCurrentDate;
++ (NSString *)stringFromLocalTimeZone:(NSDate *)date;
 
 @end

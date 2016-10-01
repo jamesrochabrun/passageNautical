@@ -31,6 +31,7 @@ extern NSString *const kKeyPhone;
 @property (nonatomic, strong) NSString *phone;
 
 - (NSDictionary *)dictionaryFromCustomerObject;
+- (BOOL)checkIfCustomerPropertiesAreNotNil;
 
 
 

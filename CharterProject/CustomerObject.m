@@ -37,4 +37,16 @@ NSString *const kKeyPhone = @"phone";
     
 }
 
+- (BOOL)checkIfCustomerPropertiesAreNotNil {
+    
+    if (_postCode.length && _state.length && _city.length && _addressLine.length && _companyName.length && _firstName.length && _lastName.length && _email.length && _phone.length <= 0) {
+        return NO;
+    } else {
+        return YES;
+    }
+
+}
+
+
+
 @end

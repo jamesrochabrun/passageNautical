@@ -14,5 +14,4 @@
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UIView *lineView;
 - (instancetype)initWithLabelName:(NSString *)labelName;
-
 @end

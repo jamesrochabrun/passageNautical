@@ -20,6 +20,8 @@
 #import "CommentsObject.h"
 #import "PaymentsObject.h"
 #import "BookingObject.h"
+#import "CommentTextView.h"
+#import "NSString+DecodeHTML.h"
 
 @interface BookingViewController ()
 @property (nonatomic, strong) TopView *topView;
@@ -29,7 +31,6 @@
 @property (nonatomic, strong) BookingField *nameField;
 @property (nonatomic, strong) BookingField *lastNameField;
 @property (nonatomic, strong) BookingField *phoneField;
-@property (nonatomic, strong) BookingField *mobilePhoneField;
 @property (nonatomic, strong) BookingField *emailField;
 @property (nonatomic, strong) BookingField *companyField;
 @property (nonatomic, strong) BookingField *addressField;
@@ -37,12 +38,16 @@
 @property (nonatomic, strong) BookingField *countryField;
 @property (nonatomic, strong) BookingField *stateField;
 @property (nonatomic, strong) BookingField *postCodeField;
+@property (nonatomic, strong) CommentTextView *commentTextView;
 @property (nonatomic, strong) NSArray *arrayOfBookingFields;
 @property (nonatomic, strong) UIButton *bookButton;
 @property (nonatomic, strong) UIDatePicker *pickerBookingDate;
+@property (nonatomic, strong) UILabel *pickerLabel;
+@property (nonatomic, strong) UILabel *commentLabel;
+@property (nonatomic, strong) UILabel *alertPickerLabel;
 @property CGFloat keyBoardHeight;
 @property (nonatomic, strong) NSString *stringDate;
-
+@property (nonatomic, assign) BOOL readyToBook;
 
 @end
 
@@ -77,9 +82,6 @@
     _phoneField = [[BookingField alloc] initWithLabelName:@"Phone"];
     [_scrollView addSubview: _phoneField];
     
-    _mobilePhoneField = [[BookingField alloc] initWithLabelName:@"Mobile"];
-    [_scrollView addSubview:_mobilePhoneField];
-    
     _emailField = [[BookingField alloc] initWithLabelName:@"Email"];
     [_scrollView addSubview:_emailField];
     
@@ -101,18 +103,14 @@
     _postCodeField = [[BookingField alloc] initWithLabelName:@"Postal Code"];
     [_scrollView addSubview:_postCodeField];
     
-    _arrayOfBookingFields = @[_nameField, _lastNameField, _phoneField, _mobilePhoneField, _emailField, _companyField, _addressField, _cityField, _countryField, _stateField, _postCodeField];
+    _arrayOfBookingFields = @[_nameField, _lastNameField, _phoneField, _emailField, _companyField, _addressField, _cityField, _countryField, _stateField, _postCodeField];
     
-    _bookButton = [UIButton new];
-    [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
-    [_bookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_bookButton addTarget:self action:@selector(bookNow) forControlEvents:UIControlEventTouchUpInside];
-    //_bookButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    //_bookButton.layer.borderWidth = 2.0f;
-    _bookButton.backgroundColor = [UIColor customMainColor];
-    _bookButton.alpha = 0.7;
-    [_bookButton.titleLabel setFont:[UIFont regularFont:20]];
-    [_scrollView addSubview:_bookButton];
+    _pickerLabel = [UILabel new];
+    _pickerLabel.text = @"Select a date:";
+    _pickerLabel.font = [UIFont regularFont:20];
+    _pickerLabel.textColor = [UIColor customTextColor];
+    _pickerLabel.textAlignment = NSTextAlignmentCenter;
+    [_scrollView addSubview:_pickerLabel];
     
     _pickerBookingDate = [[UIDatePicker alloc] init];
     _pickerBookingDate.backgroundColor = [UIColor whiteColor];
@@ -120,37 +118,32 @@
     _pickerBookingDate.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     [_pickerBookingDate addTarget:self action:@selector(userAlteredPicker:) forControlEvents:UIControlEventValueChanged];
     [_pickerBookingDate setValue:[UIColor customMainColor] forKey:@"textColor"];
-    _pickerBookingDate.minimumDate= [NSDate date ];
-
+    _pickerBookingDate.minimumDate = [NSDate date];
     [_scrollView addSubview:_pickerBookingDate];
+    
+    _alertPickerLabel = [UILabel new];
+    CGFloat minNoticeHours = [_charterService.minimumNoticeMinutes floatValue] /60;
+    _alertPickerLabel.text = [NSString stringWithFormat:@"Bookings must be with %f hours of notice", minNoticeHours];
+    _alertPickerLabel.font = [UIFont regularFont:14];
+    _alertPickerLabel.textColor = [UIColor alertColor];
+    _alertPickerLabel.textAlignment = NSTextAlignmentCenter;
+    _alertPickerLabel.hidden = YES;
+    [_scrollView addSubview:_alertPickerLabel];
+    
+    _commentTextView = [[CommentTextView alloc] initWithLabelName:@"Comments:"];
+    [_scrollView addSubview:_commentTextView];
+    
+    _bookButton = [UIButton new];
+    [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
+    [_bookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_bookButton addTarget:self action:@selector(checkIfBookingHaveRequiredData) forControlEvents:UIControlEventTouchUpInside];
+    //_bookButton.layer.borderColor = [UIColor customMainColor].CGColor;
+    //_bookButton.layer.borderWidth = 2.0f;
+    _bookButton.backgroundColor = [UIColor customMainColor];
+    [_bookButton.titleLabel setFont:[UIFont regularFont:20]];
+    [_scrollView addSubview:_bookButton];
+    
 }
-
-- (void)userAlteredPicker:(id)sender { //@"2016-11-07 09:00:00",
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-   // [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"PST"]];
-    
-    // change to a readable time format and change to local time zone
-    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
-    _stringDate = [dateFormatter stringFromDate:_pickerBookingDate.date];
-    
-    NSLog(@"the date %@", _stringDate);
-
-
-}
-
-//- (NSNumber *)returnNSNumberFromDate {
-
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-//    [dateFormatter setLocale:enUSPOSIXLocale];
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-//    
-//    NSDate *now = [NSDate date];
-//    NSString *UYy = [dateFormatter stringFromDate:now];
-    
-//}
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
@@ -190,18 +183,31 @@
     
     BookingField *bField = [_arrayOfBookingFields lastObject];
     
+    [_pickerLabel sizeToFit];
+    frame = _pickerLabel.frame;
+    frame.origin.x = (width(self.view) - width(_pickerLabel)) /2;
+    frame.origin.y = CGRectGetMaxY(bField.frame) + kGeomMarginBig;
+    _pickerLabel.frame = frame;
+    
     frame = _pickerBookingDate.frame;
     frame.origin.x = 0;
-    frame.origin.y = CGRectGetMaxY(bField.frame) + kGeomMarginMedium;
+    frame.origin.y = CGRectGetMaxY(_pickerLabel.frame) + kGeomMarginMedium;
     frame.size.height =  _pickerBookingDate.intrinsicContentSize.height;
     frame.size.width = width(self.view);
     _pickerBookingDate.frame = frame;
     
+    frame = _commentTextView.frame;
+    frame.size.width = width(_scrollView);
+    frame.size.height = kGeomHeightTextView;
+    frame.origin.x = CGRectGetMinX(_scrollView.frame);
+    frame.origin.y = CGRectGetMaxY(_pickerBookingDate.frame) + kGeomMarginMedium;
+    _commentTextView.frame = frame;
+    
     frame = _bookButton.frame;
-    frame.size.width = width(self.view) * 0.7;
+    frame.size.width = width(self.view) * 0.8;
     frame.size.height = kGeomHeightBigbutton;
     frame.origin.x = (width(_scrollView) - frame.size.width) /2;
-    frame.origin.y = CGRectGetMaxY(_pickerBookingDate.frame) + kGeomMarginBig;
+    frame.origin.y = CGRectGetMaxY(_commentTextView.frame) + kGeomMarginBig;
     _bookButton.frame = frame;
     
     _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_bookButton.frame) + kGeomBottomPadding + kGeomMarginMedium);
@@ -218,6 +224,75 @@
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     });
 }
+
+- (void)userAlteredPicker:(id)sender {
+    
+    _stringDate = [NSString stringFromLocalTimeZone:_pickerBookingDate.date];
+    
+    if ([self isBookingDateSatisfyMinBookingTime:_pickerBookingDate.date]) {
+        NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
+        _pickerLabel.textColor = [UIColor customTextColor];
+    } else {
+        
+        NSLog(@"THE DATE PICKED DON'T SATISFY THE REQUIRED GAP FOR BOOKING");
+    }
+}
+
+- (BOOL)isBookingDateSatisfyMinBookingTime:(NSDate *)bookingDate {
+    
+    NSTimeInterval distanceBetweenDates = [bookingDate timeIntervalSinceDate:_pickerBookingDate.minimumDate];
+    
+    CGFloat secondsInMinute = 60;
+    CGFloat minuteInHour = 60;
+    CGFloat minutesBetweenDates = distanceBetweenDates / secondsInMinute;
+    CGFloat hoursBetweenDates = minutesBetweenDates / minuteInHour;
+    
+    if (ceil(hoursBetweenDates) < 48)
+        return NO;
+    else {
+        return YES;
+    }
+}
+
+-(void)checkIfBookingHaveRequiredData {
+    
+    for (BookingField *bookingField in _arrayOfBookingFields) {
+        if ([NSString trimString:bookingField.textField.text].length <= 0 ) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                bookingField.lineView.backgroundColor = [UIColor alertColor];
+            });
+        }
+    }
+    
+    if ([NSString trimString:_nameField.textField.text].length > 0 &&
+        [NSString trimString:_lastNameField.textField.text].length > 0 &&
+        [NSString trimString:_phoneField.textField.text].length > 0 &&
+        [NSString trimString:_emailField.textField.text].length > 0 &&
+        [NSString trimString:_companyField.textField.text].length > 0 &&
+        [NSString trimString:_addressField.textField.text].length > 0 &&
+        [NSString trimString:_cityField.textField.text].length > 0 &&
+        [NSString trimString:_countryField.textField.text].length > 0 &&
+        [NSString trimString:_stateField.textField.text].length > 0 &&
+        [NSString trimString:_postCodeField.textField.text].length > 0) {
+        _readyToBook = YES;
+    } else {
+        _readyToBook = NO;
+    }
+    
+    if (![self isBookingDateSatisfyMinBookingTime:_pickerBookingDate.date]) {
+        
+        _pickerLabel.textColor = [UIColor alertColor];
+    }
+    
+    if (_readyToBook && [self isBookingDateSatisfyMinBookingTime:_pickerBookingDate.date]) {
+       
+        [self bookNow];
+    } else {
+        NSLog(@"SOMETHING ITS MISSING");
+    }
+}
+
+
 
 - (void)bookNow {
     
@@ -258,6 +333,9 @@
 //                                       }
 //                                   ]
 //                           };
+    
+ 
+
 
     
     BookingObject *booking = [BookingObject new];
@@ -273,35 +351,42 @@
     booking.customer.addressLine = _addressField.textField.text;
     
     booking.items.amount = _charterService.advertisedPrice;
-    booking.items.startTimeLocal = _stringDate;//@"2016-11-03 09:00:00";
+    booking.items.startTimeLocal = _stringDate;
     booking.items.quantitiesValue = @1;
     booking.items.productCode = _charterService.productCode;
     
-    booking.comment.comments = @"hello";
+    booking.comment.comments = _commentTextView.textView.text;
     
     booking.payment.type = @"INVOICE";
    // booking.payment.amountPayment = @"";//_charterService.advertisedPrice;
     booking.payment.currency = _charterService.currency;
-    
-//    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-//    f.numberStyle = NSNumberFormatterDecimalStyle;
-//    NSNumber *myNumber = [f numberFromString:_stringDate];
-    
-    booking.payment.date = @200;//[NSDate date];;//myNumber;//date of booking
+    booking.payment.date = [NSString stringFromCurrentDate];
     
     NSDictionary *bookDict = [booking dictionaryFromBookingObject];
     NSLog(@"the dict is %@", bookDict);
     
-    CharterAPI *api = [CharterAPI new];
-    
-    [api sendBooking:bookDict success:^(id responseObject) {
-        
-      NSLog(@"THE RESPONSE : %@", responseObject);
-        
-        //handle the response
-    } failure:^(NSURLResponse *response, NSError *error) {
-    
-    }];
+//    CharterAPI *api = [CharterAPI new];
+//    
+//    [api sendBooking:bookDict success:^(id responseObject) {
+//        
+//        NSData *data = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
+//        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+//        
+//        
+//        NSDictionary *requestStatus = json[@"requestStatus"];
+//        
+//        NSLog(@"THE RESPONSE : %@", requestStatus);
+//
+//        
+////        NSDictionary *error = requestStatus[@"error"];
+////        
+////        NSString *errorMessage = error[@"errorMessage"];
+//        
+//        
+//        //handle the response
+//    } failure:^(NSURLResponse *response, NSError *error) {
+//    
+//    }];
 }
 
 #pragma Keyboard hide and show
