@@ -124,6 +124,7 @@
     [_bookButton.titleLabel setFont:[UIFont regularFont:20]];
     [_scrollView addSubview:_bookButton];
     
+    //[self creatinganobject];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -288,8 +289,6 @@
 //                                   ]
 //                           };
     
- 
-
 
     
     BookingObject *booking = [BookingObject new];
@@ -305,7 +304,7 @@
     booking.customer.addressLine = _addressField.textField.text;
     
     booking.items.amount = _charterService.advertisedPrice;
-    booking.items.startTimeLocal = @"2016-10-08 12:00:00";//_stringDate;
+    booking.items.startTimeLocal = _stringDate;
     
     NSLog(@"the string date inside the booking is %@", _stringDate);
     booking.items.quantitiesValue = @1;
@@ -325,26 +324,142 @@
     
     [api sendBooking:bookDict success:^(id responseObject) {
         
-        NSData *data = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
-        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSDictionary *booking = responseObject[@"booking"];
         
+        BookingObject *boo = [BookingObject bookingFromDict:booking];
+    
+    
         
-        NSDictionary *requestStatus = json[@"requestStatus"];
+        NSLog(@"the name is %@" , boo.customer.firstName);
+        NSLog(@"the name is %@" , boo.customer.lastName);
+        NSLog(@"the name is %@" , boo.customer.addressLine);
+        NSLog(@"the name is %@" , boo.orderNumber);
+        NSLog(@"the name is %@" , boo.dateConfirmed);
+        NSLog(@"the name is %@" , boo.items.productCode);
+        NSLog(@"the name is %@" , boo.items.productName);
+        NSLog(@"the name is %@" , boo.payment.amountPayment);
+        NSLog(@"the name is %@" , boo.payment.currency);
+        NSLog(@"the name is %@" , boo.payment.type);
+        NSLog(@"the name is %@" , boo.items.startTimeLocal);
+
         
-        NSLog(@"THE Requeststatus : %@", requestStatus);
-        
+            
         NSLog(@"THE RESPONSEOBJECT IS %@", responseObject);
 
         
 //        NSDictionary *error = requestStatus[@"error"];
 //        
 //        NSString *errorMessage = error[@"errorMessage"];
-        
-        
-        //handle the response
-    } failure:^(NSURLResponse *response, NSError *error) {
+    
     
     }];
+}
+
+- (void)creatinganobject {
+    
+    NSDictionary *response = @{
+        @"booking" :   @{
+                           @"comments" : @"etsos son los comments",
+                           @"customer" :        @{
+                               @"addressLine" : @"Dfvdfbd",
+                               @"city" : @"Dfvdfbd",
+                @"companyName" : @"Fed",
+                               @"email" : @"jamesrochabrun@gmail.com",
+                @"firstName" : @"james",
+                               @"id" : @3544254,
+                               @"lastName" : @"rochabrun",
+                               @"name" : @"james rochabrun",
+                               @"phone" : @555,
+                               @"postCode" : @"Fvdfv",
+                               @"state" : @"Fdefdfvdd",
+            },
+                           @"dateConfirmed" : @"2016-10-01T04:31:14.542Z",
+                           @"dateCreated" : @"2016-10-01T04:31:14.542Z",
+                           @"fields" :       @[
+                              @{
+                                  @"label" : @"PNE Rep",
+                                  @"requiredPerBooking" : @0,
+                                  @"requiredPerParticipant" : @0,
+                              },
+                              @{
+                                  @"label" : @"Referrer",
+                                  @"requiredPerBooking" : @0,
+                                  @"requiredPerParticipant" : @0,
+                              }
+                              ],
+                           @"items" :         @[
+                             @{
+                                 @"amount" : @350,
+                                 @"extras" :                 @[
+                                 ],
+                                 @"participants" :                 @[
+                                 ],
+                                 @"productCode" : @"PVEQHJ",
+                                 @"productName" : @"Naultical Overnight - Sail: Oceanis 35 - Overnight Only",
+                                 @"quantities"    :              @[
+                                                               @{
+                                                                   @"optionLabel" : @"Nautical Overnight",
+                                                                   @"optionPrice" : @350,
+                                                                   @"value" : @1,
+                                                               }
+                                                               ],
+                                 @"startTime" : @"2016-10-04T04:30:00Z",
+                                 @"startTimeLocal" : @"2016-10-03 21:30:00",
+                                 @"subtotal" : @350,
+                                 @"totalQuantity" : @1,
+                                 @"vouchers" :                @[
+                                 ],
+                             }
+                             ],
+                           @"orderNumber" : @"RDJV2NC",
+                           @"payments" : @[
+                                @{
+                                    @"amount" : @0,
+                                    @"currency" : @"USD",
+                                    @"date" : @"2016-09-30T21:31:14Z",
+                                    @"label" : @"",
+                                    @"type" : @"INVOICE",
+                                }
+                                ],
+                           @"source" : @"API",
+                           @"status" : @"CONFIRMED",
+                           @"supplierId" : @29503,
+                           @"supplierName" : @"Passage Nautical - On The Water Experiences",
+                           @"totalAmount" : @350,
+                           @"totalCurrency" : @"USD",
+                           @"totalDue" :  @350,
+                           @"totalPaid" : @0,
+                           @"vouchers" : @[
+            ],
+        },
+        @"requestStatus" :     @{
+                                 @"success" : @1,
+                                 @"version" : @"v1",
+        },
+    };
+
+    NSDictionary *booking = response[@"booking"];
+
+    BookingObject *boo = [BookingObject bookingFromDict:booking];
+    
+    NSLog(@"the name is %@" , boo.customer.firstName);
+    NSLog(@"the name is %@" , boo.customer.lastName);
+    NSLog(@"the name is %@" , boo.customer.addressLine);
+    NSLog(@"the name is %@" , boo.orderNumber);
+    NSLog(@"the name is %@" , boo.dateConfirmed);
+    NSLog(@"the name is %@" , boo.items.productCode);
+    NSLog(@"the name is %@" , boo.items.productName);
+    NSLog(@"the name is %@" , boo.payment.amountPayment);
+    NSLog(@"the name is %@" , boo.payment.currency);
+    NSLog(@"the name is %@" , boo.payment.type);
+    NSLog(@"the name is %@" , boo.items.startTimeLocal);
+
+
+
+    
+    
+    
+    
 }
 
 #pragma Keyboard hide and show

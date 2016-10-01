@@ -22,5 +22,5 @@ extern NSString *const kKeyLabel;
 @property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *label;
 - (NSArray *)arrayFromPaymentsObject;
-
++ (PaymentsObject *)paymentFromDict:(NSDictionary *)dict;
 @end

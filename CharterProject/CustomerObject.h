@@ -29,9 +29,10 @@ extern NSString *const kKeyPhone;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *phone;
+@property (nonatomic, assign) NSNumber *customerID;
 
 - (NSDictionary *)dictionaryFromCustomerObject;
-- (BOOL)checkIfCustomerPropertiesAreNotNil;
++ (CustomerObject *)customerFromDict:(NSDictionary *)dict;
 
 
 

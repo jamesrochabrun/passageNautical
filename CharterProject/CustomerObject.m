@@ -7,6 +7,7 @@
 //
 
 #import "CustomerObject.h"
+#import "Common.h"
 
 NSString *const kKeyPostCode =  @"postCode";
 NSString *const kKeyState = @"state";
@@ -17,6 +18,7 @@ NSString *const kKeyFirstName = @"firstName";
 NSString *const kKeyLastName = @"lastName";
 NSString *const kKeyEmail = @"email";
 NSString *const kKeyPhone = @"phone";
+NSString *const kKeyID = @"id";
 
 @implementation CustomerObject
 
@@ -37,15 +39,26 @@ NSString *const kKeyPhone = @"phone";
     
 }
 
-- (BOOL)checkIfCustomerPropertiesAreNotNil {
++ (CustomerObject *)customerFromDict:(NSDictionary *)dict {
     
-    if (_postCode.length && _state.length && _city.length && _addressLine.length && _companyName.length && _firstName.length && _lastName.length && _email.length && _phone.length <= 0) {
-        return NO;
-    } else {
-        return YES;
-    }
-
+    CustomerObject *customer = [CustomerObject new];
+    customer.firstName = parseStringOrNullFromServer(dict[kKeyFirstName]);
+    customer.lastName = parseStringOrNullFromServer(dict[kKeyLastName]);
+    customer.email = parseStringOrNullFromServer(dict[kKeyEmail]);
+    customer.postCode = parseStringOrNullFromServer(dict[kKeyPostCode]);
+    customer.state = parseStringOrNullFromServer(dict[kKeyState]);
+    customer.city = parseStringOrNullFromServer(dict[kKeyCity]);
+    customer.addressLine = parseStringOrNullFromServer(dict[kKeyAddressLine]);
+    customer.phone = parseStringOrNullFromServer(dict[kKeyPhone]);
+    customer.customerID = parseNSNumberOrNullFromServer(dict[kKeyID]);
+    
+    return customer;
+    
 }
+
+
+
+
 
 
 

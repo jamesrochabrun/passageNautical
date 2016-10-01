@@ -25,8 +25,7 @@
 
 
 - (void)sendBooking:(NSDictionary *)booking
-            success:(void (^)(id responseObject))success
-            failure:(void (^)(NSURLResponse *response, NSError *error))failure;
+            success:(void (^)(id responseObject))success;
 
 @end
 

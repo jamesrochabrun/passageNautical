@@ -7,6 +7,7 @@
 //
 
 #import "PaymentsObject.h"
+#import "Common.h"
 
 NSString *const kKeyType =  @"type";
 NSString *const kKeyAmountPayment = @"amount";
@@ -30,6 +31,18 @@ NSString *const kKeyLabel = @"label";
                                }
                            ];
     return payments;
+}
+
++ (PaymentsObject *)paymentFromDict:(NSDictionary *)dict {
+    
+    PaymentsObject *payment = [PaymentsObject new];
+    payment.amountPayment = parseNSNumberOrNullFromServer(dict[kKeyAmountPayment]);
+    payment.type = parseStringOrNullFromServer(dict[kKeyType]);
+    payment.date = parseStringOrNullFromServer(dict[kKeyDate]);
+    payment.currency = parseStringOrNullFromServer(dict[kKeyCurrency]);
+    payment.label = parseStringOrNullFromServer(dict[kKeyLabel]);
+    return payment;
+    
 }
 
 @end

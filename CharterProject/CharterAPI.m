@@ -59,8 +59,7 @@ NSString *const keyFromJSON = @"products";
 
 //NSURLSESSION
 - (void)sendBooking:(NSDictionary *)booking
-                        success:(void (^)(id responseObject))success
-            failure:(void (^)(NSURLResponse *response, NSError *error))failure {
+                        success:(void (^)(id responseObject))success {
     
     NSError *error;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -87,9 +86,13 @@ NSString *const keyFromJSON = @"products";
         
         NSLog(@"HEADER RESPONSE %@", response);
         
-        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        //NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
-        success(string);
+       /// NSData *data = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
+        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        NSDictionary *dictResponse = json;
+        success(dictResponse);
     }];
     
     [postDataTask resume];

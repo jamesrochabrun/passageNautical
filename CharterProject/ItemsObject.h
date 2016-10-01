@@ -15,9 +15,12 @@
 @property (nonatomic, strong) NSNumber *amount;
 @property (nonatomic, strong) NSArray *quantities;
 @property (nonatomic, strong) NSNumber *quantitiesValue;
+@property (nonatomic, strong) NSString *productName;
+@property (nonatomic, strong) NSNumber *subTotal;
+@property (nonatomic, strong) NSNumber *totalQuantity;
 
 - (NSArray *)arrayFromItemsObject;
-
++ (ItemsObject *)itemsObjectFromDict:(NSDictionary *)dict;
 
 
 @end
