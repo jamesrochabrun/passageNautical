@@ -43,7 +43,6 @@ static CGFloat minuteInHour = 60.0;
         _alertPickerLabel = [UILabel new];
 //        CGFloat minNoticeHours = [_charterService.minimumNoticeMinutes floatValue] /60;
 //        _alertPickerLabel.text = [NSString stringWithFormat:@"Bookings must be with %f hours of notice", minNoticeHours];
-        _alertPickerLabel.text = @"ESTO ES UNA  PRUENBAAA";
         _alertPickerLabel.font = [UIFont regularFont:13];
         _alertPickerLabel.textColor = [UIColor alertColor];
         _alertPickerLabel.textAlignment = NSTextAlignmentCenter;
@@ -113,6 +112,8 @@ static CGFloat minuteInHour = 60.0;
 - (void)setMinRequiredHours:(CGFloat)minRequiredHours {
     if (_minRequiredHours == minRequiredHours) return;
     _minRequiredHours = minRequiredHours / minuteInHour;
+    _alertPickerLabel.text = [NSString stringWithFormat:@"Booking must be with %.f hours of notice", _minRequiredHours];;
+
 }
 
 

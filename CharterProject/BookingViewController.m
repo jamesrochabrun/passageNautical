@@ -23,6 +23,13 @@
 #import "CommentTextView.h"
 #import "NSString+DecodeHTML.h"
 #import "DatePickerView.h"
+#import "SuccessView.h"
+
+static NSString *kKeyBooking = @"booking";
+static NSString *kKeyRequestStatus = @"requestStatus";
+static NSString *kKeySuccess = @"success";
+static NSString *kKeyError = @"error";
+static NSString *kKeyErrorMessage = @"errorMessage";
 
 @interface BookingViewController ()
 @property (nonatomic, strong) TopView *topView;
@@ -47,6 +54,7 @@
 @property CGFloat keyBoardHeight;
 @property (nonatomic, strong) NSString *stringDate;
 @property (nonatomic, assign) BOOL readyToBook;
+@property (nonatomic, strong) SuccessView *succesView;
 
 @end
 
@@ -58,6 +66,10 @@
     _topView = [TopView new];
     _topView.delegate = self;
     [self.view addSubview:_topView];
+    
+    _succesView = [SuccessView new];
+    _succesView.hidden = YES;
+    [self.view addSubview:_succesView];
     
     _scrollView = [UIScrollView new];
     _scrollView.showsVerticalScrollIndicator = NO;
@@ -125,6 +137,7 @@
     [_scrollView addSubview:_bookButton];
     
     //[self creatinganobject];
+
 }
 
 - (void)viewWillLayoutSubviews {
@@ -188,6 +201,13 @@
     
     _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_bookButton.frame) + kGeomBottomPadding + kGeomMarginMedium);
     
+    frame = _succesView.frame;
+    frame.origin.y = CGRectGetMaxY(_topView.frame);
+    frame.origin.x = CGRectGetMinX(self.view.frame);
+    frame.size.height = height(self.view);
+    frame.size.width = width( self.view);
+    _succesView.frame = frame;
+    
 }
 
 //delegate methods
@@ -246,7 +266,6 @@
         NSLog(@"SOMETHING ITS MISSING");
     }
 }
-
 
 
 - (void)bookNow {
@@ -313,7 +332,7 @@
     booking.comment.comments = _commentTextView.textView.text;
     
     booking.payment.type = @"INVOICE";
-   // booking.payment.amountPayment = @"";//_charterService.advertisedPrice;
+    // booking.payment.amountPayment = @"";//_charterService.advertisedPrice;
     booking.payment.currency = _charterService.currency;
     booking.payment.date = [NSString stringFromCurrentDate];
     
@@ -324,42 +343,62 @@
     
     [api sendBooking:bookDict success:^(id responseObject) {
         
-        NSDictionary *booking = responseObject[@"booking"];
+        NSDictionary *booking = responseObject[kKeyBooking];
+        NSDictionary *requestStatus  = responseObject[kKeyRequestStatus];
+        NSNumber *success = requestStatus[kKeySuccess];
         
-        BookingObject *boo = [BookingObject bookingFromDict:booking];
-    
-    
-        
-        NSLog(@"the name is %@" , boo.customer.firstName);
-        NSLog(@"the name is %@" , boo.customer.lastName);
-        NSLog(@"the name is %@" , boo.customer.addressLine);
-        NSLog(@"the name is %@" , boo.orderNumber);
-        NSLog(@"the name is %@" , boo.dateConfirmed);
-        NSLog(@"the name is %@" , boo.items.productCode);
-        NSLog(@"the name is %@" , boo.items.productName);
-        NSLog(@"the name is %@" , boo.payment.amountPayment);
-        NSLog(@"the name is %@" , boo.payment.currency);
-        NSLog(@"the name is %@" , boo.payment.type);
-        NSLog(@"the name is %@" , boo.items.startTimeLocal);
-
-        
-            
         NSLog(@"THE RESPONSEOBJECT IS %@", responseObject);
-
         
-//        NSDictionary *error = requestStatus[@"error"];
-//        
-//        NSString *errorMessage = error[@"errorMessage"];
-    
-    
+        if ([success isEqual:@1]) {
+            [self handleSuccessBooking:booking];
+        } else if ([success isEqual:@0] || [requestStatus objectForKey:@"error"]) {
+            [self handleErrorOnBooking:requestStatus];
+        }
     }];
 }
+
+- (void)handleSuccessBooking:(NSDictionary *)booking  {
+    
+    __weak BookingViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.scrollView.hidden = YES;
+        weakSelf.succesView.hidden = NO;
+    });
+
+    BookingObject *bookingObject = [BookingObject bookingFromDict:booking];
+    _succesView.booking = bookingObject;
+}
+
+- (void)handleErrorOnBooking:(NSDictionary *)requestStatus {
+    
+    NSDictionary *error = requestStatus[kKeyError];
+    NSString *errorMessage = error[kKeyErrorMessage];
+    
+    UIAlertController *alertSaved = [UIAlertController alertControllerWithTitle:@"Something went wrong :(" message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
+    
+    __weak BookingViewController *weakSelf = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf presentViewController:alertSaved animated:YES completion:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [alertSaved dismissViewControllerAnimated:YES completion:nil];
+        });
+    });
+
+}
+
+
+
+
+
+
+
 
 - (void)creatinganobject {
     
     NSDictionary *response = @{
         @"booking" :   @{
-                           @"comments" : @"etsos son los comments",
+                           @"comments" : @"estos son los comments",
                            @"customer" :        @{
                                @"addressLine" : @"Dfvdfbd",
                                @"city" : @"Dfvdfbd",
@@ -438,7 +477,7 @@
         },
     };
 
-    NSDictionary *booking = response[@"booking"];
+    NSDictionary *booking = response[kKeyBooking];
 
     BookingObject *boo = [BookingObject bookingFromDict:booking];
     
@@ -453,12 +492,8 @@
     NSLog(@"the name is %@" , boo.payment.currency);
     NSLog(@"the name is %@" , boo.payment.type);
     NSLog(@"the name is %@" , boo.items.startTimeLocal);
-
-
-
     
-    
-    
+    [self handleSuccessBooking:booking];
     
 }
 

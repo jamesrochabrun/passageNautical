@@ -32,6 +32,7 @@ static CGFloat kGeomHeightStatusBar = 20.0;
 static CGFloat kGeomWidthBigButton = 210.0;
 static CGFloat kGeomHeightBigbutton = 44.0;
 static CGFloat kGeomBottomPadding = 100.0;
+static CGFloat kGeomMarginSmall = 10.0;
 static CGFloat kGeomMarginMedium = 20.0;
 static CGFloat kGeomHeightToolBar = 70.0;
 static CGFloat kGeomMarginBig = 40.0;

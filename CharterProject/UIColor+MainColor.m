@@ -28,7 +28,11 @@
 }
 
 + (UIColor *)backGroundColor {
-    return [UIColor colorWithRed:1.0 green:1.9 blue:1.9 alpha:1.0];
+    return [UIColor colorWithRed:0.3053 green:0.9038 blue:0.811 alpha:1.0];
+}
+
++ (UIColor *)lightColor {
+    return [UIColor whiteColor];
 }
 
 

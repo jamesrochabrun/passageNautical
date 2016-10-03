@@ -115,6 +115,7 @@ static NSString *const itemURL =  @"itemUrl";
     [_textView setFont:[UIFont regularFont:15]];
     [_textView setScrollEnabled:NO];
     [_textView setUserInteractionEnabled:NO];
+    _textView.textAlignment = NSTextAlignmentCenter;
     [_textView setBackgroundColor:[UIColor clearColor]];
     _textView.textColor = [UIColor customTextColor];
     CGSize sizeThatShouldFitTheContent = [_textView sizeThatFits:_textView.frame.size];
@@ -139,7 +140,6 @@ static NSString *const itemURL =  @"itemUrl";
 - (void)displayCharterServiceData {
     
     self.title = self.charterService.name;
-    //display the first image of the charter gallery
    
     //display information labels
     int hours = [_charterService.durationMinutes intValue] /60;

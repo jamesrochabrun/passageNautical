@@ -53,16 +53,8 @@
     _textView.textColor = [UIColor customTextColor];
     [_scrollView addSubview:_textView];
     
-    
-    
 }
 
-
-   // _textView.scrollEnabled = NO;
-
-//    CGSize sizeThatShouldFitTheContent = [_textView sizeThatFits:_textView.bounds.size];
-//    _heightTextView.constant = sizeThatShouldFitTheContent.height;
-//    
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];

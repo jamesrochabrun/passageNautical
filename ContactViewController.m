@@ -176,8 +176,6 @@
     [_scrollView setContentSize:CGSizeMake(width(self.view), CGRectGetMaxY(_textView.frame) + kGeomBottomPadding)];
 }
 
-
-
 - (void)onCallButtonPressed {
     NSLog(@"call");
     NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",kcontactNumber]];
