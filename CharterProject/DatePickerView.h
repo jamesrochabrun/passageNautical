@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CharterService;
 
 @protocol DatePickerViewDelegate <NSObject>
 
@@ -15,15 +16,18 @@
 @end
 
 @interface DatePickerView : UIView
-@property (nonatomic, strong) UIDatePicker *pickerBookingDate;
+@property (nonatomic, weak) id<DatePickerViewDelegate> delegate;
+@property (nonatomic, strong) UIDatePicker *pickerBookingDateFrom;
+@property (nonatomic, strong) UIDatePicker *pickerBookingDateUntil;
 @property (nonatomic, strong) UILabel *pickerLabel;
+@property (nonatomic, strong) UILabel *pickerLabelUntil;
 @property (nonatomic, strong) UILabel *alertPickerLabel;
 @property (nonatomic, assign) BOOL dateSatisfyMinRequiredDate;
-@property (nonatomic, weak) id<DatePickerViewDelegate> delegate;
-@property (nonatomic, assign) CGFloat minRequiredHours;
 @property (nonatomic, strong) NSString *localizedStartDateString;
 @property (nonatomic, strong) UITableView *datesTableView;
 @property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) CharterService *charterService;
+
 - (BOOL)isBookingDateSatisfyMinBookingTime;
 
 @end
