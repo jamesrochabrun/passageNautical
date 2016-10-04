@@ -162,13 +162,13 @@
     if (_booking == booking) return;
     _booking = booking;
     
-    _textView.text = [NSString stringWithFormat:@"Dear %@ %@,\n\nThank you for your booking, below is a description of the service you booked and your order number. \nWe sent you an email to %@ with detailed information.", _booking.customer.firstName, _booking.customer.lastName , _booking.customer.email];
-    _orderNumber.text = _booking.orderNumber;
-    _bookingDate.text = [NSString stringWithFormat:@"Booking Date:\n\n%@", _booking.items.startTimeLocal];
-    _bookingCharter.text = _booking.items.productName;
-    
     __weak SuccessView *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        weakSelf.textView.text = [NSString stringWithFormat:@"Dear %@ %@,\n\nThank you for your booking, below is a description of the service you booked and your order number. \nWe sent you an email to %@ with detailed information.", weakSelf.booking.customer.firstName, weakSelf.booking.customer.lastName , weakSelf.booking.customer.email];
+        weakSelf.orderNumber.text = weakSelf.booking.orderNumber;
+        weakSelf.bookingDate.text = [NSString stringWithFormat:@"Booking Date:\n\n%@", weakSelf.booking.items.startTimeLocal];
+        weakSelf.bookingCharter.text = weakSelf.booking.items.productName;
         [weakSelf setNeedsLayout];
     });
 }

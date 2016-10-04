@@ -323,7 +323,7 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     booking.customer.addressLine = _addressField.textField.text;
     
     booking.items.amount = _charterService.advertisedPrice;
-    booking.items.startTimeLocal = _stringDate;
+    booking.items.startTimeLocal = @"2016-10-10 09:00:00";//_stringDate;
     
     NSLog(@"the string date inside the booking is %@", _stringDate);
     booking.items.quantitiesValue = @1;
@@ -363,10 +363,10 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.scrollView.hidden = YES;
         weakSelf.succesView.hidden = NO;
+        BookingObject *bookingObject = [BookingObject bookingFromDict:booking];
+        weakSelf.succesView.booking = bookingObject;
     });
 
-    BookingObject *bookingObject = [BookingObject bookingFromDict:booking];
-    _succesView.booking = bookingObject;
 }
 
 - (void)handleErrorOnBooking:(NSDictionary *)requestStatus {
@@ -384,11 +384,7 @@ static NSString *kKeyErrorMessage = @"errorMessage";
             [alertSaved dismissViewControllerAnimated:YES completion:nil];
         });
     });
-
 }
-
-
-
 
 - (void)creatinganobject {
     
