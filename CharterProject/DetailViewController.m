@@ -21,25 +21,24 @@
 #import "ListCVFL.h"
 #import "UICollectionView+Additions.h"
 #import "CharterCollectionViewCell.h"
+#import "InfoView.h"
+
 
 @interface DetailViewController ()<MFMailComposeViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UIButton *videoButton;
-@property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIButton *readMoreButton;
-@property (weak, nonatomic) IBOutlet UIButton *giftCardButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextViewConstraint;
-@property (weak, nonatomic) IBOutlet UILabel *numberOFpeopleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *durationHoursLabel;
-@property (weak, nonatomic) IBOutlet UILabel *extraLabel;
-@property (weak, nonatomic) IBOutlet UIButton *mapButton;
-@property (weak, nonatomic) IBOutlet UIButton *generalTermsButton;
-
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UIButton *videoButton;
+@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UIButton *readMoreButton;
+@property (nonatomic, strong) UIButton *giftCardButton;
+@property (nonatomic, strong) UIButton *mapButton;
+@property (nonatomic, strong) UIButton *generalTermsButton;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UICollectionViewFlowLayout *listsLayout;
-
+@property (nonatomic, strong) UIButton *shareButton;
+@property (nonatomic, strong) UIButton *bookButton;
+@property (nonatomic, strong) InfoView *infoView;
 
 @end
 
@@ -51,12 +50,12 @@ static NSString *const itemURL =  @"itemUrl";
 
 - (void)viewDidLoad {
     
+    self.title = self.charterService.name;
+    
     self.navigationController.navigationBar.hidden = NO;
-    [self setButtonssAppereance];
-    [self setTextViewsAppereance];
-    [self setlabelsAppereance];
-    [_scrollView setContentSize:CGSizeMake(width(self.view), height(self.view) *3)];
-    [self displayCharterServiceData];
+    _scrollView = [UIScrollView new];
+    _scrollView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_scrollView];
 
     _listsLayout = [[ListCVFL alloc] init];
     [_listsLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -66,96 +65,168 @@ static NSString *const itemURL =  @"itemUrl";
     _collectionView = [UICollectionView collectionViewWithLayout:_listsLayout inView:self.view delegate:self];
     [_collectionView registerClass:[CharterCollectionViewCell class] forCellWithReuseIdentifier:FilterCelIdentifier];
     _collectionView.pagingEnabled = YES;
-    [self setShadowToCollectionView];
-    [self.scrollView addSubview:_collectionView];
+    _collectionView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _collectionView.layer.shadowOffset = CGSizeMake(0, 4);
+    _collectionView.layer.shadowOpacity = 0.7;
+    _collectionView.layer.shadowRadius = 10;
+    _collectionView.clipsToBounds = NO;
+    [_scrollView addSubview:_collectionView];
+    
+    _infoView = [InfoView new];
+    _infoView.charter = self.charterService;
+    [_scrollView addSubview:_infoView];
+    
+    _textView = [UITextView new];
+    _textView.scrollEnabled = NO;
+    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:_charterService.shortDescription];
+    NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
+    [_textView setText:stringWithNoHTML];
+    _textView.font = [UIFont regularFont:14];
+    _textView.textColor = [UIColor customTextColor];
+    //_textView.textAlignment = NSTextAlignmentCenter;
+    [_scrollView addSubview:_textView];
+    
+    _readMoreButton = [UIButton new];
+    [_readMoreButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    _readMoreButton.titleLabel.font = [UIFont regularFont:15];
+    [_readMoreButton addTarget:self action:@selector(performReadMoreSegue:) forControlEvents:UIControlEventTouchUpInside];
+    [_readMoreButton setTitle:@"Read More" forState:UIControlStateNormal];
+    [_scrollView addSubview:_readMoreButton];
+    
+    _mapButton = [UIButton new];
+    [_mapButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    _mapButton.titleLabel.font = [UIFont regularFont:15];
+    _mapButton.layer.borderWidth = 2.0f;
+    _mapButton.layer.borderColor = [UIColor customMainColor].CGColor;
+    [_mapButton setTitle:@"Show Departure Point" forState:UIControlStateNormal];
+    [_mapButton addTarget:self action:@selector(performMapSegue:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_mapButton];
+    
+    _shareButton = [UIButton new];
+    [_shareButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    _shareButton.titleLabel.font = [UIFont regularFont:15];
+    _shareButton.layer.borderWidth = 2.0f;
+    _shareButton.layer.borderColor = [UIColor customMainColor].CGColor;
+    [_shareButton setTitle:@"Share With a Friend" forState:UIControlStateNormal];
+    [_shareButton addTarget:self action:@selector(onShareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_shareButton];
+    
+    _generalTermsButton = [UIButton new];
+    [_generalTermsButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    _generalTermsButton.titleLabel.font = [UIFont regularFont:15];
+    [_generalTermsButton addTarget:self action:@selector(performGeneralTermsSegue:) forControlEvents:UIControlEventTouchUpInside];
+    [_generalTermsButton setTitle:@"General Terms" forState:UIControlStateNormal];
+    [_scrollView addSubview:_generalTermsButton];
+    
+    _bookButton = [UIButton new];
+    [_bookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _bookButton.titleLabel.font = [UIFont regularFont:17];
+    [_bookButton addTarget:self action:@selector(performBookSegue:) forControlEvents:UIControlEventTouchUpInside];
+    [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
+    _bookButton.backgroundColor = [UIColor customMainColor];
+    [self.view addSubview:_bookButton];
+    
 }
 
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
-    CGRect frame = _collectionView.frame;
-    frame.origin.x =  8;
+    CGRect frame = _bookButton.frame;
+    frame.size.height = kGeomHeightBigbutton;
+    frame.size.width = width(self.view);
+    frame.origin.x = 0;
+    frame.origin.y = height(self.view) - kGeomHeightBigbutton;
+    _bookButton.frame = frame;
+    
+    frame = _scrollView.frame;
+    frame.origin.x = 0;
     frame.origin.y = 0;
+    frame.size.width = width(self.view);
+    frame.size.height = height(self.view) - kGeomHeightBigbutton;
+    _scrollView.frame = frame;
+    
+    frame = _collectionView.frame;
+    frame.origin.x = originX(_scrollView);
+    frame.origin.y = originY(_scrollView);
     frame.size.width = width(self.view);
     frame.size.height = 220;
     _collectionView.frame = frame;
+    
+    frame = _infoView.frame;
+    frame.origin.x = originX(_scrollView);
+    frame.origin.y = CGRectGetMaxY(_collectionView.frame) + kGeomMarginMedium;
+    frame.size.width = width(_scrollView);
+    frame.size.height = 90;
+    _infoView.frame = frame;
+    
+    [self textViewDidChange:_textView];
+    
+    frame = _readMoreButton.frame;
+    frame.size.height = kGeomHeightTextField;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_textView.frame) + kGeomMarginSmall;
+    _readMoreButton.frame = frame;
+    
+    frame = _mapButton.frame;
+    frame.size.height = kGeomHeightBigbutton;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_readMoreButton.frame) + kGeomMarginMedium;
+    _mapButton.frame = frame;
+    
+    frame = _shareButton.frame;
+    frame.size.height = kGeomHeightBigbutton;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_mapButton.frame) + kGeomMarginMedium;
+    _shareButton.frame = frame;
+    
+    frame = _generalTermsButton.frame;
+    frame.size.height = kGeomHeightTextField;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_shareButton.frame) + kGeomMarginMedium;
+    _generalTermsButton.frame = frame;
+    
+    _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_generalTermsButton.frame) + kGeomBottomPadding);
+
+    
 }
 
-- (void)setButtonssAppereance {
 
-    [_readMoreButton setTintColor:[UIColor customMainColor]];
-    _readMoreButton.titleLabel.font = [UIFont regularFont:15];
-    _videoButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    _videoButton.layer.borderWidth = 2.0f;
-    _videoButton.titleLabel.font = [UIFont regularFont:17];
-    _giftCardButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    _giftCardButton.layer.borderWidth = 2.0f;
-    [_giftCardButton setTintColor:[UIColor customMainColor]];
-    _giftCardButton.titleLabel.font = [UIFont regularFont:17];
-    [_mapButton setTintColor:[UIColor customMainColor]];
-    _mapButton.titleLabel.font = [UIFont regularFont:15];
-    _mapButton.layer.borderWidth = 2.0f;
-    _mapButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    [_generalTermsButton setTintColor:[UIColor customMainColor]];
-    _generalTermsButton.titleLabel.font = [UIFont regularFont:14];
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    CGFloat fixedWidth = width(self.view) * 0.8;
+    CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+    CGRect newFrame = textView.frame;
+    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
+    newFrame.origin.x = (width(self.view) - fixedWidth) /2;
+    newFrame.origin.y = CGRectGetMaxY(_infoView.frame) + kGeomMarginSmall;
+    textView.frame = newFrame;
 }
 
-- (void)setShadowToCollectionView {
-    
-    _collectionView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _collectionView.layer.shadowOffset = CGSizeMake(0, 4);
-    _collectionView.layer.shadowOpacity = 0.7;
-    _collectionView.layer.shadowRadius = 10;
-    _collectionView.clipsToBounds = NO;
+- (void)performReadMoreSegue:(id)sender {
+    [self performSegueWithIdentifier:@"readMore" sender:sender];
 }
 
-- (void)setTextViewsAppereance {
-    
-    [_textView setFont:[UIFont regularFont:15]];
-    [_textView setScrollEnabled:NO];
-    [_textView setUserInteractionEnabled:NO];
-    _textView.textAlignment = NSTextAlignmentCenter;
-    [_textView setBackgroundColor:[UIColor clearColor]];
-    _textView.textColor = [UIColor customTextColor];
-    CGSize sizeThatShouldFitTheContent = [_textView sizeThatFits:_textView.frame.size];
-    _heightTextViewConstraint.constant = sizeThatShouldFitTheContent.height;
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width(self.view), 1)];
-    lineView.backgroundColor = [UIColor colorWithRed:0.5363 green:0.5182 blue:0.3785 alpha:0.5];
-    [_textView addSubview:lineView];
+- (void)performGeneralTermsSegue:(id)sender {
+    [self performSegueWithIdentifier:@"generalTerms" sender:sender];
 }
 
-- (void)setlabelsAppereance {
-    
-    _numberOFpeopleLabel.font = [UIFont regularFont:18];
-    _numberOFpeopleLabel.textColor = [UIColor customTextColor];
-    _durationHoursLabel.font = [UIFont regularFont:18];
-    _durationHoursLabel.textColor = [UIColor customTextColor];
-    _extraLabel.font = [UIFont regularFont:18];
-    _extraLabel.textColor = [UIColor customTextColor];
-    _priceLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    _priceLabel.font = [UIFont regularFont:20];
+- (void)performMapSegue:(id)sender {
+    [self performSegueWithIdentifier:@"map" sender:sender];
 }
 
-- (void)displayCharterServiceData {
-    
-    self.title = self.charterService.name;
-   
-    //display information labels
-    int hours = [_charterService.durationMinutes intValue] /60;
-    _durationHoursLabel.text = [NSString stringWithFormat:@"%d H",hours];
-    
-    //display shortDescription
-    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:_charterService.shortDescription];
-    NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
-    [_textView setText:stringWithNoHTML];
-    
+- (void)performBookSegue:(id)sender {
+    [self performSegueWithIdentifier:@"book" sender:sender];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
         DescriptionViewController *desVC = segue.destinationViewController;
-        if ([segue.identifier isEqualToString:@"DescriptionSegue"]) {
+        if ([segue.identifier isEqualToString:@"readMore"]) {
             desVC.labelDataText = _charterService.name;
             desVC.textFieldData = _charterService.charterDescription;
         } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
@@ -235,7 +306,7 @@ static NSString *const itemURL =  @"itemUrl";
 }
 
 
-- (IBAction)onShareButtonPressed:(UIButton *)sender {
+- (void)onShareButtonPressed {
     
     NSString *shareText = [NSString stringWithFormat:@"%@, %@", self.charterService.advertisedPrice , self.charterService.shortDescription];
     NSURL *shareLink = [[NSURL alloc] initWithString:@"www.passagenautical.com"];

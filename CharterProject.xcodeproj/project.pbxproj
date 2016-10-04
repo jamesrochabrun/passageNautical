@@ -36,6 +36,7 @@
 		7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */; };
 		7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */; };
 		7B888C431DA2D1FE00F90A00 /* SuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B888C421DA2D1FE00F90A00 /* SuccessView.m */; };
+		7B888C461DA31A5E00F90A00 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B888C451DA31A5E00F90A00 /* InfoView.m */; };
 		7B9749C91D0CA928003123CB /* GOTHAM-MEDIUM.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */; };
 		7B9749CA1D0CA937003123CB /* billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C71D0CA86F003123CB /* billabong.ttf */; };
 		7B9749CB1D0CA93A003123CB /* Gotham Narrow Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */; };
@@ -123,6 +124,8 @@
 		7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DecodeHTML.m"; sourceTree = "<group>"; };
 		7B888C411DA2D1FE00F90A00 /* SuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuccessView.h; sourceTree = "<group>"; };
 		7B888C421DA2D1FE00F90A00 /* SuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuccessView.m; sourceTree = "<group>"; };
+		7B888C441DA31A5E00F90A00 /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
+		7B888C451DA31A5E00F90A00 /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
 		7B9749C51D0CA86F003123CB /* Gotham Narrow Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham Narrow Book.otf"; sourceTree = "<group>"; };
 		7B9749C61D0CA86F003123CB /* GOTHAM-MEDIUM.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GOTHAM-MEDIUM.TTF"; sourceTree = "<group>"; };
 		7B9749C71D0CA86F003123CB /* billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billabong.ttf; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B888C441DA31A5E00F90A00 /* InfoView.h */,
+				7B888C451DA31A5E00F90A00 /* InfoView.m */,
 				7B888C411DA2D1FE00F90A00 /* SuccessView.h */,
 				7B888C421DA2D1FE00F90A00 /* SuccessView.m */,
 				7B5844ED1D9F4DF900ED2AFC /* DatePickerView.h */,
@@ -629,6 +634,7 @@
 				7B888C431DA2D1FE00F90A00 /* SuccessView.m in Sources */,
 				7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */,
 				7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */,
+				7B888C461DA31A5E00F90A00 /* InfoView.m in Sources */,
 				7B0B221A1D95E32F000830C4 /* BookingField.m in Sources */,
 				7BA0FA371D9DED3C004A6F41 /* PaymentsObject.m in Sources */,
 				7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */,

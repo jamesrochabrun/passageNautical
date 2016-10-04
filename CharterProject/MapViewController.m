@@ -47,8 +47,9 @@
     NSLog(@"the latitude is %@ , and the longitude is %@", _charterService.latitude , _charterService.longitude);
     
     point.coordinate = CLLocationCoordinate2DMake([self.charterService.latitude doubleValue], [self.charterService.longitude doubleValue]);
-    point.title = @"Passage Nautical";
-    point.subtitle = @"Richmond";
+    point.title = @"Departure point";
+   // point.subtitle = @"Richmond";
+
     
     [self.mapView setRegion:MKCoordinateRegionMake(point.coordinate, MKCoordinateSpanMake(0.8f, 0.8f)) animated:YES];
 
