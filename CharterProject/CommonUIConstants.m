@@ -18,6 +18,10 @@ NSString *const kfullDayCategoryID = @"50951";
 NSString *const knauticalOvernightCategoryId = @"89968";
 NSString *const kbedAndBoatCategoryID = @"87048";
 
+NSString *const kKeyBookingModeNoDate = @"NO_DATE";
+NSString *const kKeyBookingModeInventory = @"INVENTORY";
+NSString *const kKeyBookingModeDateEnquiry = @"DATE_ENQUIRY";
+
 
 
 

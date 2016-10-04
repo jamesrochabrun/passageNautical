@@ -53,6 +53,8 @@
 		7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD5DB91D9B0EE60071DB1A /* UIImage+Additions.m */; };
 		7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB058381D920A9F00E3476C /* NetworkManager.m */; };
 		7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0583B1D920CB600E3476C /* CharterAPI.m */; };
+		7BF1C2B31DA41F4B00D60E6D /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B21DA41F4B00D60E6D /* UITableView+Additions.m */; };
+		7BF1C2B61DA41FD400D60E6D /* DateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B51DA41FD400D60E6D /* DateTableViewCell.m */; };
 		7BF9DA661D19ACBC00695161 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA651D19ACBC00695161 /* MapKit.framework */; };
 		7BF9DA681D19ACC200695161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA671D19ACC200695161 /* CoreLocation.framework */; };
 		7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9DA6A1D19AEDD00695161 /* MapViewController.m */; };
@@ -155,6 +157,10 @@
 		7BB058381D920A9F00E3476C /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		7BB0583A1D920CB600E3476C /* CharterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterAPI.h; sourceTree = "<group>"; };
 		7BB0583B1D920CB600E3476C /* CharterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterAPI.m; sourceTree = "<group>"; };
+		7BF1C2B11DA41F4B00D60E6D /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Additions.h"; sourceTree = "<group>"; };
+		7BF1C2B21DA41F4B00D60E6D /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
+		7BF1C2B41DA41FD400D60E6D /* DateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTableViewCell.h; sourceTree = "<group>"; };
+		7BF1C2B51DA41FD400D60E6D /* DateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTableViewCell.m; sourceTree = "<group>"; };
 		7BF9DA651D19ACBC00695161 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7BF9DA671D19ACC200695161 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7BF9DA691D19AEDD00695161 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -349,6 +355,8 @@
 		7B55999D1D1B6972009B8EE7 /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				7BF1C2B41DA41FD400D60E6D /* DateTableViewCell.h */,
+				7BF1C2B51DA41FD400D60E6D /* DateTableViewCell.m */,
 				7B995CF91D9A0AF60047B6D5 /* CharterCollectionViewCell.h */,
 				7B995CFA1D9A0AF60047B6D5 /* CharterCollectionViewCell.m */,
 				7B2AC3BA1D0BA4B200975BE9 /* CategoryTableViewCell.h */,
@@ -372,6 +380,8 @@
 		7BA11F2D1D1271810072DBA7 /* categories */ = {
 			isa = PBXGroup;
 			children = (
+				7BF1C2B11DA41F4B00D60E6D /* UITableView+Additions.h */,
+				7BF1C2B21DA41F4B00D60E6D /* UITableView+Additions.m */,
 				7BAD5DB81D9B0EE60071DB1A /* UIImage+Additions.h */,
 				7BAD5DB91D9B0EE60071DB1A /* UIImage+Additions.m */,
 				7B995CF61D9A05CA0047B6D5 /* UICollectionView+Additions.h */,
@@ -624,12 +634,14 @@
 				7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */,
 				7B1484191D964A95002ADC55 /* TopView.m in Sources */,
 				7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */,
+				7BF1C2B31DA41F4B00D60E6D /* UITableView+Additions.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
 				7BA0FA3D1D9E1E20004A6F41 /* BookingObject.m in Sources */,
 				7B5844EF1D9F4DF900ED2AFC /* DatePickerView.m in Sources */,
 				7BA0FA2E1D9DCEEC004A6F41 /* CustomerObject.m in Sources */,
 				7B1FA7111D935C2D00406508 /* CommonUIConstants.m in Sources */,
 				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,
+				7BF1C2B61DA41FD400D60E6D /* DateTableViewCell.m in Sources */,
 				7B4858741D1DE06600AAE2A7 /* DoubleTapImage.m in Sources */,
 				7B888C431DA2D1FE00F90A00 /* SuccessView.m in Sources */,
 				7BA11F2C1D12716F0072DBA7 /* UIFont+CustomFont.m in Sources */,

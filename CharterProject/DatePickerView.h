@@ -21,6 +21,9 @@
 @property (nonatomic, assign) BOOL dateSatisfyMinRequiredDate;
 @property (nonatomic, weak) id<DatePickerViewDelegate> delegate;
 @property (nonatomic, assign) CGFloat minRequiredHours;
+@property (nonatomic, strong) NSString *localizedStartDateString;
+@property (nonatomic, strong) UITableView *datesTableView;
+@property (nonatomic, strong) UIButton *nextButton;
 - (BOOL)isBookingDateSatisfyMinBookingTime;
 
 @end

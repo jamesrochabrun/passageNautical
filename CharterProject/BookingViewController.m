@@ -25,11 +25,12 @@
 #import "DatePickerView.h"
 #import "SuccessView.h"
 
-static NSString *kKeyBooking = @"booking";
-static NSString *kKeyRequestStatus = @"requestStatus";
-static NSString *kKeySuccess = @"success";
-static NSString *kKeyError = @"error";
-static NSString *kKeyErrorMessage = @"errorMessage";
+NSString *const kKeyBooking = @"booking";
+NSString *const kKeyRequestStatus = @"requestStatus";
+NSString *const kKeySuccess = @"success";
+NSString *const kKeyError = @"error";
+NSString *const kKeyErrorMessage = @"errorMessage";
+
 
 @interface BookingViewController ()
 @property (nonatomic, strong) TopView *topView;
@@ -53,7 +54,7 @@ static NSString *kKeyErrorMessage = @"errorMessage";
 @property (nonatomic, strong) DatePickerView *datePickerView;
 @property CGFloat keyBoardHeight;
 @property (nonatomic, strong) NSString *stringDate;
-@property (nonatomic, assign) BOOL readyToBook;
+@property (nonatomic, assign) BOOL formIsReadyToBook;
 @property (nonatomic, strong) SuccessView *succesView;
 
 @end
@@ -71,9 +72,23 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     _succesView.hidden = YES;
     [self.view addSubview:_succesView];
     
+    _datePickerView = [DatePickerView new];
+    _datePickerView.minRequiredHours = [_charterService.minimumNoticeMinutes intValue];
+    _datePickerView.delegate = self;
+    [self.view addSubview:_datePickerView];
+    
     _scrollView = [UIScrollView new];
     _scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
+    
+    if ([_charterService.bookingMode isEqualToString:kKeyBookingModeNoDate]) {
+        _datePickerView.hidden = YES;
+        _scrollView.hidden = NO;
+
+    } else {
+        _datePickerView.hidden = NO;
+        _scrollView.hidden = YES;
+    }
     
     _charterLabel = [UILabel new];
     _charterLabel.text = _charterService.name;
@@ -117,11 +132,6 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     [_scrollView addSubview:_postCodeField];
     
     _arrayOfBookingFields = @[_nameField, _lastNameField, _phoneField, _emailField, _companyField, _addressField, _cityField, _countryField, _stateField, _postCodeField];
-  
-    _datePickerView = [DatePickerView new];
-    _datePickerView.minRequiredHours = [_charterService.minimumNoticeMinutes intValue];
-    _datePickerView.delegate = self;
-    [_scrollView addSubview:_datePickerView];
     
     _commentTextView = [[CommentTextView alloc] initWithLabelName:@"Comments:"];
     [_scrollView addSubview:_commentTextView];
@@ -129,14 +139,15 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     _bookButton = [UIButton new];
     [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
     [_bookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_bookButton addTarget:self action:@selector(checkIfBookingHaveRequiredData) forControlEvents:UIControlEventTouchUpInside];
+    [_bookButton addTarget:self action:@selector(justForBookingTestSuccess) forControlEvents:UIControlEventTouchUpInside];
     //_bookButton.layer.borderColor = [UIColor customMainColor].CGColor;
     //_bookButton.layer.borderWidth = 2.0f;
     _bookButton.backgroundColor = [UIColor customMainColor];
     [_bookButton.titleLabel setFont:[UIFont regularFont:20]];
     [_scrollView addSubview:_bookButton];
     
-    //[self creatinganobject];
+    NSLog(@"the booking mode is = %@" , _charterService.bookingMode);
+    NSLog(@"the date in viewdidload is %@", _stringDate);
 
 }
 
@@ -178,18 +189,11 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     
     BookingField *bField = [_arrayOfBookingFields lastObject];
     
-    frame = _datePickerView.frame;
+    frame = _commentTextView.frame;
     frame.origin.x = 0;
     frame.origin.y = CGRectGetMaxY(bField.frame) + kGeomMarginMedium;
-    frame.size.height =  _datePickerView.pickerBookingDate.intrinsicContentSize.height + kGeomMarginBig;
-    frame.size.width = width(self.view);
-    _datePickerView.frame = frame;
-    
-    frame = _commentTextView.frame;
-    frame.size.width = width(_scrollView);
     frame.size.height = kGeomHeightTextView;
-    frame.origin.x = CGRectGetMinX(_scrollView.frame);
-    frame.origin.y = CGRectGetMaxY(_datePickerView.frame) + kGeomMarginMedium;
+    frame.size.width = width(_scrollView);
     _commentTextView.frame = frame;
     
     frame = _bookButton.frame;
@@ -208,6 +212,13 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     frame.size.width = width( self.view);
     _succesView.frame = frame;
     
+    frame = _datePickerView.frame;
+    frame.origin.x = CGRectGetMinX(self.view.frame);
+    frame.origin.y = CGRectGetMaxY(_topView.frame);
+    frame.size.height =  height(self.view) - height(_topView);
+    frame.size.width = width(self.view);
+    _datePickerView.frame = frame;
+    
 }
 
 //delegate methods
@@ -220,7 +231,7 @@ static NSString *kKeyErrorMessage = @"errorMessage";
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     });
 }
-
+//delegate  method
 - (void)setPickedDateString:(NSString *)datePicked {
     
     _stringDate = datePicked;
@@ -248,18 +259,12 @@ static NSString *kKeyErrorMessage = @"errorMessage";
         [NSString trimString:_countryField.textField.text].length > 0 &&
         [NSString trimString:_stateField.textField.text].length > 0 &&
         [NSString trimString:_postCodeField.textField.text].length > 0) {
-        _readyToBook = YES;
+        _formIsReadyToBook = YES;
     } else {
-        _readyToBook = NO;
+        _formIsReadyToBook = NO;
     }
-    
-    if ([_datePickerView isBookingDateSatisfyMinBookingTime]) {
-        _datePickerView.alertPickerLabel.hidden = YES;
-    } else {
-        _datePickerView.alertPickerLabel.hidden = NO;
-    }
-    
-    if (_readyToBook && [_datePickerView isBookingDateSatisfyMinBookingTime]) {
+
+    if (_formIsReadyToBook && [_datePickerView isBookingDateSatisfyMinBookingTime]) {
        
         [self bookNow];
     } else {
@@ -323,7 +328,7 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     booking.customer.addressLine = _addressField.textField.text;
     
     booking.items.amount = _charterService.advertisedPrice;
-    booking.items.startTimeLocal = @"2016-10-10 09:00:00";//_stringDate;
+    booking.items.startTimeLocal = (_stringDate)?_stringDate:[NSString stringFromCurrentDate];
     
     NSLog(@"the string date inside the booking is %@", _stringDate);
     booking.items.quantitiesValue = @1;
@@ -386,7 +391,7 @@ static NSString *kKeyErrorMessage = @"errorMessage";
     });
 }
 
-- (void)creatinganobject {
+- (void)justForBookingTestSuccess {
     
     NSDictionary *response = @{
         @"booking" :   @{
@@ -435,7 +440,7 @@ static NSString *kKeyErrorMessage = @"errorMessage";
                                                                }
                                                                ],
                                  @"startTime" : @"2016-10-04T04:30:00Z",
-                                 @"startTimeLocal" : @"2016-10-03 21:30:00",
+                                 @"startTimeLocal" : (_stringDate)?_stringDate:[NSString stringFromCurrentDate],
                                  @"subtotal" : @350,
                                  @"totalQuantity" : @1,
                                  @"vouchers" :                @[

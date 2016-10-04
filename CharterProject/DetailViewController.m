@@ -122,7 +122,13 @@ static NSString *const itemURL =  @"itemUrl";
     [_bookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _bookButton.titleLabel.font = [UIFont regularFont:17];
     [_bookButton addTarget:self action:@selector(performBookSegue:) forControlEvents:UIControlEventTouchUpInside];
-    [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
+    
+    if ([_charterService.bookingMode isEqualToString:kKeyBookingModeNoDate]) {
+        [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
+    } else {
+        [_bookButton setTitle:@"Check Availability" forState:UIControlStateNormal];
+    }
+    
     _bookButton.backgroundColor = [UIColor customMainColor];
     [self.view addSubview:_bookButton];
     

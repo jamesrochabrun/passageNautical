@@ -60,3 +60,9 @@ extern NSString *const kfullDayCategoryID;
 extern NSString *const knauticalOvernightCategoryId;
 extern NSString *const kbedAndBoatCategoryID;
 
+extern NSString *const kKeyBookingModeNoDate;
+extern NSString *const kKeyBookingModeInventory;
+extern NSString *const kKeyBookingModeDateEnquiry;
+
+
+
