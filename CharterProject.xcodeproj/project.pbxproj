@@ -56,6 +56,8 @@
 		7BF1C2B31DA41F4B00D60E6D /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B21DA41F4B00D60E6D /* UITableView+Additions.m */; };
 		7BF1C2B61DA41FD400D60E6D /* DateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B51DA41FD400D60E6D /* DateTableViewCell.m */; };
 		7BF1C2B91DA4858D00D60E6D /* NSDate+Adittions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B81DA4858D00D60E6D /* NSDate+Adittions.m */; };
+		7BF1C2BC1DA58D1F00D60E6D /* SessionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2BB1DA58D1F00D60E6D /* SessionObject.m */; };
+		7BF1C2BF1DA593CF00D60E6D /* PriceOptionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2BE1DA593CF00D60E6D /* PriceOptionObject.m */; };
 		7BF9DA661D19ACBC00695161 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA651D19ACBC00695161 /* MapKit.framework */; };
 		7BF9DA681D19ACC200695161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA671D19ACC200695161 /* CoreLocation.framework */; };
 		7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9DA6A1D19AEDD00695161 /* MapViewController.m */; };
@@ -164,6 +166,10 @@
 		7BF1C2B51DA41FD400D60E6D /* DateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTableViewCell.m; sourceTree = "<group>"; };
 		7BF1C2B71DA4858D00D60E6D /* NSDate+Adittions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Adittions.h"; sourceTree = "<group>"; };
 		7BF1C2B81DA4858D00D60E6D /* NSDate+Adittions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Adittions.m"; sourceTree = "<group>"; };
+		7BF1C2BA1DA58D1F00D60E6D /* SessionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionObject.h; sourceTree = "<group>"; };
+		7BF1C2BB1DA58D1F00D60E6D /* SessionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionObject.m; sourceTree = "<group>"; };
+		7BF1C2BD1DA593CF00D60E6D /* PriceOptionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceOptionObject.h; sourceTree = "<group>"; };
+		7BF1C2BE1DA593CF00D60E6D /* PriceOptionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceOptionObject.m; sourceTree = "<group>"; };
 		7BF9DA651D19ACBC00695161 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7BF9DA671D19ACC200695161 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7BF9DA691D19AEDD00695161 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -315,6 +321,10 @@
 		645EBCB41D08D441007D1557 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7BF1C2BD1DA593CF00D60E6D /* PriceOptionObject.h */,
+				7BF1C2BE1DA593CF00D60E6D /* PriceOptionObject.m */,
+				7BF1C2BA1DA58D1F00D60E6D /* SessionObject.h */,
+				7BF1C2BB1DA58D1F00D60E6D /* SessionObject.m */,
 				7BA0FA3B1D9E1E20004A6F41 /* BookingObject.h */,
 				7BA0FA3C1D9E1E20004A6F41 /* BookingObject.m */,
 				7BA0FA351D9DED3C004A6F41 /* PaymentsObject.h */,
@@ -638,6 +648,8 @@
 				7B5844EC1D9F1C0000ED2AFC /* CommentTextView.m in Sources */,
 				7BA0FA311D9DE567004A6F41 /* ItemsObject.m in Sources */,
 				7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */,
+				7BF1C2BF1DA593CF00D60E6D /* PriceOptionObject.m in Sources */,
+				7BF1C2BC1DA58D1F00D60E6D /* SessionObject.m in Sources */,
 				7B1484191D964A95002ADC55 /* TopView.m in Sources */,
 				7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */,
 				7BF1C2B31DA41F4B00D60E6D /* UITableView+Additions.m in Sources */,

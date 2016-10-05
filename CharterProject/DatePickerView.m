@@ -17,6 +17,7 @@
 #import "CommonUIConstants.h"
 #import "CharterService.h"
 #import "NSDate+Adittions.h"
+#import "CharterAPI.h"
 
 static CGFloat secondsInMinute = 60.0;
 static CGFloat minuteInHour = 60.0;
@@ -45,30 +46,30 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         _pickerLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_pickerLabel];
         
-        _pickerBookingDateFrom = [[UIDatePicker alloc] init];
-        _pickerBookingDateFrom.backgroundColor = [UIColor whiteColor];
-        _pickerBookingDateFrom.tintColor = [UIColor customMainColor];
-        _pickerBookingDateFrom.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
-        [_pickerBookingDateFrom addTarget:self action:@selector(userSelectFromDate:) forControlEvents:UIControlEventValueChanged];
-        [_pickerBookingDateFrom setValue:[UIColor customMainColor] forKey:@"textColor"];
-        _pickerBookingDateFrom.minimumDate = [NSDate date];
-        [self addSubview:_pickerBookingDateFrom];
+        _pickerBookingDateStart = [[UIDatePicker alloc] init];
+        _pickerBookingDateStart.backgroundColor = [UIColor whiteColor];
+        _pickerBookingDateStart.tintColor = [UIColor customMainColor];
+        _pickerBookingDateStart.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+        [_pickerBookingDateStart addTarget:self action:@selector(userSelectFromDate:) forControlEvents:UIControlEventValueChanged];
+        [_pickerBookingDateStart setValue:[UIColor customMainColor] forKey:@"textColor"];
+        _pickerBookingDateStart.minimumDate = [NSDate date];
+        [self addSubview:_pickerBookingDateStart];
         
-        _pickerLabelUntil = [UILabel new];
-        _pickerLabelUntil.text = @"Until:";
-        _pickerLabelUntil.font = [UIFont regularFont:15];
-        _pickerLabelUntil.textColor = [UIColor customTextColor];
-        _pickerLabelUntil.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:_pickerLabelUntil];
+        _pickerLabelEnd = [UILabel new];
+        _pickerLabelEnd.text = @"Until:";
+        _pickerLabelEnd.font = [UIFont regularFont:15];
+        _pickerLabelEnd.textColor = [UIColor customTextColor];
+        _pickerLabelEnd.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_pickerLabelEnd];
         
-        _pickerBookingDateUntil = [[UIDatePicker alloc] init];
-        _pickerBookingDateUntil.backgroundColor = [UIColor whiteColor];
-        _pickerBookingDateUntil.tintColor = [UIColor customMainColor];
-        _pickerBookingDateUntil.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
-        [_pickerBookingDateUntil addTarget:self action:@selector(userSelectUntilDate:) forControlEvents:UIControlEventValueChanged];
-        [_pickerBookingDateUntil setValue:[UIColor customMainColor] forKey:@"textColor"];
-        _pickerBookingDateUntil.minimumDate = [NSDate date];
-        [self addSubview:_pickerBookingDateUntil];
+        _pickerBookingDateEnd = [[UIDatePicker alloc] init];
+        _pickerBookingDateEnd.backgroundColor = [UIColor whiteColor];
+        _pickerBookingDateEnd.tintColor = [UIColor customMainColor];
+        _pickerBookingDateEnd.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+        [_pickerBookingDateEnd addTarget:self action:@selector(userSelectUntilDate:) forControlEvents:UIControlEventValueChanged];
+        [_pickerBookingDateEnd setValue:[UIColor customMainColor] forKey:@"textColor"];
+        _pickerBookingDateEnd.minimumDate = [NSDate date];
+        [self addSubview:_pickerBookingDateEnd];
         
         _alertPickerLabel = [UILabel new];
         _alertPickerLabel.font = [UIFont regularFont:13];
@@ -77,13 +78,13 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         _alertPickerLabel.hidden = YES;
         [self addSubview:_alertPickerLabel];
         
-        _untilLabel = [UILabel new];
-        _untilLabel.font = [UIFont regularFont:13];
-        _untilLabel.textColor = [UIColor alertColor];
-        _untilLabel.textAlignment = NSTextAlignmentCenter;
-        _untilLabel.hidden = YES;
-        _untilLabel.text = @"please choose a later date";
-        [self addSubview:_untilLabel];
+        _endLabelAlert = [UILabel new];
+        _endLabelAlert.font = [UIFont regularFont:13];
+        _endLabelAlert.textColor = [UIColor alertColor];
+        _endLabelAlert.textAlignment = NSTextAlignmentCenter;
+        _endLabelAlert.hidden = YES;
+        _endLabelAlert.text = @"please choose a later date";
+        [self addSubview:_endLabelAlert];
         
         _datesTableView = [UITableView tableViewInView:self delegate:self];
         [_datesTableView registerClass:[DateTableViewCell class] forCellReuseIdentifier:kKeyTableReuseIdentifier];
@@ -126,31 +127,31 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
     frame.origin.y = CGRectGetMaxY(_pickerLabel.frame) + kGeomSpaceEdge;
     _alertPickerLabel.frame = frame;
     
-    frame = _pickerBookingDateFrom.frame;
+    frame = _pickerBookingDateStart.frame;
     frame.origin.x = 0;
     frame.origin.y = CGRectGetMaxY(_pickerLabel.frame);
     frame.size.height = dynamicHeightOfDatePicker;
     frame.size.width = width(self);
-    _pickerBookingDateFrom.frame = frame;
+    _pickerBookingDateStart.frame = frame;
     
-    [_pickerLabelUntil sizeToFit];
-    frame = _pickerLabelUntil.frame;
-    frame.origin.x = (width(self) - width(_pickerLabelUntil)) /2;
-    frame.origin.y = CGRectGetMaxY(_pickerBookingDateFrom.frame) + kGeomSpaceEdge;
-    _pickerLabelUntil.frame = frame;
+    [_pickerLabelEnd sizeToFit];
+    frame = _pickerLabelEnd.frame;
+    frame.origin.x = (width(self) - width(_pickerLabelEnd)) /2;
+    frame.origin.y = CGRectGetMaxY(_pickerBookingDateStart.frame) + kGeomSpaceEdge;
+    _pickerLabelEnd.frame = frame;
     
-    [_untilLabel sizeToFit];
-    frame = _untilLabel.frame;
-    frame.origin.x = (width(self) - width(_untilLabel)) /2;
-    frame.origin.y = CGRectGetMaxY(_pickerLabelUntil.frame) + kGeomSpaceEdge;
-    _untilLabel.frame = frame;
+    [_endLabelAlert sizeToFit];
+    frame = _endLabelAlert.frame;
+    frame.origin.x = (width(self) - width(_endLabelAlert)) /2;
+    frame.origin.y = CGRectGetMaxY(_pickerLabelEnd.frame) + kGeomSpaceEdge;
+    _endLabelAlert.frame = frame;
     
-    frame = _pickerBookingDateUntil.frame;
+    frame = _pickerBookingDateEnd.frame;
     frame.origin.x = 0;
-    frame.origin.y = CGRectGetMaxY(_pickerLabelUntil.frame);
+    frame.origin.y = CGRectGetMaxY(_pickerLabelEnd.frame);
     frame.size.height = dynamicHeightOfDatePicker;
     frame.size.width = width(self);
-    _pickerBookingDateUntil.frame = frame;
+    _pickerBookingDateEnd.frame = frame;
     
     frame = _datesTableView.frame;
     frame.size.height = height(self) - kGeomHeightBigbutton;
@@ -166,7 +167,7 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         
         NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
         _alertPickerLabel.hidden = YES;
-       _stringDateFrom = [NSString stringFromLocalTimeZone:_pickerBookingDateFrom.date];
+       _stringDateFrom = [NSString stringFromLocalTimeZone:_pickerBookingDateStart.date];
        NSLog(@"the stringDateFrom is %@", _stringDateFrom);
     } else {
         NSLog(@"THE DATE PICKED DON'T SATISFY THE REQUIRED GAP FOR BOOKING");
@@ -176,12 +177,12 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 
 - (void)userSelectUntilDate:(id)sender {
     
-    _stringDateUntil = [NSString stringFromLocalTimeZone:_pickerBookingDateUntil.date];
+    _stringDateUntil = [NSString stringFromLocalTimeZone:_pickerBookingDateEnd.date];
     
     if ([self isUntilDateLaterThanFromDate]) {
-        _untilLabel.hidden = YES;
+        _endLabelAlert.hidden = YES;
     } else {
-        _untilLabel.hidden = NO;
+        _endLabelAlert.hidden = NO;
         
     }
     
@@ -197,22 +198,26 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
     }
     
     if ([self isUntilDateLaterThanFromDate]) {
-        _untilLabel.hidden = YES;
+        _endLabelAlert.hidden = YES;
     } else {
-        _untilLabel.hidden = NO;
+        _endLabelAlert.hidden = NO;
     }
     
     if ([self isBookingDateSatisfyMinBookingTime] &&
         [self isUntilDateLaterThanFromDate]) {
         //send strings to the server
+        NSLog(@"YES LETS GO!");
+        [self makeTheCall];
+    } else {
+        NSLog(@"NO DUDE");
     }
     
 }
 
 - (BOOL)isUntilDateLaterThanFromDate {
     
-    if (!_pickerBookingDateUntil.date ||
-        [_pickerBookingDateUntil.date isEarlierThanOrEqualTo:_pickerBookingDateFrom.date]) {
+    if (!_pickerBookingDateStart.date ||
+        [_pickerBookingDateEnd.date isEarlierThanOrEqualTo:_pickerBookingDateStart.date]) {
        
         _isUntilDateLaterThanFromDate = NO;
     } else {
@@ -231,7 +236,7 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
         _alertPickerLabel.hidden = YES;
         //1 now the localized start date will be used to make the get availabiliy request
-        _localizedStartDateString = [NSString stringFromLocalTimeZone:_pickerBookingDateFrom.date];
+        _localizedStartDateString = [NSString stringFromLocalTimeZone:_pickerBookingDateStart.date];
         
         //2 now we send this string to the api call
         
@@ -249,7 +254,7 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 
 - (BOOL)isBookingDateSatisfyMinBookingTime {
 
-    NSTimeInterval distanceBetweenDates = [_pickerBookingDateFrom.date timeIntervalSinceDate:_pickerBookingDateFrom.minimumDate];
+    NSTimeInterval distanceBetweenDates = [_pickerBookingDateStart.date timeIntervalSinceDate:_pickerBookingDateStart.minimumDate];
 
     CGFloat minutesBetweenDates = distanceBetweenDates / secondsInMinute;
     CGFloat hoursBetweenDates = minutesBetweenDates / minuteInHour;
@@ -262,6 +267,17 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
     }
     
     return _dateSatisfyMinRequiredDate;
+}
+
+- (void)makeTheCall {
+    
+    [CharterAPI checkAvailabilityForProduct:_charterService from:_stringDateFrom until:_stringDateUntil success:^(NSArray *sessions) {
+        
+        NSLog(@"the sessions are %@", sessions);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"the operation is %@, the error is %@", operation, error);
+    }];
+    
 }
 
 

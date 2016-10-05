@@ -22,6 +22,7 @@
 #import "UICollectionView+Additions.h"
 #import "CharterCollectionViewCell.h"
 #import "InfoView.h"
+#import "PriceOptionObject.h"
 
 
 @interface DetailViewController ()<MFMailComposeViewControllerDelegate>
@@ -50,6 +51,11 @@ static NSString *const itemURL =  @"itemUrl";
 
 - (void)viewDidLoad {
     
+//    NSLog(@"the price options are %lu", (unsigned long)_charterService.priceOptions.count);
+//    for (PriceOptionObject *pO in _charterService.priceOptions) {
+//        NSLog(@"the po label is %@", pO.priceOptionLabel);
+//    }
+//    
     self.title = self.charterService.name;
     
     self.navigationController.navigationBar.hidden = NO;

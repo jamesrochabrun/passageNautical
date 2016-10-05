@@ -11,6 +11,7 @@
 @implementation NSString (DecodeHTML)
 
 + (NSString*)decodeHTMLEntities:(NSString*)string {
+    
     string = [string stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
     string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
     return string;

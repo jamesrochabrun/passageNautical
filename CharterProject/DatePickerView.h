@@ -17,10 +17,10 @@
 
 @interface DatePickerView : UIView
 @property (nonatomic, weak) id<DatePickerViewDelegate> delegate;
-@property (nonatomic, strong) UIDatePicker *pickerBookingDateFrom;
-@property (nonatomic, strong) UIDatePicker *pickerBookingDateUntil;
+@property (nonatomic, strong) UIDatePicker *pickerBookingDateStart;
+@property (nonatomic, strong) UIDatePicker *pickerBookingDateEnd;
 @property (nonatomic, strong) UILabel *pickerLabel;
-@property (nonatomic, strong) UILabel *pickerLabelUntil;
+@property (nonatomic, strong) UILabel *pickerLabelEnd;
 @property (nonatomic, strong) UILabel *alertPickerLabel;
 @property (nonatomic, assign) BOOL dateSatisfyMinRequiredDate;
 @property (nonatomic, strong) NSString *localizedStartDateString;
@@ -29,7 +29,7 @@
 @property (nonatomic, strong) CharterService *charterService;
 @property (nonatomic, strong) NSString *stringDateFrom;
 @property (nonatomic, strong) NSString *stringDateUntil;
-@property (nonatomic, strong) UILabel *untilLabel;
+@property (nonatomic, strong) UILabel *endLabelAlert;
 @property (nonatomic, assign) BOOL isUntilDateLaterThanFromDate;
 
 - (BOOL)isBookingDateSatisfyMinBookingTime;

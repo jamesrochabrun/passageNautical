@@ -8,8 +8,8 @@
 
 #import "CharterService.h"
 #import "Common.h"
+#import "PriceOptionObject.h"
 
-@implementation CharterService
 
 NSString *const CHname = @"name";
 NSString *const CHadvertisedPrice = @"advertisedPrice";
@@ -45,6 +45,7 @@ NSString *const CHunitLabelPlural = @"unitLabelPlural";
 NSString *const CHimageURL = @"itemUrl";
 
 
+@implementation CharterService
 
 + (CharterService *)charterServiceFromDict:(NSDictionary *)dict {
     
@@ -68,7 +69,6 @@ NSString *const CHimageURL = @"itemUrl";
     charter.longitude = parseNSNumberOrNullFromServer(dict[CHlongitude]);
     charter.locationAddress = parseDictionaryOrNullFromServer(dict[CHlocationAddress]);
     charter.minimumNoticeMinutes = parseNSNumberOrNullFromServer(dict[CHminimumNoticeMinutes]);
-    charter.priceOptions = parseArrayOrNullFromServer(dict[CHpriceOptions]);
     charter.productCode = parseStringOrNullFromServer(dict[CHproductCode]);
     charter.productType = parseStringOrNullFromServer(dict[CHproductType]);
     charter.quantityRequired = parseNSNumberOrNullFromServer(dict[CHquantityRequired]);
@@ -85,6 +85,14 @@ NSString *const CHimageURL = @"itemUrl";
     NSDictionary *imagesDictionary = [charter.images firstObject];
     charter.imageURL = [self urlStringWithNoSpaces:imagesDictionary];
     
+    //setting the PriceOptionObject
+    NSArray *arr = parseArrayOrNullFromServer(dict[CHpriceOptions]);
+    charter.priceOptions = [NSMutableArray new];
+    for (NSDictionary *priceOptionDict in arr) {
+        PriceOptionObject *priceOption = [PriceOptionObject priceOptionFromDict:priceOptionDict];
+        [charter.priceOptions addObject:priceOption];
+    }
+    
     return charter;
 }
 
@@ -94,6 +102,7 @@ NSString *const CHimageURL = @"itemUrl";
     NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     return itemUrlWithNoSpaces;
 }
+
 
 
 

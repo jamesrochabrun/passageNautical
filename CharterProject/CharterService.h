@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Common.h"
+#import "PriceOptionObject.h"
 
 
 extern NSString *const CHname;
@@ -63,7 +64,7 @@ extern NSString *const CHunitLabelPlural;
 @property (nonatomic, strong) NSNumber *longitude;
 @property (nonatomic, strong) NSDictionary *locationAddress;
 @property (nonatomic, strong) NSNumber *minimumNoticeMinutes;
-@property (nonatomic, strong) NSArray *priceOptions;
+@property (nonatomic, strong) NSMutableArray *priceOptions;
 @property (nonatomic, strong) NSString *productCode;
 @property (nonatomic, strong) NSString *productType;
 @property (nonatomic, strong) NSNumber *quantityRequired;

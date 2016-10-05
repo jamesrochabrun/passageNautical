@@ -15,15 +15,20 @@
 
 + (NSString *)URL;
 
+//PRODUCTS
 + (AFHTTPRequestOperation *)getListOfServicesByID:(NSString *)listID
                                         success:(void (^)(NSArray *services))success
                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
-//+ (AFHTTPRequestOperation *)bookService:(id)charterJson
-//                                success:(void (^)())success
-//                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+//SESSIONS
++ (AFHTTPRequestOperation *)checkAvailabilityForProduct:(CharterService *)charterService
+                                                   from:(NSString *)startDate
+                                                  until:(NSString *)endDate
+                                                success:(void (^)(NSArray *sessions))success
+                                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
+//BOOKINGS
 - (void)sendBooking:(NSDictionary *)booking
             success:(void (^)(id responseObject))success;
 

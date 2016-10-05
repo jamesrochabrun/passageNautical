@@ -8,12 +8,14 @@
 
 #import "CharterAPI.h"
 #import "CharterService.h"
+#import "NSString+DecodeHTML.h"
 
 
-NSString *const kapiKey = @"apiKey=15132eb9747f46baaa149e85aab49aeb";
-NSString *const kHTTPProtocol = @"https";
-NSString *const kURLProduction = @"api.rezdy.com/v1";
-NSString *const keyFromJSON = @"products";
+NSString *const kKeyapiKey = @"apiKey=15132eb9747f46baaa149e85aab49aeb";
+NSString *const kKeyHTTPProtocol = @"https";
+NSString *const kKeyURLProduction = @"api.rezdy.com/v1";
+NSString *const kKeyFromProducts = @"products";
+NSString *const kKeyFromSessions = @"sessions";
 
 
 
@@ -29,18 +31,17 @@ NSString *const keyFromJSON = @"products";
     return self;
 }
 
-
 + (AFHTTPRequestOperation *)getListOfServicesByID:(NSString *)listID
                                           success:(void (^)(NSArray *services))success
                                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@/categories/%@/products?%@", kHTTPProtocol, [CharterAPI URL], listID, kapiKey];
+    NSString *urlString = [NSString stringWithFormat:@"%@://%@/categories/%@/products?%@", kKeyHTTPProtocol, [CharterAPI URL], listID, kKeyapiKey];
     
     NetworkManager *nm = [NetworkManager new];
     
     AFHTTPRequestOperation *op = [nm GET:urlString parameters:nil success:^(id responseObject) {
         
-       NSArray *arrayData = responseObject[keyFromJSON];
+       NSArray *arrayData = responseObject[kKeyFromProducts];
     
         NSMutableArray *categoryProductsArray = [NSMutableArray new];
         
@@ -57,6 +58,33 @@ NSString *const keyFromJSON = @"products";
     return op;
 }
 
++ (AFHTTPRequestOperation *)checkAvailabilityForProduct:(CharterService *)charterService
+                                                   from:(NSString *)startDate
+                                                  until:(NSString *)endDate
+                                                success:(void (^)(NSArray *sessions))success
+                                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+
+    
+    NSString *endPoint = [NSString stringWithFormat:@"%@://%@/availability?endTimeLocal=%@&productCode=%@&startTimeLocal=%@&%@", kKeyHTTPProtocol , [CharterAPI URL], endDate, charterService.productCode, startDate , kKeyapiKey];
+    
+    NSString *endPointEncode = [endPoint stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+
+    
+    NetworkManager *nm = [NetworkManager new];
+    
+    AFHTTPRequestOperation *op = [nm GET:endPointEncode parameters:nil success:^(id responseObject) {
+        
+        success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation, error);
+
+    }];
+    
+    return op;
+    
+}
+
+
 //NSURLSESSION
 - (void)sendBooking:(NSDictionary *)booking
                         success:(void (^)(id responseObject))success {
@@ -65,7 +93,7 @@ NSString *const keyFromJSON = @"products";
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@/bookings?%@", kHTTPProtocol, [CharterAPI URL], kapiKey];
+    NSString *urlString = [NSString stringWithFormat:@"%@://%@/bookings?%@", kKeyHTTPProtocol, [CharterAPI URL], kKeyapiKey];
     
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -100,47 +128,8 @@ NSString *const keyFromJSON = @"products";
 }
 
 
-
-
-
-//+ (AFHTTPRequestOperation *)bookService:(id)charterJson
-//                                success:(void (^)())success
-//                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-//    
-//    
-////    if  (!charter) {
-////        failure (nil,nil);
-////        return nil;
-////    }
-//    
-//    
-//    
-//    //https://api.rezdy.com/v1/bookings?apiKey=8d9c11062ab244c7ab15f44dcaa30c7b
-//    
-//    NSString *urlString = [NSString stringWithFormat:@"%@://%@/bookings?%@", kHTTPProtocol, [CharterAPI URL], kapiKey];
-//    
-////    NSString *urlString = @"https://api.rezdy.com/latest/bookings?apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
-//    
-//   NSLog(@"the post string is %@", urlString);
-//    
-//   // NSDictionary *parameters = @{@"bookings" : charterJson};
-//    //parameters
-//    NetworkManager *rm = [NetworkManager new];
-//    
-//    AFHTTPRequestOperation *op = [rm POST:urlString parameters:charterJson success:^(id responseObject) {
-//        
-//        success(responseObject);
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        
-//    }];
-//    
-//    return op;
-//}
-
-
 + (NSString *)URL {
-    return kURLProduction;
+    return kKeyURLProduction;
 }
 
 @end

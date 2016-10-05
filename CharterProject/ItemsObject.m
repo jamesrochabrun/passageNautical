@@ -17,6 +17,7 @@ NSString *const KkeyQuantitiesValue = @"value";
 NSString *const kKeyProductName = @"productName";
 NSString *const kKeySubTotal = @"subtotal";
 NSString *const kKeytotalQuantity = @"totalQuantity";
+NSString *const kKeyOptionlabel = @"optionLabel";
 
 
 @implementation ItemsObject
@@ -31,7 +32,8 @@ NSString *const kKeytotalQuantity = @"totalQuantity";
                     kKeyAmount : (_amount)? _amount : @"",
                     kKeyQuantities : @[
                             @{
-                                KkeyQuantitiesValue : (_quantitiesValue)? _quantitiesValue : @""
+                                KkeyQuantitiesValue : (_quantitiesValue)? _quantitiesValue : @"",
+                                kKeyOptionlabel : (_optionLabel)? _optionLabel :@""
                                 }
                             ]
                     }

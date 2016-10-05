@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString *productName;
 @property (nonatomic, strong) NSNumber *subTotal;
 @property (nonatomic, strong) NSNumber *totalQuantity;
+@property (nonatomic, strong) NSString *optionLabel;
 
 - (NSArray *)arrayFromItemsObject;
 + (ItemsObject *)itemsObjectFromDict:(NSDictionary *)dict;
