@@ -27,6 +27,10 @@
 @property (nonatomic, strong) UITableView *datesTableView;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) CharterService *charterService;
+@property (nonatomic, strong) NSString *stringDateFrom;
+@property (nonatomic, strong) NSString *stringDateUntil;
+@property (nonatomic, strong) UILabel *untilLabel;
+@property (nonatomic, assign) BOOL isUntilDateLaterThanFromDate;
 
 - (BOOL)isBookingDateSatisfyMinBookingTime;
 

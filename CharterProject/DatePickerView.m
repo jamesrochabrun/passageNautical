@@ -16,6 +16,7 @@
 #import "DateTableViewCell.h"
 #import "CommonUIConstants.h"
 #import "CharterService.h"
+#import "NSDate+Adittions.h"
 
 static CGFloat secondsInMinute = 60.0;
 static CGFloat minuteInHour = 60.0;
@@ -32,7 +33,7 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         _nextButton = [UIButton new];
         [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextButton.titleLabel.font = [UIFont regularFont:17];
-        //[_nextButton addTarget:self action:@selector(performBookSegue:) forControlEvents:UIControlEventTouchUpInside];
+        [_nextButton addTarget:self action:@selector(checkAvailability) forControlEvents:UIControlEventTouchUpInside];
         [_nextButton setTitle:@"Next" forState:UIControlStateNormal];
         _nextButton.backgroundColor = [UIColor customMainColor];
         [self addSubview:_nextButton];
@@ -76,6 +77,14 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         _alertPickerLabel.hidden = YES;
         [self addSubview:_alertPickerLabel];
         
+        _untilLabel = [UILabel new];
+        _untilLabel.font = [UIFont regularFont:13];
+        _untilLabel.textColor = [UIColor alertColor];
+        _untilLabel.textAlignment = NSTextAlignmentCenter;
+        _untilLabel.hidden = YES;
+        _untilLabel.text = @"please choose a later date";
+        [self addSubview:_untilLabel];
+        
         _datesTableView = [UITableView tableViewInView:self delegate:self];
         [_datesTableView registerClass:[DateTableViewCell class] forCellReuseIdentifier:kKeyTableReuseIdentifier];
         [_datesTableView setLayoutMargins:UIEdgeInsetsZero];
@@ -111,6 +120,12 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
     frame.origin.y =  (IS_IPHONE4)? kGeomMarginSmall: kGeomMarginBig;
     _pickerLabel.frame = frame;
     
+    [_alertPickerLabel sizeToFit];
+    frame = _alertPickerLabel.frame;
+    frame.origin.x = (width(self) - width(_alertPickerLabel)) /2;
+    frame.origin.y = CGRectGetMaxY(_pickerLabel.frame) + kGeomSpaceEdge;
+    _alertPickerLabel.frame = frame;
+    
     frame = _pickerBookingDateFrom.frame;
     frame.origin.x = 0;
     frame.origin.y = CGRectGetMaxY(_pickerLabel.frame);
@@ -124,18 +139,18 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
     frame.origin.y = CGRectGetMaxY(_pickerBookingDateFrom.frame) + kGeomSpaceEdge;
     _pickerLabelUntil.frame = frame;
     
+    [_untilLabel sizeToFit];
+    frame = _untilLabel.frame;
+    frame.origin.x = (width(self) - width(_untilLabel)) /2;
+    frame.origin.y = CGRectGetMaxY(_pickerLabelUntil.frame) + kGeomSpaceEdge;
+    _untilLabel.frame = frame;
+    
     frame = _pickerBookingDateUntil.frame;
     frame.origin.x = 0;
     frame.origin.y = CGRectGetMaxY(_pickerLabelUntil.frame);
     frame.size.height = dynamicHeightOfDatePicker;
     frame.size.width = width(self);
     _pickerBookingDateUntil.frame = frame;
-    
-//    [_alertPickerLabel sizeToFit];
-//    frame = _alertPickerLabel.frame;
-//    frame.origin.x = (width(self) - width(_alertPickerLabel)) /2;
-//    frame.origin.y = CGRectGetMaxY(_pickerBookingDateFrom.frame);
-//    _alertPickerLabel.frame = frame;
     
     frame = _datesTableView.frame;
     frame.size.height = height(self) - kGeomHeightBigbutton;
@@ -147,13 +162,68 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 
 - (void)userSelectFromDate:(id)sender {
     
+    if ([self isBookingDateSatisfyMinBookingTime]) {
+        
+        NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
+        _alertPickerLabel.hidden = YES;
+       _stringDateFrom = [NSString stringFromLocalTimeZone:_pickerBookingDateFrom.date];
+       NSLog(@"the stringDateFrom is %@", _stringDateFrom);
+    } else {
+        NSLog(@"THE DATE PICKED DON'T SATISFY THE REQUIRED GAP FOR BOOKING");
+        _alertPickerLabel.hidden = NO;
+    }
 }
 
 - (void)userSelectUntilDate:(id)sender {
     
+    _stringDateUntil = [NSString stringFromLocalTimeZone:_pickerBookingDateUntil.date];
+    
+    if ([self isUntilDateLaterThanFromDate]) {
+        _untilLabel.hidden = YES;
+    } else {
+        _untilLabel.hidden = NO;
+        
+    }
+    
+}
+
+- (void)checkAvailability {
+    
+    NSLog(@"the fromstring %@", _stringDateFrom);
+    NSLog(@"the until string %@" , _stringDateUntil);
+    
+    if (![self isBookingDateSatisfyMinBookingTime]) {
+        _alertPickerLabel.hidden = NO;
+    }
+    
+    if ([self isUntilDateLaterThanFromDate]) {
+        _untilLabel.hidden = YES;
+    } else {
+        _untilLabel.hidden = NO;
+    }
+    
+    if ([self isBookingDateSatisfyMinBookingTime] &&
+        [self isUntilDateLaterThanFromDate]) {
+        //send strings to the server
+    }
+    
+}
+
+- (BOOL)isUntilDateLaterThanFromDate {
+    
+    if (!_pickerBookingDateUntil.date ||
+        [_pickerBookingDateUntil.date isEarlierThanOrEqualTo:_pickerBookingDateFrom.date]) {
+       
+        _isUntilDateLaterThanFromDate = NO;
+    } else {
+        _isUntilDateLaterThanFromDate = YES;
+    }
+    
+    return _isUntilDateLaterThanFromDate;
 }
 
 
+//this is the one for BOOKKKKK
 - (void)userAlteredPicker:(id)sender {
 
 
@@ -183,8 +253,9 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 
     CGFloat minutesBetweenDates = distanceBetweenDates / secondsInMinute;
     CGFloat hoursBetweenDates = minutesBetweenDates / minuteInHour;
+    CGFloat minRequiredHours =  [_charterService.minimumNoticeMinutes intValue] / minuteInHour;
 
-    if (ceil(hoursBetweenDates) < [_charterService.minimumNoticeMinutes intValue])
+    if (floor(hoursBetweenDates) < minRequiredHours)
         _dateSatisfyMinRequiredDate = NO;
     else {
         _dateSatisfyMinRequiredDate = YES;
@@ -198,8 +269,10 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 - (void)setCharterService:(CharterService *)charterService {
     
     if (_charterService == charterService) return;
-    CGFloat minRequiredHours = [charterService.minimumNoticeMinutes intValue] / minuteInHour;
+    _charterService = charterService;
     
+    CGFloat minRequiredHours = [charterService.minimumNoticeMinutes intValue] / minuteInHour;
+
     __weak DatePickerView *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.alertPickerLabel.text = [NSString stringWithFormat:@"Booking must be with %.f hours of notice", minRequiredHours];;

@@ -55,6 +55,7 @@
 		7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0583B1D920CB600E3476C /* CharterAPI.m */; };
 		7BF1C2B31DA41F4B00D60E6D /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B21DA41F4B00D60E6D /* UITableView+Additions.m */; };
 		7BF1C2B61DA41FD400D60E6D /* DateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B51DA41FD400D60E6D /* DateTableViewCell.m */; };
+		7BF1C2B91DA4858D00D60E6D /* NSDate+Adittions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B81DA4858D00D60E6D /* NSDate+Adittions.m */; };
 		7BF9DA661D19ACBC00695161 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA651D19ACBC00695161 /* MapKit.framework */; };
 		7BF9DA681D19ACC200695161 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF9DA671D19ACC200695161 /* CoreLocation.framework */; };
 		7BF9DA6B1D19AEDD00695161 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9DA6A1D19AEDD00695161 /* MapViewController.m */; };
@@ -161,6 +162,8 @@
 		7BF1C2B21DA41F4B00D60E6D /* UITableView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Additions.m"; sourceTree = "<group>"; };
 		7BF1C2B41DA41FD400D60E6D /* DateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTableViewCell.h; sourceTree = "<group>"; };
 		7BF1C2B51DA41FD400D60E6D /* DateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTableViewCell.m; sourceTree = "<group>"; };
+		7BF1C2B71DA4858D00D60E6D /* NSDate+Adittions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Adittions.h"; sourceTree = "<group>"; };
+		7BF1C2B81DA4858D00D60E6D /* NSDate+Adittions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Adittions.m"; sourceTree = "<group>"; };
 		7BF9DA651D19ACBC00695161 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7BF9DA671D19ACC200695161 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7BF9DA691D19AEDD00695161 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -380,6 +383,8 @@
 		7BA11F2D1D1271810072DBA7 /* categories */ = {
 			isa = PBXGroup;
 			children = (
+				7BF1C2B71DA4858D00D60E6D /* NSDate+Adittions.h */,
+				7BF1C2B81DA4858D00D60E6D /* NSDate+Adittions.m */,
 				7BF1C2B11DA41F4B00D60E6D /* UITableView+Additions.h */,
 				7BF1C2B21DA41F4B00D60E6D /* UITableView+Additions.m */,
 				7BAD5DB81D9B0EE60071DB1A /* UIImage+Additions.h */,
@@ -613,6 +618,7 @@
 				645EBC8F1D08BF3B007D1557 /* AppDelegate.m in Sources */,
 				645EBC8C1D08BF3B007D1557 /* main.m in Sources */,
 				7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */,
+				7BF1C2B91DA4858D00D60E6D /* NSDate+Adittions.m in Sources */,
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,

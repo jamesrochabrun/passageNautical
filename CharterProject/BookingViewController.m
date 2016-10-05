@@ -73,6 +73,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     [self.view addSubview:_succesView];
     
     _datePickerView = [DatePickerView new];
+   // _datePickerView.minRequiredHours = [_charterService.minimumNoticeMinutes intValue];
     _datePickerView.delegate = self;
     _datePickerView.charterService = _charterService;
     [self.view addSubview:_datePickerView];
