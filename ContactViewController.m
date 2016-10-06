@@ -178,7 +178,7 @@
 
 - (void)onCallButtonPressed {
     NSLog(@"call");
-    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",kcontactNumber]];
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:kKeyPhonePrompt,kcontactNumber]];
     
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
         [[UIApplication sharedApplication] openURL:phoneUrl];

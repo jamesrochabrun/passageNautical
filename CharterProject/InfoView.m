@@ -145,14 +145,17 @@
 //         NSLog(@"postalCode %@",placemark.postalCode);
 //         NSLog(@"location %@",placemark.location);
 //         NSLog(@"sublocality %@", placemark.subLocality);
-         _locationLabel.text = placemark.locality;
+         
+         __weak InfoView *weakSelf = self;
+         dispatch_async(dispatch_get_main_queue(), ^{
+             weakSelf.locationLabel.text = placemark.locality;
+             [weakSelf setNeedsLayout];
+         });
      }];
     
     
-    __weak InfoView *weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf setNeedsLayout];
-    });}
+
+}
 
 - (void)getAddressFromLocation {
     

@@ -37,17 +37,31 @@
     
     [super layoutSubviews];
     
-    [_dateLabel sizeToFit];
-    CGRect frame = _dateLabel.frame;
-    frame.origin.x = (width(self) - width(_dateLabel)) / 2;
-    frame.origin.y = (height(self) - height(_dateLabel)) /2;
-    _dateLabel.frame = frame;
+    if (_isTime) {
+        
+        CGRect frame = _dateLabel.frame;
+        frame.size.height = kGeomHeightTextField;
+        frame.size.width = width(self);
+        frame.origin.x = (width(self) - width(_dateLabel)) / 2;
+        frame.origin.y = height(self) /4;
+        _dateLabel.frame = frame;
+        
+        frame = _timeLabel.frame;
+        frame.size.height = kGeomHeightTextField;
+        frame.size.width = width(self);
+        frame.origin.x = (width(self) - width(_timeLabel)) /2;
+        frame.origin.y = CGRectGetMaxY(_dateLabel.frame);
+        _timeLabel.frame = frame;
     
-    [_timeLabel sizeToFit];
-    frame = _timeLabel.frame;
-    frame.origin.x = (width(self) - width(_timeLabel)) /2;
-    frame.origin.y = CGRectGetMaxY(_dateLabel.frame);
-    _timeLabel.frame = frame;
+    } else {
+        
+        [_dateLabel sizeToFit];
+        CGRect frame = _dateLabel.frame;
+        frame.origin.x = (width(self) - width(_dateLabel)) / 2;
+        frame.origin.y = (height(self) - height(_dateLabel)) /2;
+        _dateLabel.frame = frame;
+    }
+ 
 }
 
 - (void)setSelected:(BOOL)selected {
@@ -56,6 +70,15 @@
     bgColorView.backgroundColor = [UIColor customMainColor];
     [self setSelectedBackgroundView:bgColorView];
 
+}
+
+- (void)layoutCell:(BOOL)isTime {
+    
+    _isTime = isTime;
+    __weak DateTableViewCell *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf setNeedsLayout];
+    });
 }
 
 @end

@@ -21,6 +21,7 @@ NSString *const kbedAndBoatCategoryID = @"87048";
 NSString *const kKeyBookingModeNoDate = @"NO_DATE";
 NSString *const kKeyBookingModeInventory = @"INVENTORY";
 NSString *const kKeyBookingModeDateEnquiry = @"DATE_ENQUIRY";
+NSString *const kKeyPhonePrompt = @"telprompt:%@";
 
 
 

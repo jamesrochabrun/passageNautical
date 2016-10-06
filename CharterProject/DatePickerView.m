@@ -169,6 +169,9 @@ NSString *const kKeyNext = @"Next";
         NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
         _alertPickerLabel.hidden = YES;
        _stringDateStart = [NSString stringFromLocalTimeZone:_pickerBookingDateStart.date];
+        NSLog(@"the _stringDateStart is %@", _stringDateStart);
+        NSLog(@"the _pickerBokingDateStart is %@", _pickerBookingDateStart.date);
+
     } else {
         NSLog(@"THE DATE PICKED DON'T SATISFY THE REQUIRED GAP FOR BOOKING");
         _alertPickerLabel.hidden = NO;
@@ -177,10 +180,12 @@ NSString *const kKeyNext = @"Next";
 
 - (void)userSelectEndDate:(id)sender {
     
-    _stringDateEnd = [NSString stringFromLocalTimeZone:_pickerBookingDateEnd.date];
-    
     if ([self isEndDateLaterThanStartDate]) {
+        _stringDateEnd = [NSString stringFromLocalTimeZone:_pickerBookingDateEnd.date];
         _endLabelAlert.hidden = YES;
+        NSLog(@"the _stringDateEnd is %@", _stringDateEnd);
+        NSLog(@"the pickerBookingDateEnd is %@", _pickerBookingDateEnd.date);
+
     } else {
         _endLabelAlert.hidden = NO;
         
@@ -208,13 +213,34 @@ NSString *const kKeyNext = @"Next";
             NSLog(@"NO DUDE SOMETHING IS MISSING");
         }
     } else if ([_nextButton.titleLabel.text isEqualToString:kKeyNext]) {
-        
-        //do something
+       
+        if (_selectedDate) {
+            
+            if ([_charterService.bookingMode isEqualToString:kKeyBookingModeInventory]) {
+                
+                [self.delegate setPickedDateStringAndShowForm:_selectedDate];
+                
+            } else if ([_charterService.bookingMode isEqualToString:kKeyBookingModeDateEnquiry]) {
+                
+                //show date picker for time and pass the hour and construct a string with a date and a time;
+                NSLog(@"type: %@:", _charterService.bookingMode);
+                //here is the mambo!!!!
+            }
+
+        } else {
+            //alert user pick a date
+            [self.delegate alertUserThatMustSelectADate];
+        }
     }
-    
 }
 
 - (void)checkAvailabilityForService {
+    
+    //here we can put an alert just in case
+    if (!_stringDateStart || !_stringDateEnd) {
+        [self.delegate alertUserSelectAgain];
+        return;
+    };
     
     [CharterAPI checkAvailabilityForProduct:_charterService from:_stringDateStart until:_stringDateEnd success:^(NSArray *sessions) {
         
@@ -248,8 +274,7 @@ NSString *const kKeyNext = @"Next";
 
 - (BOOL)isEndDateLaterThanStartDate {
     
-    if (!_pickerBookingDateStart.date ||
-        [_pickerBookingDateEnd.date isEarlierThanOrEqualTo:_pickerBookingDateStart.date]) {
+    if ([_pickerBookingDateEnd.date isEarlierThanOrEqualTo:_pickerBookingDateStart.date]) {
        
         _isEndDateLater = NO;
     } else {
@@ -267,7 +292,7 @@ NSString *const kKeyNext = @"Next";
     CGFloat hoursBetweenDates = minutesBetweenDates / minuteInHour;
     CGFloat minRequiredHours =  [_charterService.minimumNoticeMinutes intValue] / minuteInHour;
 
-    if (floor(hoursBetweenDates) < minRequiredHours)
+    if (floor(hoursBetweenDates) < minRequiredHours || !_pickerBookingDateStart.date)
         _dateSatisfyMinRequiredDate = NO;
     else {
         _dateSatisfyMinRequiredDate = YES;
@@ -294,7 +319,13 @@ NSString *const kKeyNext = @"Next";
     DateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kKeyTableReuseIdentifier forIndexPath:indexPath];
     SessionObject *session = [_sessionsArray objectAtIndex:indexPath.row];
     
-    cell.dateLabel.text = session.startTimeLocal;
+    cell.dateLabel.text = [NSString stringDateFromLocalTimeZone:session.startTimeLocal];
+
+    if ([_charterService.bookingMode isEqualToString:kKeyBookingModeInventory]) {
+        cell.timeLabel.text = [NSString stringHourFromLocalTimeZone:session.startTimeLocal];
+        [cell layoutCell:YES];
+    }
+    
     cell.dateLabel.highlightedTextColor = [UIColor whiteColor];
     cell.timeLabel.highlightedTextColor = [UIColor whiteColor];
     return cell;
@@ -312,6 +343,8 @@ NSString *const kKeyNext = @"Next";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     DateTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    SessionObject *session = [_sessionsArray objectAtIndex:indexPath.row];
+    _selectedDate = session.startTimeLocal;
     cell.selected = YES;
 }
    
@@ -329,30 +362,6 @@ NSString *const kKeyNext = @"Next";
 }
 
 
-
-//this is the one for BOOKKKKK
-- (void)userAlteredPicker:(id)sender {
-    
-    
-    if ([self isBookingDateSatisfyMinBookingTime]) {
-        NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
-        _alertPickerLabel.hidden = YES;
-        //1 now the localized start date will be used to make the get availabiliy request
-        _localizedStartDateString = [NSString stringFromLocalTimeZone:_pickerBookingDateStart.date];
-        
-        //2 now we send this string to the api call
-        
-        //3 show the tableview with available results
-        
-        //4 in method selected cell perform this action and hide the DatepickerView and show the form
-        [self.delegate setPickedDateString:_localizedStartDateString];
-        
-        
-    } else {
-        NSLog(@"THE DATE PICKED DON'T SATISFY THE REQUIRED GAP FOR BOOKING");
-        _alertPickerLabel.hidden = NO;
-    }
-}
 
 
 @end

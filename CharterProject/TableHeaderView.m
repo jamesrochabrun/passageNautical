@@ -29,7 +29,6 @@
         [_headerLabel setTextColor:[UIColor customMainColor]];
         [self addSubview:_headerLabel];
     }
-    
     return self;
 }
 

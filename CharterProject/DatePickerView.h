@@ -11,8 +11,10 @@
 
 @protocol DatePickerViewDelegate <NSObject>
 
-- (void)setPickedDateString:(NSString *)datePicked;
+- (void)setPickedDateStringAndShowForm:(NSString *)datePicked;
 - (void)alertUserThatThereIsNoSessionForThisProduct;
+- (void)alertUserThatMustSelectADate;
+- (void)alertUserSelectAgain;
 
 @end
 
@@ -24,7 +26,6 @@
 @property (nonatomic, strong) UILabel *pickerLabelEnd;
 @property (nonatomic, strong) UILabel *alertPickerLabel;
 @property (nonatomic, assign) BOOL dateSatisfyMinRequiredDate;
-@property (nonatomic, strong) NSString *localizedStartDateString;
 @property (nonatomic, strong) UITableView *datesTableView;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) CharterService *charterService;
@@ -33,6 +34,8 @@
 @property (nonatomic, strong) UILabel *endLabelAlert;
 @property (nonatomic, assign) BOOL isEndDateLater;
 @property (nonatomic, strong) NSArray *sessionsArray;
+
+@property (nonatomic, strong) NSString *selectedDate;
 
 - (BOOL)isBookingDateSatisfyMinBookingTime;
 

@@ -35,7 +35,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 @interface BookingViewController ()
 @property (nonatomic, strong) TopView *topView;
 @property (nonatomic, strong) UIButton *dismissButton;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *formScrollView;
 @property (nonatomic, strong) UILabel *charterLabel;
 @property (nonatomic, strong) BookingField *nameField;
 @property (nonatomic, strong) BookingField *lastNameField;
@@ -68,27 +68,27 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     _topView.delegate = self;
     [self.view addSubview:_topView];
     
-    _succesView = [SuccessView new];
-    _succesView.hidden = YES;
-    [self.view addSubview:_succesView];
+    _formScrollView = [UIScrollView new];
+    _formScrollView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_formScrollView];
     
     _datePickerView = [DatePickerView new];
-   // _datePickerView.minRequiredHours = [_charterService.minimumNoticeMinutes intValue];
+    // _datePickerView.minRequiredHours = [_charterService.minimumNoticeMinutes intValue];
     _datePickerView.delegate = self;
     _datePickerView.charterService = _charterService;
     [self.view addSubview:_datePickerView];
     
-    _scrollView = [UIScrollView new];
-    _scrollView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:_scrollView];
+    _succesView = [SuccessView new];
+    _succesView.hidden = YES;
+    [self.view addSubview:_succesView];
     
     if ([_charterService.bookingMode isEqualToString:kKeyBookingModeNoDate]) {
         _datePickerView.hidden = YES;
-        _scrollView.hidden = NO;
+        _formScrollView.hidden = NO;
 
     } else {
         _datePickerView.hidden = NO;
-        _scrollView.hidden = YES;
+        _formScrollView.hidden = YES;
     }
     
     _charterLabel = [UILabel new];
@@ -98,54 +98,54 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     _charterLabel.numberOfLines = 0;
     _charterLabel.textAlignment = NSTextAlignmentCenter;
     [_charterLabel setTextColor:[UIColor customMainColor]];
-    [_scrollView addSubview:_charterLabel];
+    [_formScrollView addSubview:_charterLabel];
     
     _nameField = [[BookingField alloc] initWithLabelName:@"Name"];
-    [_scrollView addSubview:_nameField];
+    [_formScrollView addSubview:_nameField];
     
     _lastNameField = [[BookingField alloc] initWithLabelName:@"Last Name"];
-    [_scrollView addSubview:_lastNameField];
+    [_formScrollView addSubview:_lastNameField];
     
     _phoneField = [[BookingField alloc] initWithLabelName:@"Phone"];
     _phoneField.textField.keyboardType = UIKeyboardTypePhonePad;
-    [_scrollView addSubview: _phoneField];
+    [_formScrollView addSubview: _phoneField];
     
     _emailField = [[BookingField alloc] initWithLabelName:@"Email"];
     _emailField.textField.keyboardType = UIKeyboardTypeEmailAddress;
-    [_scrollView addSubview:_emailField];
+    [_formScrollView addSubview:_emailField];
     
     _companyField = [[BookingField alloc] initWithLabelName:@"Company Name"];
-    [_scrollView addSubview:_companyField];
+    [_formScrollView addSubview:_companyField];
     
     _addressField = [[BookingField alloc] initWithLabelName:@"Address"];
-    [_scrollView addSubview:_addressField];
+    [_formScrollView addSubview:_addressField];
     
     _cityField = [[BookingField alloc] initWithLabelName:@"City"];
-    [_scrollView addSubview:_cityField];
+    [_formScrollView addSubview:_cityField];
     
     _countryField = [[BookingField alloc] initWithLabelName:@"Country"];
-    [_scrollView addSubview:_countryField];
+    [_formScrollView addSubview:_countryField];
     
     _stateField = [[BookingField alloc] initWithLabelName:@"State"];
-    [_scrollView addSubview: _stateField];
+    [_formScrollView addSubview: _stateField];
     
     _postCodeField = [[BookingField alloc] initWithLabelName:@"Postal Code"];
-    [_scrollView addSubview:_postCodeField];
+    [_formScrollView addSubview:_postCodeField];
     
     _arrayOfBookingFields = @[_nameField, _lastNameField, _phoneField, _emailField, _companyField, _addressField, _cityField, _countryField, _stateField, _postCodeField];
     
     _commentTextView = [[CommentTextView alloc] initWithLabelName:@"Comments:"];
-    [_scrollView addSubview:_commentTextView];
+    [_formScrollView addSubview:_commentTextView];
     
     _bookButton = [UIButton new];
     [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
     [_bookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_bookButton addTarget:self action:@selector(justForBookingTestSuccess) forControlEvents:UIControlEventTouchUpInside];
+    [_bookButton addTarget:self action:@selector(checkIfBookingHaveRequiredData) forControlEvents:UIControlEventTouchUpInside];
     //_bookButton.layer.borderColor = [UIColor customMainColor].CGColor;
     //_bookButton.layer.borderWidth = 2.0f;
     _bookButton.backgroundColor = [UIColor customMainColor];
     [_bookButton.titleLabel setFont:[UIFont regularFont:20]];
-    [_scrollView addSubview:_bookButton];
+    [_formScrollView addSubview:_bookButton];
     
     NSLog(@"the booking mode is = %@" , _charterService.bookingMode);
 }
@@ -160,17 +160,17 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     frame.size.height = kGeomTopViewHeight;
     _topView.frame = frame;
     
-    frame = _scrollView.frame;
+    frame = _formScrollView.frame;
     frame.origin.y = CGRectGetMaxY(_topView.frame);
     frame.origin.x = CGRectGetMinX(self.view.frame);
     frame.size.height = height(self.view) - _keyBoardHeight ;
     frame.size.width = width( self.view);
-    _scrollView.frame = frame;
+    _formScrollView.frame = frame;
     
     frame = _charterLabel.frame;
     frame.size.height = kGeomHeightTextField;
     frame.size.width = width(self.view) * 0.85;
-    frame.origin.y = CGRectGetMinY(_scrollView.frame) - kGeomTopViewHeight + kGeomMarginMedium;
+    frame.origin.y = CGRectGetMinY(_formScrollView.frame) - kGeomTopViewHeight + kGeomMarginMedium;
     frame.origin.x = (width(self.view) - frame.size.width) /2;
     _charterLabel.frame = frame;
 
@@ -178,9 +178,9 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     
     for (BookingField *bField in _arrayOfBookingFields) {
         frame = bField.frame;
-        frame.size.width = width(_scrollView);
+        frame.size.width = width(_formScrollView);
         frame.size.height = 70;
-        frame.origin.x = CGRectGetMinX(_scrollView.frame);
+        frame.origin.x = CGRectGetMinX(_formScrollView.frame);
         frame.origin.y = y;
         y += frame.size.height;
         bField.frame = frame;
@@ -192,17 +192,17 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     frame.origin.x = 0;
     frame.origin.y = CGRectGetMaxY(bField.frame) + kGeomMarginMedium;
     frame.size.height = kGeomHeightTextView;
-    frame.size.width = width(_scrollView);
+    frame.size.width = width(_formScrollView);
     _commentTextView.frame = frame;
     
     frame = _bookButton.frame;
     frame.size.width = width(self.view) * 0.8;
     frame.size.height = kGeomHeightBigbutton;
-    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.x = (width(_formScrollView) - frame.size.width) /2;
     frame.origin.y = CGRectGetMaxY(_commentTextView.frame) + kGeomMarginBig;
     _bookButton.frame = frame;
     
-    _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_bookButton.frame) + kGeomBottomPadding + kGeomMarginMedium);
+    _formScrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_bookButton.frame) + kGeomBottomPadding + kGeomMarginMedium);
     
     frame = _datePickerView.frame;
     frame.origin.x = CGRectGetMinX(self.view.frame);
@@ -230,11 +230,12 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     });
 }
 //delegate  method
-- (void)setPickedDateString:(NSString *)datePicked {
+- (void)setPickedDateStringAndShowForm:(NSString *)datePicked {
     
     _stringDate = datePicked;
     NSLog(@"the date in delegate is %@", _stringDate);
-    
+    _datePickerView.hidden = YES;
+    _formScrollView.hidden = NO;
 }
 
 -(void)checkIfBookingHaveRequiredData {
@@ -262,11 +263,23 @@ NSString *const kKeyErrorMessage = @"errorMessage";
         _formIsReadyToBook = NO;
     }
 
-    if (_formIsReadyToBook && [_datePickerView isBookingDateSatisfyMinBookingTime]) {
+    if ([_charterService.bookingMode isEqualToString:kKeyBookingModeNoDate]) {
        
-        [self bookNow];
+        if (_formIsReadyToBook) {
+            
+            [self bookNow];
+        } else {
+            NSLog(@"SOMETHING ITS MISSING");
+        }
+        
     } else {
-        NSLog(@"SOMETHING ITS MISSING");
+        
+        if (_formIsReadyToBook && _stringDate) {
+            [self bookNow];
+        } else {
+            
+            NSLog(@"THE DATE IS %@",  _stringDate);
+        }
     }
 }
 
@@ -364,7 +377,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     
     __weak BookingViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.scrollView.hidden = YES;
+        weakSelf.formScrollView.hidden = YES;
         weakSelf.succesView.hidden = NO;
         BookingObject *bookingObject = [BookingObject bookingFromDict:booking];
         weakSelf.succesView.booking = bookingObject;
@@ -392,6 +405,34 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 - (void)alertUserThatThereIsNoSessionForThisProduct {
     
     UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Sorry :(" message:@"This product has no availability, please try again later, or try with other product." preferredStyle:UIAlertControllerStyleAlert];
+    
+    __weak BookingViewController *weakSelf = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf presentViewController:alert animated:YES completion:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [alert dismissViewControllerAnimated:YES completion:nil];
+        });
+    });
+}
+
+- (void)alertUserThatMustSelectADate {
+    
+    UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Please select a date first" message:@"You must select a date before booking" preferredStyle:UIAlertControllerStyleAlert];
+    
+    __weak BookingViewController *weakSelf = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf presentViewController:alert animated:YES completion:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [alert dismissViewControllerAnimated:YES completion:nil];
+        });
+    });
+}
+
+- (void)alertUserSelectAgain {
+    
+    UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Something went wrong :(" message:@"Please select date again" preferredStyle:UIAlertControllerStyleAlert];
     
     __weak BookingViewController *weakSelf = self;
     

@@ -154,7 +154,6 @@
 
     _scrollView.contentSize = CGSizeMake(width(self), CGRectGetMaxY(_contactButton.frame) + kGeomBottomPadding + kGeomMarginMedium);
 
-    
 }
 
 - (void)setBooking:(BookingObject *)booking {
@@ -177,7 +176,7 @@
 - (void)onContactButtonPressed {
     
     NSLog(@"call");
-    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",kcontactNumber]];
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:kKeyPhonePrompt,kcontactNumber]];
     
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
         [[UIApplication sharedApplication] openURL:phoneUrl];

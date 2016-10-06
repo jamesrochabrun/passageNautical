@@ -67,6 +67,7 @@ extern NSString *const kbedAndBoatCategoryID;
 extern NSString *const kKeyBookingModeNoDate;
 extern NSString *const kKeyBookingModeInventory;
 extern NSString *const kKeyBookingModeDateEnquiry;
+extern NSString *const kKeyPhonePrompt;
 
 
 

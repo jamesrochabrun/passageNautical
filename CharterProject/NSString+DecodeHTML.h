@@ -14,5 +14,7 @@
 + (NSString *)trimString:(NSString *)string;
 + (NSString *)stringFromCurrentDate;
 + (NSString *)stringFromLocalTimeZone:(NSDate *)date;
++ (NSString *)stringDateFromLocalTimeZone:(NSString *)string;
++ (NSString *)stringHourFromLocalTimeZone:(NSString *)string;
 
 @end

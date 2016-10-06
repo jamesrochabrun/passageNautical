@@ -66,6 +66,12 @@ NSString *const kKeyFromSessions = @"sessions";
                                                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     
+    if (!charterService  || !startDate || !endDate) {
+        NSLog(@"SOMETHING WENT WRONG Charter : %@, STARTDATE : %@, ENDDATE:%@", charterService, startDate, endDate);
+        failure( nil,nil);
+        return nil;
+    }
+    
     NSString *endPoint = [NSString stringWithFormat:@"%@://%@/availability?endTimeLocal=%@&productCode=%@&startTimeLocal=%@&%@", kKeyHTTPProtocol , [CharterAPI URL], endDate, charterService.productCode, startDate , kKeyapiKey];
     
     NSString *endPointEncode = [endPoint stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];

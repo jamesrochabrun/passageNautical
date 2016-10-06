@@ -12,5 +12,7 @@
 
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, assign) BOOL isTime;
+- (void)layoutCell:(BOOL)isTime;
 
 @end

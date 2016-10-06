@@ -60,6 +60,19 @@
     return localDate;
 }
 
++ (NSString *)stringDateFromLocalTimeZone:(NSString *)string {
+    
+    NSArray *stringArray = [string componentsSeparatedByString: @" "];
+    NSString *date = [stringArray firstObject];
+    return date;
+}
+
++ (NSString *)stringHourFromLocalTimeZone:(NSString *)string {
+    
+    NSArray *stringArray = [string componentsSeparatedByString: @" "];
+    NSString *time = [stringArray lastObject];
+    return time;
+}
 
 
 
