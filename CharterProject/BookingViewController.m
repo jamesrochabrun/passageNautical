@@ -391,7 +391,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 
 - (void)alertUserThatThereIsNoSessionForThisProduct {
     
-    UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Sorry :(" message:@"This product has no availability, please try again later" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Sorry :(" message:@"This product has no availability, please try again later, or try with other product." preferredStyle:UIAlertControllerStyleAlert];
     
     __weak BookingViewController *weakSelf = self;
     

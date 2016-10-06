@@ -75,14 +75,16 @@ NSString *const kKeyFromSessions = @"sessions";
     
     AFHTTPRequestOperation *op = [nm GET:endPointEncode parameters:nil success:^(id responseObject) {
         
-        NSArray *arrayData = responseObject[kKeyFromSessions];
-        
         NSMutableArray *sessionsArray = [NSMutableArray new];
-        
-        for (id dict in arrayData) {
-            SessionObject *session = [SessionObject sessionFromDict:dict];
-            [sessionsArray addObject:session];
+
+        if ([responseObject objectForKey:kKeyFromSessions]) {
+           NSArray *arrayData = responseObject[kKeyFromSessions];
+            for (id dict in arrayData) {
+                SessionObject *session = [SessionObject sessionFromDict:dict];
+                [sessionsArray addObject:session];
+            }
         }
+        
         success(sessionsArray);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);

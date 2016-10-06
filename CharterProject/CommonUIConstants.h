@@ -46,11 +46,12 @@ static CGFloat kGeomMarginDismissButton = 26.0;
 static CGFloat kGeomHeightTextField = 35.0;
 static CGFloat kGeomSpaceEdge = 4.0;
 static CGFloat kGeomMinSpace = 1.0;
-static CGFloat kGeomMinimunInterItemSpacing = 5;
-static CGFloat kGeomSpaceCellPadding = 3;
-static CGFloat kGeomContactButton = 45;
-static CGFloat kGeomHeightTextView = 130;
-static CGFloat kGeomHeightTableView = 70;
+static CGFloat kGeomMinimunInterItemSpacing = 5.0;
+static CGFloat kGeomSpaceCellPadding = 3.0;
+static CGFloat kGeomContactButton = 45.0;
+static CGFloat kGeomHeightTextView = 130.0;
+static CGFloat kGeomHeightTableView = 70.0;
+static CGFloat kGeomHeightHeaderView = 50.0;
 
 
 

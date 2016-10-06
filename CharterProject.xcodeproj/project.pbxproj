@@ -26,6 +26,7 @@
 		7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B51D0B3C7600975BE9 /* CharterService.m */; };
 		7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */; };
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
+		7B2BF42D1DA5F0AD00123DAF /* TableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BF42C1DA5F0AD00123DAF /* TableHeaderView.m */; };
 		7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B41FD541D18A13B0037A849 /* FavoritesViewController.m */; };
 		7B4858741D1DE06600AAE2A7 /* DoubleTapImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */; };
 		7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */; };
@@ -109,6 +110,8 @@
 		7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		7B2AC3BA1D0BA4B200975BE9 /* CategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewCell.h; sourceTree = "<group>"; };
 		7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewCell.m; sourceTree = "<group>"; };
+		7B2BF42B1DA5F0AD00123DAF /* TableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableHeaderView.h; sourceTree = "<group>"; };
+		7B2BF42C1DA5F0AD00123DAF /* TableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableHeaderView.m; sourceTree = "<group>"; };
 		7B41FD531D18A13B0037A849 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		7B41FD541D18A13B0037A849 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		7B4858721D1DE06600AAE2A7 /* DoubleTapImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleTapImage.h; path = ../DoubleTapImage.h; sourceTree = "<group>"; };
@@ -272,6 +275,8 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B2BF42B1DA5F0AD00123DAF /* TableHeaderView.h */,
+				7B2BF42C1DA5F0AD00123DAF /* TableHeaderView.m */,
 				7B888C441DA31A5E00F90A00 /* InfoView.h */,
 				7B888C451DA31A5E00F90A00 /* InfoView.m */,
 				7B888C411DA2D1FE00F90A00 /* SuccessView.h */,
@@ -653,6 +658,7 @@
 				7B1484191D964A95002ADC55 /* TopView.m in Sources */,
 				7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */,
 				7BF1C2B31DA41F4B00D60E6D /* UITableView+Additions.m in Sources */,
+				7B2BF42D1DA5F0AD00123DAF /* TableHeaderView.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
 				7BA0FA3D1D9E1E20004A6F41 /* BookingObject.m in Sources */,
 				7B5844EF1D9F4DF900ED2AFC /* DatePickerView.m in Sources */,

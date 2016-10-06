@@ -19,10 +19,13 @@
 #import "NSDate+Adittions.h"
 #import "CharterAPI.h"
 #import "SessionObject.h"
+#import "TableHeaderView.h"
 
 static CGFloat secondsInMinute = 60.0;
 static CGFloat minuteInHour = 60.0;
 NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
+NSString *const kKeyCheckAvailability = @"Check Availability";
+NSString *const kKeyNext = @"Next";
 
 
 @implementation DatePickerView
@@ -36,7 +39,7 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextButton.titleLabel.font = [UIFont regularFont:17];
         [_nextButton addTarget:self action:@selector(checkAvailabilityButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [_nextButton setTitle:@"Next" forState:UIControlStateNormal];
+        [_nextButton setTitle:kKeyCheckAvailability forState:UIControlStateNormal];
         _nextButton.backgroundColor = [UIColor customMainColor];
         [self addSubview:_nextButton];
         
@@ -186,24 +189,29 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 
 - (void)checkAvailabilityButtonPressed {
     
-    if (![self isBookingDateSatisfyMinBookingTime]) {
-        _alertPickerLabel.hidden = NO;
+    if ([_nextButton.titleLabel.text isEqualToString:kKeyCheckAvailability]) {
+        if (![self isBookingDateSatisfyMinBookingTime]) {
+            _alertPickerLabel.hidden = NO;
+        }
+        
+        if ([self isEndDateLaterThanStartDate]) {
+            _endLabelAlert.hidden = YES;
+        } else {
+            _endLabelAlert.hidden = NO;
+        }
+        
+        if ([self isBookingDateSatisfyMinBookingTime] &&
+            [self isEndDateLaterThanStartDate]) {
+            NSLog(@"YES LETS GO!");
+            [self checkAvailabilityForService];
+        } else {
+            NSLog(@"NO DUDE SOMETHING IS MISSING");
+        }
+    } else if ([_nextButton.titleLabel.text isEqualToString:kKeyNext]) {
+        
+        //do something
     }
     
-    if ([self isEndDateLaterThanStartDate]) {
-        _endLabelAlert.hidden = YES;
-    } else {
-        _endLabelAlert.hidden = NO;
-    }
-    
-    if ([self isBookingDateSatisfyMinBookingTime] &&
-        [self isEndDateLaterThanStartDate]) {
-        //send strings to the server
-        NSLog(@"YES LETS GO!");
-        [self checkAvailabilityForService];
-    } else {
-        NSLog(@"NO DUDE SOMETHING IS MISSING");
-    }
 }
 
 - (void)checkAvailabilityForService {
@@ -221,10 +229,11 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.datesTableView reloadData];
                 weakSelf.datesTableView.hidden = NO;
+                [weakSelf.nextButton setTitle:kKeyNext forState:UIControlStateNormal];
             });
             
         } else {
-            NSLog(@"no sessions PUt an alarm to say it");
+            NSLog(@"MO SESSIONS FOUNDED");
             [self noSessionFounded];
         }
         
@@ -305,10 +314,19 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
     DateTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selected = YES;
 }
+   
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return  kGeomHeightHeaderView;
+}
 
 
-
-
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    TableHeaderView *header = [[TableHeaderView alloc] initWithHeaderTitle:@"Select a date"];
+    return header;
+    
+}
 
 
 
