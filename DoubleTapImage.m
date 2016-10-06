@@ -8,19 +8,36 @@
 
 #import "DoubleTapImage.h"
 
-@interface DoubleTapImage
-()<UIGestureRecognizerDelegate>
+@interface DoubleTapImage()<UIGestureRecognizerDelegate>
 
 @end
 @implementation DoubleTapImage
+//
+//USE THIS IF THE VIEW IS ATTACHED TO AN ELEMENT IN INTERFACE BUILDER
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
+//- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+//    
+//    self = [super initWithCoder:aDecoder];
+//    if (self) {
+//        self = [super initWithCoder:aDecoder];
+//        self.userInteractionEnabled = YES;
+//        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+//        doubleTap.numberOfTapsRequired= 2;
+//        self.gestureRecognizers = @[doubleTap];
+//        for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
+//            recognizer.delegate = self;
+//        }
+//    }
+//    return self;
+//}
+
+- (instancetype)init {
+    
+    self = [super init];
     if (self) {
-        self = [super initWithCoder:aDecoder];
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-        doubleTap.numberOfTapsRequired= 2;
+        doubleTap.numberOfTapsRequired = 2;
         self.gestureRecognizers = @[doubleTap];
         for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
             recognizer.delegate = self;
@@ -28,6 +45,7 @@
     }
     return self;
 }
+
 
 -(void)handleTap:(UITapGestureRecognizer *)gestureRecognizer {
     

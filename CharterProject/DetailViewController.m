@@ -15,155 +15,249 @@
 #import "NSString+DecodeHTML.h"
 #import <MessageUI/MessageUI.h>
 #import "MapViewController.h"
-#import "CoreDataStack.h"
-#import "CharterFavorite.h"
 #import "DoubleTapImage.h"
+#import "CommonUIConstants.h"
+#import "BookingViewController.h"
+#import "ListCVFL.h"
+#import "UICollectionView+Additions.h"
+#import "CharterCollectionViewCell.h"
+#import "InfoView.h"
+#import "PriceOptionObject.h"
 
-@interface DetailViewController ()<MFMailComposeViewControllerDelegate,DoubleTapImageDelegate>
 
-@property (weak, nonatomic) IBOutlet DoubleTapImage *doubleTapImageView;
+@interface DetailViewController ()<MFMailComposeViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UIButton *videoButton;
-@property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIButton *readMoreButton;
-@property (weak, nonatomic) IBOutlet UIButton *giftCardButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextViewConstraint;
-@property (weak, nonatomic) IBOutlet UIButton *phoneButton;
-@property (weak, nonatomic) IBOutlet UIButton *mailButton;
-@property (weak, nonatomic) IBOutlet UIButton *loveButton;
-@property (weak, nonatomic) IBOutlet UILabel *numberOFpeopleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *durationHoursLabel;
-@property (weak, nonatomic) IBOutlet UILabel *extraLabel;
-@property (weak, nonatomic) IBOutlet UIButton *mapButton;
-@property (weak, nonatomic) IBOutlet UIButton *generalTermsButton;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UIButton *videoButton;
+@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UIButton *readMoreButton;
+@property (nonatomic, strong) UIButton *giftCardButton;
+@property (nonatomic, strong) UIButton *mapButton;
+@property (nonatomic, strong) UIButton *generalTermsButton;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout *listsLayout;
+@property (nonatomic, strong) UIButton *shareButton;
+@property (nonatomic, strong) UIButton *bookButton;
+@property (nonatomic, strong) InfoView *infoView;
 
 @end
+
+static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
+static NSString *const itemURL =  @"itemUrl";
 
 @implementation DetailViewController
 
 
 - (void)viewDidLoad {
     
+//    NSLog(@"the price options are %lu", (unsigned long)_charterService.priceOptions.count);
+//    for (PriceOptionObject *pO in _charterService.priceOptions) {
+//        NSLog(@"the po label is %@", pO.priceOptionLabel);
+//    }
+//    
+    self.title = self.charterService.name;
+    
     self.navigationController.navigationBar.hidden = NO;
-    [self setButtonssAppereance];
-    [self setTextViewsAppereance];
-    [self setlabelsAppereance];
-    [self addShadowToImageView];
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height *3)];
-    [self displayCharterFavoriteObjectData];
+    _scrollView = [UIScrollView new];
+    _scrollView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_scrollView];
+
+    _listsLayout = [[ListCVFL alloc] init];
+    [_listsLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    _listsLayout.minimumInteritemSpacing = 0;
+    _listsLayout.minimumLineSpacing = 0;
     
-    BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
+    _collectionView = [UICollectionView collectionViewWithLayout:_listsLayout inView:self.view delegate:self];
+    [_collectionView registerClass:[CharterCollectionViewCell class] forCellWithReuseIdentifier:FilterCelIdentifier];
+    _collectionView.pagingEnabled = YES;
+    _collectionView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _collectionView.layer.shadowOffset = CGSizeMake(0, 4);
+    _collectionView.layer.shadowOpacity = 0.7;
+    _collectionView.layer.shadowRadius = 10;
+    _collectionView.clipsToBounds = NO;
+    [_scrollView addSubview:_collectionView];
     
-    if (isFavorite) {
-        [self.loveButton setSelected:YES];
+    _infoView = [InfoView new];
+    _infoView.charter = self.charterService;
+    [_scrollView addSubview:_infoView];
+    
+    _textView = [UITextView new];
+    _textView.scrollEnabled = NO;
+    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:_charterService.shortDescription];
+    NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
+    [_textView setText:stringWithNoHTML];
+    _textView.font = [UIFont regularFont:14];
+    _textView.textColor = [UIColor customTextColor];
+    //_textView.textAlignment = NSTextAlignmentCenter;
+    [_scrollView addSubview:_textView];
+    
+    _readMoreButton = [UIButton new];
+    [_readMoreButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    _readMoreButton.titleLabel.font = [UIFont regularFont:15];
+    [_readMoreButton addTarget:self action:@selector(performReadMoreSegue:) forControlEvents:UIControlEventTouchUpInside];
+    [_readMoreButton setTitle:@"Read More" forState:UIControlStateNormal];
+    [_scrollView addSubview:_readMoreButton];
+    
+    _mapButton = [UIButton new];
+    [_mapButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    _mapButton.titleLabel.font = [UIFont regularFont:15];
+    _mapButton.layer.borderWidth = 2.0f;
+    _mapButton.layer.borderColor = [UIColor customMainColor].CGColor;
+    [_mapButton setTitle:@"Show Departure Point" forState:UIControlStateNormal];
+    [_mapButton addTarget:self action:@selector(performMapSegue:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_mapButton];
+    
+    _shareButton = [UIButton new];
+    [_shareButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    _shareButton.titleLabel.font = [UIFont regularFont:15];
+    _shareButton.layer.borderWidth = 2.0f;
+    _shareButton.layer.borderColor = [UIColor customMainColor].CGColor;
+    [_shareButton setTitle:@"Share With a Friend" forState:UIControlStateNormal];
+    [_shareButton addTarget:self action:@selector(onShareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_shareButton];
+    
+    _generalTermsButton = [UIButton new];
+    [_generalTermsButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+    _generalTermsButton.titleLabel.font = [UIFont regularFont:15];
+    [_generalTermsButton addTarget:self action:@selector(performGeneralTermsSegue:) forControlEvents:UIControlEventTouchUpInside];
+    [_generalTermsButton setTitle:@"General Terms" forState:UIControlStateNormal];
+    [_scrollView addSubview:_generalTermsButton];
+    
+    _bookButton = [UIButton new];
+    [_bookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _bookButton.titleLabel.font = [UIFont regularFont:17];
+    [_bookButton addTarget:self action:@selector(performBookSegue:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([_charterService.bookingMode isEqualToString:kKeyBookingModeNoDate]) {
+        [_bookButton setTitle:@"Book Now" forState:UIControlStateNormal];
     } else {
-        [self.loveButton setSelected:NO];
+        [_bookButton setTitle:@"Check Availability" forState:UIControlStateNormal];
     }
     
-    self.doubleTapImageView.delegate = self;
-}
-
-
-- (void)addShadowToImageView {
-    self.doubleTapImageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.doubleTapImageView.layer.shadowOffset = CGSizeMake(0, 4);
-    self.doubleTapImageView.layer.shadowOpacity = 0.7;
-    self.doubleTapImageView.layer.shadowRadius = 10;
-    self.doubleTapImageView.clipsToBounds = NO;
-}
-
-- (void)setButtonssAppereance {
-
-    [self.readMoreButton setTintColor:[UIColor customMainColor]];
-    self.readMoreButton.titleLabel.font = [UIFont regularFont:15];
-    self.videoButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    self.videoButton.layer.borderWidth = 2.0f;
-    self.videoButton.titleLabel.font = [UIFont regularFont:17];
-    self.giftCardButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    self.giftCardButton.layer.borderWidth = 2.0f;
-    [self.giftCardButton setTintColor:[UIColor customMainColor]];
-    self.giftCardButton.titleLabel.font = [UIFont regularFont:17];
-    [self.phoneButton setImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
-    [self.phoneButton setTintColor:[UIColor whiteColor]];
-    [self.mailButton setImage:[UIImage imageNamed:@"mail"] forState:UIControlStateNormal];
-    [self.loveButton setImage:[UIImage imageNamed:@"love"] forState:UIControlStateNormal];
-    [self.loveButton setImage:[UIImage imageNamed:@"fullLove"] forState:UIControlStateSelected];
-    [self.loveButton setTintColor:[UIColor customMainColor]];
-    [self.mailButton setTintColor:[UIColor whiteColor]];
-    [self.mapButton setTintColor:[UIColor customMainColor]];
-    self.mapButton.titleLabel.font = [UIFont regularFont:15];
-    self.mapButton.layer.borderWidth = 2.0f;
-    self.mapButton.layer.borderColor = [UIColor customMainColor].CGColor;
-    [self.generalTermsButton setTintColor:[UIColor customMainColor]];
-    self.generalTermsButton.titleLabel.font = [UIFont regularFont:14];
-}
-
-
-- (void)setTextViewsAppereance {
-    [self.textView setFont:[UIFont regularFont:15]];
-    [self.textView setScrollEnabled:NO];
-    [self.textView setUserInteractionEnabled:NO];
-    [self.textView setBackgroundColor:[UIColor clearColor]];
-    self.textView.textColor = [UIColor customTextColor];
-       CGSize sizeThatShouldFitTheContent = [self.textView sizeThatFits:self.textView.frame.size];
-    self.heightTextViewConstraint.constant = sizeThatShouldFitTheContent.height;
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0,0 , self.view.frame.size.width, 1)];
-    lineView.backgroundColor = [UIColor colorWithRed:0.5363 green:0.5182 blue:0.3785 alpha:0.5];
-    [self.textView addSubview:lineView];
-}
-
-- (void)setlabelsAppereance {
-    self.numberOFpeopleLabel.font = [UIFont regularFont:18];
-    self.numberOFpeopleLabel.textColor = [UIColor customTextColor];
-    self.durationHoursLabel.font = [UIFont regularFont:18];
-    self.durationHoursLabel.textColor = [UIColor customTextColor];
-    self.extraLabel.font = [UIFont regularFont:18];
-    self.extraLabel.textColor = [UIColor customTextColor];
-    self.priceLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    self.priceLabel.font = [UIFont regularFont:20];
-}
-
-- (void)displayCharterFavoriteObjectData {
+    _bookButton.backgroundColor = [UIColor customMainColor];
+    [self.view addSubview:_bookButton];
     
-    self.title = self.charterFavorite.name;
-    //display the first image of the charter gallery
-    [self.doubleTapImageView setImageWithURL:[NSURL URLWithString:self.charterFavorite.imageURL]
-                   placeholderImage:[UIImage imageNamed:@"yate"]];
-    //display price
-    self.priceLabel.text = [NSString stringWithFormat:@"%@ %@", self.charterFavorite.currency , self.charterFavorite.advertisedPrice];
+}
 
-    //display information labels
-    int hours = [self.charterFavorite.durationMinutes intValue] /60;
-    self.durationHoursLabel.text = [NSString stringWithFormat:@"%d H",hours];
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
     
-    //display shortDescription
-    NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.charterFavorite.shortCharterDescription];
-    NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
-    [self.textView setText:stringWithNoHTML];
+    CGRect frame = _bookButton.frame;
+    frame.size.height = kGeomHeightBigbutton;
+    frame.size.width = width(self.view);
+    frame.origin.x = 0;
+    frame.origin.y = height(self.view) - kGeomHeightBigbutton;
+    _bookButton.frame = frame;
     
+    frame = _scrollView.frame;
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    frame.size.width = width(self.view);
+    frame.size.height = height(self.view) - kGeomHeightBigbutton;
+    _scrollView.frame = frame;
+    
+    frame = _collectionView.frame;
+    frame.origin.x = originX(_scrollView);
+    frame.origin.y = originY(_scrollView);
+    frame.size.width = width(self.view);
+    frame.size.height = 220;
+    _collectionView.frame = frame;
+    
+    frame = _infoView.frame;
+    frame.origin.x = originX(_scrollView);
+    frame.origin.y = CGRectGetMaxY(_collectionView.frame) + kGeomMarginMedium;
+    frame.size.width = width(_scrollView);
+    frame.size.height = 90;
+    _infoView.frame = frame;
+    
+    [self textViewDidChange:_textView];
+    
+    frame = _readMoreButton.frame;
+    frame.size.height = kGeomHeightTextField;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_textView.frame) + kGeomMarginSmall;
+    _readMoreButton.frame = frame;
+    
+    frame = _mapButton.frame;
+    frame.size.height = kGeomHeightBigbutton;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_readMoreButton.frame) + kGeomMarginMedium;
+    _mapButton.frame = frame;
+    
+    frame = _shareButton.frame;
+    frame.size.height = kGeomHeightBigbutton;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_mapButton.frame) + kGeomMarginMedium;
+    _shareButton.frame = frame;
+    
+    frame = _generalTermsButton.frame;
+    frame.size.height = kGeomHeightTextField;
+    frame.size.width = kGeomWidthBigButton;
+    frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+    frame.origin.y = CGRectGetMaxY(_shareButton.frame) + kGeomMarginMedium;
+    _generalTermsButton.frame = frame;
+    
+    _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_generalTermsButton.frame) + kGeomBottomPadding);
+
+    
+}
+
+
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    CGFloat fixedWidth = width(self.view) * 0.8;
+    CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+    CGRect newFrame = textView.frame;
+    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
+    newFrame.origin.x = (width(self.view) - fixedWidth) /2;
+    newFrame.origin.y = CGRectGetMaxY(_infoView.frame) + kGeomMarginSmall;
+    textView.frame = newFrame;
+}
+
+- (void)performReadMoreSegue:(id)sender {
+    [self performSegueWithIdentifier:@"readMore" sender:sender];
+}
+
+- (void)performGeneralTermsSegue:(id)sender {
+    [self performSegueWithIdentifier:@"generalTerms" sender:sender];
+}
+
+- (void)performMapSegue:(id)sender {
+    [self performSegueWithIdentifier:@"map" sender:sender];
+}
+
+- (void)performBookSegue:(id)sender {
+    [self performSegueWithIdentifier:@"book" sender:sender];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
         DescriptionViewController *desVC = segue.destinationViewController;
-        if ([segue.identifier isEqualToString:@"DescriptionSegue"]) {
-            desVC.labelData = self.charterFavorite.name;
-            desVC.textFieldData = self.charterFavorite.charterDescription;
+        if ([segue.identifier isEqualToString:@"readMore"]) {
+            desVC.labelDataText = _charterService.name;
+            desVC.textFieldData = _charterService.charterDescription;
         } else if ([segue.identifier isEqualToString:@"generalTerms"]) {
-            desVC.labelData = @"General Terms";
-            desVC.textFieldData = self.charterFavorite.generalTerms;
-        } else{
+            desVC.labelDataText = @"General Terms";
+            desVC.textFieldData = _charterService.generalTerms;
+        } else if ([segue.identifier isEqualToString:@"map"]){
             MapViewController *mapViewController = segue.destinationViewController;
-            mapViewController.charterFavorite = self.charterFavorite;
+            mapViewController.charterService = _charterService;
+        } else if ([segue.identifier isEqualToString:@"book"]) {
+            BookingViewController *bVC = segue.destinationViewController;
+            bVC.charterService = _charterService;
         }
-    
 }
 
-- (IBAction)callPassageNautical:(UIButton *)sender {
-    NSString *phNo = @"+919876543210";
-    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",phNo]];
+- (void)callNumber {
+    
+    NSLog(@"call");
+
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:kKeyPhonePrompt,kcontactNumber]];
     
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
         [[UIApplication sharedApplication] openURL:phoneUrl];
@@ -173,13 +267,14 @@
     }
 }
 
-- (IBAction)mailPassageNautical:(UIButton *)sender {
-    // Email Subject
-    NSString *emailTitle = @"about Charter information";
+- (void)sendEmail {
+    NSLog(@"email");
+    
+    NSString *emailTitle = kemailSubject;
     // Email Content
-    NSString *messageBody = [NSString stringWithFormat:@"I am interested in rent the %@", self.charterFavorite.name];
+    NSString *messageBody = [NSString stringWithFormat:@"I am interested in rent the %@", self.charterService.name];
     // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:@"passagenautical@passagenautical.com"];
+    NSArray *toRecipents = [NSArray arrayWithObject:kcontactEmail];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;
@@ -188,7 +283,12 @@
     [mc setToRecipients:toRecipents];
     
     // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:NULL];
+    if (mc) {
+        __weak DetailViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf presentViewController:mc animated:YES completion:NULL];
+        });
+    }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -211,13 +311,16 @@
             break;
     }
     // Close the Mail Interface
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    __weak DetailViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+    });
 }
 
 
-
-- (IBAction)onShareButtonPressed:(UIButton *)sender {
-    NSString *shareText = [NSString stringWithFormat:@"%@, %@", self.charterFavorite.advertisedPrice , self.charterFavorite.shortCharterDescription];
+- (void)onShareButtonPressed {
+    
+    NSString *shareText = [NSString stringWithFormat:@"%@, %@", self.charterService.advertisedPrice , self.charterService.shortDescription];
     NSURL *shareLink = [[NSURL alloc] initWithString:@"www.passagenautical.com"];
     
     UIActivityViewController *activityViewController =
@@ -230,63 +333,51 @@
                                                        UIActivityTypeCopyToPasteboard,
                                                        UIActivityTypeMessage]];
     
+    __weak DetailViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^(void){
-        [self presentViewController:activityViewController animated:YES completion:nil];
+        [weakSelf presentViewController:activityViewController animated:YES completion:nil];
     });
-}
-
-
-- (IBAction)addToFavorites:(UIButton *)sender {
-
-    BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
-    if (!isFavorite) {
-        [sender setSelected:YES];
-        [self changingIsFavoriteToTrue];
-    } else {
-        [sender setSelected:NO];
-        [self changingIsFavoriteToFalse];
-    }
 }
 
 - (void)didIamgeDoubleTapped {
-    BOOL isFavorite = [self.charterFavorite.isFavorite boolValue];
-    if (!isFavorite) {
-        [self.loveButton setSelected:YES];
-        [self changingIsFavoriteToTrue];
-    } else {
-        [self.loveButton setSelected:NO];
-        [self changingIsFavoriteToFalse];
-    }
-    
-    NSLog(@"hello");
-}
-
-- (void)changingIsFavoriteToTrue {
-    
-    BOOL myBool = YES;
-    self.charterFavorite.isFavorite = [NSNumber numberWithBool:myBool];
-    
-    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    [coreDataStack saveContext];
-    
-    UIAlertController *alertSaved = [UIAlertController alertControllerWithTitle:@"Added to favorites!" message:@"You can revisit this in your favorites section" preferredStyle:UIAlertControllerStyleAlert];
-    [self presentViewController:alertSaved animated:YES completion:nil];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [alertSaved dismissViewControllerAnimated:YES completion:nil];
-    });
-}
-
-- (void)changingIsFavoriteToFalse {
-    BOOL myBool = NO;
-    self.charterFavorite.isFavorite = [NSNumber numberWithBool:myBool];
-    
-    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
-    [coreDataStack saveContext];
+    NSLog(@"hehh");
 }
 
 
+#pragma collectionView Methods
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _charterService.images.count;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return kGeomMinSpace;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return CGSizeMake(width(_collectionView) , height(_collectionView));
+}
 
 
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CharterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FilterCelIdentifier forIndexPath:indexPath];
+    cell.delegate = self;
+    
+    NSDictionary *imagesDictionary = [_charterService.images objectAtIndex:indexPath.row];
+    NSString *urlStr = [CharterService urlStringWithNoSpaces:imagesDictionary];
+    cell.priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.advertisedPrice];
+    [cell.doubleTapImage setImageWithURL:[NSURL URLWithString:urlStr]
+                        placeholderImage:[UIImage imageNamed:@"yate"]];
+    return cell;
+}
+
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    
+    return UIEdgeInsetsMake(0,0,0,0);
+}
 
 
 

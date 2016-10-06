@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CharterFavorite;
+#import "CharterCollectionViewCell.h"
+@class CharterService;
 
-@interface DetailViewController : UIViewController
-@property CharterFavorite *charterFavorite;
+@interface DetailViewController : UIViewController<CharterCollectionViewCellDelegate>
+@property CharterService *charterService;
 
 
 

@@ -10,7 +10,6 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "CharterService.h"
-#import "CharterFavorite.h"
 
 @interface MapViewController ()<MKMapViewDelegate,CLLocationManagerDelegate>
 @property CLLocationManager *locationManager;
@@ -27,7 +26,7 @@
 
 - (void)viewDidLoad {
 
-    self.dismissButton.tintColor = [UIColor whiteColor];
+    _dismissButton.tintColor = [UIColor whiteColor];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self.locationManager requestWhenInUseAuthorization];
@@ -37,15 +36,20 @@
 
 
 - (void)viewDidDisappear:(BOOL)animated {
+    
     [self.locationManager stopUpdatingLocation];
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = CLLocationCoordinate2DMake([self.charterFavorite.latitude doubleValue], [self.charterFavorite.longitude doubleValue]);
-    point.title = @"Passage Nautical";
-    point.subtitle = @"Richmond";
+    
+    NSLog(@"the latitude is %@ , and the longitude is %@", _charterService.latitude , _charterService.longitude);
+    
+    point.coordinate = CLLocationCoordinate2DMake([self.charterService.latitude doubleValue], [self.charterService.longitude doubleValue]);
+    point.title = @"Departure point";
+   // point.subtitle = @"Richmond";
+
     
     [self.mapView setRegion:MKCoordinateRegionMake(point.coordinate, MKCoordinateSpanMake(0.8f, 0.8f)) animated:YES];
 
@@ -72,14 +76,19 @@
 }
 
 - (IBAction)getDirectionsButtonTapped:(UIButton *)sender {
-    NSString *stringUrl = [NSString stringWithFormat:@"http://maps.apple.com/maps?daddr=%@,%@", self.charterFavorite.latitude ,self.charterFavorite.longitude];
+    
+    NSString *stringUrl = [NSString stringWithFormat:@"http://maps.apple.com/maps?daddr=%@,%@", self.charterService.latitude ,self.charterService.longitude];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringUrl]];
 }
 
 
 
 - (IBAction)dismissView:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    __weak MapViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 

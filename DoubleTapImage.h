@@ -17,6 +17,6 @@
 
 @interface DoubleTapImage : UIImageView
 @property id<DoubleTapImageDelegate>delegate;
-- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)init;
 
 @end

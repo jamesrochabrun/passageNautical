@@ -7,8 +7,9 @@
 //
 
 #import "CharterService.h"
+#import "Common.h"
+#import "PriceOptionObject.h"
 
-@implementation CharterService
 
 NSString *const CHname = @"name";
 NSString *const CHadvertisedPrice = @"advertisedPrice";
@@ -16,7 +17,7 @@ NSString *const CHbookingFields = @"bookingFields";
 NSString *const CHbookingMode = @"bookingMode";
 NSString *const CHcharter = @"charter";
 NSString *const CHconfirmMode = @"confirmMode";
-NSString *const CHconfirmModeMinParticpants = @"confirmModeMinParticipants";
+NSString *const CHconfirmModeMinParticipants = @"confirmModeMinParticipants";
 NSString *const CHcurrency = @"currency";
 NSString *const CHdateUpdated = @"dateUpdated";
 NSString *const CHcharterDescription = @"description";
@@ -41,47 +42,70 @@ NSString *const CHsupplierId = @"supplierId";
 NSString *const CHterms = @"terms";
 NSString *const CHunitLabel = @"unitLabel";
 NSString *const CHunitLabelPlural = @"unitLabelPlural";
+NSString *const CHimageURL = @"itemUrl";
 
 
+@implementation CharterService
 
-- (instancetype)initWithDictionary:(NSDictionary*)dict {
++ (CharterService *)charterServiceFromDict:(NSDictionary *)dict {
     
-    self = [super init];
-    if (self) {
-        _name = [dict valueForKey:CHname];
-        _advertisedPrice = [dict valueForKey:CHadvertisedPrice];
-        _bookingFields = [dict valueForKey:CHbookingFields];
-        _bookingMode = [dict valueForKey:CHbookingMode];
-        _charter = [dict valueForKey:CHcharter];
-        _confirmMode = [dict valueForKey:CHconfirmMode];
-        _confirmModeMinParticipants = [dict valueForKey:CHconfirmModeMinParticpants];
-        _currency = [dict valueForKey:CHcurrency];
-        _dateUpdated = [dict valueForKey:CHdateUpdated];
-        _charterDescription = [dict valueForKey:CHcharterDescription];
-        _durationMinutes = [dict valueForKey:CHdurationMinutes];
-        _extras = [dict valueForKey:CHextras];
-        _generalTerms = [dict valueForKey:CHgeneralTerms];
-        _images = [dict valueForKey:CHimages];
-        _internalCode = [dict valueForKey:CHinternalCode];
-        _latitude = [dict valueForKey:CHlatitude];
-        _longitude = [dict valueForKey:CHlongitude];
-        _locationAddress = [dict valueForKey:CHlocationAddress];
-        _minimumNoticeMinutes = [dict valueForKey:CHminimumNoticeMinutes];
-        _priceOptions = [dict valueForKey:CHpriceOptions];
-        _productCode = [dict valueForKey:CHproductCode];
-        _productType = [dict valueForKey:CHproductType];
-        _quantityRequired = [dict valueForKey:CHquantityRequired];
-        _quantityRequiredMax = [dict valueForKey:CHquantityRequiredMax];
-        _quantityRequiredMin = [dict valueForKey:CHquantityRequiredMin];
-        _shortDescription = [dict valueForKey:CHshortDescription];
-        _supplierAlias = [dict valueForKey:CHsupplierAlias];
-        _supplierId = [dict valueForKey:CHsupplierId];
-        _terms = [dict valueForKey:CHterms];
-        _unitLabel = [dict valueForKey:CHunitLabel];
-        _unitLabelPlural = [dict valueForKey:CHunitLabelPlural];
+    CharterService *charter = [CharterService new];
+    charter.name = parseStringOrNullFromServer(dict[CHname]);
+    charter.advertisedPrice = parseNSNumberOrNullFromServer(dict[CHadvertisedPrice]);
+    charter.bookingFields = parseArrayOrNullFromServer(dict[CHbookingFields]);
+    charter.bookingMode = parseStringOrNullFromServer(dict[CHbookingMode]);
+    charter.charter = dict[CHcharter];
+    charter.confirmMode = parseStringOrNullFromServer(dict[CHconfirmMode]);
+    charter.confirmModeMinParticipants = parseNSNumberOrNullFromServer(dict[CHconfirmModeMinParticipants]);
+    charter.currency = parseStringOrNullFromServer(dict[CHcurrency]);
+    charter.dateUpdated = parseStringOrNullFromServer(dict[CHdateUpdated]);
+    charter.charterDescription = parseStringOrNullFromServer(dict[CHcharterDescription]);
+    charter.durationMinutes = parseNSNumberOrNullFromServer(dict[CHdurationMinutes]);
+    charter.extras = parseArrayOrNullFromServer(dict[CHextras]);
+    charter.generalTerms = parseStringOrNullFromServer(dict[CHgeneralTerms]);
+    charter.images = parseArrayOrNullFromServer(dict[CHimages]);
+    charter.internalCode = parseStringOrNullFromServer(dict[CHinternalCode]);
+    charter.latitude = parseNSNumberOrNullFromServer(dict[CHlatitude]);
+    charter.longitude = parseNSNumberOrNullFromServer(dict[CHlongitude]);
+    charter.locationAddress = parseDictionaryOrNullFromServer(dict[CHlocationAddress]);
+    charter.minimumNoticeMinutes = parseNSNumberOrNullFromServer(dict[CHminimumNoticeMinutes]);
+    charter.productCode = parseStringOrNullFromServer(dict[CHproductCode]);
+    charter.productType = parseStringOrNullFromServer(dict[CHproductType]);
+    charter.quantityRequired = parseNSNumberOrNullFromServer(dict[CHquantityRequired]);
+    charter.quantityRequiredMax = parseNSNumberOrNullFromServer(dict[CHquantityRequiredMax]);
+    charter.quantityRequiredMin = parseNSNumberOrNullFromServer(dict[CHquantityRequiredMin]);
+    charter.shortDescription = parseStringOrNullFromServer(dict[CHshortDescription]);
+    charter.supplierAlias = parseStringOrNullFromServer(dict[CHsupplierAlias]);
+    charter.supplierId = parseNSNumberOrNullFromServer(dict[CHsupplierId]);
+    charter.terms = parseStringOrNullFromServer(dict[CHterms]);
+    charter.unitLabel = parseStringOrNullFromServer(dict[CHunitLabel]);
+    charter.unitLabelPlural = parseStringOrNullFromServer(dict[CHunitLabelPlural]);
+    
+    //setting the ImageURL :
+    NSDictionary *imagesDictionary = [charter.images firstObject];
+    charter.imageURL = [self urlStringWithNoSpaces:imagesDictionary];
+    
+    //setting the PriceOptionObject
+    NSArray *arr = parseArrayOrNullFromServer(dict[CHpriceOptions]);
+    charter.priceOptions = [NSMutableArray new];
+    for (NSDictionary *priceOptionDict in arr) {
+        PriceOptionObject *priceOption = [PriceOptionObject priceOptionFromDict:priceOptionDict];
+        [charter.priceOptions addObject:priceOption];
     }
-    return self;
+    
+    return charter;
 }
+
++ (NSString *)urlStringWithNoSpaces:(NSDictionary *)dict {
+    
+    NSString *itemUrl = [dict valueForKey:CHimageURL];
+    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    return itemUrlWithNoSpaces;
+}
+
+
+
+
 
 
 @end

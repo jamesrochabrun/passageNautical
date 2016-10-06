@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomToolBar.h"
 
-@interface FavoritesViewController : UIViewController
+
+@interface FavoritesViewController : UIViewController <CustomToolBarDelegate>
 
 @end

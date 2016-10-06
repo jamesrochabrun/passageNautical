@@ -14,9 +14,9 @@
 #import "UIFont+CustomFont.h"
 
 @interface CategoryTableViewCell ()
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, strong) UIView *frameView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *descriptionLabel;
 
 @end
 
@@ -26,10 +26,59 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    _frameView = [UIView new];
+    _frameView.layer.borderColor = [UIColor customMainColor].CGColor;
+    _frameView.layer.borderWidth = 2.0f;
+    [self addSubview:_frameView];
+    
+    _titleLabel = [UILabel new];
+    _titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    _titleLabel.layer.shadowRadius = 3.0f;
+    _titleLabel.layer.shadowOpacity = 1;
+    _titleLabel.layer.shadowOffset = CGSizeZero;
+    _titleLabel.layer.masksToBounds = NO;
+    [_titleLabel setFont:[UIFont mediumFont:22]];
+    [self addSubview:_titleLabel];
+    
+    _descriptionLabel = [UILabel new];
+    _descriptionLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    _descriptionLabel.font = [UIFont regularFont:14];
+    _descriptionLabel.layer.shadowColor = [UIColor customTextColor].CGColor;
+    _descriptionLabel.layer.shadowRadius = 5.0f;
+    _descriptionLabel.layer.shadowOpacity = 1;
+    _descriptionLabel.layer.shadowOffset = CGSizeZero;
+    _descriptionLabel.layer.masksToBounds = NO;
+    _descriptionLabel.text = @"San Francisco";
+    [self addSubview:_descriptionLabel];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+
+- (void)layoutSubviews {
+    
+    [super layoutSubviews];
+    
+    [_titleLabel sizeToFit];
+    CGRect frame = _titleLabel.frame;
+    frame.origin.x = (width(self) - width(_titleLabel)) /2;
+    frame.origin.y = (height(self) - height(_titleLabel)) /2;
+    _titleLabel.frame = frame;
+    
+    [_descriptionLabel sizeToFit];
+    frame.origin.x = (width(self) - width(_descriptionLabel)) /2;
+    frame.origin.y = CGRectGetMaxY(_titleLabel.frame);
+    _descriptionLabel.frame = frame;
+    
+    frame = _frameView.frame;
+    frame.size.height = height(self) * 0.5;
+    frame.size.width = width(self) * 0.65;
+    frame.origin.x = (width(self) - frame.size.width) /2;
+    frame.origin.y = (height(self) - frame.size.height) /2;
+    _frameView.frame = frame;
 }
 
 
@@ -42,42 +91,32 @@
         NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
         NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         
-        //background Image of mainCell
         UIImageView *imageView = [UIImageView new];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+    
         [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
                   placeholderImage:[UIImage imageNamed:@"yate"]];
         self.backgroundView = imageView;
+//
+//    UIImageView *imageView = [UIImageView new];
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    imageView.clipsToBounds = YES;
+//    imageView.image = [UIImage imageNamed:@"test.jpg"];
+//    self.backgroundView = imageView;
+
+    
         //category name label
         if ([charterService.name containsString:@"Full Day"]) {
-            self.titleLabel.text = @"Full day Charters";
+            _titleLabel.text = @"Full day Charters";
         } else if ([charterService.name containsString:@"Half-Day"]){
-            self.titleLabel.text = @"Half Day Charters";
+            _titleLabel.text = @"Half Day Charters";
         } else if ([charterService.name containsString:@"Nautical Overnight"]) {
-            self.titleLabel.text = @"Nautical Overnight";
+            _titleLabel.text = @"Nautical Overnight";
         } else {
-            self.titleLabel.text = @"Bed & Boat";
+            _titleLabel.text = @"Bed & Boat";
         }
-        self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-        self.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.titleLabel.layer.shadowRadius = 3.0f;
-        self.titleLabel.layer.shadowOpacity = 1;
-        self.titleLabel.layer.shadowOffset = CGSizeZero;
-        self.titleLabel.layer.masksToBounds = NO;
-        [self.titleLabel setFont:[UIFont mediumFont:22]];
-        
-        //category description Label
-        self.descriptionLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-        self.descriptionLabel.font = [UIFont regularFont:14];
-        self.descriptionLabel.layer.shadowColor = [UIColor customTextColor].CGColor;
-        self.descriptionLabel.layer.shadowRadius = 5.0f;
-        self.descriptionLabel.layer.shadowOpacity = 1;
-        self.descriptionLabel.layer.shadowOffset = CGSizeZero;
-        self.descriptionLabel.layer.masksToBounds = NO;
-        self.descriptionLabel.text = @"San Francisco";
     
-    
-        
 }
 
 

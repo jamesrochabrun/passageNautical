@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface MainViewController : UIViewController
+#import "CustomToolBar.h"
+@interface MainViewController : UIViewController <CustomToolBarDelegate>
 
 @end
