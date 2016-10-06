@@ -10,4 +10,7 @@
 
 @interface DateTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UILabel *timeLabel;
+
 @end

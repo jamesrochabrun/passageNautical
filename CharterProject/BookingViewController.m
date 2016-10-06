@@ -148,8 +148,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     [_scrollView addSubview:_bookButton];
     
     NSLog(@"the booking mode is = %@" , _charterService.bookingMode);
-    NSLog(@"the date in viewdidload is %@", _stringDate);
-
 }
 
 - (void)viewWillLayoutSubviews {
@@ -206,13 +204,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     
     _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_bookButton.frame) + kGeomBottomPadding + kGeomMarginMedium);
     
-    frame = _succesView.frame;
-    frame.origin.y = CGRectGetMaxY(_topView.frame);
-    frame.origin.x = CGRectGetMinX(self.view.frame);
-    frame.size.height = height(self.view);
-    frame.size.width = width( self.view);
-    _succesView.frame = frame;
-    
     frame = _datePickerView.frame;
     frame.origin.x = CGRectGetMinX(self.view.frame);
     frame.origin.y = CGRectGetMaxY(_topView.frame);
@@ -220,6 +211,12 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     frame.size.width = width(self.view);
     _datePickerView.frame = frame;
     
+    frame = _succesView.frame;
+    frame.origin.y = CGRectGetMaxY(_topView.frame);
+    frame.origin.x = CGRectGetMinX(self.view.frame);
+    frame.size.height = height(self.view);
+    frame.size.width = width( self.view);
+    _succesView.frame = frame;
 }
 
 //delegate methods
@@ -388,6 +385,20 @@ NSString *const kKeyErrorMessage = @"errorMessage";
         [weakSelf presentViewController:alertSaved animated:YES completion:nil];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [alertSaved dismissViewControllerAnimated:YES completion:nil];
+        });
+    });
+}
+
+- (void)alertUserThatThereIsNoSessionForThisProduct {
+    
+    UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Sorry :(" message:@"This product has no availability, please try again later" preferredStyle:UIAlertControllerStyleAlert];
+    
+    __weak BookingViewController *weakSelf = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf presentViewController:alert animated:YES completion:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [alert dismissViewControllerAnimated:YES completion:nil];
         });
     });
 }

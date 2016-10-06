@@ -9,6 +9,7 @@
 #import "CharterAPI.h"
 #import "CharterService.h"
 #import "NSString+DecodeHTML.h"
+#import "SessionObject.h"
 
 
 NSString *const kKeyapiKey = @"apiKey=15132eb9747f46baaa149e85aab49aeb";
@@ -63,25 +64,31 @@ NSString *const kKeyFromSessions = @"sessions";
                                                   until:(NSString *)endDate
                                                 success:(void (^)(NSArray *sessions))success
                                                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-
+    
     
     NSString *endPoint = [NSString stringWithFormat:@"%@://%@/availability?endTimeLocal=%@&productCode=%@&startTimeLocal=%@&%@", kKeyHTTPProtocol , [CharterAPI URL], endDate, charterService.productCode, startDate , kKeyapiKey];
     
     NSString *endPointEncode = [endPoint stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-
+    
     
     NetworkManager *nm = [NetworkManager new];
     
     AFHTTPRequestOperation *op = [nm GET:endPointEncode parameters:nil success:^(id responseObject) {
         
-        success(responseObject);
+        NSArray *arrayData = responseObject[kKeyFromSessions];
+        
+        NSMutableArray *sessionsArray = [NSMutableArray new];
+        
+        for (id dict in arrayData) {
+            SessionObject *session = [SessionObject sessionFromDict:dict];
+            [sessionsArray addObject:session];
+        }
+        success(sessionsArray);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation, error);
-
     }];
     
     return op;
-    
 }
 
 

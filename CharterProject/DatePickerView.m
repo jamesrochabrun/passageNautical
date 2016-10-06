@@ -18,6 +18,7 @@
 #import "CharterService.h"
 #import "NSDate+Adittions.h"
 #import "CharterAPI.h"
+#import "SessionObject.h"
 
 static CGFloat secondsInMinute = 60.0;
 static CGFloat minuteInHour = 60.0;
@@ -34,7 +35,7 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         _nextButton = [UIButton new];
         [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextButton.titleLabel.font = [UIFont regularFont:17];
-        [_nextButton addTarget:self action:@selector(checkAvailability) forControlEvents:UIControlEventTouchUpInside];
+        [_nextButton addTarget:self action:@selector(checkAvailabilityButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [_nextButton setTitle:@"Next" forState:UIControlStateNormal];
         _nextButton.backgroundColor = [UIColor customMainColor];
         [self addSubview:_nextButton];
@@ -50,7 +51,7 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         _pickerBookingDateStart.backgroundColor = [UIColor whiteColor];
         _pickerBookingDateStart.tintColor = [UIColor customMainColor];
         _pickerBookingDateStart.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
-        [_pickerBookingDateStart addTarget:self action:@selector(userSelectFromDate:) forControlEvents:UIControlEventValueChanged];
+        [_pickerBookingDateStart addTarget:self action:@selector(userSelectStartDate:) forControlEvents:UIControlEventValueChanged];
         [_pickerBookingDateStart setValue:[UIColor customMainColor] forKey:@"textColor"];
         _pickerBookingDateStart.minimumDate = [NSDate date];
         [self addSubview:_pickerBookingDateStart];
@@ -66,7 +67,7 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         _pickerBookingDateEnd.backgroundColor = [UIColor whiteColor];
         _pickerBookingDateEnd.tintColor = [UIColor customMainColor];
         _pickerBookingDateEnd.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
-        [_pickerBookingDateEnd addTarget:self action:@selector(userSelectUntilDate:) forControlEvents:UIControlEventValueChanged];
+        [_pickerBookingDateEnd addTarget:self action:@selector(userSelectEndDate:) forControlEvents:UIControlEventValueChanged];
         [_pickerBookingDateEnd setValue:[UIColor customMainColor] forKey:@"textColor"];
         _pickerBookingDateEnd.minimumDate = [NSDate date];
         [self addSubview:_pickerBookingDateEnd];
@@ -89,15 +90,12 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
         _datesTableView = [UITableView tableViewInView:self delegate:self];
         [_datesTableView registerClass:[DateTableViewCell class] forCellReuseIdentifier:kKeyTableReuseIdentifier];
         [_datesTableView setLayoutMargins:UIEdgeInsetsZero];
-        _datesTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _datesTableView.separatorColor = [UIColor customMainColor];
         _datesTableView.separatorInset = UIEdgeInsetsZero;
         _datesTableView.showsVerticalScrollIndicator = NO;
-        _datesTableView.backgroundColor = [UIColor yellowColor];
         _datesTableView.hidden = YES;
         
     }
-    
     return self;
 }
 
@@ -161,96 +159,96 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
     _datesTableView.frame = frame;
 }
 
-- (void)userSelectFromDate:(id)sender {
+- (void)userSelectStartDate:(id)sender {
     
     if ([self isBookingDateSatisfyMinBookingTime]) {
         
         NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
         _alertPickerLabel.hidden = YES;
-       _stringDateFrom = [NSString stringFromLocalTimeZone:_pickerBookingDateStart.date];
-       NSLog(@"the stringDateFrom is %@", _stringDateFrom);
+       _stringDateStart = [NSString stringFromLocalTimeZone:_pickerBookingDateStart.date];
     } else {
         NSLog(@"THE DATE PICKED DON'T SATISFY THE REQUIRED GAP FOR BOOKING");
         _alertPickerLabel.hidden = NO;
     }
 }
 
-- (void)userSelectUntilDate:(id)sender {
+- (void)userSelectEndDate:(id)sender {
     
-    _stringDateUntil = [NSString stringFromLocalTimeZone:_pickerBookingDateEnd.date];
+    _stringDateEnd = [NSString stringFromLocalTimeZone:_pickerBookingDateEnd.date];
     
-    if ([self isUntilDateLaterThanFromDate]) {
+    if ([self isEndDateLaterThanStartDate]) {
         _endLabelAlert.hidden = YES;
     } else {
         _endLabelAlert.hidden = NO;
         
     }
-    
 }
 
-- (void)checkAvailability {
-    
-    NSLog(@"the fromstring %@", _stringDateFrom);
-    NSLog(@"the until string %@" , _stringDateUntil);
+- (void)checkAvailabilityButtonPressed {
     
     if (![self isBookingDateSatisfyMinBookingTime]) {
         _alertPickerLabel.hidden = NO;
     }
     
-    if ([self isUntilDateLaterThanFromDate]) {
+    if ([self isEndDateLaterThanStartDate]) {
         _endLabelAlert.hidden = YES;
     } else {
         _endLabelAlert.hidden = NO;
     }
     
     if ([self isBookingDateSatisfyMinBookingTime] &&
-        [self isUntilDateLaterThanFromDate]) {
+        [self isEndDateLaterThanStartDate]) {
         //send strings to the server
         NSLog(@"YES LETS GO!");
-        [self makeTheCall];
+        [self checkAvailabilityForService];
     } else {
-        NSLog(@"NO DUDE");
+        NSLog(@"NO DUDE SOMETHING IS MISSING");
     }
-    
 }
 
-- (BOOL)isUntilDateLaterThanFromDate {
+- (void)checkAvailabilityForService {
+    
+    [CharterAPI checkAvailabilityForProduct:_charterService from:_stringDateStart until:_stringDateEnd success:^(NSArray *sessions) {
+        
+        for (SessionObject *session in sessions) {
+            NSLog(@"the po label is %@", session.productCode);
+        }
+        
+        if (sessions.count) {
+            _sessionsArray = sessions;
+            
+            __weak DatePickerView *weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.datesTableView reloadData];
+                weakSelf.datesTableView.hidden = NO;
+            });
+            
+        } else {
+            NSLog(@"no sessions PUt an alarm to say it");
+            [self noSessionFounded];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"the operation is %@, the error is %@", operation, error);
+    }];
+}
+
+- (void)noSessionFounded {
+    [self.delegate alertUserThatThereIsNoSessionForThisProduct];
+}
+
+- (BOOL)isEndDateLaterThanStartDate {
     
     if (!_pickerBookingDateStart.date ||
         [_pickerBookingDateEnd.date isEarlierThanOrEqualTo:_pickerBookingDateStart.date]) {
        
-        _isUntilDateLaterThanFromDate = NO;
+        _isEndDateLater = NO;
     } else {
-        _isUntilDateLaterThanFromDate = YES;
+        _isEndDateLater = YES;
     }
-    
-    return _isUntilDateLaterThanFromDate;
+    return _isEndDateLater;
 }
 
-
-//this is the one for BOOKKKKK
-- (void)userAlteredPicker:(id)sender {
-
-
-    if ([self isBookingDateSatisfyMinBookingTime]) {
-        NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
-        _alertPickerLabel.hidden = YES;
-        //1 now the localized start date will be used to make the get availabiliy request
-        _localizedStartDateString = [NSString stringFromLocalTimeZone:_pickerBookingDateStart.date];
-        
-        //2 now we send this string to the api call
-        
-        //3 show the tableview with available results
-        
-        //4 in method selected cell perform this action and hide the DatepickerView and show the form
-        [self.delegate setPickedDateString:_localizedStartDateString];
-
-
-    } else {
-        NSLog(@"THE DATE PICKED DON'T SATISFY THE REQUIRED GAP FOR BOOKING");
-        _alertPickerLabel.hidden = NO;
-    }
-}
 
 - (BOOL)isBookingDateSatisfyMinBookingTime {
 
@@ -265,21 +263,8 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
     else {
         _dateSatisfyMinRequiredDate = YES;
     }
-    
     return _dateSatisfyMinRequiredDate;
 }
-
-- (void)makeTheCall {
-    
-    [CharterAPI checkAvailabilityForProduct:_charterService from:_stringDateFrom until:_stringDateUntil success:^(NSArray *sessions) {
-        
-        NSLog(@"the sessions are %@", sessions);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"the operation is %@, the error is %@", operation, error);
-    }];
-    
-}
-
 
 
 - (void)setCharterService:(CharterService *)charterService {
@@ -297,16 +282,59 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kKeyTableReuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor blueColor];
+    DateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kKeyTableReuseIdentifier forIndexPath:indexPath];
+    SessionObject *session = [_sessionsArray objectAtIndex:indexPath.row];
+    
+    cell.dateLabel.text = session.startTimeLocal;
+    cell.dateLabel.highlightedTextColor = [UIColor whiteColor];
+    cell.timeLabel.highlightedTextColor = [UIColor whiteColor];
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return  5;
+    return  _sessionsArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return  kGeomHeightTableView;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DateTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selected = YES;
 }
 
 
+
+
+
+
+
+//this is the one for BOOKKKKK
+- (void)userAlteredPicker:(id)sender {
+    
+    
+    if ([self isBookingDateSatisfyMinBookingTime]) {
+        NSLog(@"THE DATE PICKED SATISFY THE REQUIRED GAP FOR BOOKING");
+        _alertPickerLabel.hidden = YES;
+        //1 now the localized start date will be used to make the get availabiliy request
+        _localizedStartDateString = [NSString stringFromLocalTimeZone:_pickerBookingDateStart.date];
+        
+        //2 now we send this string to the api call
+        
+        //3 show the tableview with available results
+        
+        //4 in method selected cell perform this action and hide the DatepickerView and show the form
+        [self.delegate setPickedDateString:_localizedStartDateString];
+        
+        
+    } else {
+        NSLog(@"THE DATE PICKED DON'T SATISFY THE REQUIRED GAP FOR BOOKING");
+        _alertPickerLabel.hidden = NO;
+    }
+}
 
 
 @end

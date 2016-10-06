@@ -19,7 +19,7 @@
     }
     tableView.delegate = delegate;
     tableView.dataSource = delegate;
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     if ([tableView respondsToSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)]) {
         tableView.cellLayoutMarginsFollowReadableWidth = NO;
     }

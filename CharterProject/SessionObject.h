@@ -20,4 +20,6 @@
 @property (nonatomic, strong) NSNumber *seatsAvailable;
 @property (nonatomic, strong) NSMutableArray *priceOptions;
 
++ (SessionObject *)sessionFromDict:(NSDictionary *)dict;
+
 @end

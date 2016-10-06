@@ -12,6 +12,7 @@
 @protocol DatePickerViewDelegate <NSObject>
 
 - (void)setPickedDateString:(NSString *)datePicked;
+- (void)alertUserThatThereIsNoSessionForThisProduct;
 
 @end
 
@@ -27,10 +28,11 @@
 @property (nonatomic, strong) UITableView *datesTableView;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) CharterService *charterService;
-@property (nonatomic, strong) NSString *stringDateFrom;
-@property (nonatomic, strong) NSString *stringDateUntil;
+@property (nonatomic, strong) NSString *stringDateStart;
+@property (nonatomic, strong) NSString *stringDateEnd;
 @property (nonatomic, strong) UILabel *endLabelAlert;
-@property (nonatomic, assign) BOOL isUntilDateLaterThanFromDate;
+@property (nonatomic, assign) BOOL isEndDateLater;
+@property (nonatomic, strong) NSArray *sessionsArray;
 
 - (BOOL)isBookingDateSatisfyMinBookingTime;
 
