@@ -20,6 +20,7 @@
 #import "CharterAPI.h"
 #import "SessionObject.h"
 #import "TableHeaderView.h"
+#import "TimeDatePickerView.h"
 
 static CGFloat secondsInMinute = 60.0;
 static CGFloat minuteInHour = 60.0;
@@ -27,6 +28,28 @@ NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 NSString *const kKeyCheckAvailability = @"Check Availability";
 NSString *const kKeyNext = @"Next";
 
+@interface DatePickerView ()
+@property UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIDatePicker *pickerBookingDateStart;
+@property (nonatomic, strong) UIDatePicker *pickerBookingDateEnd;
+@property (nonatomic, strong) UIDatePicker *timePicker;
+@property (nonatomic, strong) UILabel *pickerLabel;
+@property (nonatomic, strong) UILabel *pickerLabelEnd;
+@property (nonatomic, strong) UILabel *alertPickerLabel;
+@property (nonatomic, assign) BOOL dateSatisfyMinRequiredDate;
+@property (nonatomic, strong) UITableView *datesTableView;
+@property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) NSString *stringDateStart;
+@property (nonatomic, strong) NSString *stringDateEnd;
+@property (nonatomic, strong) UILabel *endLabelAlert;
+@property (nonatomic, assign) BOOL isEndDateLater;
+@property (nonatomic, strong) NSArray *sessionsArray;
+@property (nonatomic, strong) TimeDatePickerView *timeDatePickerView;
+
+@property (nonatomic, strong) NSString *selectedDate;
+@property (nonatomic, strong) NSString *selectedTime;
+
+@end
 
 @implementation DatePickerView
 
@@ -98,6 +121,11 @@ NSString *const kKeyNext = @"Next";
         _datesTableView.showsVerticalScrollIndicator = NO;
         _datesTableView.hidden = YES;
         
+        _timeDatePickerView = [TimeDatePickerView new];
+        _timeDatePickerView.delegate = self;
+        _timeDatePickerView.hidden = YES;
+        [self addSubview:_timeDatePickerView];
+        
     }
     return self;
 }
@@ -160,6 +188,24 @@ NSString *const kKeyNext = @"Next";
     frame.origin.x = 0;
     frame.origin.y = 0;
     _datesTableView.frame = frame;
+    
+    frame = _timeDatePickerView.frame;
+    frame.size.height = 300;;
+    frame.size.width = width(self);
+    frame.origin.x = 0;
+    frame.origin.y = (height(self) - 300) /2;
+    _timeDatePickerView.frame = frame;
+}
+
+- (void)startActivityIndicator {
+    
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self addSubview:_activityIndicator];
+    _activityIndicator.center = CGPointMake(width(self) /2,height(self) /2);
+    __weak DatePickerView *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.activityIndicator startAnimating];
+    });
 }
 
 - (void)userSelectStartDate:(id)sender {
@@ -222,16 +268,44 @@ NSString *const kKeyNext = @"Next";
                 
             } else if ([_charterService.bookingMode isEqualToString:kKeyBookingModeDateEnquiry]) {
                 
-                //show date picker for time and pass the hour and construct a string with a date and a time;
-                NSLog(@"type: %@:", _charterService.bookingMode);
-                //here is the mambo!!!!
+                NSLog(@"type: %@ so show the timepicker", _charterService.bookingMode);
+                
+                __weak DatePickerView *weakSelf = self;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.timeDatePickerView.hidden = NO;
+                    weakSelf.datesTableView.hidden = YES;
+                    weakSelf.pickerBookingDateStart.hidden = YES;
+                    weakSelf.pickerBookingDateEnd.hidden = YES;
+                    weakSelf.pickerLabel.hidden = YES;
+                    weakSelf.pickerLabelEnd.hidden = YES;
+                    [weakSelf.nextButton setTitle:@"test" forState:UIControlStateNormal];
+                });
             }
-
         } else {
             //alert user pick a date
-            [self.delegate alertUserThatMustSelectADate];
+            [self.delegate alertUserThatMustSelectADateOrTime:NO];
+        }
+    } else if ([_nextButton.titleLabel.text isEqualToString:@"test"]) {
+        //show date picker for time and pass the hour and construct a string with a date and a time;
+        if (_selectedTime) {
+            
+            NSLog(@"the selected date %@", _selectedDate);
+            NSLog(@"the selected time before the format %@", _selectedTime);
+            _selectedTime = [_timeDatePickerView fullStringFromStartDate:_selectedDate];
+            NSLog(@"the selected time after the format %@", _selectedTime);
+            [self.delegate setPickedDateStringAndShowForm:_selectedTime];
+
+        } else {
+            NSLog(@"please select a time");
+            [self.delegate alertUserThatMustSelectADateOrTime:YES];
+
         }
     }
+}
+- (void)setPickedTimeString:(NSString *)timePicked {
+    
+    _selectedTime = timePicked;
+    NSLog(@"the selectedTime in delegate %@", _selectedTime);
 }
 
 - (void)checkAvailabilityForService {
@@ -241,6 +315,8 @@ NSString *const kKeyNext = @"Next";
         [self.delegate alertUserSelectAgain];
         return;
     };
+    
+    [self startActivityIndicator];
     
     [CharterAPI checkAvailabilityForProduct:_charterService from:_stringDateStart until:_stringDateEnd success:^(NSArray *sessions) {
         
@@ -255,11 +331,13 @@ NSString *const kKeyNext = @"Next";
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.datesTableView reloadData];
                 weakSelf.datesTableView.hidden = NO;
+                [weakSelf.activityIndicator stopAnimating];
                 [weakSelf.nextButton setTitle:kKeyNext forState:UIControlStateNormal];
             });
             
         } else {
             NSLog(@"MO SESSIONS FOUNDED");
+            [_activityIndicator stopAnimating];
             [self noSessionFounded];
         }
         
@@ -337,7 +415,7 @@ NSString *const kKeyNext = @"Next";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return  kGeomHeightTableView;
+    return  kGeomHeightTableViewCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

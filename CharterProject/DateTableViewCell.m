@@ -23,11 +23,13 @@
         _dateLabel = [UILabel new];
         [_dateLabel setFont:[UIFont mediumFont:17]];
         [_dateLabel setTextColor:[UIColor customTextColor]];
+        _dateLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_dateLabel];
         
         _timeLabel = [UILabel new];
         [_timeLabel setFont:[UIFont regularFont:17]];
         [_timeLabel setTextColor:[UIColor customTextColor]];
+        _timeLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_timeLabel];
     }
     return self;
@@ -40,14 +42,14 @@
     if (_isTime) {
         
         CGRect frame = _dateLabel.frame;
-        frame.size.height = kGeomHeightTextField;
+        frame.size.height = kGeomHeightLabelInCell;
         frame.size.width = width(self);
         frame.origin.x = (width(self) - width(_dateLabel)) / 2;
-        frame.origin.y = height(self) /4;
+        frame.origin.y = (kGeomHeightTableViewCell - kGeomHeightLabelInCell *2) /2;
         _dateLabel.frame = frame;
         
         frame = _timeLabel.frame;
-        frame.size.height = kGeomHeightTextField;
+        frame.size.height = 20;
         frame.size.width = width(self);
         frame.origin.x = (width(self) - width(_timeLabel)) /2;
         frame.origin.y = CGRectGetMaxY(_dateLabel.frame);

@@ -36,6 +36,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 @property (nonatomic, strong) TopView *topView;
 @property (nonatomic, strong) UIButton *dismissButton;
 @property (nonatomic, strong) UIScrollView *formScrollView;
+@property (nonatomic, strong) UILabel *selectedDateLabel;
 @property (nonatomic, strong) UILabel *charterLabel;
 @property (nonatomic, strong) BookingField *nameField;
 @property (nonatomic, strong) BookingField *lastNameField;
@@ -90,6 +91,14 @@ NSString *const kKeyErrorMessage = @"errorMessage";
         _datePickerView.hidden = NO;
         _formScrollView.hidden = YES;
     }
+    
+    _selectedDateLabel = [UILabel new];
+    [_selectedDateLabel setFont:[UIFont regularFont:15]];
+    _selectedDateLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _selectedDateLabel.numberOfLines = 0;
+    _selectedDateLabel.textAlignment = NSTextAlignmentCenter;
+    [_selectedDateLabel setTextColor:[UIColor customMainColor]];
+    [_formScrollView addSubview:_selectedDateLabel];
     
     _charterLabel = [UILabel new];
     _charterLabel.text = _charterService.name;
@@ -167,10 +176,17 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     frame.size.width = width( self.view);
     _formScrollView.frame = frame;
     
-    frame = _charterLabel.frame;
+    frame = _selectedDateLabel.frame;
     frame.size.height = kGeomHeightTextField;
     frame.size.width = width(self.view) * 0.85;
     frame.origin.y = CGRectGetMinY(_formScrollView.frame) - kGeomTopViewHeight + kGeomMarginMedium;
+    frame.origin.x = (width(self.view) - frame.size.width) /2;
+    _selectedDateLabel.frame = frame;
+    
+    frame = _charterLabel.frame;
+    frame.size.height = kGeomHeightTextField;
+    frame.size.width = width(self.view) * 0.85;
+    frame.origin.y = CGRectGetMaxY(_selectedDateLabel.frame);
     frame.origin.x = (width(self.view) - frame.size.width) /2;
     _charterLabel.frame = frame;
 
@@ -234,6 +250,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     
     _stringDate = datePicked;
     NSLog(@"the date in delegate is %@", _stringDate);
+    _selectedDateLabel.text = _stringDate;
     _datePickerView.hidden = YES;
     _formScrollView.hidden = NO;
 }
@@ -277,7 +294,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
         if (_formIsReadyToBook && _stringDate) {
             [self bookNow];
         } else {
-            
             NSLog(@"THE DATE IS %@",  _stringDate);
         }
     }
@@ -416,12 +432,14 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     });
 }
 
-- (void)alertUserThatMustSelectADate {
+- (void)alertUserThatMustSelectADateOrTime:(BOOL)boolean {
     
-    UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Please select a date first" message:@"You must select a date before booking" preferredStyle:UIAlertControllerStyleAlert];
+    NSString *title = (boolean)? @"Please select a time first" : @"Please select a date first";
+    NSString *message = (boolean)? @"You must select a time before booking" : @"You must select a date before booking";
+    
+    UIAlertController *alert= [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
     __weak BookingViewController *weakSelf = self;
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf presentViewController:alert animated:YES completion:nil];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

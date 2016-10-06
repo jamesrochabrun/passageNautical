@@ -50,8 +50,9 @@ static CGFloat kGeomMinimunInterItemSpacing = 5.0;
 static CGFloat kGeomSpaceCellPadding = 3.0;
 static CGFloat kGeomContactButton = 45.0;
 static CGFloat kGeomHeightTextView = 130.0;
-static CGFloat kGeomHeightTableView = 70.0;
+static CGFloat kGeomHeightTableViewCell = 70.0;
 static CGFloat kGeomHeightHeaderView = 50.0;
+static CGFloat kGeomHeightLabelInCell = 20.0;
 
 
 
