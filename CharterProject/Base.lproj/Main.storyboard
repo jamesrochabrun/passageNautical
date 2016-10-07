@@ -31,7 +31,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="252"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d5C-RK-FOZ" id="EiL-qp-WDe">
-                                            <frame key="frameInset" width="375" height="252"/>
+                                            <frame key="frameInset" width="375" height="251"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -151,7 +151,7 @@
                                         <rect key="frame" x="0.0" y="28" width="383" height="178"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jJl-S3-o5c" id="ucQ-62-yQG">
-                                            <frame key="frameInset" width="383" height="178"/>
+                                            <frame key="frameInset" width="383" height="177"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow60" translatesAutoresizingMaskIntoConstraints="NO" id="Wn6-Dw-az6">
@@ -400,7 +400,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9W8-h6-xLE" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="XDR-zH-GjB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="XDR-zH-GjB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

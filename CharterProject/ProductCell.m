@@ -30,36 +30,32 @@
 
 - (void)configureCellwithCharterService:(CharterService *)charterService {
     
+    UIImageView *imageView = [UIImageView new];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [imageView setImageWithURL:[NSURL URLWithString:charterService.imageURL]
+              placeholderImage:[UIImage imageNamed:@"yate"]];
+    
+    __weak ProductCell *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         
         //background Image of Cell
-        
-        UIImageView *imageView = [UIImageView new];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        
-        [imageView setImageWithURL:[NSURL URLWithString:charterService.imageURL]
-                  placeholderImage:[UIImage imageNamed:@"yate"]];
-        self.backgroundView.layer.shadowColor = [UIColor whiteColor].CGColor;
-        self.backgroundView.layer.shadowOffset = CGSizeMake(5, 5);
-        self.backgroundView.layer.shadowOpacity = 1;
-        self.backgroundView.layer.shadowRadius = 1.0;
-        self.backgroundView = imageView;
+        weakSelf.backgroundView = imageView;
         
         //charter service name
-        _nameLabel.text = charterService.name;
-        _nameLabel.textColor = [UIColor whiteColor];
-        _nameLabel.font = [UIFont regularFont:15];
+        weakSelf.nameLabel.text = charterService.name;
+        weakSelf.nameLabel.textColor = [UIColor whiteColor];
+        weakSelf.nameLabel.font = [UIFont regularFont:15];
         
         //charter service price
-        _priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterService.currency, charterService.advertisedPrice];
-        _priceLabel.textColor = [UIColor whiteColor];
-        _priceLabel.font = [UIFont regularFont:15];
+        weakSelf.priceLabel.text = [NSString stringWithFormat:@"%@ %@" , charterService.currency, charterService.advertisedPrice];
+        weakSelf.priceLabel.textColor = [UIColor whiteColor];
+        weakSelf.priceLabel.font = [UIFont regularFont:15];
         
         //charter service time
         int hours = [charterService.durationMinutes intValue] / 60;
-        _timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
-        _timeLabel.textColor = [UIColor whiteColor];
-        _timeLabel.font = [UIFont regularFont:15];
+        weakSelf.timeLabel.text = [NSString stringWithFormat:@"%d Hours",hours];
+        weakSelf.timeLabel.textColor = [UIColor whiteColor];
+        weakSelf.timeLabel.font = [UIFont regularFont:15];
         
     });
     

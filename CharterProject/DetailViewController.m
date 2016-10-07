@@ -368,8 +368,10 @@ static NSString *const itemURL =  @"itemUrl";
     NSDictionary *imagesDictionary = [_charterService.images objectAtIndex:indexPath.row];
     NSString *urlStr = [CharterService urlStringWithNoSpaces:imagesDictionary];
     cell.priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.advertisedPrice];
+    
     [cell.doubleTapImage setImageWithURL:[NSURL URLWithString:urlStr]
                         placeholderImage:[UIImage imageNamed:@"yate"]];
+    
     return cell;
 }
 
