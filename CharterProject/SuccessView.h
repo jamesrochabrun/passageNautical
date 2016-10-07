@@ -20,5 +20,5 @@
 @property (nonatomic, strong) UILabel *bookingDate;
 @property (nonatomic, strong) UILabel *contactLabel;
 @property (nonatomic, strong) UIScrollView *scrollView;
-
+@property (nonatomic, strong) UILabel *subTotalLabel;
 @end

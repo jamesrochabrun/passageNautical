@@ -53,8 +53,6 @@ NSString *const kKeyOptionlabel = @"optionLabel";
     item.totalQuantity = parseNSNumberOrNullFromServer(dict[kKeytotalQuantity]);
     return item;
     
-    
-    
 }
 
 @end

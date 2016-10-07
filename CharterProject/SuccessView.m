@@ -64,6 +64,11 @@
         [_orderNumber setTextColor:[UIColor customMainColor]];
         [_scrollView addSubview:_orderNumber];
         
+        _subTotalLabel = [UILabel new];
+        [_subTotalLabel setFont:[UIFont mediumFont:20]];
+        [_subTotalLabel setTextColor:[UIColor customTextColor]];
+        [_scrollView addSubview:_subTotalLabel];
+        
         _contactLabel = [UILabel new];
         _contactLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _contactLabel.numberOfLines = 0;
@@ -138,11 +143,17 @@
     frame.origin.y = CGRectGetMaxY(_orderNumberLabel.frame) + kGeomMarginSmall;
     _orderNumber.frame = frame;
     
+    [_subTotalLabel sizeToFit];
+    frame = _subTotalLabel.frame;
+    frame.origin.x = (width(self) - width(_subTotalLabel)) /2;
+    frame.origin.y = CGRectGetMaxY(_orderNumber.frame) + kGeomMarginMedium;
+    _subTotalLabel.frame = frame;
+    
     frame = _contactLabel.frame;
     frame.size.height = kGeomHeightTextField;
     frame.size.width = width(_textView);
     frame.origin.x = (width(self) - frame.size.width) /2;
-    frame.origin.y = CGRectGetMaxY(_orderNumber.frame) + kGeomMarginMedium;
+    frame.origin.y = CGRectGetMaxY(_subTotalLabel.frame) + kGeomMarginMedium;
     _contactLabel.frame = frame;
     
     frame = _contactButton.frame;
@@ -166,8 +177,9 @@
         
         weakSelf.textView.text = [NSString stringWithFormat:@"Dear %@ %@,\n\nThank you for your booking, below is a description of the service you booked and your order number. \nWe sent you an email to %@ with detailed information.", weakSelf.booking.customer.firstName, weakSelf.booking.customer.lastName , weakSelf.booking.customer.email];
         weakSelf.orderNumber.text = weakSelf.booking.orderNumber;
-        weakSelf.bookingDate.text = [NSString stringWithFormat:@"Booking Date:\n\n%@", weakSelf.booking.items.startTimeLocal];
+        weakSelf.bookingDate.text = [NSString stringWithFormat:@"Booking Date:\n\n%@", (weakSelf.booking.items.startTimeLocal)? weakSelf.booking.items.startTimeLocal :[NSString stringFromCurrentDate]];
         weakSelf.bookingCharter.text = weakSelf.booking.items.productName;
+        weakSelf.subTotalLabel.text = [NSString stringWithFormat:@"SubTotal : %@ %@" , weakSelf.booking.payment.currency , weakSelf.booking.items.subTotal];
         [weakSelf setNeedsLayout];
     });
 }

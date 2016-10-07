@@ -92,7 +92,7 @@ NSString *const CHimageURL = @"itemUrl";
         PriceOptionObject *priceOption = [PriceOptionObject priceOptionFromDict:priceOptionDict];
         [charter.priceOptions addObject:priceOption];
     }
-    
+    charter.priceOption = [charter.priceOptions firstObject];
     return charter;
 }
 

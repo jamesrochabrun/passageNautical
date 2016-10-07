@@ -60,10 +60,11 @@
     frame.size.height = height(self);
     _doubleTapImage.frame = frame;
     
-    [_priceLabel sizeToFit];
     frame = _priceLabel.frame;
-    frame.origin.x = kGeomSpaceEdge *2;
-    frame.origin.y = CGRectGetMaxY(self.frame) - _priceLabel.frame.size.height - kGeomSpaceEdge *2;
+    frame.size.height = kGeomMarginMedium;
+    frame.size.width = 200;
+    frame.origin.x = kGeomSpaceEdge * 2;
+    frame.origin.y = CGRectGetMaxY(self.frame) - frame.size.height - kGeomSpaceEdge *2;
     _priceLabel.frame = frame;
     
     frame = _emailButton.frame;
