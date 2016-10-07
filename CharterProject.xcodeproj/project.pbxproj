@@ -27,7 +27,6 @@
 		7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */; };
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
 		7B2BF42D1DA5F0AD00123DAF /* TableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BF42C1DA5F0AD00123DAF /* TableHeaderView.m */; };
-		7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B41FD541D18A13B0037A849 /* FavoritesViewController.m */; };
 		7B4858741D1DE06600AAE2A7 /* DoubleTapImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */; };
 		7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */; };
 		7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5124821D0E79270068A6F7 /* ProductCell.m */; };
@@ -113,8 +112,6 @@
 		7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewCell.m; sourceTree = "<group>"; };
 		7B2BF42B1DA5F0AD00123DAF /* TableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableHeaderView.h; sourceTree = "<group>"; };
 		7B2BF42C1DA5F0AD00123DAF /* TableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableHeaderView.m; sourceTree = "<group>"; };
-		7B41FD531D18A13B0037A849 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
-		7B41FD541D18A13B0037A849 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		7B4858721D1DE06600AAE2A7 /* DoubleTapImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleTapImage.h; path = ../DoubleTapImage.h; sourceTree = "<group>"; };
 		7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleTapImage.m; path = ../DoubleTapImage.m; sourceTree = "<group>"; };
 		7B51247E1D0E76AC0068A6F7 /* UIColor+MainColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MainColor.h"; sourceTree = "<group>"; };
@@ -320,8 +317,6 @@
 				7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */,
 				7B6EA4491D15E9E200AFC708 /* ContactViewController.h */,
 				7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */,
-				7B41FD531D18A13B0037A849 /* FavoritesViewController.h */,
-				7B41FD541D18A13B0037A849 /* FavoritesViewController.m */,
 				7BF9DA691D19AEDD00695161 /* MapViewController.h */,
 				7BF9DA6A1D19AEDD00695161 /* MapViewController.m */,
 			);
@@ -643,7 +638,6 @@
 				7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
 				7B0B22171D95CDC5000830C4 /* BookingViewController.m in Sources */,
-				7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */,
 				7BA0FA341D9DEC67004A6F41 /* CommentsObject.m in Sources */,
 				7B995CF51D9A05270047B6D5 /* ListCVFL.m in Sources */,
 				7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */,
