@@ -360,9 +360,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     NSLog(@"the string date inside the booking is %@", _stringDate);
     booking.items.quantitiesValue = @1;
     booking.items.productCode = _charterService.productCode;
-    
     booking.comment.comments = _commentTextView.textView.text;
-    
     booking.payment.type = @"INVOICE";
     // booking.payment.amountPayment = @"";//_charterService.advertisedPrice;
     booking.payment.currency = _charterService.currency;
