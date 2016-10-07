@@ -394,6 +394,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     __weak BookingViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.formScrollView.hidden = YES;
+        [weakSelf.view endEditing:YES];
         weakSelf.succesView.hidden = NO;
         BookingObject *bookingObject = [BookingObject bookingFromDict:booking];
         weakSelf.succesView.booking = bookingObject;

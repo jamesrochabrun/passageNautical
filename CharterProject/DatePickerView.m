@@ -103,6 +103,7 @@ NSString *const kKeyNext = @"Next";
         _alertPickerLabel.textColor = [UIColor alertColor];
         _alertPickerLabel.textAlignment = NSTextAlignmentCenter;
         _alertPickerLabel.hidden = YES;
+       // _alertPickerLabel.text = @"tests";
         [self addSubview:_alertPickerLabel];
         
         _endLabelAlert = [UILabel new];
@@ -147,7 +148,7 @@ NSString *const kKeyNext = @"Next";
     [_pickerLabel sizeToFit];
     frame = _pickerLabel.frame;
     frame.origin.x = (width(self) - width(_pickerLabel)) /2;
-    frame.origin.y =  (IS_IPHONE4)? kGeomMarginSmall: kGeomMarginBig;
+    frame.origin.y = (IS_IPHONE4)? kGeomMarginSmall: kGeomMarginBig;
     _pickerLabel.frame = frame;
     
     [_alertPickerLabel sizeToFit];
@@ -389,6 +390,7 @@ NSString *const kKeyNext = @"Next";
     __weak DatePickerView *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.alertPickerLabel.text = [NSString stringWithFormat:@"Booking must be with %.f hours of notice", minRequiredHours];;
+        [weakSelf setNeedsLayout];
     });
 }
 
