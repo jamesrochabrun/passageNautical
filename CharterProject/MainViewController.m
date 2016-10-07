@@ -19,6 +19,8 @@
 #import "CharterAPI.h"
 #import "CustomToolBar.h"
 #import "CommonUIConstants.h"
+#import "Reachability.h"
+
 
 static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
 static NSString *keyFromJSON = @"products";
@@ -28,7 +30,10 @@ static NSString *keyFromJSON = @"products";
 @property NSArray *categoryIds;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property UIActivityIndicatorView *activityIndicator;
-@property UIToolbar *toolBar;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic, strong) CustomToolBar *toolBar;
+@property (nonatomic, strong) UILabel *statusLabel;
+
 
 @end
 
@@ -41,15 +46,29 @@ static NSString *keyFromJSON = @"products";
     whiteView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:whiteView];
     
-    CustomToolBar *toolBar = [CustomToolBar new];
-    [toolBar.home setTintColor:[UIColor customMainColor]];
-    toolBar.del = self;
-    [self.view addSubview:toolBar];
+    _toolBar = [CustomToolBar new];
+    [_toolBar.home setTintColor:[UIColor customMainColor]];
+    _toolBar.del = self;
+    [self.view addSubview:_toolBar];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationController.navigationBar.hidden = YES;
     self.categoryIds = @[khalfDayCategoryID, kfullDayCategoryID,knauticalOvernightCategoryId,kbedAndBoatCategoryID];
     self.finalCategoryArray = [NSMutableArray new];
+    
+    _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 30)];
+    _statusLabel.textAlignment = NSTextAlignmentCenter;
+    _statusLabel.center = CGPointMake(width(self.view)/2, height(self.view)/2);
+    _statusLabel.text = @"no internet connection";
+    _statusLabel.textColor = [UIColor customTextColor];
+    _statusLabel.font = [UIFont regularFont:22];
+    _statusLabel.hidden = YES;
+    [self.view addSubview:_statusLabel];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
     
     [self getDataFromApi];
     [self startActivityIndicator];
@@ -112,10 +131,8 @@ static NSString *keyFromJSON = @"products";
             NSLog(@"failure");
             
             if (error) {
-                
                 __weak MainViewController *weakSelf = self;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf setLabelFortUserNoInternetConnection];
                     [weakSelf.activityIndicator stopAnimating];
                 });
             };
@@ -135,8 +152,6 @@ static NSString *keyFromJSON = @"products";
     return cell;
 }
 
-
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([segue.identifier isEqualToString:@"product"]) {
@@ -148,24 +163,74 @@ static NSString *keyFromJSON = @"products";
     }
 }
 
-//make mor research
+//make more research
 //-(void) tableView:(UITableView *) tableView willDisplayCell:(CategoryTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 //  
 //}
 
-- (void)setLabelFortUserNoInternetConnection {
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 30)];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.center = CGPointMake(width(self.view)/2, height(self.view)/2);
-    label.text = @"no internet connection";
-    label.textColor = [UIColor customTextColor];
-    label.font = [UIFont regularFont:22];
-    [self.view addSubview:label];
-    _toolBar.userInteractionEnabled = NO;
+#pragma  Reachability
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+    [self updateInterfaceWithReachability:curReach];
 }
 
 
+- (void)updateInterfaceWithReachability:(Reachability *)reachability {
+    
+    [self configureLabel:self.statusLabel  withReachability:reachability];
+}
+
+- (void)configureLabel:(UILabel *)label withReachability:(Reachability *)reachability {
+    
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    BOOL connectionRequired = [reachability connectionRequired];
+    NSString* statusString = @"";
+    
+    switch (netStatus)
+    {
+        case NotReachable:        {
+            statusString = NSLocalizedString(@"Access Not Available", @"Text field text for access is not available");
+            label.hidden = NO;
+            /*
+             Minor interface detail- connectionRequired may return YES even when the host is unreachable. We cover that up here...
+             */
+            connectionRequired = NO;
+            break;
+        }
+            
+        case ReachableViaWWAN:        {
+            statusString = NSLocalizedString(@"Reachable WWAN", @"");
+            label.hidden = YES;
+            [self getDataFromApi];
+            break;
+        }
+        case ReachableViaWiFi:        {
+            statusString= NSLocalizedString(@"Reachable WiFi", @"");
+            label.hidden = YES;
+            [self getDataFromApi];
+            break;
+        }
+    }
+    
+    if (connectionRequired)
+    {
+        NSString *connectionRequiredFormatString = NSLocalizedString(@"%@, Connection Required", @"Concatenation of status string with connection requirement");
+        statusString= [NSString stringWithFormat:connectionRequiredFormatString, statusString];
+    }
+    
+    label.text = statusString;
+}
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+}
 
 
 
