@@ -26,6 +26,10 @@
         _doubleTapImage.delegate = self;
         [self addSubview:_doubleTapImage];
         
+        _overlayImageView = [UIImageView new];
+        _overlayImageView.image = [UIImage imageNamed:@"shadow60"];
+        [self addSubview:_overlayImageView];
+        
         _phoneButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [_phoneButton setTintColor:[UIColor whiteColor]];
         [_phoneButton addTarget:self action:@selector(call) forControlEvents:UIControlEventTouchUpInside];
@@ -59,6 +63,13 @@
     frame.size.width = width(self);
     frame.size.height = height(self);
     _doubleTapImage.frame = frame;
+    
+    frame = _overlayImageView.frame;
+    frame.size.height = kGeomContactButton + kGeomMarginSmall;
+    frame.size.width = width(self);
+    frame.origin.x = 0;
+    frame.origin.y = CGRectGetMaxY(self.frame) - frame.size.height;
+    _overlayImageView.frame = frame;
     
     frame = _priceLabel.frame;
     frame.size.height = kGeomMarginMedium;

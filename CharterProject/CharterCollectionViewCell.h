@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UIButton *phoneButton;
 @property (nonatomic, strong) UIButton *emailButton;
 @property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UIImageView *overlayImageView;
 @property (nonatomic, weak) id<CharterCollectionViewCellDelegate>delegate;
 
 @end

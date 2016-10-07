@@ -11,6 +11,8 @@
 #import "Common.h"
 #import "CommonUIConstants.h"
 #import "PriceOptionObject.h"
+#import "UIColor+MainColor.h"
+#import "UIFont+CustomFont.h"
 
 @implementation ViewPickerView
 
@@ -22,7 +24,7 @@
         _backgroundView.backgroundColor = UIColorRGBOverlay(kColorGrayMiddle, 0.5);
         [self addSubview:_backgroundView];
         _pickerView = [UIPickerView pickerViewInView:self delegate:self];
-        _pickerView.backgroundColor = [UIColor whiteColor];
+        _pickerView.backgroundColor = UIColorRGBA(kColorOffBlack);
     }
     
     return self;
@@ -64,12 +66,12 @@
     return _charterService.priceOptions.count;
 }
 
-- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
-    _priceOption = [_charterService.priceOptions objectAtIndex:row];
-    return _priceOption.priceOptionLabel;
-    
-}
+//- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+//    
+//    _priceOption = [_charterService.priceOptions objectAtIndex:row];
+//    NSString *title = [NSString stringWithFormat:@"%@ %@ %@",_priceOption.priceOptionLabel , _charterService.currency, _priceOption.price];
+//    return title;
+//}
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
@@ -77,6 +79,19 @@
        // [self.AddView endEditing:YES];
         NSLog(@"touched");
     [self.delegate hideViewPickerViewAfterPriceWasSelected:_priceOption];
+}
+
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    
+    _priceOption = [_charterService.priceOptions objectAtIndex:row];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 50)];
+    label.textColor = [UIColor customMainColor];
+    label.numberOfLines = 0;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.font = [UIFont mediumFont:20];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = [NSString stringWithFormat:@"%@ %@ %@",_priceOption.priceOptionLabel , _charterService.currency, _priceOption.price];
+    return label;
 }
 
 @end
