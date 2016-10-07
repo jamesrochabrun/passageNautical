@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CharterService.h"
 
-@interface ProductsViewController : UIViewController
+@interface ProductsViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 @property NSArray *productsArray;
 @end

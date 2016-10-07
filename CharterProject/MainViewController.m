@@ -135,6 +135,8 @@ static NSString *keyFromJSON = @"products";
     return cell;
 }
 
+
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([segue.identifier isEqualToString:@"product"]) {
@@ -146,6 +148,10 @@ static NSString *keyFromJSON = @"products";
     }
 }
 
+//make mor research
+//-(void) tableView:(UITableView *) tableView willDisplayCell:(CategoryTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//  
+//}
 
 - (void)setLabelFortUserNoInternetConnection {
     

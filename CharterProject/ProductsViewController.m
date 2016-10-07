@@ -11,7 +11,7 @@
 #import "CharterService.h"
 #import "DetailViewController.h"
 
-@interface ProductsViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface ProductsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSString *categoryTitle;
 
@@ -53,6 +53,10 @@
     [cell configureCellwithCharterService:charterFavorite];
     return cell;
 }
+
+//-(void) tableView:(UITableView *) tableView willDisplayCell:(ProductCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.productsArray.count;

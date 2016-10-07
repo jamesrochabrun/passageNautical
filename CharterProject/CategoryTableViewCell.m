@@ -85,38 +85,36 @@
 - (void)configureCellwithArray:(NSArray*)array {
     
     
-        //we are taking the first object of each array
-        CharterService *charterService = [array firstObject];
-        NSDictionary *imagesDictionary = [charterService.images objectAtIndex:0];
-        NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
-        NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-        
-        UIImageView *imageView = [UIImageView new];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
+    //we are taking the first object of each array
+    CharterService *charterService = [array firstObject];
+    NSDictionary *imagesDictionary = [charterService.images objectAtIndex:0];
+    NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
+    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
-        [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
-                  placeholderImage:[UIImage imageNamed:@"yate"]];
-        self.backgroundView = imageView;
-//
-//    UIImageView *imageView = [UIImageView new];
-//    imageView.contentMode = UIViewContentModeScaleAspectFill;
-//    imageView.clipsToBounds = YES;
-//    imageView.image = [UIImage imageNamed:@"test.jpg"];
-//    self.backgroundView = imageView;
+    UIImageView *imageView = [UIImageView new];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
 
     
+    [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
+              placeholderImage:[UIImage imageNamed:@"yate"]];
+    
+    
+    __weak CategoryTableViewCell *weakSelf = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.backgroundView = imageView;
         //category name label
         if ([charterService.name containsString:@"Full Day"]) {
-            _titleLabel.text = @"Full day Charters";
+            weakSelf.titleLabel.text = @"Full day Charters";
         } else if ([charterService.name containsString:@"Half-Day"]){
-            _titleLabel.text = @"Half Day Charters";
+            weakSelf.titleLabel.text = @"Half Day Charters";
         } else if ([charterService.name containsString:@"Nautical Overnight"]) {
-            _titleLabel.text = @"Nautical Overnight";
+            weakSelf.titleLabel.text = @"Nautical Overnight";
         } else {
-            _titleLabel.text = @"Bed & Boat";
+            weakSelf.titleLabel.text = @"Bed & Boat";
         }
-    
+    });
 }
 
 
