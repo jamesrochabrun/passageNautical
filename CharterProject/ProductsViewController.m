@@ -12,6 +12,7 @@
 #import "DetailViewController.h"
 #import "CharterAPI.h"
 #import "CommonUIConstants.h"
+#import "UITableView+Additions.h"
 
 @interface ProductsViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -124,46 +125,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    // Fades out top and bottom cells in table view as they leave the screen
-    NSArray *visibleCells = [self.tableView visibleCells];
-    
-    if (visibleCells != nil  &&  [visibleCells count] != 0) {       // Don't do anything for empty table view
-        
-        /* Get top and bottom cells */
-        UITableViewCell *topCell = [visibleCells objectAtIndex:0];
-        UITableViewCell *bottomCell = [visibleCells lastObject];
-        
-        /* Make sure other cells stay opaque */
-        // Avoids issues with skipped method calls during rapid scrolling
-        for (UITableViewCell *cell in visibleCells) {
-            cell.contentView.alpha = 1.0;
-        }
-        
-        /* Set necessary constants */
-        NSInteger cellHeight = topCell.frame.size.height - kGeomMinSpace;   // -1 To allow for typical separator line height
-        NSInteger tableViewTopPosition = originY(self.tableView);
-        NSInteger tableViewBottomPosition = originY(self.tableView) + height(self.tableView);
-        
-        /* Get content offset to set opacity */
-        CGRect topCellPositionInTableView = [self.tableView rectForRowAtIndexPath:[self.tableView indexPathForCell:topCell]];
-        CGRect bottomCellPositionInTableView = [self.tableView rectForRowAtIndexPath:[self.tableView indexPathForCell:bottomCell]];
-        CGFloat topCellPosition = [self.tableView convertRect:topCellPositionInTableView toView:[self.tableView superview]].origin.y;
-        CGFloat bottomCellPosition = ([self.tableView convertRect:bottomCellPositionInTableView toView:[self.tableView superview]].origin.y + cellHeight);
-        
-        /* Set opacity based on amount of cell that is outside of view */
-        CGFloat modifier = 1.0;     /* Increases the speed of fading (1.0 for fully transparent when the cell is entirely off the screen,
-                                     2.0 for fully transparent when the cell is half off the screen, etc) */
-        CGFloat topCellOpacity = (1.0f - ((tableViewTopPosition - topCellPosition) / cellHeight) * modifier);
-        CGFloat bottomCellOpacity = (1.0f - ((bottomCellPosition - tableViewBottomPosition) / cellHeight) * modifier);
-        
-        /* Set cell opacity */
-        if (topCell) {
-            topCell.contentView.alpha = topCellOpacity;
-        }
-        if (bottomCell) {
-            bottomCell.contentView.alpha = bottomCellOpacity;
-        }
-    }
+    [_tableView fadeTopAndBottomCellsOnTableViewScroll:_tableView withModifier:1.0];
 }
 
 
