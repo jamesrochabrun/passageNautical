@@ -10,9 +10,14 @@
 #import "ProductCell.h"
 #import "CharterService.h"
 #import "DetailViewController.h"
+#import "CharterAPI.h"
+#import "CommonUIConstants.h"
 
 @interface ProductsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSArray *productsArray;
+@property UIActivityIndicatorView *activityIndicator;
+
 @property NSString *categoryTitle;
 
 @end
@@ -22,41 +27,63 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self setNavBar];
+    self.navigationController.navigationBar.hidden = NO;
 
   //  for (CharterService *charterservice in self.productsArray){
        // NSLog(@"%@", charterservice.name);
     //}
 }
 
-- (void)setNavBar {
+- (void)setCategoryID:(NSString *)categoryID {
     
-    self.navigationController.navigationBar.hidden = NO;
-    CharterService *charterService = [self.productsArray firstObject];
-    if ([charterService.name containsString:@"Full Day"]) {
-        self.categoryTitle = @"Full day Charters";
-    } else if ([charterService.name containsString:@"Half-Day"]){
-        self.categoryTitle = @"Half Day Charters";
-    } else if ([charterService.name containsString:@"Nautical Overnight"]) {
-        self.categoryTitle = @"Nautical Overnight";
-    } else {
-        self.categoryTitle = @"Bed & Boat";
-    }
-    self.title = self.categoryTitle;
+    if (_categoryID == categoryID) return;
+    _categoryID = categoryID;
+    
+    __weak ProductsViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([categoryID isEqualToString:kfullDayCategoryID]) {
+            self.title = @"Full day Charters";
+        } else if ([categoryID isEqualToString:khalfDayCategoryID]){
+            weakSelf.title = @"Half Day Charters";
+        } else if ([categoryID isEqualToString:knauticalOvernightCategoryId]) {
+            weakSelf.title = @"Nautical Overnight";
+        } else if ([categoryID isEqualToString:kbedAndBoatCategoryID]) {
+            weakSelf.title = @"Bed & Boat";
+        }
+    });
+    
+    [self getProductsFromCategoryID:_categoryID];
 }
 
+- (void)startActivityIndicator {
+    
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.view addSubview:_activityIndicator];
+    _activityIndicator.center = CGPointMake(width(self.view) /2,height(self.view) /2);
+    
+    __weak ProductsViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.activityIndicator startAnimating];
+    });
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.hidden = NO;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    CharterService *charterFavorite = [self.productsArray objectAtIndex:indexPath.row];
-    [cell configureCellwithCharterService:charterFavorite];
+//    CharterService *charterFavorite = [self.productsArray objectAtIndex:indexPath.row];
+//    [cell configureCellwithCharterService:charterFavorite];
     return cell;
 }
 
-//-(void) tableView:(UITableView *) tableView willDisplayCell:(ProductCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//
-//}
+-(void) tableView:(UITableView *) tableView willDisplayCell:(ProductCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    CharterService *charterFavorite = [self.productsArray objectAtIndex:indexPath.row];
+    [cell configureCellwithCharterService:charterFavorite];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.productsArray.count;
@@ -69,8 +96,27 @@
     detailVC.charterService = [self.productsArray objectAtIndex:indexPath.row];
 }
 
-
-
+- (void)getProductsFromCategoryID:(NSString *)categoryID {
+    
+    [self startActivityIndicator];
+        [CharterAPI getListOfServicesByID:categoryID success:^(NSArray *services) {
+            _productsArray = services;
+            __weak ProductsViewController *weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.activityIndicator stopAnimating];
+            });
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"failure");
+            if (error) {
+                __weak ProductsViewController *weakSelf = self;
+                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [weakSelf setLabelFortUserNoInternetConnection];
+                      [weakSelf.activityIndicator stopAnimating];
+                });
+            };
+        }];
+}
 
 
 

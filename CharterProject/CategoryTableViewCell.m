@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
+#import "CommonUIConstants.h"
 
 @interface CategoryTableViewCell ()
 @property (nonatomic, strong) UIView *frameView;
@@ -32,7 +33,7 @@
     [self addSubview:_frameView];
     
     _titleLabel = [UILabel new];
-    _titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    _titleLabel.textColor = [UIColor blueColor]; //[UIColor colorWithWhite:1.0 alpha:1.0];
     _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
     _titleLabel.layer.shadowRadius = 3.0f;
     _titleLabel.layer.shadowOpacity = 1;
@@ -82,38 +83,22 @@
 }
 
 
-- (void)configureCellwithArray:(NSArray*)array {
-    
-    
-    //we are taking the first object of each array
-    CharterService *charterService = [array firstObject];
-    NSDictionary *imagesDictionary = [charterService.images objectAtIndex:0];
-    NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
-    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    
-    UIImageView *imageView = [UIImageView new];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds = YES;
-
-    
-    [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
-              placeholderImage:[UIImage imageNamed:@"yate"]];
-    
+- (void)configureCellWithString:(NSString *)categoryID {
     
     __weak CategoryTableViewCell *weakSelf = self;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.backgroundView = imageView;
         //category name label
-        if ([charterService.name containsString:@"Full Day"]) {
+        if ([categoryID isEqualToString:kfullDayCategoryID]) {
             weakSelf.titleLabel.text = @"Full day Charters";
-        } else if ([charterService.name containsString:@"Half-Day"]){
+        } else if ([categoryID isEqualToString:khalfDayCategoryID]){
             weakSelf.titleLabel.text = @"Half Day Charters";
-        } else if ([charterService.name containsString:@"Nautical Overnight"]) {
+        } else if ([categoryID isEqualToString:knauticalOvernightCategoryId]) {
             weakSelf.titleLabel.text = @"Nautical Overnight";
-        } else {
+        } else if ([categoryID isEqualToString:kbedAndBoatCategoryID]) {
             weakSelf.titleLabel.text = @"Bed & Boat";
         }
+        [weakSelf setNeedsLayout];
     });
 }
 

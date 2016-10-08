@@ -10,8 +10,6 @@
 
 @interface CategoryTableViewCell : UITableViewCell
 
-- (void)configureCellwithArray:(NSArray*)array;
-
-
+- (void)configureCellWithString:(NSString *)categoryID;
 
 @end
