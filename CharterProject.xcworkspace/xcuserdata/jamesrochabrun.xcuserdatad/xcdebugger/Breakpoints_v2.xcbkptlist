@@ -32,11 +32,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CharterProject/MainViewController.m"
-            timestampString = "497580113.85685"
+            timestampString = "497586338.910286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159">
+            startingLineNumber = "143"
+            endingLineNumber = "143">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,21 +46,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CharterProject/MainViewController.m"
-            timestampString = "497580113.85685"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CharterProject/MainViewController.m"
-            timestampString = "497580113.85685"
+            timestampString = "497586338.910286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
@@ -74,13 +60,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CharterProject/MainViewController.m"
-            timestampString = "497580113.85685"
+            timestampString = "497586338.910286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "@implementation MainViewController"
-            landmarkType = "3">
+            startingLineNumber = "132"
+            endingLineNumber = "132">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

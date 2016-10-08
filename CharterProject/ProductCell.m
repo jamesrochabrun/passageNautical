@@ -12,11 +12,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
+#import "Common.h"
+#import "CommonUIConstants.h"
 
 @interface ProductCell ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *testView;
 
 @end
 
@@ -26,21 +29,20 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.backgroundColor = UIColorRGBOverlay(kColorOffBlack, 0.2);
 }
 
 - (void)configureCellwithCharterService:(CharterService *)charterService {
+
+//    UIImageView *imageView = [UIImageView new];
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    UIImageView *imageView = [UIImageView new];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [imageView setImageWithURL:[NSURL URLWithString:charterService.imageURL]
+    [_testView setImageWithURL:[NSURL URLWithString:charterService.imageURL]
               placeholderImage:[UIImage imageNamed:@"yate"]];
     
     __weak ProductCell *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        //background Image of Cell
-        weakSelf.backgroundView = imageView;
-        
+
         //charter service name
         weakSelf.nameLabel.text = charterService.name;
         weakSelf.nameLabel.textColor = [UIColor whiteColor];
@@ -58,10 +60,7 @@
         weakSelf.timeLabel.font = [UIFont regularFont:15];
         
     });
-    
 }
-
-
 
 
 

@@ -84,7 +84,7 @@
     [_callButton addTarget:self action:@selector(onCallButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     _callButton.layer.borderColor = [UIColor customMainColor].CGColor;
     _callButton.layer.borderWidth = 2.0f;
-    [_callButton.titleLabel setFont:[UIFont mediumFont:22]];
+    [_callButton.titleLabel setFont:[UIFont regularFont:22]];
     [_scrollView addSubview:_callButton];
     
     _mailButton = [UIButton new];
@@ -93,7 +93,7 @@
     [_mailButton addTarget:self action:@selector(onMailButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     _mailButton.layer.borderColor = [UIColor customMainColor].CGColor;
     _mailButton.layer.borderWidth = 2.0f;
-    [_mailButton.titleLabel setFont:[UIFont mediumFont:22]];
+    [_mailButton.titleLabel setFont:[UIFont regularFont:22]];
     [_scrollView addSubview:_mailButton];
     
     _logoView = [UIImageView new];
@@ -164,7 +164,6 @@
     frame.origin.x = (width(_scrollView) - 220) /2;
     frame.origin.y = CGRectGetMaxY(_imageView.frame) + kGeomMarginMedium;
     _logoView.frame = frame;
-    
     
     frame = _textView.frame;
     frame.size.width = width(self.view) * 0.75;

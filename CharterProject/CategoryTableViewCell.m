@@ -33,7 +33,7 @@
     [self addSubview:_frameView];
     
     _titleLabel = [UILabel new];
-    _titleLabel.textColor = [UIColor blueColor]; //[UIColor colorWithWhite:1.0 alpha:1.0];
+    _titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
     _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
     _titleLabel.layer.shadowRadius = 3.0f;
     _titleLabel.layer.shadowOpacity = 1;
@@ -87,17 +87,27 @@
     
     __weak CategoryTableViewCell *weakSelf = self;
     
+    UIImageView *imageView = [UIImageView new];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         //category name label
         if ([categoryID isEqualToString:kfullDayCategoryID]) {
             weakSelf.titleLabel.text = @"Full day Charters";
+            imageView.image = [UIImage imageNamed:@"fullDay"];
         } else if ([categoryID isEqualToString:khalfDayCategoryID]){
             weakSelf.titleLabel.text = @"Half Day Charters";
+            imageView.image = [UIImage imageNamed:@"halfDay"];
         } else if ([categoryID isEqualToString:knauticalOvernightCategoryId]) {
             weakSelf.titleLabel.text = @"Nautical Overnight";
+            imageView.image = [UIImage imageNamed:@"overnight"];
         } else if ([categoryID isEqualToString:kbedAndBoatCategoryID]) {
             weakSelf.titleLabel.text = @"Bed & Boat";
+            imageView.image = [UIImage imageNamed:@"bedAndBoat"];
+
         }
+        weakSelf.backgroundView = imageView;
         [weakSelf setNeedsLayout];
     });
 }

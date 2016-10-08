@@ -103,22 +103,6 @@ static NSString *keyFromJSON = @"products";
 //  
 //}
 
-- (void)setLabelFortUserNoInternetConnection {
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 30)];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.center = CGPointMake(width(self.view)/2, height(self.view)/2);
-    label.text = @"no internet connection";
-    label.textColor = [UIColor customTextColor];
-    label.font = [UIFont regularFont:22];
-    [self.view addSubview:label];
-    _toolBar.userInteractionEnabled = NO;
-}
-
-
-
-
-
 
 
 
