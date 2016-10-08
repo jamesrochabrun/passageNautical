@@ -45,6 +45,9 @@
 @property (nonatomic, strong) ViewPickerView *viewPicker;
 
 
+@property (nonatomic, assign) CGPoint scrollingPoint, endPoint;
+@property (nonatomic, strong) NSTimer *scrollingTimer;
+
 @end
 
 static NSString * const FilterCelIdentifier = @"FilterCellIdentifier";
@@ -159,6 +162,8 @@ static NSString *const itemURL =  @"itemUrl";
     _bookButton.backgroundColor = [UIColor customMainColor];
     [self.view addSubview:_bookButton];
 
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(scroll) userInfo:nil repeats:true];
 }
 
 
@@ -448,10 +453,20 @@ static NSString *const itemURL =  @"itemUrl";
     return UIEdgeInsetsMake(0,0,0,0);
 }
 
-
-
-
-
+- (void)scroll {
+    
+    //get Collection View Instance
+    
+    //get cell size
+    CGSize cellSize = CGSizeMake(width(_collectionView), height(_collectionView));
+    
+    //get current content Offset of the Collection view
+    
+    //scroll to next cell
+    CGRect rect =  CGRectMake(_collectionView.contentOffset.x + cellSize.width, _collectionView.contentOffset.y, cellSize.width, cellSize.height);
+    [_collectionView scrollRectToVisible:rect animated:YES];
+    
+}
 
 
 
