@@ -79,7 +79,6 @@
     UITouch *touch = [touches anyObject];
     if (touch.view != _pickerView)
        // [self.AddView endEditing:YES];
-        NSLog(@"touched");
     [self.delegate hideViewPickerViewAfterPriceWasSelected:_priceOption];
 }
 
