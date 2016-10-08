@@ -164,6 +164,7 @@ static NSString *const itemURL =  @"itemUrl";
 
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(scroll) userInfo:nil repeats:true];
+   // [timer isValid];
 }
 
 
