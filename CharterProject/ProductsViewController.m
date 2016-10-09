@@ -13,14 +13,15 @@
 #import "CharterAPI.h"
 #import "CommonUIConstants.h"
 #import "UITableView+Additions.h"
+#import "UILabel+Additions.h"
 
 @interface ProductsViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *productsArray;
 @property UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) CAGradientLayer *maskLayer;
-
 @property NSString *categoryTitle;
+@property (nonatomic, strong) UILabel *noInternetLabel;
 
 @end
 
@@ -31,6 +32,10 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = NO;
      self.title = @"Nautical Overnight";
+    _noInternetLabel = [UILabel labelWithText:@"No Internet Conection" withSize:12 inView:self.view];
+    _noInternetLabel.backgroundColor = UIColorRGB(kColorYellowFlat);
+    _noInternetLabel.hidden = YES;
+  
   //  for (CharterService *charterservice in self.productsArray){
        // NSLog(@"%@", charterservice.name);
     //}
@@ -41,7 +46,16 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
-
+- (void)viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    CGRect frame = _noInternetLabel.frame;
+    frame.size.height = 20;
+    frame.size.width = width(self.view);
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    _noInternetLabel.frame = frame;
+}
 
 - (void)setCategoryID:(NSString *)categoryID {
     
@@ -116,7 +130,7 @@
             if (error) {
                 __weak ProductsViewController *weakSelf = self;
                 dispatch_async(dispatch_get_main_queue(), ^{
-//                    [weakSelf setLabelFortUserNoInternetConnection];
+                      [weakSelf showLabelIfNoInternetConnection];
                       [weakSelf.activityIndicator stopAnimating];
                 });
             };
@@ -126,6 +140,10 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [_tableView fadeTopAndBottomCellsOnTableViewScroll:_tableView withModifier:1.0];
+}
+
+- (void)showLabelIfNoInternetConnection {
+    _noInternetLabel.hidden = NO;
 }
 
 

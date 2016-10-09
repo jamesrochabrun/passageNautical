@@ -35,6 +35,7 @@
 		7B5844EC1D9F1C0000ED2AFC /* CommentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5844EB1D9F1C0000ED2AFC /* CommentTextView.m */; };
 		7B5844EF1D9F4DF900ED2AFC /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5844EE1D9F4DF900ED2AFC /* DatePickerView.m */; };
 		7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */; };
+		7B70D34F1DA9BA5900078FDB /* UILabel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B70D34E1DA9BA5900078FDB /* UILabel+Additions.m */; };
 		7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */; };
 		7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */; };
 		7B888C431DA2D1FE00F90A00 /* SuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B888C421DA2D1FE00F90A00 /* SuccessView.m */; };
@@ -130,6 +131,8 @@
 		7B5844EE1D9F4DF900ED2AFC /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
 		7B6EA4491D15E9E200AFC708 /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactViewController.h; path = ../ContactViewController.h; sourceTree = "<group>"; };
 		7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactViewController.m; path = ../ContactViewController.m; sourceTree = "<group>"; };
+		7B70D34D1DA9BA5900078FDB /* UILabel+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Additions.h"; sourceTree = "<group>"; };
+		7B70D34E1DA9BA5900078FDB /* UILabel+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Additions.m"; sourceTree = "<group>"; };
 		7B79420E1D13572B00CFE2F8 /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
 		7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
 		7B7942111D13607800CFE2F8 /* NSString+DecodeHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DecodeHTML.h"; sourceTree = "<group>"; };
@@ -406,6 +409,8 @@
 		7BA11F2D1D1271810072DBA7 /* categories */ = {
 			isa = PBXGroup;
 			children = (
+				7B70D34D1DA9BA5900078FDB /* UILabel+Additions.h */,
+				7B70D34E1DA9BA5900078FDB /* UILabel+Additions.m */,
 				7B4E75DD1DA7F4FF0095CCB7 /* UIPickerView+Additions.h */,
 				7B4E75DE1DA7F4FF0095CCB7 /* UIPickerView+Additions.m */,
 				7BF1C2B71DA4858D00D60E6D /* NSDate+Adittions.h */,
@@ -646,6 +651,7 @@
 				7BF1C2B91DA4858D00D60E6D /* NSDate+Adittions.m in Sources */,
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */,
+				7B70D34F1DA9BA5900078FDB /* UILabel+Additions.m in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
 				7B0B22171D95CDC5000830C4 /* BookingViewController.m in Sources */,
 				7BA0FA341D9DEC67004A6F41 /* CommentsObject.m in Sources */,
