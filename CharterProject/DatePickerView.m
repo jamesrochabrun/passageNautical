@@ -26,13 +26,14 @@ static CGFloat secondsInMinute = 60.0;
 static CGFloat minuteInHour = 60.0;
 NSString *const kKeyTableReuseIdentifier = @"cellReuseIdentifier";
 NSString *const kKeyCheckAvailability = @"Check Availability";
-NSString *const kKeyNext = @"Next";
+NSString *const kKeySelectDate = @"Select Date";
+NSString *const kKeySelectTime = @"Select Time";
 
 @interface DatePickerView ()
 @property UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UIDatePicker *pickerBookingDateStart;
 @property (nonatomic, strong) UIDatePicker *pickerBookingDateEnd;
-@property (nonatomic, strong) UIDatePicker *timePicker;
+@property (nonatomic, strong) TimeDatePickerView *timeDatePickerView;
 @property (nonatomic, strong) UILabel *pickerLabel;
 @property (nonatomic, strong) UILabel *pickerLabelEnd;
 @property (nonatomic, strong) UILabel *alertPickerLabel;
@@ -44,7 +45,6 @@ NSString *const kKeyNext = @"Next";
 @property (nonatomic, strong) UILabel *endLabelAlert;
 @property (nonatomic, assign) BOOL isEndDateLater;
 @property (nonatomic, strong) NSArray *sessionsArray;
-@property (nonatomic, strong) TimeDatePickerView *timeDatePickerView;
 
 @property (nonatomic, strong) NSString *selectedDate;
 @property (nonatomic, strong) NSString *selectedTime;
@@ -259,7 +259,7 @@ NSString *const kKeyNext = @"Next";
         } else {
             NSLog(@"NO DUDE SOMETHING IS MISSING");
         }
-    } else if ([_nextButton.titleLabel.text isEqualToString:kKeyNext]) {
+    } else if ([_nextButton.titleLabel.text isEqualToString:kKeySelectDate]) {
        
         if (_selectedDate) {
             
@@ -279,14 +279,14 @@ NSString *const kKeyNext = @"Next";
                     weakSelf.pickerBookingDateEnd.hidden = YES;
                     weakSelf.pickerLabel.hidden = YES;
                     weakSelf.pickerLabelEnd.hidden = YES;
-                    [weakSelf.nextButton setTitle:@"test" forState:UIControlStateNormal];
+                    [weakSelf.nextButton setTitle:kKeySelectTime forState:UIControlStateNormal];
                 });
             }
         } else {
             //alert user pick a date
             [self.delegate alertUserThatMustSelectADateOrTime:NO];
         }
-    } else if ([_nextButton.titleLabel.text isEqualToString:@"test"]) {
+    } else if ([_nextButton.titleLabel.text isEqualToString:kKeySelectTime]) {
         //show date picker for time and pass the hour and construct a string with a date and a time;
         if (_selectedTime) {
             
@@ -333,11 +333,11 @@ NSString *const kKeyNext = @"Next";
                 [weakSelf.datesTableView reloadData];
                 weakSelf.datesTableView.hidden = NO;
                 [weakSelf.activityIndicator stopAnimating];
-                [weakSelf.nextButton setTitle:kKeyNext forState:UIControlStateNormal];
+                [weakSelf.nextButton setTitle:kKeySelectDate forState:UIControlStateNormal];
             });
             
         } else {
-            NSLog(@"MO SESSIONS FOUNDED");
+            NSLog(@"NO SESSIONS FOUNDED");
             [_activityIndicator stopAnimating];
             [self noSessionFounded];
         }

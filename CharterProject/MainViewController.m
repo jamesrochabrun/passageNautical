@@ -5,7 +5,6 @@
 //  Created by alexandra blumenfeld on 6/8/16.
 //  Copyright © 2016 jamesrochabrun. All rights reserved.
 //
-//this is a test for github
 
 #import "MainViewController.h"
 #import "AFNetworking.h"
