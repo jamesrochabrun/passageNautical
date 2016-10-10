@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PriceOptionObject.h"
 
 @interface ItemsObject : NSObject
 

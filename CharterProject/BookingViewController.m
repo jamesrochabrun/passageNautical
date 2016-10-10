@@ -57,6 +57,8 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 @property (nonatomic, strong) NSString *stringDate;
 @property (nonatomic, assign) BOOL formIsReadyToBook;
 @property (nonatomic, strong) SuccessView *succesView;
+@property UIActivityIndicatorView *activityIndicator;
+
 
 @end
 
@@ -299,6 +301,17 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     }
 }
 
+- (void)startActivityIndicator {
+    
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.view addSubview:_activityIndicator];
+    _activityIndicator.center = CGPointMake(width(self.view) /2,height(self.view) /2);
+    __weak BookingViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.activityIndicator startAnimating];
+    });
+}
+
 
 - (void)bookNow {
     
@@ -344,9 +357,9 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     
     BookingObject *booking = [BookingObject new];
     
-    booking.customer.firstName = @"james";//_nameField.textField.text;
-    booking.customer.lastName = @"rochabrun";//_lastNameField.textField.text;
-    booking.customer.email = @"jamesrochabrun@gmail.com";/// _emailField.textField.text;
+    booking.customer.firstName = _nameField.textField.text;
+    booking.customer.lastName = _lastNameField.textField.text;
+    booking.customer.email = _emailField.textField.text;
     booking.customer.phone = _phoneField.textField.text;
     booking.customer.companyName = _companyField.textField.text;
     booking.customer.postCode = _postCodeField.textField.text;
@@ -354,22 +367,27 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     booking.customer.city = _cityField.textField.text;
     booking.customer.addressLine = _addressField.textField.text;
     
-    booking.items.amount = _charterService.advertisedPrice;
+    //ITEMS
+    booking.items.amount = _charterService.priceOption.price;
     booking.items.startTimeLocal = (_stringDate)?_stringDate:[NSString stringFromCurrentDate];
-    
     NSLog(@"the string date inside the booking is %@", _stringDate);
-    booking.items.quantitiesValue = @1;
+    booking.items.quantitiesValue = _charterService.priceOption.seatsUsed;
     booking.items.productCode = _charterService.productCode;
+    booking.items.optionLabel = _charterService.priceOption.priceOptionLabel;
     
+    //COMMENTS
     booking.comment.comments = _commentTextView.textView.text;
     
+    //PAYMENTS
     booking.payment.type = @"INVOICE";
-    // booking.payment.amountPayment = @"";//_charterService.advertisedPrice;
+    booking.payment.amountPayment = @0;//_charterService.advertisedPrice;
     booking.payment.currency = _charterService.currency;
     booking.payment.date = [NSString stringFromCurrentDate];
     
     NSDictionary *bookDict = [booking dictionaryFromBookingObject];
     NSLog(@"the dict is %@", bookDict);
+    
+    [self startActivityIndicator];
     
     CharterAPI *api = [CharterAPI new];
     
@@ -394,6 +412,8 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     __weak BookingViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.formScrollView.hidden = YES;
+        [weakSelf.view endEditing:YES];
+        [weakSelf.activityIndicator stopAnimating];
         weakSelf.succesView.hidden = NO;
         BookingObject *bookingObject = [BookingObject bookingFromDict:booking];
         weakSelf.succesView.booking = bookingObject;
@@ -560,6 +580,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     NSLog(@"the name is %@" , boo.payment.currency);
     NSLog(@"the name is %@" , boo.payment.type);
     NSLog(@"the name is %@" , boo.items.startTimeLocal);
+    
     
     [self handleSuccessBooking:booking];
     

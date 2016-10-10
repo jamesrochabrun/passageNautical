@@ -23,9 +23,10 @@
 #import "CharterCollectionViewCell.h"
 #import "InfoView.h"
 #import "PriceOptionObject.h"
+#import "ViewPickerView.h"
 
 
-@interface DetailViewController ()<MFMailComposeViewControllerDelegate>
+@interface DetailViewController ()<MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *priceLabel;
@@ -39,7 +40,14 @@
 @property (nonatomic, strong) UICollectionViewFlowLayout *listsLayout;
 @property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UIButton *bookButton;
+@property (nonatomic, strong) UIButton *priceOptionsButton;
 @property (nonatomic, strong) InfoView *infoView;
+@property (nonatomic, strong) ViewPickerView *viewPicker;
+@property (nonatomic, strong) NSTimer *timer;
+
+
+@property (nonatomic, assign) CGPoint scrollingPoint, endPoint;
+@property (nonatomic, strong) NSTimer *scrollingTimer;
 
 @end
 
@@ -51,11 +59,12 @@ static NSString *const itemURL =  @"itemUrl";
 
 - (void)viewDidLoad {
     
-//    NSLog(@"the price options are %lu", (unsigned long)_charterService.priceOptions.count);
-//    for (PriceOptionObject *pO in _charterService.priceOptions) {
-//        NSLog(@"the po label is %@", pO.priceOptionLabel);
-//    }
-//    
+    NSLog(@"the price options are %lu", (unsigned long)_charterService.priceOptions.count);
+    for (PriceOptionObject *pO in _charterService.priceOptions) {
+        NSLog(@"the po label is %@", pO.priceOptionLabel);
+        NSLog(@"the seats used are %@", pO.seatsUsed);
+    }
+    
     self.title = self.charterService.name;
     
     self.navigationController.navigationBar.hidden = NO;
@@ -99,6 +108,22 @@ static NSString *const itemURL =  @"itemUrl";
     [_readMoreButton setTitle:@"Read More" forState:UIControlStateNormal];
     [_scrollView addSubview:_readMoreButton];
     
+    if (_charterService.priceOptions.count > 1) {
+        
+        _viewPicker = [ViewPickerView new];
+        _viewPicker.delegate = self;
+        _viewPicker.charterService = _charterService;
+        
+        _priceOptionsButton = [UIButton new];
+        [_priceOptionsButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
+        _priceOptionsButton.titleLabel.font = [UIFont regularFont:15];
+        _priceOptionsButton.layer.borderWidth = 2.0f;
+        _priceOptionsButton.layer.borderColor = [UIColor customMainColor].CGColor;
+        [_priceOptionsButton setTitle:@"Show More Price Options" forState:UIControlStateNormal];
+        [_priceOptionsButton addTarget:self action:@selector(showPickerView:) forControlEvents:UIControlEventTouchUpInside];
+        [_scrollView addSubview:_priceOptionsButton];
+    }
+ 
     _mapButton = [UIButton new];
     [_mapButton setTitleColor:[UIColor customMainColor] forState:UIControlStateNormal];
     _mapButton.titleLabel.font = [UIFont regularFont:15];
@@ -138,6 +163,11 @@ static NSString *const itemURL =  @"itemUrl";
     _bookButton.backgroundColor = [UIColor customMainColor];
     [self.view addSubview:_bookButton];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self addTimer];
+
 }
 
 
@@ -181,12 +211,31 @@ static NSString *const itemURL =  @"itemUrl";
     frame.origin.y = CGRectGetMaxY(_textView.frame) + kGeomMarginSmall;
     _readMoreButton.frame = frame;
     
+    if (_charterService.priceOptions.count > 1) {
+        
+        frame = _priceOptionsButton.frame;
+        frame.size.height = kGeomHeightBigbutton;
+        frame.size.width = kGeomWidthBigButton;
+        frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+        frame.origin.y = CGRectGetMaxY(_readMoreButton.frame) + kGeomMarginMedium;
+        _priceOptionsButton.frame = frame;
+        
+        frame = _mapButton.frame;
+        frame.size.height = kGeomHeightBigbutton;
+        frame.size.width = kGeomWidthBigButton;
+        frame.origin.x = (width(_scrollView) - frame.size.width) /2;
+        frame.origin.y = CGRectGetMaxY(_priceOptionsButton.frame) + kGeomMarginMedium;
+        _mapButton.frame = frame;
+        
+    } else {
+
     frame = _mapButton.frame;
     frame.size.height = kGeomHeightBigbutton;
     frame.size.width = kGeomWidthBigButton;
     frame.origin.x = (width(_scrollView) - frame.size.width) /2;
     frame.origin.y = CGRectGetMaxY(_readMoreButton.frame) + kGeomMarginMedium;
     _mapButton.frame = frame;
+    }
     
     frame = _shareButton.frame;
     frame.size.height = kGeomHeightBigbutton;
@@ -203,8 +252,6 @@ static NSString *const itemURL =  @"itemUrl";
     _generalTermsButton.frame = frame;
     
     _scrollView.contentSize = CGSizeMake(width(self.view), CGRectGetMaxY(_generalTermsButton.frame) + kGeomBottomPadding);
-
-    
 }
 
 
@@ -217,6 +264,38 @@ static NSString *const itemURL =  @"itemUrl";
     newFrame.origin.x = (width(self.view) - fixedWidth) /2;
     newFrame.origin.y = CGRectGetMaxY(_infoView.frame) + kGeomMarginSmall;
     textView.frame = newFrame;
+}
+
+- (void)removeTimer {
+    // stop NSTimer
+    [self.timer invalidate];
+    // clear NSTimer
+    self.timer = nil;
+}
+
+- (void)addTimer {
+    _timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(scrollAutomatically) userInfo:nil repeats:true];
+}
+
+- (void)scrollAutomatically {
+    
+    CGSize cellSize = CGSizeMake(width(_collectionView), height(_collectionView));
+    CGRect rect =  CGRectMake(_collectionView.contentOffset.x + cellSize.width, _collectionView.contentOffset.y, cellSize.width, cellSize.height);
+    
+        [_collectionView scrollRectToVisible:rect animated:YES];
+}
+
+// UIScrollView' delegate method
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self removeTimer];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self addTimer];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self removeTimer];
 }
 
 - (void)performReadMoreSegue:(id)sender {
@@ -339,8 +418,37 @@ static NSString *const itemURL =  @"itemUrl";
     });
 }
 
+- (void)showPickerView:(id)sender {
+ 
+    CGRect frame = _viewPicker.frame;
+    frame.size.height = height(self.view);
+    frame.size.width = width(self.view);
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    _viewPicker.frame = frame;
+    
+    __weak DetailViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.view addSubview:weakSelf.viewPicker];
+    });
+}
+
+- (void)hideViewPickerViewAfterPriceWasSelected:(PriceOptionObject *)priceOption {
+    
+    if (priceOption) {
+        _charterService.priceOption = priceOption;
+
+    }
+    __weak DetailViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.viewPicker removeFromSuperview];
+        [weakSelf.collectionView reloadData];
+    });
+}
+
+//not implemented
 - (void)didIamgeDoubleTapped {
-    NSLog(@"hehh");
+    NSLog(@"tap");
 }
 
 
@@ -367,7 +475,7 @@ static NSString *const itemURL =  @"itemUrl";
     
     NSDictionary *imagesDictionary = [_charterService.images objectAtIndex:indexPath.row];
     NSString *urlStr = [CharterService urlStringWithNoSpaces:imagesDictionary];
-    cell.priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.advertisedPrice];
+    cell.priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.priceOption.price];
     
     [cell.doubleTapImage setImageWithURL:[NSURL URLWithString:urlStr]
                         placeholderImage:[UIImage imageNamed:@"yate"]];
@@ -380,11 +488,6 @@ static NSString *const itemURL =  @"itemUrl";
     
     return UIEdgeInsetsMake(0,0,0,0);
 }
-
-
-
-
-
 
 
 

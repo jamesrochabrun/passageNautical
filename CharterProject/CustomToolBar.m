@@ -21,7 +21,7 @@
         [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
         [self setBarTintColor:[UIColor whiteColor]];
         
-        _home = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chart"] style:UIBarButtonItemStylePlain target:self action:@selector(goToHome)];
+        _home = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"yacht"] style:UIBarButtonItemStylePlain target:self action:@selector(goToHome)];
         [_home setTintColor:[UIColor toolBarButtonColor]];
         [_home setWidth:kGeomWidthToolBarButton];
         
@@ -52,6 +52,7 @@
     frame.size.width = [[UIScreen mainScreen] bounds].size.width;
     frame.size.height = 50;
     self.frame = frame;
+    
 }
 
 - (void)goToContact {

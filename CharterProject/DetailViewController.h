@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CharterCollectionViewCell.h"
+#import "ViewPickerView.h"
 @class CharterService;
 
-@interface DetailViewController : UIViewController<CharterCollectionViewCellDelegate>
+@interface DetailViewController : UIViewController<CharterCollectionViewCellDelegate, ViewPickerViewDelegate>
 @property CharterService *charterService;
 
 

@@ -27,13 +27,15 @@
 		7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3B81D0B800700975BE9 /* ProductsViewController.m */; };
 		7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */; };
 		7B2BF42D1DA5F0AD00123DAF /* TableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2BF42C1DA5F0AD00123DAF /* TableHeaderView.m */; };
-		7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B41FD541D18A13B0037A849 /* FavoritesViewController.m */; };
 		7B4858741D1DE06600AAE2A7 /* DoubleTapImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */; };
+		7B4E75DF1DA7F4FF0095CCB7 /* UIPickerView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4E75DE1DA7F4FF0095CCB7 /* UIPickerView+Additions.m */; };
+		7B4E75E21DA802BA0095CCB7 /* ViewPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4E75E11DA802BA0095CCB7 /* ViewPickerView.m */; };
 		7B5124801D0E76AC0068A6F7 /* UIColor+MainColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */; };
 		7B5124831D0E79270068A6F7 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5124821D0E79270068A6F7 /* ProductCell.m */; };
 		7B5844EC1D9F1C0000ED2AFC /* CommentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5844EB1D9F1C0000ED2AFC /* CommentTextView.m */; };
 		7B5844EF1D9F4DF900ED2AFC /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5844EE1D9F4DF900ED2AFC /* DatePickerView.m */; };
 		7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */; };
+		7B70D34F1DA9BA5900078FDB /* UILabel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B70D34E1DA9BA5900078FDB /* UILabel+Additions.m */; };
 		7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */; };
 		7B7942131D13607800CFE2F8 /* NSString+DecodeHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7942121D13607800CFE2F8 /* NSString+DecodeHTML.m */; };
 		7B888C431DA2D1FE00F90A00 /* SuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B888C421DA2D1FE00F90A00 /* SuccessView.m */; };
@@ -113,10 +115,12 @@
 		7B2AC3BB1D0BA4B200975BE9 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewCell.m; sourceTree = "<group>"; };
 		7B2BF42B1DA5F0AD00123DAF /* TableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableHeaderView.h; sourceTree = "<group>"; };
 		7B2BF42C1DA5F0AD00123DAF /* TableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableHeaderView.m; sourceTree = "<group>"; };
-		7B41FD531D18A13B0037A849 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
-		7B41FD541D18A13B0037A849 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		7B4858721D1DE06600AAE2A7 /* DoubleTapImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoubleTapImage.h; path = ../DoubleTapImage.h; sourceTree = "<group>"; };
 		7B4858731D1DE06600AAE2A7 /* DoubleTapImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DoubleTapImage.m; path = ../DoubleTapImage.m; sourceTree = "<group>"; };
+		7B4E75DD1DA7F4FF0095CCB7 /* UIPickerView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPickerView+Additions.h"; sourceTree = "<group>"; };
+		7B4E75DE1DA7F4FF0095CCB7 /* UIPickerView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPickerView+Additions.m"; sourceTree = "<group>"; };
+		7B4E75E01DA802BA0095CCB7 /* ViewPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPickerView.h; sourceTree = "<group>"; };
+		7B4E75E11DA802BA0095CCB7 /* ViewPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPickerView.m; sourceTree = "<group>"; };
 		7B51247E1D0E76AC0068A6F7 /* UIColor+MainColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MainColor.h"; sourceTree = "<group>"; };
 		7B51247F1D0E76AC0068A6F7 /* UIColor+MainColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MainColor.m"; sourceTree = "<group>"; };
 		7B5124811D0E79270068A6F7 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 		7B5844EE1D9F4DF900ED2AFC /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
 		7B6EA4491D15E9E200AFC708 /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactViewController.h; path = ../ContactViewController.h; sourceTree = "<group>"; };
 		7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactViewController.m; path = ../ContactViewController.m; sourceTree = "<group>"; };
+		7B70D34D1DA9BA5900078FDB /* UILabel+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Additions.h"; sourceTree = "<group>"; };
+		7B70D34E1DA9BA5900078FDB /* UILabel+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Additions.m"; sourceTree = "<group>"; };
 		7B79420E1D13572B00CFE2F8 /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
 		7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
 		7B7942111D13607800CFE2F8 /* NSString+DecodeHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DecodeHTML.h"; sourceTree = "<group>"; };
@@ -278,6 +284,8 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B4E75E01DA802BA0095CCB7 /* ViewPickerView.h */,
+				7B4E75E11DA802BA0095CCB7 /* ViewPickerView.m */,
 				7B2BF42B1DA5F0AD00123DAF /* TableHeaderView.h */,
 				7B2BF42C1DA5F0AD00123DAF /* TableHeaderView.m */,
 				7B888C441DA31A5E00F90A00 /* InfoView.h */,
@@ -320,8 +328,6 @@
 				7B79420F1D13572B00CFE2F8 /* DescriptionViewController.m */,
 				7B6EA4491D15E9E200AFC708 /* ContactViewController.h */,
 				7B6EA44A1D15E9E200AFC708 /* ContactViewController.m */,
-				7B41FD531D18A13B0037A849 /* FavoritesViewController.h */,
-				7B41FD541D18A13B0037A849 /* FavoritesViewController.m */,
 				7BF9DA691D19AEDD00695161 /* MapViewController.h */,
 				7BF9DA6A1D19AEDD00695161 /* MapViewController.m */,
 			);
@@ -403,6 +409,10 @@
 		7BA11F2D1D1271810072DBA7 /* categories */ = {
 			isa = PBXGroup;
 			children = (
+				7B70D34D1DA9BA5900078FDB /* UILabel+Additions.h */,
+				7B70D34E1DA9BA5900078FDB /* UILabel+Additions.m */,
+				7B4E75DD1DA7F4FF0095CCB7 /* UIPickerView+Additions.h */,
+				7B4E75DE1DA7F4FF0095CCB7 /* UIPickerView+Additions.m */,
 				7BF1C2B71DA4858D00D60E6D /* NSDate+Adittions.h */,
 				7BF1C2B81DA4858D00D60E6D /* NSDate+Adittions.m */,
 				7BF1C2B11DA41F4B00D60E6D /* UITableView+Additions.h */,
@@ -641,9 +651,9 @@
 				7BF1C2B91DA4858D00D60E6D /* NSDate+Adittions.m in Sources */,
 				645EBC981D08BF3B007D1557 /* CharterProject.xcdatamodeld in Sources */,
 				7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */,
+				7B70D34F1DA9BA5900078FDB /* UILabel+Additions.m in Sources */,
 				7B2AC3BC1D0BA4B200975BE9 /* CategoryTableViewCell.m in Sources */,
 				7B0B22171D95CDC5000830C4 /* BookingViewController.m in Sources */,
-				7B41FD551D18A13B0037A849 /* FavoritesViewController.m in Sources */,
 				7BA0FA341D9DEC67004A6F41 /* CommentsObject.m in Sources */,
 				7B995CF51D9A05270047B6D5 /* ListCVFL.m in Sources */,
 				7B7942101D13572B00CFE2F8 /* DescriptionViewController.m in Sources */,
@@ -663,6 +673,7 @@
 				7BF1C2BC1DA58D1F00D60E6D /* SessionObject.m in Sources */,
 				7B1484191D964A95002ADC55 /* TopView.m in Sources */,
 				7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */,
+				7B4E75DF1DA7F4FF0095CCB7 /* UIPickerView+Additions.m in Sources */,
 				7BF1C2B31DA41F4B00D60E6D /* UITableView+Additions.m in Sources */,
 				7B2BF42D1DA5F0AD00123DAF /* TableHeaderView.m in Sources */,
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
@@ -678,6 +689,7 @@
 				7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */,
 				7B888C461DA31A5E00F90A00 /* InfoView.m in Sources */,
 				7B0B221A1D95E32F000830C4 /* BookingField.m in Sources */,
+				7B4E75E21DA802BA0095CCB7 /* ViewPickerView.m in Sources */,
 				7BA0FA371D9DED3C004A6F41 /* PaymentsObject.m in Sources */,
 				7B6EA44B1D15E9E200AFC708 /* ContactViewController.m in Sources */,
 			);

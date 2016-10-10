@@ -10,5 +10,5 @@
 
 @interface UITableView (Additions)
 + (UITableView *)tableViewInView:(UIView *)view delegate:(id)delegate;
-
+- (void)fadeTopAndBottomCellsOnTableViewScroll:(UITableView *)tableView withModifier:(CGFloat)modifier ;
 @end

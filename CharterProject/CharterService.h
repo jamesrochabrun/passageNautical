@@ -77,6 +77,7 @@ extern NSString *const CHunitLabelPlural;
 @property (nonatomic, strong) NSString *unitLabel;
 @property (nonatomic, strong) NSString *unitLabelPlural;
 @property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, strong) PriceOptionObject *priceOption;
 
 + (CharterService *)charterServiceFromDict:(NSDictionary *)dict;
 + (NSString *)urlStringWithNoSpaces:(NSDictionary *)dict;

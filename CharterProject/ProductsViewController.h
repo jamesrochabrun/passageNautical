@@ -10,5 +10,5 @@
 #import "CharterService.h"
 
 @interface ProductsViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-@property NSArray *productsArray;
+@property (nonatomic, strong) NSString *categoryID;
 @end

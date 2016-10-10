@@ -26,10 +26,11 @@
 @property (nonatomic, strong) NSNumber *totalDue;
 @property (nonatomic, strong) NSNumber *totalPaid;
 @property (nonatomic, strong) NSString *totalCurrency;
-@property (nonatomic, strong) NSString *dateCreated;
-@property (nonatomic, strong) NSString *dateConfirmed;
 @property (nonatomic, strong) NSString *status;
 
+//for NO_DATE
+@property (nonatomic, strong) NSString *dateCreated;
+@property (nonatomic, strong) NSString *dateConfirmed;
 
 
 - (NSDictionary *)dictionaryFromBookingObject;

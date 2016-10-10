@@ -30,7 +30,8 @@
     UINavigationBar *navigationBarAppereance = [UINavigationBar appearance];
     navigationBarAppereance.titleTextAttributes = @{
                                                     NSForegroundColorAttributeName:  [UIColor colorWithRed:120.1/255.0 green:115.7/255.0 blue:88.0/255.0 alpha:1.0],
-                                                    NSFontAttributeName:  [UIFont fontWithName:@"Gotham Narrow" size:17]
+                                                    NSFontAttributeName:  [UIFont fontWithName:@"Gotham Narrow" size:17],
+                                                
                                                     };
     navigationBarAppereance.tintColor = [UIColor customMainColor];
     navigationBarAppereance.barTintColor = [UIColor whiteColor];

@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
+#import "CommonUIConstants.h"
 
 @interface CategoryTableViewCell ()
 @property (nonatomic, strong) UIView *frameView;
@@ -82,38 +83,32 @@
 }
 
 
-- (void)configureCellwithArray:(NSArray*)array {
+- (void)configureCellWithString:(NSString *)categoryID {
     
-    
-    //we are taking the first object of each array
-    CharterService *charterService = [array firstObject];
-    NSDictionary *imagesDictionary = [charterService.images objectAtIndex:0];
-    NSString *itemUrl = [imagesDictionary valueForKey:@"itemUrl"];
-    NSString *itemUrlWithNoSpaces = [itemUrl stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    __weak CategoryTableViewCell *weakSelf = self;
     
     UIImageView *imageView = [UIImageView new];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
-
-    
-    [imageView setImageWithURL:[NSURL URLWithString:itemUrlWithNoSpaces]
-              placeholderImage:[UIImage imageNamed:@"yate"]];
-    
-    
-    __weak CategoryTableViewCell *weakSelf = self;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.backgroundView = imageView;
         //category name label
-        if ([charterService.name containsString:@"Full Day"]) {
+        if ([categoryID isEqualToString:kfullDayCategoryID]) {
             weakSelf.titleLabel.text = @"Full day Charters";
-        } else if ([charterService.name containsString:@"Half-Day"]){
+            imageView.image = [UIImage imageNamed:@"fullDay"];
+        } else if ([categoryID isEqualToString:khalfDayCategoryID]){
             weakSelf.titleLabel.text = @"Half Day Charters";
-        } else if ([charterService.name containsString:@"Nautical Overnight"]) {
+            imageView.image = [UIImage imageNamed:@"halfDay"];
+        } else if ([categoryID isEqualToString:knauticalOvernightCategoryId]) {
             weakSelf.titleLabel.text = @"Nautical Overnight";
-        } else {
+            imageView.image = [UIImage imageNamed:@"overnight"];
+        } else if ([categoryID isEqualToString:kbedAndBoatCategoryID]) {
             weakSelf.titleLabel.text = @"Bed & Boat";
+            imageView.image = [UIImage imageNamed:@"bedAndBoat"];
+
         }
+        weakSelf.backgroundView = imageView;
+        [weakSelf setNeedsLayout];
     });
 }
 
