@@ -35,10 +35,32 @@
     _noInternetLabel = [UILabel labelWithText:@"No Internet Conection" withSize:12 inView:self.view];
     _noInternetLabel.backgroundColor = UIColorRGB(kColorYellowFlat);
     _noInternetLabel.hidden = YES;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(performUIUpdateIfInternet:)
+                                                 name:@"internet"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(performUIUpdateIfNoInternet:)
+                                                 name:@"noInternet"
+                                               object:nil];
   
   //  for (CharterService *charterservice in self.productsArray){
        // NSLog(@"%@", charterservice.name);
     //}
+}
+
+- (void)performUIUpdateIfInternet:(NSNotification *)notification {
+    
+    NSLog(@"hay internet ");
+    
+}
+
+- (void)performUIUpdateIfNoInternet:(NSNotification *)notification {
+    
+    NSLog(@"no hay internet");
 }
 
 
@@ -145,6 +167,13 @@
 - (void)showLabelIfNoInternetConnection {
     _noInternetLabel.hidden = NO;
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"internet" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noInternet" object:nil];
+}
+
+
 
 
 
