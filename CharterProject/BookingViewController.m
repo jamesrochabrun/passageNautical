@@ -357,9 +357,9 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     
     BookingObject *booking = [BookingObject new];
     
-    booking.customer.firstName = @"james";//_nameField.textField.text;
-    booking.customer.lastName = @"rochabrun";//_lastNameField.textField.text;
-    booking.customer.email = @"jamesrochabrun@gmail.com";/// _emailField.textField.text;
+    booking.customer.firstName = _nameField.textField.text;
+    booking.customer.lastName = _lastNameField.textField.text;
+    booking.customer.email = _emailField.textField.text;
     booking.customer.phone = _phoneField.textField.text;
     booking.customer.companyName = _companyField.textField.text;
     booking.customer.postCode = _postCodeField.textField.text;

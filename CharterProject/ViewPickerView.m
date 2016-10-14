@@ -21,10 +21,12 @@
     if (self) {
         
         _backgroundView = [UIView new];
-        _backgroundView.backgroundColor = UIColorRGBOverlay(kColorGrayMiddle, 0.5);
+        _backgroundView.backgroundColor = UIColorRGBOverlay(kColorOffBlack, 0.8);
         [self addSubview:_backgroundView];
         _pickerView = [UIPickerView pickerViewInView:self delegate:self];
-        _pickerView.backgroundColor = UIColorRGBA(kColorOffBlack);
+       // _pickerView.backgroundColor = UIColorRGBA(kColorOffBlack);
+        _pickerView.backgroundColor = [UIColor whiteColor];
+
     }
     
     return self;
@@ -77,7 +79,6 @@
     UITouch *touch = [touches anyObject];
     if (touch.view != _pickerView)
        // [self.AddView endEditing:YES];
-        NSLog(@"touched");
     [self.delegate hideViewPickerViewAfterPriceWasSelected:_priceOption];
 }
 
@@ -85,10 +86,10 @@
     
     _priceOption = [_charterService.priceOptions objectAtIndex:row];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 50)];
-    label.textColor = [UIColor customMainColor];
+    label.textColor = UIColorRGBA(kColorOffBlack);
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
-    label.font = [UIFont mediumFont:20];
+    label.font = [UIFont regularFont:20];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = [NSString stringWithFormat:@"%@ %@ %@",_priceOption.priceOptionLabel , _charterService.currency, _priceOption.price];
     return label;

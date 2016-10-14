@@ -10,10 +10,18 @@
 #import "ProductCell.h"
 #import "CharterService.h"
 #import "DetailViewController.h"
+#import "CharterAPI.h"
+#import "CommonUIConstants.h"
+#import "UITableView+Additions.h"
+#import "UILabel+Additions.h"
 
-@interface ProductsViewController ()
+@interface ProductsViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSArray *productsArray;
+@property UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) CAGradientLayer *maskLayer;
 @property NSString *categoryTitle;
+@property (nonatomic, strong) UILabel *noInternetLabel;
 
 @end
 
@@ -22,41 +30,79 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self setNavBar];
-
+    self.navigationController.navigationBar.hidden = NO;
+     self.title = @"Nautical Overnight";
+    _noInternetLabel = [UILabel labelWithText:@"No Internet Conection" withSize:12 inView:self.view];
+    _noInternetLabel.backgroundColor = UIColorRGB(kColorYellowFlat);
+    _noInternetLabel.hidden = YES;
+  
   //  for (CharterService *charterservice in self.productsArray){
        // NSLog(@"%@", charterservice.name);
     //}
 }
 
-- (void)setNavBar {
-    
+
+- (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = NO;
-    CharterService *charterService = [self.productsArray firstObject];
-    if ([charterService.name containsString:@"Full Day"]) {
-        self.categoryTitle = @"Full day Charters";
-    } else if ([charterService.name containsString:@"Half-Day"]){
-        self.categoryTitle = @"Half Day Charters";
-    } else if ([charterService.name containsString:@"Nautical Overnight"]) {
-        self.categoryTitle = @"Nautical Overnight";
-    } else {
-        self.categoryTitle = @"Bed & Boat";
-    }
-    self.title = self.categoryTitle;
 }
 
+- (void)viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    CGRect frame = _noInternetLabel.frame;
+    frame.size.height = 20;
+    frame.size.width = width(self.view);
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    _noInternetLabel.frame = frame;
+}
+
+- (void)setCategoryID:(NSString *)categoryID {
+    
+    if (_categoryID == categoryID) return;
+    _categoryID = categoryID;
+    
+    __weak ProductsViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([_categoryID isEqualToString:kfullDayCategoryID]) {
+            self.title = @"Full day Charters";
+        } else if ([_categoryID isEqualToString:khalfDayCategoryID]){
+            weakSelf.title = @"Half Day Charters";
+        } else if ([_categoryID isEqualToString:knauticalOvernightCategoryId]) {
+            weakSelf.title = @"Nautical Overnight";
+        } else if ([_categoryID isEqualToString:kbedAndBoatCategoryID]) {
+            weakSelf.title = @"Bed & Boat";
+        }
+    });
+    
+    [self getProductsFromCategoryID:_categoryID];
+}
+
+- (void)startActivityIndicator {
+    
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.view addSubview:_activityIndicator];
+    _activityIndicator.center = CGPointMake(self.view.center.x,self.view.center.y - kGeomMarginBig);
+    
+    __weak ProductsViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.activityIndicator startAnimating];
+    });
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    CharterService *charterFavorite = [self.productsArray objectAtIndex:indexPath.row];
-    [cell configureCellwithCharterService:charterFavorite];
+//    CharterService *charterFavorite = [self.productsArray objectAtIndex:indexPath.row];
+//    [cell configureCellwithCharterService:charterFavorite];
     return cell;
 }
 
-//-(void) tableView:(UITableView *) tableView willDisplayCell:(ProductCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//
-//}
+-(void) tableView:(UITableView *) tableView willDisplayCell:(ProductCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    CharterService *charterFavorite = [self.productsArray objectAtIndex:indexPath.row];
+    [cell configureCellwithCharterService:charterFavorite];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.productsArray.count;
@@ -69,11 +115,36 @@
     detailVC.charterService = [self.productsArray objectAtIndex:indexPath.row];
 }
 
+- (void)getProductsFromCategoryID:(NSString *)categoryID {
+    
+    [self startActivityIndicator];
+        [CharterAPI getListOfServicesByID:categoryID success:^(NSArray *services) {
+            _productsArray = services;
+            __weak ProductsViewController *weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.activityIndicator stopAnimating];
+            });
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"failure");
+            if (error) {
+                __weak ProductsViewController *weakSelf = self;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                      [weakSelf showLabelIfNoInternetConnection];
+                      [weakSelf.activityIndicator stopAnimating];
+                });
+            };
+        }];
+}
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [_tableView fadeTopAndBottomCellsOnTableViewScroll:_tableView withModifier:1.0];
+}
 
-
-
-
+- (void)showLabelIfNoInternetConnection {
+    _noInternetLabel.hidden = NO;
+}
 
 
 

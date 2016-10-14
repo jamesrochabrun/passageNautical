@@ -47,7 +47,8 @@ static const NSUInteger kColorOverlay30 = 0xB3000000;
 static const NSUInteger kColorOverlay35 = 0xA6000000;
 static const NSUInteger kColorOverlay40 = 0x99000000;
 static const NSUInteger kColorOverlay50 = 0x7F000000;
-
+static const NSUInteger kColorYellowFlat = 0xf1c40f;
+static const NSUInteger kColorRedFlat = 0xe74c3c;
 
 // Geometry and metrics
 

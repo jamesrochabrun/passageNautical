@@ -26,7 +26,7 @@
 #import "ViewPickerView.h"
 
 
-@interface DetailViewController ()<MFMailComposeViewControllerDelegate>
+@interface DetailViewController ()<MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UILabel *priceLabel;
@@ -43,7 +43,11 @@
 @property (nonatomic, strong) UIButton *priceOptionsButton;
 @property (nonatomic, strong) InfoView *infoView;
 @property (nonatomic, strong) ViewPickerView *viewPicker;
+@property (nonatomic, strong) NSTimer *timer;
 
+
+@property (nonatomic, assign) CGPoint scrollingPoint, endPoint;
+@property (nonatomic, strong) NSTimer *scrollingTimer;
 
 @end
 
@@ -158,6 +162,11 @@ static NSString *const itemURL =  @"itemUrl";
     
     _bookButton.backgroundColor = [UIColor customMainColor];
     [self.view addSubview:_bookButton];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self addTimer];
 
 }
 
@@ -255,6 +264,38 @@ static NSString *const itemURL =  @"itemUrl";
     newFrame.origin.x = (width(self.view) - fixedWidth) /2;
     newFrame.origin.y = CGRectGetMaxY(_infoView.frame) + kGeomMarginSmall;
     textView.frame = newFrame;
+}
+
+- (void)removeTimer {
+    // stop NSTimer
+    [self.timer invalidate];
+    // clear NSTimer
+    self.timer = nil;
+}
+
+- (void)addTimer {
+    _timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(scrollAutomatically) userInfo:nil repeats:true];
+}
+
+- (void)scrollAutomatically {
+    
+    CGSize cellSize = CGSizeMake(width(_collectionView), height(_collectionView));
+    CGRect rect =  CGRectMake(_collectionView.contentOffset.x + cellSize.width, _collectionView.contentOffset.y, cellSize.width, cellSize.height);
+    
+        [_collectionView scrollRectToVisible:rect animated:YES];
+}
+
+// UIScrollView' delegate method
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self removeTimer];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self addTimer];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self removeTimer];
 }
 
 - (void)performReadMoreSegue:(id)sender {
@@ -447,11 +488,6 @@ static NSString *const itemURL =  @"itemUrl";
     
     return UIEdgeInsetsMake(0,0,0,0);
 }
-
-
-
-
-
 
 
 

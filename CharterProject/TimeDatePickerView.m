@@ -40,7 +40,6 @@
         _timePicker.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
         [_timePicker addTarget:self action:@selector(userSelectTime:) forControlEvents:UIControlEventValueChanged];
         [_timePicker setValue:[UIColor customMainColor] forKey:@"textColor"];
-        _timePicker.minimumDate = [NSDate date];
         _timePicker.datePickerMode = UIDatePickerModeTime;
         [self addSubview:_timePicker];
     }
