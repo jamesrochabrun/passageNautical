@@ -27,8 +27,7 @@
     return tableView;
 }
 
-- (void)fadeTopAndBottomCellsOnTableViewScroll:(UITableView *)tableView withModifier:(CGFloat)modifier {
-    
+git 
     NSArray *visibleCells = [tableView visibleCells];
     
     if (visibleCells != nil  &&  [visibleCells count] != 0) {       // Don't do anything for empty table view
