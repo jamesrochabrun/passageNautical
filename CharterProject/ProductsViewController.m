@@ -137,6 +137,7 @@
         }];
 }
 
+//this is it!
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [_tableView fadeTopAndBottomCellsOnTableViewScroll:_tableView withModifier:1.0];
