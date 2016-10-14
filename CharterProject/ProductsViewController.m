@@ -55,12 +55,17 @@
 - (void)performUIUpdateIfInternet:(NSNotification *)notification {
     
     NSLog(@"hay internet ");
+    _noInternetLabel.hidden = YES;
+    [self getProductsFromCategoryID:_categoryID];
+
     
 }
 
 - (void)performUIUpdateIfNoInternet:(NSNotification *)notification {
     
     NSLog(@"no hay internet");
+    _noInternetLabel.hidden = NO;
+
 }
 
 
