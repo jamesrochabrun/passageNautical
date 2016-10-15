@@ -10,14 +10,14 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "CharterService.h"
+#import "LocationManager.h"
 
-@interface MapViewController ()<MKMapViewDelegate,CLLocationManagerDelegate>
-@property CLLocationManager *locationManager;
+@interface MapViewController ()<MKMapViewDelegate,CLLocationManagerDelegate,LocationManagerDelegate>
+//@property CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIButton *dismissButton;
 @property (weak, nonatomic) IBOutlet UIButton *getDirectionsButton;
-
-
+@property (nonatomic, strong) LocationManager *locationManager;
 @end
 
 
@@ -27,17 +27,24 @@
 - (void)viewDidLoad {
 
     _dismissButton.tintColor = [UIColor whiteColor];
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    [self.locationManager requestWhenInUseAuthorization];
-    [self.locationManager startUpdatingLocation];
+    
+    _locationManager = [LocationManager new];
+    _locationManager.delegate = self;
+
     self.mapView.showsUserLocation = YES;
 }
 
+- (void)displayAlertInVC:(UIAlertController *)alertController {
+    
+    __weak MapViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf presentViewController:alertController animated:YES completion:nil];
+    });
+}
 
 - (void)viewDidDisappear:(BOOL)animated {
     
-    [self.locationManager stopUpdatingLocation];
+    _locationManager = nil;
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {

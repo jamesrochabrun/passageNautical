@@ -9,6 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    kAppSettingsPhotos,
+    kAppSettingsCamera,
+    kAppSettingsLocation,
+    kAppSettingsContacts
+} kAppSettings;
+
+
+
 @class AppDelegate;
 #define APP ((AppDelegate* )[UIApplication sharedApplication].delegate)
 
@@ -23,6 +32,7 @@ extern NSDictionary * parseDictionaryOrNullFromServer (id object);
 extern NSNumber * parseNSNumberOrNullFromServer (id object);
 
 @interface Common : NSObject
++ (void)goToSettings:(kAppSettings)settings;
 
 
 
