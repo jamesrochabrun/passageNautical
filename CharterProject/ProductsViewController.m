@@ -57,8 +57,6 @@
     NSLog(@"hay internet ");
     _noInternetLabel.hidden = YES;
     [self getProductsFromCategoryID:_categoryID];
-
-    
 }
 
 - (void)performUIUpdateIfNoInternet:(NSNotification *)notification {
@@ -151,13 +149,14 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
                 [weakSelf.activityIndicator stopAnimating];
+                weakSelf.noInternetLabel.hidden = YES;
             });
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"failure");
+            NSLog(@"getProducts returns OPERATION:%@, ERROR: %@" , operation, error);
             if (error) {
                 __weak ProductsViewController *weakSelf = self;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                      [weakSelf showLabelIfNoInternetConnection];
+                    weakSelf.noInternetLabel.hidden = NO;
                       [weakSelf.activityIndicator stopAnimating];
                 });
             };
@@ -167,10 +166,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [_tableView fadeTopAndBottomCellsOnTableViewScroll:_tableView withModifier:1.0];
-}
-
-- (void)showLabelIfNoInternetConnection {
-    _noInternetLabel.hidden = NO;
 }
 
 - (void)dealloc {

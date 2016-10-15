@@ -30,7 +30,8 @@
 
 //BOOKINGS
 - (void)sendBooking:(NSDictionary *)booking
-            success:(void (^)(id responseObject))success;
+            success:(void (^)(id responseObject))success
+            failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
 
 @end
 
