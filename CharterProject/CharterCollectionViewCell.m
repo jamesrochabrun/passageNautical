@@ -11,6 +11,9 @@
 #import "UIFont+CustomFont.h"
 #import "CommonUIConstants.h"
 #import "UIImage+Additions.h"
+#import "CharterService.h"
+#import "UIImageView+AFNetworking.h"
+
 
 @implementation CharterCollectionViewCell
 
@@ -94,6 +97,23 @@
     
 }
 
+- (void)setCharterService:(CharterService *)charterService {
+    
+    _charterService = charterService;
+}
+
+- (void)setDataDictionary:(NSDictionary *)dataDictionary {
+    
+    _dataDictionary = dataDictionary;
+    
+    NSString *urlStr = [CharterService urlStringWithNoSpaces:dataDictionary];
+    _priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.priceOption.price];
+    
+    [_doubleTapImage setImageWithURL:[NSURL URLWithString:urlStr]
+                        placeholderImage:[UIImage imageNamed:@"yate"]];
+    
+}
+
 - (void)call {
     [self.delegate callNumber];
 }
@@ -106,8 +126,6 @@
     
     //do something if we want
     //[self.delegate dosomething];
-    
-
 }
 
 

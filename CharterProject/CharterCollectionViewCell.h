@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DoubleTapImage.h"
+@class CharterService;
 
 @protocol CharterCollectionViewCellDelegate <NSObject>
 
@@ -25,5 +26,7 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UIImageView *overlayImageView;
 @property (nonatomic, weak) id<CharterCollectionViewCellDelegate>delegate;
+@property (nonatomic) CharterService *charterService;
+@property (nonatomic) NSDictionary *dataDictionary;
 
 @end

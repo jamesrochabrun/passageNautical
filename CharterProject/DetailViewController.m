@@ -7,7 +7,6 @@
 //
 
 #import "DetailViewController.h"
-#import "UIImageView+AFNetworking.h"
 #import "UIColor+MainColor.h"
 #import "UIFont+CustomFont.h"
 #import "CharterService.h"
@@ -472,14 +471,8 @@ static NSString *const itemURL =  @"itemUrl";
     
     CharterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FilterCelIdentifier forIndexPath:indexPath];
     cell.delegate = self;
-    
-    NSDictionary *imagesDictionary = [_charterService.images objectAtIndex:indexPath.row];
-    NSString *urlStr = [CharterService urlStringWithNoSpaces:imagesDictionary];
-    cell.priceLabel.text = [NSString stringWithFormat:@"%@ %@", _charterService.currency , _charterService.priceOption.price];
-    
-    [cell.doubleTapImage setImageWithURL:[NSURL URLWithString:urlStr]
-                        placeholderImage:[UIImage imageNamed:@"yate"]];
-    
+    cell.charterService = _charterService;
+    cell.dataDictionary = [_charterService.images objectAtIndex:indexPath.row];
     return cell;
 }
 
