@@ -62,7 +62,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 @property (nonatomic, strong) UILabel *noInternetLabel;
 
 
-
 @end
 
 @implementation BookingViewController
@@ -285,11 +284,16 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 //delegate  method
 - (void)setPickedDateStringAndShowForm:(NSString *)datePicked {
     
+    _formScrollView.alpha = 0;
     _stringDate = datePicked;
     NSLog(@"the date in delegate is %@", _stringDate);
     _selectedDateLabel.text = _stringDate;
-    _datePickerView.hidden = YES;
-    _formScrollView.hidden = NO;
+    
+    [UIView animateWithDuration:.5 animations:^{
+        _datePickerView.hidden = YES;
+        _formScrollView.hidden = NO;
+        _formScrollView.alpha = 1;
+    }];
 }
 
 -(void)checkIfBookingHaveRequiredData {
@@ -350,46 +354,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 
 - (void)bookNow {
     
-    //BOOK NOW HERE GOES THE POST
-    
-//    NSDictionary *dict = @{ @"customer": @{
-//                                    @"postCode" : @"94563",
-//                                    @"state" : @"california",
-//                                    @"city" : @"san francisco",
-//                                    @"addressLine" : @"alameda 15",
-//                                   @"companyName" : @"deemelo",
-//                                   @"firstName": @"James",
-//                                   @"lastName": @"Rochabrun",
-//                                   @"email": @"jamesrochabrun@gmail.com",
-//                                   @"phone": @"0282443060",
-//                                   },
-//                           @"items": @[
-//                                   @{
-//                                       @"productCode": @"PBEHQ0",
-//                                       @"startTimeLocal": @"2016-11-07 09:00:00",
-//                                       @"amount": @200,
-//                                       @"quantities": @[
-//                                               @{
-//                                                   @"value": @"1"
-//                                                   }
-//                                               ]
-//                                       }
-//                                   ],
-//                           @"comments": @"Special requirements go here",
-//                            
-//                           @"payments": @[
-//                                   @{
-//                                       @"type": @"CREDITCARD",
-//                                       @"amount": @"200",
-//                                       @"currency": @"USD",
-//                                       @"date": @"2014-11-01T10:26:00Z",
-//                                       @"label": @"Payment processed by RezdyDemoAgent"
-//                                       }
-//                                   ]
-//                           };
-    
-
-    
     BookingObject *booking = [BookingObject new];
     
     booking.customer.firstName = _nameField.textField.text;
@@ -426,8 +390,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     
     CharterAPI *api = [CharterAPI new];
     
- 
-    
     [api sendBooking:bookDict success:^(id responseObject) {
         
         NSDictionary *booking = responseObject[kKeyBooking];
@@ -452,17 +414,21 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 
 - (void)handleSuccessBooking:(NSDictionary *)booking  {
     
+    _succesView.alpha = 0;
+
     __weak BookingViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.formScrollView.hidden = YES;
         [weakSelf.view endEditing:YES];
         [weakSelf.activityIndicator stopAnimating];
-        weakSelf.succesView.hidden = NO;
         weakSelf.noInternetLabel.hidden = YES;
         BookingObject *bookingObject = [BookingObject bookingFromDict:booking];
         weakSelf.succesView.booking = bookingObject;
+        [UIView animateWithDuration:.5 animations:^{
+            weakSelf.succesView.hidden = NO;
+            weakSelf.succesView.alpha = 1;
+        }];
     });
-
 }
 
 - (void)handleErrorOnBooking:(NSDictionary *)requestStatus {

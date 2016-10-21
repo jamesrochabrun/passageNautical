@@ -92,7 +92,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tdu-zD-UAU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="503" y="1257"/>
+            <point key="canvasLocation" x="341" y="1330"/>
         </scene>
         <!--Products View Controller-->
         <scene sceneID="T6l-bS-Tbh">
@@ -207,16 +207,16 @@
                         <viewControllerLayoutGuide type="bottom" id="IDC-b3-x7h"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JtN-A0-t07">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="pbY-uH-TiH"/>
                     <connections>
-                        <segue destination="I82-NS-BL5" kind="modal" identifier="readMore" id="hky-FT-tZ0"/>
+                        <segue destination="I82-NS-BL5" kind="modal" identifier="readMore" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="hky-FT-tZ0"/>
                         <segue destination="wyY-mR-FfG" kind="modal" identifier="map" id="scX-Jh-r4G"/>
-                        <segue destination="gfs-43-44o" kind="modal" identifier="book" id="WkI-bZ-LKz"/>
-                        <segue destination="I82-NS-BL5" kind="modal" identifier="generalTerms" id="Vvv-JP-cPa"/>
+                        <segue destination="gfs-43-44o" kind="modal" identifier="book" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="WkI-bZ-LKz"/>
+                        <segue destination="I82-NS-BL5" kind="modal" identifier="generalTerms" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="Vvv-JP-cPa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sR4-82-PTK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -240,7 +240,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmB-vu-yMM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2200" y="547"/>
+            <point key="canvasLocation" x="2193" y="351"/>
         </scene>
         <!--Booking View Controller-->
         <scene sceneID="4TK-cb-RsS">
@@ -368,7 +368,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9W8-h6-xLE" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="XDR-zH-GjB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="XDR-zH-GjB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -393,7 +393,7 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="2hU-gD-QaT"/>
+        <segue reference="lYE-eV-sl4"/>
         <segue reference="Vvv-JP-cPa"/>
     </inferredMetricsTieBreakers>
 </document>

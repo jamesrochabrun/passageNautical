@@ -273,8 +273,12 @@ NSString *const kKeySelectTime = @"Select Time";
                 
                 __weak DatePickerView *weakSelf = self;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.timeDatePickerView.hidden = NO;
+                    weakSelf.timeDatePickerView.alpha = 0;
                     weakSelf.datesTableView.hidden = YES;
+                    [UIView animateWithDuration:.5 animations:^{
+                        weakSelf.timeDatePickerView.hidden = NO;
+                        weakSelf.timeDatePickerView.alpha = 1;
+                    }];
                     weakSelf.pickerBookingDateStart.hidden = YES;
                     weakSelf.pickerBookingDateEnd.hidden = YES;
                     weakSelf.pickerLabel.hidden = YES;
@@ -331,7 +335,13 @@ NSString *const kKeySelectTime = @"Select Time";
             __weak DatePickerView *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.datesTableView reloadData];
-                weakSelf.datesTableView.hidden = NO;
+                weakSelf.datesTableView.alpha = 0;
+
+                [UIView animateWithDuration:.5 animations:^{
+                    weakSelf.datesTableView.hidden = NO;
+                    weakSelf.datesTableView.alpha = 1;
+                }];
+                
                 [weakSelf.activityIndicator stopAnimating];
                 [weakSelf.nextButton setTitle:kKeySelectDate forState:UIControlStateNormal];
             });
