@@ -29,7 +29,7 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = UIColorRGBOverlay(kColorOffBlack, 0.2);
+    self.backgroundColor = UIColorRGBOverlay(kColorOffBlack,1.0);
 }
 
 - (void)configureCellwithCharterService:(CharterService *)charterService {

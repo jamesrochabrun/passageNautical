@@ -70,6 +70,10 @@ static NSString *const itemURL =  @"itemUrl";
     _scrollView = [UIScrollView new];
     _scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
+    _scrollView.alpha = 0;
+    [UIView animateWithDuration:.6 animations:^{
+        _scrollView.alpha = 1;
+    }];
 
     _listsLayout = [[ListCVFL alloc] init];
     [_listsLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -166,9 +170,7 @@ static NSString *const itemURL =  @"itemUrl";
 
 - (void)viewWillAppear:(BOOL)animated {
     [self addTimer];
-
 }
-
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];

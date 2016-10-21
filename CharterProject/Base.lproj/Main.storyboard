@@ -214,7 +214,7 @@
                     <navigationItem key="navigationItem" id="pbY-uH-TiH"/>
                     <connections>
                         <segue destination="I82-NS-BL5" kind="modal" identifier="readMore" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="hky-FT-tZ0"/>
-                        <segue destination="wyY-mR-FfG" kind="modal" identifier="map" id="scX-Jh-r4G"/>
+                        <segue destination="wyY-mR-FfG" kind="modal" identifier="map" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="scX-Jh-r4G"/>
                         <segue destination="gfs-43-44o" kind="modal" identifier="book" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="WkI-bZ-LKz"/>
                         <segue destination="I82-NS-BL5" kind="modal" identifier="generalTerms" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="Vvv-JP-cPa"/>
                     </connections>
@@ -368,7 +368,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9W8-h6-xLE" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="XDR-zH-GjB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="XDR-zH-GjB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

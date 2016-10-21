@@ -28,6 +28,7 @@
         _numberOFpeopleLabel.textAlignment = NSTextAlignmentCenter;
         _numberOFpeopleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _numberOFpeopleLabel.numberOfLines = 0;
+        _numberOFpeopleLabel.alpha = 0;
         [self addSubview:_numberOFpeopleLabel];
         
         _durationHoursLabel = [UILabel new];
@@ -36,6 +37,7 @@
         _durationHoursLabel.textAlignment = NSTextAlignmentCenter;
         _durationHoursLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _durationHoursLabel.numberOfLines = 0;
+        _durationHoursLabel.alpha = 0;
         [self addSubview:_durationHoursLabel];
         
         _locationLabel = [UILabel new];
@@ -45,6 +47,7 @@
         _locationLabel.text = @"                             ";
         _locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _locationLabel.numberOfLines = 0;
+        _locationLabel.alpha = 0;
         [self addSubview:_locationLabel];
         
         _peopleImageView = [UIImageView new];
@@ -150,34 +153,24 @@
          dispatch_async(dispatch_get_main_queue(), ^{
              weakSelf.locationLabel.text = placemark.locality;
              [weakSelf setNeedsLayout];
+             if (placemark.locality) {
+                 [self changeAlpha];
+             }
          });
      }];
+}
+
+- (void)changeAlpha {
     
-    
+    [UIView animateWithDuration:.3 animations:^{
+        _numberOFpeopleLabel.alpha = 1;
+        _locationLabel.alpha = 1;
+        _durationHoursLabel.alpha = 1;
+    }];
 
 }
 
-- (void)getAddressFromLocation {
-    
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:[self.charter.latitude doubleValue] longitude:[self.charter.longitude doubleValue]];
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-    [geocoder reverseGeocodeLocation:location
-                   completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if (error){
-             NSLog(@"Geocode failed with error: %@", error);
-             return;
-         }
-         CLPlacemark *placemark = [placemarks objectAtIndex:0];
-         NSLog(@"placemark.ISOcountryCode %@",placemark.ISOcountryCode);
-         NSLog(@"locality %@",placemark.locality);
-         NSLog(@"postalCode %@",placemark.postalCode);
-         NSLog(@"location %@",placemark.location);
-         NSLog(@"sublocality %@", placemark.subLocality);
-         
-         _locationLabel.text = @";wkjf"; //placemark.locality;
-     }];
-}
+
 
 
 

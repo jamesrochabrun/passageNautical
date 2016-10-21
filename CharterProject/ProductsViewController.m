@@ -46,7 +46,8 @@
                                              selector:@selector(performUIUpdateIfNoInternet:)
                                                  name:@"noInternet"
                                                object:nil];
-  
+    
+    self.tableView.alpha = 0;
   //  for (CharterService *charterservice in self.productsArray){
        // NSLog(@"%@", charterservice.name);
     //}
@@ -123,7 +124,7 @@
     return cell;
 }
 
--(void) tableView:(UITableView *) tableView willDisplayCell:(ProductCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *) tableView willDisplayCell:(ProductCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     CharterService *charterFavorite = [self.productsArray objectAtIndex:indexPath.row];
     [cell configureCellwithCharterService:charterFavorite];
@@ -150,6 +151,11 @@
                 [weakSelf.tableView reloadData];
                 [weakSelf.activityIndicator stopAnimating];
                 weakSelf.noInternetLabel.hidden = YES;
+                if (_productsArray.count) {
+                    [UIView animateWithDuration:.5 animations:^{
+                        weakSelf.tableView.alpha = 1;
+                    }];
+                }
             });
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"getProducts returns OPERATION:%@, ERROR: %@" , operation, error);
