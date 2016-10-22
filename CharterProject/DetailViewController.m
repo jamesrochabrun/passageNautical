@@ -275,7 +275,7 @@ static NSString *const itemURL =  @"itemUrl";
 }
 
 - (void)addTimer {
-    _timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(scrollAutomatically) userInfo:nil repeats:true];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:KVelocityOfAutomaticTransition target:self selector:@selector(scrollAutomatically) userInfo:nil repeats:true];
 }
 
 - (void)scrollAutomatically {
@@ -445,6 +445,18 @@ static NSString *const itemURL =  @"itemUrl";
         [weakSelf.viewPicker removeFromSuperview];
         [weakSelf.collectionView reloadData];
     });
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        [UIView animateWithDuration:.25 animations:^{
+            self.view.alpha = 0;
+        }];
+    }
+    [super viewWillDisappear:animated];
 }
 
 //not implemented

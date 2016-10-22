@@ -75,6 +75,7 @@ static CGFloat kGeomHeightTextView = 130.0;
 static CGFloat kGeomHeightTableViewCell = 70.0;
 static CGFloat kGeomHeightHeaderView = 50.0;
 static CGFloat kGeomHeightLabelInCell = 20.0;
+static CGFloat KVelocityOfAutomaticTransition = 2.25;
 
 
 

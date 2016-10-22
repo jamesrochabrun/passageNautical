@@ -36,7 +36,6 @@
     _noInternetLabel.backgroundColor = UIColorRGB(kColorYellowFlat);
     _noInternetLabel.hidden = YES;
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(performUIUpdateIfInternet:)
                                                  name:@"internet"
@@ -48,6 +47,7 @@
                                                object:nil];
     
     self.tableView.alpha = 0;
+    [self getProductsFromCategoryID:_categoryID];
   //  for (CharterService *charterservice in self.productsArray){
        // NSLog(@"%@", charterservice.name);
     //}
@@ -69,6 +69,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     self.navigationController.navigationBar.hidden = NO;
 }
 
@@ -97,11 +98,9 @@
         } else if ([_categoryID isEqualToString:knauticalOvernightCategoryId]) {
             weakSelf.title = @"Nautical Overnight";
         } else if ([_categoryID isEqualToString:kbedAndBoatCategoryID]) {
-            weakSelf.title = @"Bed & Boat";
+            weakSelf.title = @"Bed & Boat Charters";
         }
     });
-    
-    [self getProductsFromCategoryID:_categoryID];
 }
 
 - (void)startActivityIndicator {
@@ -149,13 +148,13 @@
             __weak ProductsViewController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
-                [weakSelf.activityIndicator stopAnimating];
                 weakSelf.noInternetLabel.hidden = YES;
                 if (_productsArray.count) {
                     [UIView animateWithDuration:.5 animations:^{
                         weakSelf.tableView.alpha = 1;
                     }];
                 }
+                [weakSelf.activityIndicator stopAnimating];
             });
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"getProducts returns OPERATION:%@, ERROR: %@" , operation, error);
@@ -172,6 +171,18 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [_tableView fadeTopAndBottomCellsOnTableViewScroll:_tableView withModifier:1.0];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        [UIView animateWithDuration:.25 animations:^{
+            self.view.alpha = 0;
+        }];
+    }
+    [super viewWillDisappear:animated];
 }
 
 - (void)dealloc {

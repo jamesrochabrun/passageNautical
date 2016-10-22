@@ -16,7 +16,7 @@
 
 
 
-@interface ContactViewController()
+@interface ContactViewController()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIView *statusBarViewBackground;
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -62,6 +62,7 @@
     [self.view addSubview:_statusBarViewBackground];
 
     _scrollView = [UIScrollView new];
+    _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     _scrollView.showsVerticalScrollIndicator = NO;
 
@@ -76,6 +77,7 @@
     _contactLabel.font = [UIFont regularFont:28];
     _contactLabel.textColor = [UIColor whiteColor];
     _contactLabel.text = @"Contact";
+    _contactLabel.alpha = 0;
     [_scrollView addSubview:_contactLabel];
     
     _callButton = [UIButton new];
@@ -85,6 +87,7 @@
     _callButton.layer.borderColor = [UIColor customMainColor].CGColor;
     _callButton.layer.borderWidth = 2.0f;
     [_callButton.titleLabel setFont:[UIFont regularFont:22]];
+    _callButton.alpha = 0;
     [_scrollView addSubview:_callButton];
     
     _mailButton = [UIButton new];
@@ -94,12 +97,14 @@
     _mailButton.layer.borderColor = [UIColor customMainColor].CGColor;
     _mailButton.layer.borderWidth = 2.0f;
     [_mailButton.titleLabel setFont:[UIFont regularFont:22]];
+    _mailButton.alpha = 0;
     [_scrollView addSubview:_mailButton];
     
     _logoView = [UIImageView new];
     _logoView.contentMode = UIViewContentModeScaleToFill;
     _logoView.image = [UIImage imageNamed:@"logo"];
     _logoView.contentMode = UIViewContentModeScaleAspectFit;
+    _logoView.alpha = 0;
     [_scrollView addSubview:_logoView];
     
     _textView = [UITextView new];
@@ -109,7 +114,25 @@
     _textView.textColor = [UIColor customTextColor];
     _textView.scrollEnabled = NO;
     _textView.text = kcompanyDescription;
+    _textView.alpha = 0;
     [_scrollView addSubview:_textView];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    _logoView.alpha =
+    _textView.alpha =
+    _contactLabel.alpha =
+    _mailButton.alpha =
+    _callButton.alpha = 0;
+    [UIView animateWithDuration:.7 animations:^{
+
+        _contactLabel.alpha =
+        _mailButton.alpha =
+        _callButton.alpha = 1;
+    }];
     
 }
 
@@ -208,7 +231,6 @@
             [weakSelf presentViewController:mc animated:YES completion:NULL];
         });
     }
-
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -234,7 +256,18 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+#pragma scroll delegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [UIView animateWithDuration:1 animations:^{
+        _logoView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:2 animations:^{
+            _textView.alpha = 1;
+        }];
+    }];
+}
 
 
 

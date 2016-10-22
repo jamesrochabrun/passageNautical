@@ -42,10 +42,12 @@
     _charterLabel.numberOfLines = 0;
     _charterLabel.textAlignment = NSTextAlignmentCenter;
     [_charterLabel setTextColor:[UIColor customMainColor]];
+    _charterLabel.alpha = 0;
     [_scrollView addSubview:_charterLabel];
     
     _textView = [UITextView new];
     _textView.scrollEnabled = NO;
+    _textView.alpha = 0;
     NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:self.textFieldData];
     NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
     [_textView setText:stringWithNoHTML];
@@ -54,6 +56,12 @@
     [_scrollView addSubview:_textView];
     
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self changeAlphaOfCompnentsUI];
+
+}
+
 
 
 - (void)viewWillLayoutSubviews {
@@ -103,6 +111,17 @@
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     });
 
+}
+
+- (void)changeAlphaOfCompnentsUI {
+    
+    [UIView animateWithDuration:.7 animations:^{
+        _charterLabel.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.9 animations:^{
+            _textView.alpha = 1;
+        }];
+    }];
 }
 
 

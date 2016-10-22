@@ -29,7 +29,9 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = UIColorRGBOverlay(kColorOffBlack,1.0);
+    //self.backgroundColor = UIColorRGBOverlay(kColorOffBlack,1.0);
+    self.backgroundColor = UIColorRGB(kColorOffBlack);
+
 }
 
 - (void)configureCellwithCharterService:(CharterService *)charterService {
@@ -38,7 +40,7 @@
 //    imageView.contentMode = UIViewContentModeScaleAspectFill;
     
     [_testView setImageWithURL:[NSURL URLWithString:charterService.imageURL]
-              placeholderImage:[UIImage imageNamed:@"yate"]];
+                placeholderImage:[UIImage imageNamed:@"yate"]];
     
     __weak ProductCell *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{

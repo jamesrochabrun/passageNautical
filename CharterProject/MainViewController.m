@@ -92,6 +92,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         ProductsViewController *productVC = segue.destinationViewController;
         productVC.categoryID = [self.categoryIds objectAtIndex:indexPath.row];
+        
     } else{
     }
 }
