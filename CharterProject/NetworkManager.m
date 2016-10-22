@@ -37,7 +37,7 @@ static NSString *textHtml = @"text/html";
                         success:(void (^)(id responseObject))success
                         failure:(void (^)(AFHTTPRequestOperation*operation, NSError *error))failure
 {
-    //NSLog(@"GET:  %@", path);
+    NSLog(@"GET:  %@", path);
     NetworkManager *nm = [NetworkManager sharedRequestManager];
     nm.requestManager.responseSerializer = [AFJSONResponseSerializer serializer];
     nm.requestManager.responseSerializer.acceptableContentTypes = [NSMutableSet setWithObjects:applicationJson, textHtml , nil];
@@ -46,7 +46,7 @@ static NSString *textHtml = @"text/html";
     
     return [nm.requestManager GET:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-      //  NSLog(@"JSON: %@", responseObject);
+        NSLog(@"JSON: %@", responseObject);
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation,error);

@@ -24,7 +24,6 @@
 #import "NSString+DecodeHTML.h"
 #import "DatePickerView.h"
 #import "SuccessView.h"
-#import "UILabel+Additions.h"
 
 NSString *const kKeyBooking = @"booking";
 NSString *const kKeyRequestStatus = @"requestStatus";
@@ -59,8 +58,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 @property (nonatomic, assign) BOOL formIsReadyToBook;
 @property (nonatomic, strong) SuccessView *succesView;
 @property UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) UILabel *noInternetLabel;
-
 
 @end
 
@@ -161,31 +158,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     [_formScrollView addSubview:_bookButton];
     
     NSLog(@"the booking mode is = %@" , _charterService.bookingMode);
-    
-    _noInternetLabel = [UILabel labelWithText:@"No Internet Conection" withSize:12 inView:self.view];
-    _noInternetLabel.backgroundColor = UIColorRGB(kColorYellowFlat);
-    _noInternetLabel.hidden = YES;
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(performUIUpdateIfInternet:)
-                                                 name:@"internet"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(performUIUpdateIfNoInternet:)
-                                                 name:@"noInternet"
-                                               object:nil];
-}
-
-- (void)performUIUpdateIfInternet:(NSNotification *)notification {
-    NSLog(@"hay internet ");
-    _noInternetLabel.hidden = YES;
-}
-
-- (void)performUIUpdateIfNoInternet:(NSNotification *)notification {
-    NSLog(@"no hay internet");
-    _noInternetLabel.hidden = NO;
 }
 
 - (void)viewWillLayoutSubviews {
@@ -197,13 +169,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     frame.size.width = width(self.view);
     frame.size.height = kGeomTopViewHeight;
     _topView.frame = frame;
-    
-    frame = _noInternetLabel.frame;
-    frame.size.height = 20;
-    frame.size.width = width(self.view);
-    frame.origin.x = 0;
-    frame.origin.y = CGRectGetMaxY(_topView.frame);
-    _noInternetLabel.frame = frame;
     
     frame = _formScrollView.frame;
     frame.origin.y = CGRectGetMaxY(_topView.frame);
@@ -369,7 +334,7 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     //ITEMS
     booking.items.amount = _charterService.priceOption.price;
     booking.items.startTimeLocal = (_stringDate)?_stringDate:[NSString stringFromCurrentDate];
-    NSLog(@"the string date inside the booking is %@", booking.items.startTimeLocal);
+    NSLog(@"the string date inside the booking is %@", _stringDate);
     booking.items.quantitiesValue = _charterService.priceOption.seatsUsed;
     booking.items.productCode = _charterService.productCode;
     booking.items.optionLabel = _charterService.priceOption.priceOptionLabel;
@@ -403,12 +368,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
         } else if ([success isEqual:@0] || [requestStatus objectForKey:@"error"]) {
             [self handleErrorOnBooking:requestStatus];
         }
-        
-    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSLog(@"the data is %@", data);
-        NSLog(@"the response is %@" , response);
-        NSLog(@"the error is %@", error);
-        [self requestTimeOut];
     }];
 }
 
@@ -421,7 +380,8 @@ NSString *const kKeyErrorMessage = @"errorMessage";
         weakSelf.formScrollView.hidden = YES;
         [weakSelf.view endEditing:YES];
         [weakSelf.activityIndicator stopAnimating];
-        weakSelf.noInternetLabel.hidden = YES;
+
+        weakSelf.succesView.hidden = NO;
         BookingObject *bookingObject = [BookingObject bookingFromDict:booking];
         weakSelf.succesView.booking = bookingObject;
         [UIView animateWithDuration:.5 animations:^{
@@ -436,35 +396,17 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     NSDictionary *error = requestStatus[kKeyError];
     NSString *errorMessage = error[kKeyErrorMessage];
     
-    UIAlertController *alertSaved = [UIAlertController alertControllerWithTitle:@"Something went wrong, your booking was not succesfull. :(" message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertSaved = [UIAlertController alertControllerWithTitle:@"Something went wrong :(" message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
     
     __weak BookingViewController *weakSelf = self;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf.activityIndicator stopAnimating];
         [weakSelf presentViewController:alertSaved animated:YES completion:nil];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [alertSaved dismissViewControllerAnimated:YES completion:nil];
         });
     });
 }
-
-- (void)requestTimeOut {
-    
-    UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Something went wrong, your booking was not succesfull. :(" message:@"Please check your internet connection and try again. If this problem persist please call us." preferredStyle:UIAlertControllerStyleAlert];
-    
-    __weak BookingViewController *weakSelf = self;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf.activityIndicator stopAnimating];
-        weakSelf.noInternetLabel.hidden = NO;
-        [weakSelf presentViewController:alert animated:YES completion:nil];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [alert dismissViewControllerAnimated:YES completion:nil];
-        });
-    });
-}
-
 
 - (void)alertUserThatThereIsNoSessionForThisProduct {
     
@@ -473,7 +415,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
     __weak BookingViewController *weakSelf = self;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         [weakSelf presentViewController:alert animated:YES completion:nil];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [alert dismissViewControllerAnimated:YES completion:nil];
@@ -665,12 +606,6 @@ NSString *const kKeyErrorMessage = @"errorMessage";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"internet" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noInternet" object:nil];
 }
 
 

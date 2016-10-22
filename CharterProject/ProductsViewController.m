@@ -35,6 +35,7 @@
     _noInternetLabel = [UILabel labelWithText:@"No Internet Conection" withSize:12 inView:self.view];
     _noInternetLabel.backgroundColor = UIColorRGB(kColorYellowFlat);
     _noInternetLabel.hidden = YES;
+<<<<<<< HEAD
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(performUIUpdateIfInternet:)
@@ -48,23 +49,12 @@
     
     self.tableView.alpha = 0;
     [self getProductsFromCategoryID:_categoryID];
+=======
+  
+>>>>>>> 2d5c8dd7a2ecf391e881428517efb071e1d8b34a
   //  for (CharterService *charterservice in self.productsArray){
        // NSLog(@"%@", charterservice.name);
     //}
-}
-
-- (void)performUIUpdateIfInternet:(NSNotification *)notification {
-    
-    NSLog(@"hay internet ");
-    _noInternetLabel.hidden = YES;
-    [self getProductsFromCategoryID:_categoryID];
-}
-
-- (void)performUIUpdateIfNoInternet:(NSNotification *)notification {
-    
-    NSLog(@"no hay internet");
-    _noInternetLabel.hidden = NO;
-
 }
 
 
@@ -148,31 +138,36 @@
             __weak ProductsViewController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
+<<<<<<< HEAD
                 weakSelf.noInternetLabel.hidden = YES;
                 if (_productsArray.count) {
                     [UIView animateWithDuration:.5 animations:^{
                         weakSelf.tableView.alpha = 1;
                     }];
                 }
+=======
+>>>>>>> 2d5c8dd7a2ecf391e881428517efb071e1d8b34a
                 [weakSelf.activityIndicator stopAnimating];
             });
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"getProducts returns OPERATION:%@, ERROR: %@" , operation, error);
+            NSLog(@"failure");
             if (error) {
                 __weak ProductsViewController *weakSelf = self;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    weakSelf.noInternetLabel.hidden = NO;
+                      [weakSelf showLabelIfNoInternetConnection];
                       [weakSelf.activityIndicator stopAnimating];
                 });
             };
         }];
 }
 
+//this is it!
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [_tableView fadeTopAndBottomCellsOnTableViewScroll:_tableView withModifier:1.0];
 }
 
+<<<<<<< HEAD
 -(void) viewWillDisappear:(BOOL)animated {
     
     if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
@@ -188,9 +183,11 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"internet" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noInternet" object:nil];
+=======
+- (void)showLabelIfNoInternetConnection {
+    _noInternetLabel.hidden = NO;
+>>>>>>> 2d5c8dd7a2ecf391e881428517efb071e1d8b34a
 }
-
-
 
 
 

@@ -68,7 +68,6 @@
             bottomCell.contentView.alpha = bottomCellOpacity;
         }
     }
-    
 }
 
 

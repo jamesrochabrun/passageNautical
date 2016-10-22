@@ -102,10 +102,8 @@ NSString *const kKeyFromSessions = @"sessions";
 
 //NSURLSESSION
 - (void)sendBooking:(NSDictionary *)booking
-                        success:(void (^)(id responseObject))success
-            failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
-
-        
+                        success:(void (^)(id responseObject))success {
+    
     NSError *error;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
@@ -130,19 +128,14 @@ NSString *const kKeyFromSessions = @"sessions";
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSLog(@"HEADER RESPONSE %@", response);
-        //NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-       /// NSData *data = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
-        if (data) {
-            
-            id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            
-            NSDictionary *dictResponse = json;
-            success(dictResponse);
-        } else {
-            failure(data, response, error);
-        }
         
-     
+        //NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+       /// NSData *data = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
+        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        NSDictionary *dictResponse = json;
+        success(dictResponse);
     }];
     
     [postDataTask resume];

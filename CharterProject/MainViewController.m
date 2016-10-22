@@ -19,12 +19,13 @@
 #import "CustomToolBar.h"
 #import "CommonUIConstants.h"
 
+static NSString *apiKey = @"apiKey=8d9c11062ab244c7ab15f44dcaa30c7b";
+static NSString *keyFromJSON = @"products";
 
 @interface MainViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property NSArray *categoryIds;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) CustomToolBar *toolBar;
-
+@property UIToolbar *toolBar;
 
 @end
 
@@ -37,15 +38,14 @@
     whiteView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:whiteView];
     
-    _toolBar = [CustomToolBar new];
-    [_toolBar.home setTintColor:[UIColor customMainColor]];
-    _toolBar.del = self;
-    [self.view addSubview:_toolBar];
+    CustomToolBar *toolBar = [CustomToolBar new];
+    [toolBar.home setTintColor:[UIColor customMainColor]];
+    toolBar.del = self;
+    [self.view addSubview:toolBar];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationController.navigationBar.hidden = YES;
     self.categoryIds = @[khalfDayCategoryID, kfullDayCategoryID,knauticalOvernightCategoryId,kbedAndBoatCategoryID];
-
 
 //    NSArray *fontFamilies = [UIFont familyNames];
 //    
@@ -56,6 +56,7 @@
 //        NSLog (@"%@: %@", fontFamily, fontNames);
 //    }
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = YES;
@@ -97,10 +98,12 @@
     }
 }
 
-//make more research
+//make mor research
 //-(void) tableView:(UITableView *) tableView willDisplayCell:(CategoryTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 //  
 //}
+
+
 
 
 
