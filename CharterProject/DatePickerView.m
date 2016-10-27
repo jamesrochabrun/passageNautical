@@ -326,7 +326,7 @@ NSString *const kKeySelectTime = @"Select Time";
     [CharterAPI checkAvailabilityForProduct:_charterService from:_stringDateStart until:_stringDateEnd success:^(NSArray *sessions) {
         
         for (SessionObject *session in sessions) {
-            NSLog(@"the po label is %@", session.productCode);
+            NSLog(@"the session.productCode is %@", session.productCode);
         }
         
         if (sessions.count) {

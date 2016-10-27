@@ -10,16 +10,6 @@
 #import "Common.h"
 #import "PriceOptionObject.h"
 
-//@property (nonatomic, strong) NSNumber *sessionID;
-//@property (nonatomic, strong) NSString *productCode;
-//@property (nonatomic, strong) NSString *startTimeLocal;
-//@property (nonatomic, strong) NSString *endTimeLocal;
-//@property (nonatomic, strong) NSString *startTime;
-//@property (nonatomic, strong) NSString *endTime;
-//@property id allDay;
-//@property (nonatomic, strong) NSNumber *seats;
-//@property (nonatomic, strong) NSNumber *seatsAvailable;
-//@property (nonatomic, strong) NSMutableArray *priceOptions;
 
 NSString *const kKeySessionID = @"id";
 NSString *const kKeysessionProductCode = @"productCode";
