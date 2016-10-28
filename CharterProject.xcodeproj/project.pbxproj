@@ -56,6 +56,7 @@
 		7BAD5DBA1D9B0EE60071DB1A /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD5DB91D9B0EE60071DB1A /* UIImage+Additions.m */; };
 		7BB058391D920A9F00E3476C /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB058381D920A9F00E3476C /* NetworkManager.m */; };
 		7BB0583C1D920CB600E3476C /* CharterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0583B1D920CB600E3476C /* CharterAPI.m */; };
+		7BB48BA41DC2B5A900DB2718 /* NavTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB48BA31DC2B5A900DB2718 /* NavTitleView.m */; };
 		7BC9A01F1DA699C600E4D34E /* TimeDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC9A01E1DA699C600E4D34E /* TimeDatePickerView.m */; };
 		7BF1C2B31DA41F4B00D60E6D /* UITableView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B21DA41F4B00D60E6D /* UITableView+Additions.m */; };
 		7BF1C2B61DA41FD400D60E6D /* DateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1C2B51DA41FD400D60E6D /* DateTableViewCell.m */; };
@@ -170,6 +171,8 @@
 		7BB058381D920A9F00E3476C /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		7BB0583A1D920CB600E3476C /* CharterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharterAPI.h; sourceTree = "<group>"; };
 		7BB0583B1D920CB600E3476C /* CharterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharterAPI.m; sourceTree = "<group>"; };
+		7BB48BA21DC2B5A900DB2718 /* NavTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTitleView.h; sourceTree = "<group>"; };
+		7BB48BA31DC2B5A900DB2718 /* NavTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTitleView.m; sourceTree = "<group>"; };
 		7BC9A01D1DA699C600E4D34E /* TimeDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeDatePickerView.h; sourceTree = "<group>"; };
 		7BC9A01E1DA699C600E4D34E /* TimeDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeDatePickerView.m; sourceTree = "<group>"; };
 		7BF1C2B11DA41F4B00D60E6D /* UITableView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Additions.h"; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 		645EBCB21D08D425007D1557 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7BB48BA21DC2B5A900DB2718 /* NavTitleView.h */,
+				7BB48BA31DC2B5A900DB2718 /* NavTitleView.m */,
 				7B4E75E01DA802BA0095CCB7 /* ViewPickerView.h */,
 				7B4E75E11DA802BA0095CCB7 /* ViewPickerView.m */,
 				7B2BF42B1DA5F0AD00123DAF /* TableHeaderView.h */,
@@ -679,6 +684,7 @@
 				7B2AC3B91D0B800700975BE9 /* ProductsViewController.m in Sources */,
 				7BA0FA3D1D9E1E20004A6F41 /* BookingObject.m in Sources */,
 				7B5844EF1D9F4DF900ED2AFC /* DatePickerView.m in Sources */,
+				7BB48BA41DC2B5A900DB2718 /* NavTitleView.m in Sources */,
 				7BA0FA2E1D9DCEEC004A6F41 /* CustomerObject.m in Sources */,
 				7B1FA7111D935C2D00406508 /* CommonUIConstants.m in Sources */,
 				7B2AC3B61D0B3C7600975BE9 /* CharterService.m in Sources */,

@@ -30,24 +30,29 @@
     _frameView = [UIView new];
     _frameView.layer.borderColor = [UIColor customMainColor].CGColor;
     _frameView.layer.borderWidth = 2.0f;
+    _frameView.backgroundColor = [UIColor blackColor];
+    _frameView.alpha = 0.4;
+    [UIView animateWithDuration:.5 animations:^{
+        _frameView.alpha = 0.2;
+    }];
     [self addSubview:_frameView];
     
     _titleLabel = [UILabel new];
     _titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
-    _titleLabel.layer.shadowRadius = 3.0f;
-    _titleLabel.layer.shadowOpacity = 1;
-    _titleLabel.layer.shadowOffset = CGSizeZero;
+//    _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+//    _titleLabel.layer.shadowRadius = 3.0f;
+//    _titleLabel.layer.shadowOpacity = 1;
+//    _titleLabel.layer.shadowOffset = CGSizeZero;
     _titleLabel.layer.masksToBounds = NO;
-    [_titleLabel setFont:[UIFont mediumFont:22]];
+    [_titleLabel setFont:[UIFont mediumFont:20]];
     [self addSubview:_titleLabel];
     
     _descriptionLabel = [UILabel new];
     _descriptionLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
     _descriptionLabel.font = [UIFont regularFont:14];
-    _descriptionLabel.layer.shadowColor = [UIColor customTextColor].CGColor;
-    _descriptionLabel.layer.shadowRadius = 5.0f;
-    _descriptionLabel.layer.shadowOpacity = 1;
+//    _descriptionLabel.layer.shadowColor = [UIColor customTextColor].CGColor;
+//    _descriptionLabel.layer.shadowRadius = 5.0f;
+//    _descriptionLabel.layer.shadowOpacity = 1;
     _descriptionLabel.layer.shadowOffset = CGSizeZero;
     _descriptionLabel.layer.masksToBounds = NO;
     _descriptionLabel.text = @"San Francisco";

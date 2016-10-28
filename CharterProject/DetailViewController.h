@@ -12,7 +12,7 @@
 @class CharterService;
 
 @interface DetailViewController : UIViewController<CharterCollectionViewCellDelegate, ViewPickerViewDelegate>
-@property CharterService *charterService;
+@property (nonatomic, strong) CharterService *charterService;
 
 
 

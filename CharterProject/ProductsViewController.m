@@ -14,6 +14,7 @@
 #import "CommonUIConstants.h"
 #import "UITableView+Additions.h"
 #import "UILabel+Additions.h"
+#import "NavTitleView.h"
 
 @interface ProductsViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -22,6 +23,8 @@
 @property (nonatomic, strong) CAGradientLayer *maskLayer;
 @property NSString *categoryTitle;
 @property (nonatomic, strong) UILabel *noInternetLabel;
+@property (nonatomic, strong) NavTitleView *navTitleView;
+
 
 @end
 
@@ -30,8 +33,14 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    _navTitleView = [[NavTitleView alloc] init];
+    self.navigationItem.titleView = _navTitleView;
+    _navTitleView.frame = CGRectMake(0, 0,
+                                     [UIScreen mainScreen].bounds.size.width,
+                                     44);
     self.navigationController.navigationBar.hidden = NO;
-     self.title = @"Nautical Overnight";
+    
     _noInternetLabel = [UILabel labelWithText:@"No Internet Conection" withSize:12 inView:self.view];
     _noInternetLabel.backgroundColor = UIColorRGB(kColorYellowFlat);
     _noInternetLabel.hidden = YES;
@@ -93,13 +102,13 @@
     __weak ProductsViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([_categoryID isEqualToString:kfullDayCategoryID]) {
-            self.title = @"Full day Charters";
+            weakSelf.navTitleView.title = @"Full day Charters";
         } else if ([_categoryID isEqualToString:khalfDayCategoryID]){
-            weakSelf.title = @"Half Day Charters";
+            weakSelf.navTitleView.title = @"Half Day Charters";
         } else if ([_categoryID isEqualToString:knauticalOvernightCategoryId]) {
-            weakSelf.title = @"Nautical Overnight";
+            weakSelf.navTitleView.title = @"Nautical Overnight";
         } else if ([_categoryID isEqualToString:kbedAndBoatCategoryID]) {
-            weakSelf.title = @"Bed & Boat Charters";
+            weakSelf.navTitleView.title = @"Bed & Boat Charters";
         }
     });
 }
