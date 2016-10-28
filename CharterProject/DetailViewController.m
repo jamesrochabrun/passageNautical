@@ -23,6 +23,7 @@
 #import "InfoView.h"
 #import "PriceOptionObject.h"
 #import "ViewPickerView.h"
+#import "NavTitleView.h"
 
 
 @interface DetailViewController ()<MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
@@ -43,6 +44,7 @@
 @property (nonatomic, strong) InfoView *infoView;
 @property (nonatomic, strong) ViewPickerView *viewPicker;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) NavTitleView *navTitleView;
 
 
 @property (nonatomic, assign) CGPoint scrollingPoint, endPoint;
@@ -60,13 +62,18 @@ static NSString *const itemURL =  @"itemUrl";
     
     NSLog(@"the price options are %lu", (unsigned long)_charterService.priceOptions.count);
     for (PriceOptionObject *pO in _charterService.priceOptions) {
-        NSLog(@"the po label is %@", pO.priceOptionLabel);
+        NSLog(@"the po,priceoptionlabel label is %@", pO.priceOptionLabel);
         NSLog(@"the seats used are %@", pO.seatsUsed);
     }
     
-    self.title = self.charterService.name;
-    
+    _navTitleView = [[NavTitleView alloc] init];
+    _navTitleView.frame = CGRectMake(0, 0,
+                                     [UIScreen mainScreen].bounds.size.width,
+                                     44);
+    self.navigationItem.titleView = _navTitleView;
+    _navTitleView.title = self.charterService.name;
     self.navigationController.navigationBar.hidden = NO;
+    
     _scrollView = [UIScrollView new];
     _scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
@@ -165,6 +172,13 @@ static NSString *const itemURL =  @"itemUrl";
     
     _bookButton.backgroundColor = [UIColor customMainColor];
     [self.view addSubview:_bookButton];
+    
+}
+
+- (void)setCharterService:(CharterService *)charterService {
+    
+    _charterService = charterService;
+
     
 }
 
