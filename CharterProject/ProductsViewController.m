@@ -36,9 +36,6 @@
     
     _navTitleView = [[NavTitleView alloc] init];
     self.navigationItem.titleView = _navTitleView;
-//    _navTitleView.frame = CGRectMake(0, 0,
-//                                     [UIScreen mainScreen].bounds.size.width - 44 *2,
-//                                     44);
     _navTitleView.frame = CGRectMake(0, 0,
                                      [UIScreen mainScreen].bounds.size.width,
                                      44);

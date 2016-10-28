@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIButton *mailButton;
 @property (nonatomic, strong) UIImageView *logoView;
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UIView *overLay;
 
 @end
 
@@ -71,6 +72,11 @@
     _imageView.userInteractionEnabled = YES;
     _imageView.contentMode = UIViewContentModeScaleToFill;
     [_scrollView addSubview:_imageView];
+    
+    _overLay = [UIView new];
+    _overLay.backgroundColor = UIColorRGBOverlay(kColorBlack, 0.3);
+    _overLay.layer.cornerRadius = 40;
+    [_imageView addSubview:_overLay];
 
     _contactLabel = [UILabel new];
     _contactLabel.textAlignment = NSTextAlignmentCenter;
@@ -161,24 +167,31 @@
     frame.size.height = height(_scrollView) * 0.9;
     _imageView.frame = frame;
     
+    frame = _overLay.frame;
+    frame.size.height = height(_imageView) * 0.9;
+    frame.size.width = width(_imageView) * 0.9;
+    frame.origin.x = (width(_imageView) - frame.size.width) /2;
+    frame.origin.y = (height(_imageView) - frame.size.height) /2;
+    _overLay.frame = frame;
+    
     [_contactLabel sizeToFit];
     frame = _contactLabel.frame;
     frame.origin.x = (width(self.view) - width(_contactLabel)) /2;
-    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *4 - kGeomMarginMedium;
+    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *4 - kGeomMarginBig;
     _contactLabel.frame = frame;
     
     frame = _callButton.frame;
     frame.size.width = kGeomWidthBigButton;
     frame.size.height = kGeomHeightBigbutton;
     frame.origin.x = (width(_imageView) - kGeomWidthBigButton) /2;
-    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *3 - kGeomMarginMedium;
+    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *3 - kGeomMarginBig;
     _callButton.frame = frame;
     
     frame = _mailButton.frame;
     frame.size.width = kGeomWidthBigButton;
     frame.size.height = kGeomHeightBigbutton;
     frame.origin.x = (width(_imageView) - kGeomWidthBigButton) /2;
-    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *2;
+    frame.origin.y = CGRectGetMaxY(_imageView.frame) - kGeomHeightBigbutton *2 - kGeomMarginMedium;
     _mailButton.frame = frame;
     
     frame = _logoView.frame;
