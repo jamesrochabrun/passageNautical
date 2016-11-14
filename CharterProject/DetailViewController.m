@@ -103,6 +103,7 @@ static NSString *const itemURL =  @"itemUrl";
     
     _textView = [UITextView new];
     _textView.scrollEnabled = NO;
+    _textView.userInteractionEnabled = NO;
     NSString *stringWithNoHTMLEntities = [NSString decodeHTMLEntities:_charterService.shortDescription];
     NSString *stringWithNoHTML = [NSString convertHTMLInString:stringWithNoHTMLEntities];
     [_textView setText:stringWithNoHTML];
